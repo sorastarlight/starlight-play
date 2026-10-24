@@ -34,3 +34,6 @@ Local implementation approval would not authorize publication, production SQL, s
 
 
 CODEX-195 visual review prepared:design-reset/hub-operations-review.html is a disconnected fictional prototype,not a privileged application implementation. Five scenario gates and Start/End dialog focus checks passed in a real local browser. CSP blocks connections/form submission;no Auth,transport,persistence or live handoff is included. Evidence:evidence/codex195-operations-design.json. Design/local implementation decision remains held;publication/live commands separate.
+
+
+Owner subsequently approved design/local implementation. CODEX-196 is locally complete with119suites/build and rendered fictional evidence;see LAUNCH-CODEX196-LOCAL-OPERATIONS.md. Publication and live actions remain separate;earlier design-held statements are historical.

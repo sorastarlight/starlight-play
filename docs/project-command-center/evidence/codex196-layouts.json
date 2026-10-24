@@ -1,0 +1,66 @@
+[
+  {
+    "requested": "1280",
+    "dialogWidth": null,
+    "width": 1280,
+    "scrollWidth": 1265,
+    "dialog": false,
+    "small": 0
+  },
+  {
+    "requested": "768",
+    "dialogWidth": null,
+    "width": 768,
+    "scrollWidth": 753,
+    "dialog": false,
+    "small": 0
+  },
+  {
+    "requested": "390",
+    "dialogWidth": null,
+    "width": 375,
+    "scrollWidth": 375,
+    "dialog": false,
+    "small": 0
+  },
+  {
+    "requested": "320",
+    "dialogWidth": null,
+    "width": 305,
+    "scrollWidth": 305,
+    "dialog": false,
+    "small": 0
+  },
+  {
+    "requested": "320",
+    "dialogWidth": 266.8000183105469,
+    "width": 305,
+    "scrollWidth": 305,
+    "dialog": true,
+    "small": 0
+  },
+  {
+    "requested": "390",
+    "dialogWidth": 337.20001220703125,
+    "width": 375,
+    "scrollWidth": 375,
+    "dialog": true,
+    "small": 0
+  },
+  {
+    "requested": "768",
+    "dialogWidth": 580,
+    "width": 768,
+    "scrollWidth": 753,
+    "dialog": true,
+    "small": 0
+  },
+  {
+    "requested": "1280",
+    "dialogWidth": 580,
+    "width": 1280,
+    "scrollWidth": 1265,
+    "dialog": true,
+    "small": 0
+  }
+]

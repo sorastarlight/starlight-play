@@ -4,13 +4,14 @@ const deferred = () => { let resolve; return { promise: new Promise(done => { re
 function fixture(permission) {
   const gate = { hidden: true, textContent: "" }, staff = { hidden: false }, calls = [], profiles = {};
   const context = { hubGeneration: 0, martIdentity: "", staffOpen: false, els: { gate, staff }, mart: { reset() { calls.push("resetMart"); } }, supabase: { auth: { getSession: async () => ({ data: { session: null } }) }, from() { return { select() { return { eq(key, id) { return { maybeSingle: async () => profiles[id] ? profiles[id].promise : { data: {} } }; } }; } }; }, rpc: async () => typeof permission === "function" ? permission() : permission }, window: { location: { href: "https://example.test/admin-next.html?section=mart" }, playSetAccountNav(session) { calls.push("nav:" + session.user.id); } }, URL, stopOpsPoll() { calls.push("stop"); }, resetTrainers() { calls.push("resetTrainers"); }, renderOperationsFallback() { calls.push("fallback"); }, setSignedOut() { calls.push("signedOut"); }, showTab(name) { calls.push("tab:" + name); } };
+  context.resetOperations = () => calls.push("resetOperations");
   context.resetHealth = () => calls.push("resetHealth");
   vm.createContext(context); vm.runInContext(fn, context); return { context, gate, staff, calls, profiles };
 }
 (async () => {
   const session = { user: { id: "fictional-staff" } };
   const denied = fixture({ data: false, error: null }); await denied.context.loadHub(session);
-  assert.equal(denied.context.staffOpen, false); assert.equal(denied.staff.hidden, true); assert.equal(denied.gate.hidden, false); assert(denied.gate.textContent.includes("does not have access")); assert(!denied.calls.includes("tab:mart"));
+  assert(denied.calls.includes("resetOperations")); assert.equal(denied.context.staffOpen, false); assert.equal(denied.staff.hidden, true); assert.equal(denied.gate.hidden, false); assert(denied.gate.textContent.includes("does not have access")); assert(!denied.calls.includes("tab:mart"));
   const failed = fixture({ data: null, error: { message: "network failure" } }); await failed.context.loadHub(session);
   assert.equal(failed.context.staffOpen, false); assert.equal(failed.staff.hidden, true); assert(failed.gate.textContent.includes("could not be verified")); assert(!failed.gate.textContent.includes("does not have access")); assert(!failed.calls.includes("tab:mart"));
   const allowed = fixture({ data: true, error: null }); await allowed.context.loadHub(session);

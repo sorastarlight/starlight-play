@@ -24,7 +24,7 @@ for (const key of ["Enter", " ", "Tab", "ArrowRight", "Escape"]) assert.equal(pr
 assert.equal(press("ArrowDown", 2, { ctrlKey: true }), false); assert.equal(press("Home", -1), false);
 // Execute the unchanged section activation path with its actual new roving-index assignment.
 const show = source.slice(source.indexOf("  function showTab("), source.indexOf("  async function loadHealth("));
-const context = { document, URL, window: { location: { href: "https://example.test/admin-next.html?section=mart" } }, history: { pushState(a,b,path) { pushes.push(path); }, replaceState() {} }, resolveTab: key => keys.includes(key) ? key : "operations", staffOpen: false, loadHealth: () => calls.push("health"), startOpsPoll: () => calls.push("ops"), stopOpsPoll: () => calls.push("stop"), trainerDirLoaded: false, mart: null };
+const context = { document, URL, window: { location: { href: "https://example.test/admin-next.html?section=mart" } }, history: { pushState(a,b,path) { pushes.push(path); }, replaceState() {} }, resolveTab: key => keys.includes(key) ? key : "operations", staffOpen: false, sessionControls: null, loadHealth: () => calls.push("health"), startOpsPoll: () => calls.push("ops"), stopOpsPoll: () => calls.push("stop"), trainerDirLoaded: false, mart: null };
 vm.runInNewContext(show + '\nshowTab("mart", true);', context);
 assert.equal(tabs[3].tabIndex, 0); assert.equal(tabs[3].attrs["aria-selected"], "true");
 assert.equal(tabs.filter(t => t.tabIndex === 0).length, 1); assert.equal(panels.filter(p => !p.hidden).length, 1); assert.equal(panels[3].hidden, false);

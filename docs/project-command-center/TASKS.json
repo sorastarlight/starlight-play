@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-196",
+      "status": "prepared",
+      "scope": "Owner-approved Operations Start/End local implementation complete",
+      "evidence": "LAUNCH-CODEX196-LOCAL-OPERATIONS.md;evidence/codex196-regressions.json;evidence/codex196-ui-states.json;evidence/codex196-layouts.json;evidence/codex196-runtime-scope.json",
+      "testResults": "119suites/build31/473;8responsivecases;actualfictionalconfirm/lock/lostreceipt/states;nohostedcalls",
+      "nextAction": "Separateexact5runtimepublication/source-onlydecision;liveactionsheld",
+      "approvalRequirement": "Design/localimplementationapproved;publication/SQL/livecommandsnotauthorized"
+    },
+    {
       "id": "CODEX-195",
       "status": "prepared",
       "scope": "Disconnected Operations first-slice visual review",

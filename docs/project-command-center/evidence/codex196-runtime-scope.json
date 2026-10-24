@@ -1,0 +1,31 @@
+{
+  "classification": "Local candidate/rollback only",
+  "baselineMain": "d62fe3c4",
+  "files": [
+    {
+      "file": "admin-next.html",
+      "baselineSha256": "039c510b603dbc090222f183c79cdf8a07f2592b9b4c09d60f97ffdeabdbd316",
+      "candidateSha256": "2e18936c703e187ad93267815035aeb14fed183bb2d08e95ec9ffd58d10e8cba"
+    },
+    {
+      "file": "js/admin-next.js",
+      "baselineSha256": "1b7db848d8ed9a46a0fe077c625607e678647748bb72c4967c0ae974c166603f",
+      "candidateSha256": "5b1a2bdcfdd52568f06c4ad7da0474ee51216f7b0202c38b07c61597407b09fe"
+    },
+    {
+      "file": "js/admin-next-ops.js",
+      "baselineSha256": "8cdcbd368ddbb792942a9c82f52d87eeea1ebe7c9b0cc6a96a63da7fcf26419a",
+      "candidateSha256": "21a63fb4c6030f1825c1e5290f70f49093573a3e8e2f22611992d52de739d569"
+    },
+    {
+      "file": "js/admin-next-session.js",
+      "baselineSha256": null,
+      "candidateSha256": "5555c39b2464f971d9c7e9ba1bdbf307cac1f5595fd06ab576493f554b50fee1"
+    },
+    {
+      "file": "css/admin-session.css",
+      "baselineSha256": null,
+      "candidateSha256": "c2ae64d8ee7135e51696939ab0078f56475c4c2428f17cbb50fe50e3bed80a6d"
+    }
+  ]
+}

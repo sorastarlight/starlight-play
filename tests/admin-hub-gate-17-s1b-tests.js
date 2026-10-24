@@ -31,7 +31,10 @@ test("No generic dispatcher and no unsafe mutation controls", () => {
   const configTransport = 'allowed: () => staffOpen, call: (command, args) => window.playCall(command, args)';
   assert(nextJs.includes(reportTransport), "reviewed Analytics adapter transport missing");
   assert(nextJs.includes(configTransport), "reviewed configuration adapter transport missing");
-  assert(!/playCall\(\s*(name|command)/.test(nextJs.replace(configTransport, "").replace(reportTransport, "").replace("window.playCall(name, args)", "")));
+  const sessionTransport = 'allowed: () => staffOpen && currentTab() === "operations" && !document.hidden, call: (name, args) => window.playCall(name, args)';
+  assert(nextJs.includes(sessionTransport), "reviewed session adapter missing");
+  assert(!/playCall\(\s*(name|command)/.test(nextJs.replace(configTransport, "").replace(reportTransport, "").replace(sessionTransport, "").replace("window.playCall(name, args)", "")));
+  assert(JSON.stringify(require("../js/admin-next-session.js").actions) === JSON.stringify(["start_session","end_session"]), "session actions must stay restricted");
   assert(JSON.stringify(require("../js/admin-next-config.js").commands) === JSON.stringify(["admin_economy_overview", "admin_economy_save"]), "configuration adapter must stay restricted");
   const analytics = require("../js/admin-next-analytics.js");
   assert(JSON.stringify(Object.values(analytics.commands)) === JSON.stringify(["admin_capture_report", "admin_progression_overview", "admin_collection_overview", "admin_economy_overview"]), "report adapter must stay restricted");

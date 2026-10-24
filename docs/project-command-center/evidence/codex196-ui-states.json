@@ -1,0 +1,50 @@
+[
+  {
+    "calls": "Simulated calls: SNAPSHOT",
+    "focus": "Review starting RPG",
+    "state": "cancel"
+  },
+  {
+    "calls": "Simulated calls: SNAPSHOT SNAPSHOT MOCK_COMMAND:start_session",
+    "endDisabled": true,
+    "startDisabled": true,
+    "state": "acknowledged",
+    "text": "RPG session controls\n\nCommand acknowledged. Reload session status before another action.\n\nReview starting RPG\nReview ending RPG\nReload session status\n\nCommands are sent once. A fresh observation is required before another action. Force start, manual/test encounters and ad controls remain in the current tools."
+  },
+  {
+    "activeShown": true,
+    "endDisabled": false,
+    "state": "manual-refresh",
+    "text": "RPG session controls\n\nFresh observation loaded. Check the session state before reviewing another action.\n\nReview starting RPG\nReview ending RPG\nReload session status\n\nCommands are sent once. A fresh observation is required before another action. Force start, manual/test encounters and ad controls remain in the current tools."
+  },
+  {
+    "calls": "Simulated calls: SNAPSHOT SNAPSHOT MOCK_COMMAND:start_session SNAPSHOT SNAPSHOT SNAPSHOT MOCK_COMMAND:end_session",
+    "locked": true,
+    "state": "end-ack"
+  },
+  {
+    "calls": "Simulated calls: SNAPSHOT SNAPSHOT MOCK_COMMAND:start_session",
+    "endDisabled": true,
+    "startDisabled": true,
+    "state": "lost-receipt",
+    "text": "RPG session controls\n\nCommand outcome uncertain. Do not retry; reload session status and inspect the result.\n\nReview starting RPG\nReview ending RPG\nReload session status\n\nCommands are sent once. A fresh observation is required before another action. Force start, manual/test encounters and ad controls remain in the current tools."
+  },
+  {
+    "calls": "Simulated calls: SNAPSHOT",
+    "endDisabled": true,
+    "startDisabled": true,
+    "state": "offline"
+  },
+  {
+    "calls": "Simulated calls: SNAPSHOT",
+    "endDisabled": true,
+    "startDisabled": true,
+    "state": "stale"
+  },
+  {
+    "calls": "Simulated calls: SNAPSHOT",
+    "endDisabled": true,
+    "startDisabled": true,
+    "state": "encounter"
+  }
+]

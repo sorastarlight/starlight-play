@@ -89,6 +89,17 @@
     allowed: () => staffOpen, call: (name, args) => name === "admin_store_get"
       ? window.playCall("admin_store_get") : window.playCall("admin_store_save_category", args)
   }));
+  const boundedApi = window.PLAY_ADMIN_LIMITS_ORDER;
+  const floorOrder = boundedApi?.mount(document.getElementById("next-floor-order"), "order", boundedApi.adapter("order", {
+    session: () => supabase.auth.getSession(), identity: () => martIdentity,
+    allowed: () => staffOpen, call: (name, args) => name === "admin_store_get"
+      ? window.playCall("admin_store_get") : window.playCall("admin_store_reorder", args)
+  }));
+  const captureLimits = boundedApi?.mount(document.getElementById("next-capture-limits"), "capture", boundedApi.adapter("capture", {
+    session: () => supabase.auth.getSession(), identity: () => configIdentity,
+    allowed: () => staffOpen, call: (name, args) => name === "admin_capture_overview"
+      ? window.playCall("admin_capture_overview") : window.playCall("admin_capture_save_balance", args)
+  }));
   let trainerQuery = "";
   let trainerOffset = 0;
   let trainerTotal = 0;
@@ -444,6 +455,7 @@
   function resetHealth() {
     configIdentity = "";
     config?.reset();
+    captureLimits?.reset();
     analyticsIdentity = "";
     analytics?.reset();
     healthGeneration++;
@@ -515,6 +527,7 @@
     martIdentity = "";
     mart?.reset();
     floorEditor?.reset();
+    floorOrder?.reset();
     staffOpen = false;
     stopOpsPoll();
     resetHealth();
@@ -535,6 +548,7 @@
       martIdentity = "";
       mart?.reset();
       floorEditor?.reset();
+      floorOrder?.reset();
       resetOperations();
       staffOpen = false;
       stopOpsPoll();
@@ -558,6 +572,7 @@
       martIdentity = "";
       mart?.reset();
       floorEditor?.reset();
+      floorOrder?.reset();
       resetHealth();
       stopOpsPoll();
       resetTrainers();

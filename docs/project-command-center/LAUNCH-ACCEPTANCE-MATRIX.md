@@ -1,6 +1,6 @@
-# Current launch acceptance matrix — through CODEX-180
+# Current launch acceptance matrix — through CODEX-182
 
-Current October24,2026. CODEX-178 owner-approved report corrections are installed as20261024044601 and exact-source verified;all five report views plus EmailQA single-record roster/detail passed bounded hosted inspection. Mart owner catalog/search/selection/preview and six reward fields loaded without edits;live saves remain untested. CODEX-179 routine Mart layout isolation is published/source verified atmain23ae1878/Pages40063590255success;118/118suites,4CSSwidths and100+2source matches. CODEX-180 replays/reverses13installed recovery deltas locally,restoring585function/143relation/56policy metadata;142tables remain empty. The next physical recovery point has not yet been observed. APP20261008-rc133 unchanged. Owner renewed autonomous work until08:42Eastern/12:42UTC October24;existing heartbeat active with fixed deadline. Big decisions are consolidated for return;SQL/Auth/gameplay/provider/grant/spending/final-launch gates remain. Older completion paragraphs below are historical;current TASKS and current-state summaries take precedence.
+Current October24,2026. CODEX-178 owner-approved report corrections are installed as20261024044601 and exact-source verified;all five report views plus EmailQA single-record roster/detail passed bounded hosted inspection. Mart owner catalog/search/selection/preview and six reward fields loaded without edits;live saves remain untested. CODEX-179 routine Mart layout isolation is published/source verified atmain84a56029/Pages40064027714success;118/118suites,4CSSwidths and100+2source matches. CODEX-180 replays/reverses13installed recovery deltas locally,restoring585function/143relation/56policy metadata;142tables remain empty. The next physical recovery point has not yet been observed. APP20261008-rc133 unchanged. Owner renewed autonomous work until08:42Eastern/12:42UTC October24;existing heartbeat active with fixed deadline. Big decisions are consolidated for return;SQL/Auth/gameplay/provider/grant/spending/final-launch gates remain. Older completion paragraphs below are historical;current TASKS and current-state summaries take precedence.
 
 | Area | Evidence completed | Remaining condition |
 |---|---|---|
@@ -171,3 +171,6 @@ CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585fu
 
 
 CODEX-181 VERIFIED:healthy/OK Application uses active styling;missing/non-boolean stream status stays UNKNOWN;Berry/tier headings aligned.118suites/build31/471;actual local health classes/headings. Exact2runtime main84a56029/Pages40064027714success;100monitored+2versioned sources match. No hosted report/notice/SQL/provider or save/grant action.
+
+
+CODEX-182 Operations review prepared only:Start enables Auto/Normal and may schedule;dashboard command response can tick state. No privileged implementation/application call;design decision consolidated for owner return.

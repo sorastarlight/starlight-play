@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-182",
+      "status": "prepared",
+      "scope": "Operations session-control contract and side-effect review",
+      "evidence": "ADMIN-HUB-OPERATIONS-MIGRATION-REVIEW.md",
+      "testResults": "Catalog/source only:2public contracts and3private helpers;no application call or implementation",
+      "nextAction": "Consolidate first-slice design decision;continue independent review",
+      "approvalRequirement": "New privileged workflow design/local implementation requires owner decision"
+    },
+    {
       "id": "CODEX-181",
       "status": "done",
       "scope": "Report health tone/unknown status and heading presentation",

@@ -2412,3 +2412,7 @@ CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585fu
 
 
 CODEX-181 VERIFIED:healthy/OK Application uses active styling;missing/non-boolean stream status stays UNKNOWN;Berry/tier headings aligned.118suites/build31/471;actual local health classes/headings. Exact2runtime main84a56029/Pages40064027714success;100monitored+2versioned sources match. No hosted report/notice/SQL/provider or save/grant action.
+
+
+## CODEX-182 — Operations migration review, October24
+Catalog/source review of2public contracts/3private helpers;documented Start scheduling/Auto effects and dashboard tick/sync writes. Prepared narrow Start/End design with observation endpoint preserved,uncertain-result/no-retry rules and explicit force/ad/manual/test exclusions. No application endpoint,SQL mutation,implementation,publication or protected-account action. Decision consolidated for return;independent work continues.

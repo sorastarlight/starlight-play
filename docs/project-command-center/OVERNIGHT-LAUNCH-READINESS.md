@@ -2,9 +2,9 @@
 
 Owner renewed eight hours of autonomous launch/Admin Hub/visual work. Existing heartbeat pok-monrpg-overnight-launch-readiness reactivated,without a duplicate. Hard stop08:42America/New_York/12:42UTC October24;do not extend without new human instruction. Consolidate big decisions for return,continue independent work when held. Routine frontend CODEX-78 authority only. CODEX-178 was subsequently approved,installed and inspected;approval spent and completed hosted tab closed. No repeated owner notice,report/save/grant or new SQL authority. No delegation/extra background systems,new SQL/Auth/provider/credential/gameplay/grant/spending/APP stamp/final launch authority.
 
-Current runtime main23ae1878/Pages40063590255success. CODEX-178 hosted Mart/catalog search/selection,six reward fields,all5reports and EmailQA1record roster/details passed after approved migration20261024044601. Two exact-source report fixes verified;guarded rollback retained. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. All118 regression suites last passed CODEX-179. Next daily physical recovery point expected after approximately07:44UTC;observe completion only when due.
+Current runtime main84a56029/Pages40064027714success. CODEX-178 hosted Mart/catalog search/selection,six reward fields,all5reports and EmailQA1record roster/details passed after approved migration20261024044601. Two exact-source report fixes verified;guarded rollback retained. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. All118 regression suites last passed CODEX-181. Next daily physical recovery point expected after approximately07:44UTC;observe completion only when due.
 
-Working queue:CODEX-179 isolate Admin Mart card styling from public shop grid,render desktop/mobile and publish exact routine diff if verified;continue concrete populated/error/keyboard inspections and risk-based source review;record new consequential packets privately and consolidate questions. Do not repeat unchanged suites/limitations to simulate progress.
+Working queue:CODEX-179/181 presentation fixes are published;CODEX-182 Operations side-effect/design review prepared,implementation held for a consolidated owner decision;continue concrete populated/error/keyboard inspections and risk-based source review;record new consequential packets privately and consolidate questions. Do not repeat unchanged suites/limitations to simulate progress.
 
 Historical handoff follows;older dates/main/tasks are superseded by current matrix/TASKS and this section.
 
@@ -212,3 +212,6 @@ CODEX-180 PASS:all13installed deltas forward/reverse on empty loopbackPG17;585fu
 
 
 CODEX-181 VERIFIED:healthy/OK Application uses active styling;missing/non-boolean stream status stays UNKNOWN;Berry/tier headings aligned.118suites/build31/471;actual local health classes/headings. Exact2runtime main84a56029/Pages40064027714success;100monitored+2versioned sources match. No hosted report/notice/SQL/provider or save/grant action.
+
+
+CODEX-182 PREPARED:Operations contract mapping identifies Start enables Auto/Normal and may schedule encounters;command response ticks/syncs state. Keep observation-only endpoint separate. First-slice Start/End proposal excludes force/ad/manual/test controls;no implementation,application call or publication. See ADMIN-HUB-OPERATIONS-MIGRATION-REVIEW.md.

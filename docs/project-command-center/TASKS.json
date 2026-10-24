@@ -4,13 +4,22 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "CODEX-200",
+      "id": "CODEX-201",
       "status": "prepared",
+      "scope": "Approved existing Mart floor presentation editor locally complete",
+      "evidence": "LAUNCH-CODEX201-LOCAL-MART-FLOORS.md;evidence/codex201-regressions.json;evidence/codex201-floor-contracts.json;evidence/codex201-floor-layouts.json;evidence/codex201-browser-checks.json;evidence/codex201-runtime-scope.json;evidence/codex201-rollback-check.json",
+      "testResults": "121suites;build31/475;8responsivecases;fictional save/receipt/search/access;guardedfrontendrollback",
+      "nextAction": "Separate exact4runtimepublication/source-only decision; no live catalog calls",
+      "approvalRequirement": "Local implementation approved; production publication and live reads/saves held"
+    },
+    {
+      "id": "CODEX-200",
+      "status": "done",
       "scope": "Disconnected existing PokéCoin floor presentation design",
       "evidence": "ADMIN-HUB-MART-FLOOR-REVIEW.md;design-reset/hub-mart-floor-review.html;evidence/codex200-floor-layouts.json",
       "testResults": "8renderedwidthcases;unavailabledisables;dialogautofocus/Escape;changedfieldsonly;noAuth/backend",
-      "nextAction": "Owner design/localimplementation decision; inspect server source before implementation",
-      "approvalRequirement": "New privileged workflow; no production publication or hosted save authority"
+      "nextAction": "Design/local implementation approved and completed in CODEX-201; publication separate",
+      "approvalRequirement": "Design/local approval spent; no publication/live save authority"
     },
     {
       "id": "CODEX-199",

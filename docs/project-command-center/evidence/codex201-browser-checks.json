@@ -1,0 +1,23 @@
+{
+  "classification": "Actual isolated Hub using fictional Auth/catalog/transport; connect-src none",
+  "checks": [
+    "Floor data remains closed until explicit load",
+    "System floor read-only current-tool handoff",
+    "Edited name only in review",
+    "Escape returns focus to Review changes",
+    "Acknowledged simulated save sent once with exact minimal payload and disables edits",
+    "Lost simulated receipt sent once; explicit reload reads stored changed name without repeating save",
+    "Ambiguous duplicate IDs leave no form",
+    "Hostile label appears as literal text with zero img elements",
+    "No-match floor search shows empty result",
+    "Eight long-text editor/dialog responsive cases"
+  ],
+  "savePayloadKeys": [
+    "id",
+    "key",
+    "name",
+    "blurb",
+    "visible"
+  ],
+  "limits": "No real staff session, catalog read/save, SQL change, protected account or provider operation"
+}

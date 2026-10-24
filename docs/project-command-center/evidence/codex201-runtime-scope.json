@@ -1,0 +1,26 @@
+{
+  "classification": "Local candidate and guarded frontend rollback only; no production publication",
+  "baselineMain": "ceefc26ad8893fddb090cd529e623631584f5361",
+  "files": [
+    {
+      "file": "admin-next.html",
+      "baselineSha256": "2e18936c703e187ad93267815035aeb14fed183bb2d08e95ec9ffd58d10e8cba",
+      "candidateSha256": "db589610fccb60e92f28e8a0a610f307a1f3fdbefdd3063e4d8547fa41ecb299"
+    },
+    {
+      "file": "js/admin-next.js",
+      "baselineSha256": "5b1a2bdcfdd52568f06c4ad7da0474ee51216f7b0202c38b07c61597407b09fe",
+      "candidateSha256": "04592f4f49c20acf461a81650aa47dda0ad04797bac88885bd76fe843e57c70a"
+    },
+    {
+      "file": "js/admin-next-floors.js",
+      "baselineSha256": null,
+      "candidateSha256": "308dbb0b50eb367855fe6f34268ee18059d2f262088bac472962388d5c76f867"
+    },
+    {
+      "file": "css/admin-floors.css",
+      "baselineSha256": null,
+      "candidateSha256": "5700968a125e2bea6529b06ef7d5183bdedbeb3a2e6f47241b3aabd045008adb"
+    }
+  ]
+}

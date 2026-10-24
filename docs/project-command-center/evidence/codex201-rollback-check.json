@@ -1,0 +1,7 @@
+{
+  "classification": "Private temporary frontend fixture only; no checkout or production rollback",
+  "manifestSha256": "76c238d5d44cac7f9f1406424fbedf000a348f3f1a527379783efd7c684cf0b7",
+  "driftRefusedBeforeWrites": true,
+  "restoredExistingFiles": 2,
+  "removedNewFixtureFiles": 2
+}

@@ -29,3 +29,8 @@ The mock is a visual review, not application implementation. Its local reset/app
 Proposed decision: design and local implementation/testing only, including catalog-source inspection. Production SQL, publication, live catalog reads/saves, provider actions, rewards and APP stamp remain excluded. A new privileged workflow falls outside CODEX-78 routine maintenance under .cursor/rules/streamlink-project.mdc and CODEX-RUNNER.md. Publication and any hosted save need separate concrete decisions after the implementation is reviewed.
 
 Frontend rollback would remove this added editor and restore the existing Mart handoff; it must not change catalog data. Do not migrate whole legacy controllers into the new Hub.
+
+
+## Subsequent owner decision
+
+Owner approved this exact design and local implementation. CODEX-201 completes it locally with121suites/build31/475 and isolated browser evidence. Earlier design/local-implementation held wording is historical for this slice. Publication and live operations remain held; see LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.

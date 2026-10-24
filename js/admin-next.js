@@ -83,6 +83,12 @@
       ? window.playCall("admin_store_get")
       : window.playCall("admin_store_save_item", args);
   });
+  const floorsApi = window.PLAY_ADMIN_FLOORS;
+  const floorEditor = floorsApi?.mount(document.getElementById("next-mart-floors"), floorsApi.adapter({
+    session: () => supabase.auth.getSession(), identity: () => martIdentity,
+    allowed: () => staffOpen, call: (name, args) => name === "admin_store_get"
+      ? window.playCall("admin_store_get") : window.playCall("admin_store_save_category", args)
+  }));
   let trainerQuery = "";
   let trainerOffset = 0;
   let trainerTotal = 0;
@@ -508,6 +514,7 @@
     resetOperations();
     martIdentity = "";
     mart?.reset();
+    floorEditor?.reset();
     staffOpen = false;
     stopOpsPoll();
     resetHealth();
@@ -527,6 +534,7 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+      floorEditor?.reset();
       resetOperations();
       staffOpen = false;
       stopOpsPoll();
@@ -549,6 +557,7 @@
       staffOpen = false;
       martIdentity = "";
       mart?.reset();
+      floorEditor?.reset();
       resetHealth();
       stopOpsPoll();
       resetTrainers();

@@ -54,3 +54,7 @@ CODEX-196 local candidate ead67dae:119suites/build31/473,8responsivecases andfic
 CODEX-198 completed under explicit owner approval: only js/admin-tools.js published at main ceefc26ad8893fddb090cd529e623631584f5361; Pages 40110768347 succeeded; 100 monitored and one changed versioned source match. Both feature/main baselines and candidate matched reviewed hashes before copying. Five targeted fictional cases and all 120 actual-source local suites pass; build31HTML/473references. No authenticated navigation, real credential read/save, provider call, SQL or gameplay test. APP20261008-rc133 unchanged; approval spent.
 
 CODEX-199 extends local Config/Mart draft navigation and discard checks without new runtime changes; the current acceptance matrix separates remaining real evidence from deferred overhaul scope.
+
+## Local next slice
+
+CODEX-201 implements the owner-approved existing non-system PokéCoin floor presentation design locally.121suites/build31/475,8responsivecases and guarded rollback pass. Four-file publication and all live catalog reads/saves remain held. Production stays ceefc26a. Review:LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.

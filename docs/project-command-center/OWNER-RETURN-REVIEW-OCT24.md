@@ -30,3 +30,6 @@ CODEX-198 completed under explicit owner approval: only js/admin-tools.js publis
 
 
 CODEX-200 next Mart slice prepared: existing non-system PokéCoin floor name/description/visibility only. Disconnected prototype,8localwidthcases and keyboard/unavailable checks; no backend or publication. Review:ADMIN-HUB-MART-FLOOR-REVIEW.md. Design/local implementation needs an important owner decision; no existing production correction remains pending.
+
+
+CODEX-201 locally complete under owner design/local approval:existing non-system coins-floor name/description/visibility editor;catalog-only6function/helper source inspection;minimal pinned payload preserves unrelated columns.121suites/build31/475;8responsivecases andfictional save/uncertainty/search/access/rollback checks. Exact4runtimepublication held;no livecatalog/read/save,SQLchange,notices,Auth/provider/gameplayorAPPaction. See LAUNCH-CODEX201-LOCAL-MART-FLOORS.md.

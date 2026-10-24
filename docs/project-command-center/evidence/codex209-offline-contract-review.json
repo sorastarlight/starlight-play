@@ -1,0 +1,30 @@
+{
+  "classification": "Offline retained CODEX-165 snapshot;not a current installed-source recheck",
+  "source": "LOCALAPPDATA/PokemonStreamLink/security/codex165/catalog.json",
+  "reviewed": [
+    {
+      "schema": "public",
+      "name": "admin_capture_save_balance",
+      "args": "p_balance jsonb",
+      "fingerprint": "574dd075b1e8666565fa836691b7d1fa",
+      "definitionSha256": "3fe1ef8fad9ac703fa04c3c530dfea5f982322294dda3b567a987005f3c755fc",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "private",
+      "name": "is_play_admin",
+      "args": "",
+      "fingerprint": "e1449c28be1cd6f6c5208638d5a1df6f",
+      "definitionSha256": "ab66acfdf4094ef99ee82f75f8a663dc2cc8d8cac571dbfdfad01bcab52b7ce0",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}"
+    }
+  ],
+  "observations": [
+    "Capture save merges supplied keys over private.capture_config()",
+    "Explicit bounds:0<=min<max<1",
+    "Returns ok/balance/message receipt",
+    "No compare-and-save revision contract shown",
+    "Capture overview,capture_config and staff-role closure are not included in this selected snapshot"
+  ],
+  "limits": "Before any integration,reinspect the complete read/save/helper definitions and permissions without invoking application RPCs. No current permission or dependency certification."
+}

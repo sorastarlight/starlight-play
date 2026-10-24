@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-209 | todo | Capture Balance next-slice review | CODEX-208 | Proposal only | Offline source and disconnected design; no live calls |
+| CODEX-209 | done | Capture bounds disconnected proposal | CODEX-208 | Owner-return design decision | 8interaction cases;8width states;retained-source limits recorded;no runtime change |
 | CODEX-208 | done | Helpdesk read/reset checks and read-error copy | CODEX-207 | CODEX-78 | Live6d740c21;Pages40125318465;100+1sources;121suites |
 | CODEX-207 | done | Analytics pending/tab/error/reset and keyboard checks | CODEX-206 | Local only | 7local transition cases;8layouts;targeted tests;no runtime change |
 | CODEX-206 | done | Review transition control/focus maintenance | CODEX-205 | CODEX-78 | Livee3401b70;Pages40120689437;100+1sources;121suites |

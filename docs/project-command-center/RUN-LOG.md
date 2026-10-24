@@ -2548,3 +2548,7 @@ Seven REAL LOCAL DOM transition/keyboard/error cases and eight measured Capture/
 Ten REAL LOCAL DOM read/reset/keyboard/error cases passed with zero fictional writes. One-expression accurate list/get error copy preserves permission and mutation messages. All121 LOCAL HARNESS suites,including11Helpdesk boundary cases,andbuild31/475 pass. No hosted application,notice,ticket/reply/note,SQL,Auth/provider orprotected-account action. Sora NO;Twinkle NO;PlayTester role unchanged. One-file routine publication next underCODEX78.
 
 CODEX-208 published at main 6d740c21427687e3bf727895b0667ce78ce4602a. Pages 40125318465 succeeded; all 100 monitored and one changed versioned source match. All 121 local suites and build validation pass. Ten local browser read/reset cases passed with zero fictional writes. No hosted support call, ticket action, Auth/provider change, SQL or APP stamp occurred.
+
+## CODEX-209 — Capture bounds proposal
+
+Selected offline CODEX165 save/staff-helper definitions reviewed without live calls. Two-field disconnected proposal prepared; eight local interactions and eight responsive editor/review states checked, 44px controls and no measured horizontal overflow. Missing read/helper closure explicitly held for future source review. No runtime publication, SQL, configuration call/save, simulation, Auth/provider, notice, gameplay or protected-account action. Sora NO; Twinkle NO; PlayTester role unchanged. Owner-return design/local integration decision held.

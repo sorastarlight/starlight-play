@@ -1,0 +1,45 @@
+{
+  "classification": "REAL LOCAL DOM disconnected proposal",
+  "productionCalls": 0,
+  "sqlChanges": 0,
+  "runtimeChanges": 0,
+  "cases": [
+    "zero minimum preview and changed-field review",
+    "maximum 1 rejected; maximum focused",
+    "Escape returns Review focus",
+    "discard restores fictional values",
+    "unavailable hides form",
+    "reset fictional values",
+    "demo-only apply",
+    "unchanged draft no review"
+  ],
+  "layouts": [
+    {
+      "width": 320,
+      "scrollWidth": 305,
+      "minControlHeight": 44
+    },
+    {
+      "width": 390,
+      "scrollWidth": 375,
+      "minControlHeight": 44
+    },
+    {
+      "width": 768,
+      "scrollWidth": 753,
+      "minControlHeight": 44
+    },
+    {
+      "width": 1024,
+      "scrollWidth": 1009,
+      "minControlHeight": 44
+    }
+  ],
+  "reviewWidths": [
+    320,
+    390,
+    768,
+    1024
+  ],
+  "limits": "No real device, assistive technology, current server certification or hosted save acceptance"
+}

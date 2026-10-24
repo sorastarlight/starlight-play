@@ -1,3 +1,13 @@
+# Latest owner-return update — through CODEX-209
+
+Runtime main6d740c21 / Pages40125318465 succeeded; APP20261008-rc133 unchanged. This four-hour window completed routine Mart receipt, reward pending, gift copy/review focus and Support read-error maintenance, with exact scoped publication and hosted source evidence. Latest runtime validation:121local suites/build31HTML475refs. Analytics and Support local transition checks are recorded separately; they are not new hosted acceptance.
+
+Two proposed migration decisions are ready for your return: CODEX203 Mart floor ordering and CODEX209 minimum/maximum capture bounds. Both have disconnected fictional prototypes only. Neither is implemented or published. Capture integration first requires fresh read/save/helper/permission closure. No new production SQL correction is awaiting installation from this window.
+
+Real iOS/desktop assistive/Firefox and broader provider acceptance, bounded live command/save/gift tests and final release-scope/go-no-go remain as recorded below. No new accounts, gameplay, emails, Auth/provider changes, protected-account actions or APP stamp ran. Backup evidence remains the completed Oct24 07:44:07UTC point after latest SQL178; no redundant polling or restore.
+
+---
+
 # Owner return review — October 24
 
 Current update: CODEX-202 routine Mart error-feedback correction published at main 189c280134c70a5330f402497f892606daf15020; Pages 40114012274 succeeded. All 100 monitored plus one versioned source match.121 LOCAL HARNESS suites/build31HTML475refs pass; disconnected failed-receipt/pending-save/account-reset checks pass. No hosted save/application call, SQL, Auth/provider, protected-account action or APP change.

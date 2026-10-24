@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-209",
-      "status": "todo",
-      "scope": "Capture Balance next-slice contract/design preparation",
-      "evidence": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md;source inventory only",
-      "testResults": "No implementation or prototype test yet",
-      "nextAction": "Inspect selected offline CODEX-165 source and existing client tier labels;prepare concrete disconnected review without live calls",
-      "approvalRequirement": "Proposal only;new privileged implementation,SQL,publication and hosted saves remain held"
+      "status": "done",
+      "scope": "Disconnected two-field capture bounds design and retained-source review",
+      "evidence": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md;evidence/codex209-offline-contract-review.json;evidence/codex209-browser-checks.json",
+      "testResults": "8local interaction cases;4editor measurements;4review widths;no runtime change",
+      "nextAction": "Owner-return design/local integration decision;fresh source/helper closure required before integration",
+      "approvalRequirement": "Proposal only;implementation,publication,SQL and live calls held"
     },
     {
       "id": "CODEX-208",

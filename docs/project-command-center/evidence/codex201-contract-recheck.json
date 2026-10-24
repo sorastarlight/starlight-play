@@ -1,0 +1,61 @@
+{
+  "classification": "Catalog-only SELECT; no application endpoint invoked",
+  "functions": [
+    {
+      "signature": "admin_store_get()",
+      "prosecdef": true,
+      "provolatile": "s",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "definitionSha256": "1ef153c67953b1780494f9ad6a437db7613eef940da5f19b025ebfbcd271cdcb"
+    },
+    {
+      "signature": "admin_store_save_category(jsonb)",
+      "prosecdef": true,
+      "provolatile": "v",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "definitionSha256": "e701c346e552d85b68e904a2933e836d631427a2e06214e50eea2f75d93e2bd5"
+    },
+    {
+      "signature": "private.is_play_admin()",
+      "prosecdef": true,
+      "provolatile": "s",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "definitionSha256": "ab66acfdf4094ef99ee82f75f8a663dc2cc8d8cac571dbfdfad01bcab52b7ce0"
+    },
+    {
+      "signature": "private.play_staff_role(uuid)",
+      "prosecdef": true,
+      "provolatile": "s",
+      "proconfig": [
+        "search_path=public"
+      ],
+      "acl": null,
+      "definitionSha256": "03dedb36d0349dcf29d6daba6e639924863b7420f740a3ce013bd6b23517fe3a"
+    },
+    {
+      "signature": "private.require_hub()",
+      "prosecdef": false,
+      "provolatile": "s",
+      "proconfig": null,
+      "acl": null,
+      "definitionSha256": "27f816b073a00d6d1ad44b51ae55a69f2b7331f62cb9b557ccc637a122f1d63d"
+    },
+    {
+      "signature": "private.require_staff_edit()",
+      "prosecdef": false,
+      "provolatile": "s",
+      "proconfig": null,
+      "acl": null,
+      "definitionSha256": "1c7dce74779377598386b82871fe016df4c3422796d96e05af6d924b3d745108"
+    }
+  ]
+}

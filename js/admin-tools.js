@@ -838,19 +838,21 @@
       const data = await window.playCall(name, args);
       if (target) target.textContent = String(data?.message || "Done.").replace(/Mix It Up/gi, "the stream");
       await refreshOverview(false);
+      return true;
     } catch (error) {
       if (target) target.textContent = window.playRpcError(error);
+      return false;
     }
   }
 
   els.save?.addEventListener("click", async () => {
     const secret = (els.clientSecret?.value || "").trim();
-    await run("admin_save_channel", {
+    const channelSaved = await run("admin_save_channel", {
       p_login: els.channel.value.trim().replace(/^@/, ""),
       p_client_id: els.client.value.trim(),
       p_broadcaster_id: els.broadcaster.value.trim()
     }, els.saveStatus);
-    if (!secret) return;
+    if (!channelSaved || !secret) return;
     try {
       const saved = await window.playCall("admin_save_twitch_client_secret", { p_secret: secret });
       els.clientSecret.value = "";

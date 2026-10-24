@@ -57,6 +57,13 @@
   let martIdentity = "";
   let analyticsIdentity = "";
   let configIdentity = "";
+  let opsIdentity = "", opsSequence = 0;
+  const sessionApi = window.PLAY_ADMIN_SESSION;
+  const sessionControls = sessionApi?.mount(document.getElementById("next-session-controls"), sessionApi.adapter({
+    session: () => supabase.auth.getSession(), identity: () => opsIdentity,
+    allowed: () => staffOpen && currentTab() === "operations" && !document.hidden, call: (name, args) => window.playCall(name, args)
+  }), () => staffOpen && currentTab() === "operations" && !document.hidden, raw => renderOperationsView(presentOps(raw ? { payload: raw } : { error: "missing" })));
+  function resetOperations() { opsIdentity = ""; opsSequence++; sessionControls?.reset(); }
   const configApi = window.PLAY_ADMIN_NEXT_CONFIG;
   const config = configApi?.mount(document.getElementById("next-config"), configApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
@@ -360,16 +367,20 @@
   async function loadOperations() {
     if (!staffOpen || !opsActive || document.hidden || opsInFlight) return;
     opsInFlight = true;
+    const sequence = ++opsSequence, identity = opsIdentity;
     try {
       const payload = await readCall("admin_live_snapshot");
-      if (!opsActive || document.hidden) return;
+      if (!opsActive || !staffOpen || sequence !== opsSequence || identity !== opsIdentity || document.hidden) return;
       if (!payload || payload.ok !== true || payload.contract !== "gate-17-s1-v2") {
+        sessionControls?.observe(null);
         renderOperationsView(presentOps({ error: "missing" }));
         return;
       }
+      sessionControls?.observe(payload);
       renderOperationsView(presentOps({ payload }));
     } catch (error) {
-      if (!opsActive) return;
+      if (!opsActive || sequence !== opsSequence || identity !== opsIdentity) return;
+      sessionControls?.observe(null);
       renderOperationsView(presentOps({ error: classifyOpsError(error) }));
     } finally {
       opsInFlight = false;
@@ -377,6 +388,7 @@
   }
 
   function stopOpsPoll() {
+    opsSequence++;
     opsActive = false;
     if (opsTimer) {
       clearInterval(opsTimer);
@@ -415,6 +427,7 @@
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
+    sessionControls?.repaint();
     if (next === "operations") startOpsPoll();
     else stopOpsPoll();
     if (next === "trainers" && staffOpen && !trainerDirLoaded) loadTrainerDirectory();
@@ -492,6 +505,7 @@
 
   function setSignedOut() {
     hubGeneration++;
+    resetOperations();
     martIdentity = "";
     mart?.reset();
     staffOpen = false;
@@ -513,6 +527,7 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+      resetOperations();
       staffOpen = false;
       stopOpsPoll();
       resetHealth();
@@ -530,6 +545,7 @@
     if (generation !== hubGeneration) return;
     window.playSetAccountNav?.(session, profile, { isAdmin: Boolean(isAdmin) });
       if (error || !isAdmin) {
+      resetOperations();
       staffOpen = false;
       martIdentity = "";
       mart?.reset();
@@ -552,6 +568,7 @@
     martIdentity = session.user.id;
     analyticsIdentity = session.user.id;
     configIdentity = session.user.id;
+    opsIdentity = session.user.id;
     const section = new URL(window.location.href).searchParams.get("section");
     showTab(section, false);
   }

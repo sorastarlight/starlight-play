@@ -178,7 +178,7 @@
     const stale = payload.twitch && payload.twitch.state === "STALE";
     let status = "Observation only. Twitch LIVE permits the Live RPG. It does not start it.";
     if (payload.twitch && payload.twitch.state === "LIVE" && payload.rpgSession && payload.rpgSession.state === "INACTIVE") {
-      status = "Twitch is LIVE. Live RPG stays INACTIVE until staff Start it on the current Dashboard.";
+      status = "Twitch is LIVE. Live RPG stays INACTIVE until staff Start it explicitly.";
     } else if (payload.twitch && payload.twitch.state === "LIVE" && payload.rpgSession && payload.rpgSession.state === "ACTIVE") {
       status = "Twitch is LIVE and a Live RPG session is ACTIVE.";
     } else if (payload.twitch && payload.twitch.state === "OFFLINE" && payload.rpgSession && payload.rpgSession.state === "INACTIVE") {

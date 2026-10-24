@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-184",
+      "status": "done",
+      "scope": "Static page structure and control-label review",
+      "evidence": "LAUNCH-CODEX184-HTML-STRUCTURE.md;evidence/codex184-html-structure.json",
+      "testResults": "29HTML:24pages/4redirects/1overlay;static IDs,ARIA references,language,title,H1 and visible-control label checks pass",
+      "nextAction": "Continue dynamic/rendered review;backup observation after07:44UTC",
+      "approvalRequirement": "No runtime change or production action"
+    },
+    {
       "id": "CODEX-183",
       "status": "held",
       "scope": "Changed-account staff panel reset review",

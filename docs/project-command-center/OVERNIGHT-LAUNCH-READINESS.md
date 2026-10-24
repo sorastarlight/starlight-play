@@ -220,3 +220,5 @@ CODEX-182 PREPARED:Operations contract mapping identifies Start enables Auto/Nor
 CODEX-183 private candidate:changed-account staff presentation reset;9extracted-loader VM cases/syntax pass. No server bypass claim,production/Auth action or runtime edit. Broader regression/rendering and separate publication decision remain. Private packet security/codex183;continue independent work.
 
 CODEX-183 local follow-up complete:118/118candidate-source-overlay suites/build31/471;actual isolated shell pending/denied/allowed states pass,onlyfictional catalog reads recorded. Private rendered.json/pending.png/regressions.json retained. Publication held;runtime unchanged;temporary tab/server closed.
+
+CODEX-184 complete:29root HTML source structures reviewed (24pages,4aliases,1overlay),static labels/IDs/ARIA/language/title/H1 checks pass after hidden/alias exceptions. No runtime change or accessibility certification;see report/evidence.

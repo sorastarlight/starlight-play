@@ -1,0 +1,295 @@
+{
+  "kind": "HTMLParser source only;dynamic DOM and rendered accessibility not implied",
+  "rows": [
+    {
+      "file": "account.html",
+      "classification": "redirect",
+      "h1": 0,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "achievements.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "admin-live.html",
+      "classification": "redirect",
+      "h1": 0,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "admin-next-trainers-fixture.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "admin-next-trainers-workspace-v2.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "admin-next.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "admin-store.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "admin-tools.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "bag.html",
+      "classification": "redirect",
+      "h1": 0,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "bits-connect.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "events.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "evolve.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "help.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "index.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "inventory.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "overlay.html",
+      "classification": "broadcast-overlay",
+      "h1": 0,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "password-recovery-fixture.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "pokedex.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "rankings.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "register.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "reset-password.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "settings.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "signin.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "storage.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "store.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "support.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "tester.html",
+      "classification": "redirect",
+      "h1": 0,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "trade.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    },
+    {
+      "file": "trainer.html",
+      "classification": "page",
+      "h1": 1,
+      "lang": "en",
+      "title": true,
+      "duplicateIds": [],
+      "unlabelledStaticControls": [],
+      "unresolvedStaticAria": []
+    }
+  ]
+}

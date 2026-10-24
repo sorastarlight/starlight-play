@@ -1,0 +1,17 @@
+{
+  "classification": "REAL LOCAL DOM;actual Support module;fictional staff read-only mount;connect-src none;no SDK",
+  "checks": [
+    "Pending conversation clears prior case",
+    "Older case response cannot replace newer selected case",
+    "Keyboard Enter retries case and focuses heading",
+    "Mock account change clears data and rejects late conversation",
+    "Unmount rejects late inbox completion",
+    "List read failure shows accurate generic feedback and no private details",
+    "Conversation read failure shows accurate generic feedback",
+    "Permission denial remains distinct",
+    "Empty list shows0open tickets andNo matching tickets",
+    "Successful list retry recovers after failure"
+  ],
+  "fictionalWriteCalls": 0,
+  "limits": "Read-only staff mount tests shared read/reset paths;not full staff write workflow or actual Auth/provider acceptance."
+}

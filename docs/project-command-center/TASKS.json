@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "CODEX-208",
-      "status": "todo",
-      "scope": "Helpdesk mounted pending/error/reset review",
-      "evidence": "Not started",
-      "testResults": "Not run",
-      "nextAction": "Inspect existing support module and local fixtures;test late read/reset isolation and keyboard retry without ticket writes",
-      "approvalRequirement": "Local source/fictional transport only;no hosted tickets,replies,notes,notices or Auth navigation"
+      "status": "in_progress",
+      "scope": "Helpdesk local read/reset acceptance and accurate read-error copy",
+      "evidence": "LAUNCH-CODEX208-SUPPORT-READS.md;evidence/codex208-browser-checks.json;evidence/codex208-regressions.json",
+      "testResults": "10local browser cases;0fictional writes;11mocked Helpdesk cases;121suites;build31/475",
+      "nextAction": "Scoped routine one-file publication/source verification;then next-slice preparation",
+      "approvalRequirement": "CODEX78copymaintenance;no hosted actions"
     },
     {
       "id": "CODEX-207",

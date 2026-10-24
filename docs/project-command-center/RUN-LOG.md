@@ -2542,3 +2542,7 @@ CODEX-206 published at main e3401b709d5ec8b9481e9e8ca962e42f51daf26b. Pages 4012
 ## CODEX-207 — Analytics mounted transition acceptance
 
 Seven REAL LOCAL DOM transition/keyboard/error cases and eight measured Capture/Economy layouts passed. Targeted actual-source Analytics tests pass; tested module matches published Git source. No runtime change or new publication;no repeated full regression or backup polling. No hosted report,notice,SQL,Auth/provider,ticket/grant or protected-account action. Sora NO;Twinkle NO;PlayTester role unchanged. See LAUNCH-CODEX207-ANALYTICS-TRANSITIONS.md.
+
+## CODEX-208 — Helpdesk read/reset acceptance
+
+Ten REAL LOCAL DOM read/reset/keyboard/error cases passed with zero fictional writes. One-expression accurate list/get error copy preserves permission and mutation messages. All121 LOCAL HARNESS suites,including11Helpdesk boundary cases,andbuild31/475 pass. No hosted application,notice,ticket/reply/note,SQL,Auth/provider orprotected-account action. Sora NO;Twinkle NO;PlayTester role unchanged. One-file routine publication next underCODEX78.

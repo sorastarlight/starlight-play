@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-204 | in_progress | Gift/Pass pending presentation and roster boundaries | CODEX-202 | CODEX-78 | 121suites;localDOM;onefile publication next |
+| CODEX-204 | done | Gift/Pass pending presentation and roster boundaries | CODEX-202 | CODEX-78 | Live20401579;Pages40116137764;100+1source matches;121suites |
 | CODEX-203 | done | Floor-order design proposal | CODEX-201 | Review on owner return | Local prototype only; integration held |
 | CODEX-202 | done | Mart failed-receipt feedback | CODEX-201 | CODEX-78 | Live189c2801;Pages40114012274;100+1source matches;121suites |
 | CODEX-174 | done | Full read-only roster installed/published/source verified | CODEX-173 | Exact approval spent | Main2ea586f1/Pages40008418332;100+5source matches;118suites |

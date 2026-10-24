@@ -9,3 +9,8 @@ REAL LOCAL DOM:gift and Pass pending states each had zero enabled reward control
 All121 LOCAL HARNESS suites pass;build31HTML475references passes. Evidence:evidence/codex204-browser-checks.json and evidence/codex204-regressions.json. Private fictional fixture scripts/screenshot:LOCALAPPDATA/PokemonStreamLink/security/codex204/. Temporary servers/tabs closed. No authenticated navigation,notices,hosted application call,real grant/Pass action,SQL,Auth/provider,protected-account action,spending or APP change. Sora NO;Twinkle NO;PlayTester role unchanged.
 
 One-file runtime scope:js/admin-next-rewards.js. Routine loading/error-state maintenance under CODEX-78;publication/source verification next. New floor-order workflow remains proposal-only.
+
+## Publication verified
+
+CODEX-204 completed: main204015799b51b97541db6a50c1b1341dbe949879;Pages40116137764success;100monitored plus1versioned source match.121local suites/build31HTML475refs pass. Gift/Pass loading/error presentation improved;11actual local boundary checks recorded. No hosted application call,notice,real gift/Pass action,SQL,Auth/provider,protected-account mutation or APP change.
+Exact runtime diff is one file,3insertions/1deletion;rollback baseline/candidate hashes retained privately. Source proof is not a hosted grant test.

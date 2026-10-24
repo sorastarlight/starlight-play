@@ -1,0 +1,9 @@
+{
+  "file": "js/admin-next-rewards.js",
+  "base": "189c280134c70a5330f402497f892606daf15020",
+  "candidate": "204015799b51b97541db6a50c1b1341dbe949879",
+  "normalization": "LF",
+  "beforeSha256": "a6a81183f165bcb223efe1f40764ed3846bbe290efb1d3a1270b671d0a0cd471",
+  "candidateSha256": "ea617229f9218c8b1c0ed02ea6d938fa65a7a3e688b260bfd5f52cf524e75d53",
+  "scope": "one-file frontend only; restore baseline only if deployed candidate hash still matches; inspect drift otherwise"
+}

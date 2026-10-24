@@ -5,12 +5,13 @@
   "tasks": [
     {
       "id": "CODEX-204",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Reward loading/uncertain control feedback and actual roster session boundaries",
-      "evidence": "LAUNCH-CODEX204-REWARD-PENDING.md;evidence/codex204-browser-checks.json;evidence/codex204-regressions.json",
+      "evidence": "LAUNCH-CODEX204-REWARD-PENDING.md;evidence/codex204-browser-checks.json;evidence/codex204-regressions.json;evidence/codex204-runtime-scope.json;evidence/codex204-publication.json",
       "testResults": "121suites;build31/475;11actual local boundary checks",
-      "nextAction": "Scoped routine one-file publication/source verification;then independent review",
-      "approvalRequirement": "CODEX-78 loading/error presentation;no hosted action authority"
+      "nextAction": "No repeated source checks;continue category-specific confirmation copy and read-error review",
+      "approvalRequirement": "CODEX-78 loading/error presentation;no hosted action authority",
+      "publicationCommit": "204015799b51b97541db6a50c1b1341dbe949879"
     },
     {
       "id": "CODEX-203",

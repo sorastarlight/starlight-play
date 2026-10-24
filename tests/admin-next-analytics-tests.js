@@ -37,3 +37,12 @@ const capture = { ok: true, since: "2026-10-01T00:00:00Z", overall: { throws: 0,
   await access.open();await access.select("captures");assert.equal(access.state.phase,"ready");deny=true;await access.select("economy");await access.select("captures");assert.equal(accessReads,3);assert.equal(access.state.report,null);
   console.log("Analytics: strict adapter, identity before/after, projections, null/zero semantics, escaping, single-flight, range/view races, reset/cache and failures pass.");
 })().catch(error=>{console.error(error);process.exitCode=1;});
+
+// Invalid report rates must not be represented as a complete report.
+for (const invalid of [2,-0.1,NaN,Infinity,"0.5"]) {
+ const input={...capture,overall:{throws:1,caught:1,rate:invalid}};const report=api.project("captures",input);assert.equal(report.cards[2].text,"Unavailable");assert.equal(report.cards[2].value,null);assert.equal(report.partial,true);
+ const grouped=api.project("captures",{...capture,bySpecies:[{name:"Fictional",throws:1,caught:1,rate:invalid}]});assert.equal(grouped.tables[0].rows[0][3],"Unavailable");assert.equal(grouped.partial,true);
+}
+for(const valid of [0,0.5,1]){const report=api.project("captures",{...capture,overall:{throws:2,caught:valid*2,rate:valid}});assert.equal(report.partial,false);assert.equal(report.cards[2].text,(valid*100).toFixed(1)+"%");}
+assert.equal(api.project("captures",{...capture,overall:{throws:0,caught:0,rate:2}}).partial,true);
+console.log("Malformed capture rates mark reports partial;zero/no-throw and0–100%boundaries remain accurate.");

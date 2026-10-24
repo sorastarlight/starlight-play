@@ -1,0 +1,597 @@
+{
+  "classification": "STATIC/LOCAL only;no hosted call",
+  "passed": 118,
+  "total": 118,
+  "results": [
+    {
+      "file": "a19-apply-decision-tests.js",
+      "passed": true,
+      "output": "PASS decision packet records owner backup evidence and stays unapproved\nPASS packet names the recorded restore target and PITR-off risk\nPASS packet explains whole-database restore data loss\nPASS packet names the schema-only sequence and forbids 003/GENVAL\nPASS DDL checksums match disk and the packet\nPASS seed and pin checksums match manifests, packet, and disk\n\n6 passed"
+    },
+    {
+      "file": "a19-apply-handoff-tests.js",
+      "passed": true,
+      "output": "PASS handoff is blocked and is not apply authorization\nPASS handoff requests freshest COMPLETED backup and records D33 stamp\nPASS handoff explains whole-database data loss and apply order\nPASS handoff checksums still match disk\n\n4 passed"
+    },
+    {
+      "file": "a19-apply-preflight-tests.js",
+      "passed": true,
+      "output": "PASS preflight report is metadata-only and does not approve apply\nPASS metadata script is SELECT-only and stays out of migrations\nPASS PostgREST private exposure is documented as not exposed\nPASS apply checklist stays unapproved and names owner Dashboard checks\nPASS issue 23 evo_uid fix is still in the staged seed\n\n5 passed"
+    },
+    {
+      "file": "a19-apply-report-tests.js",
+      "passed": true,
+      "output": "PASS D35 report records owner GO and named sequence only\nPASS D35 report records catalog counts, RLS, nullable columns, PGRST106\nPASS D35 is recorded and GENVAL stays unapproved\nPASS source artifact checksums still match disk\n\n4 passed"
+    },
+    {
+      "file": "a19-genval-impl-tests.js",
+      "passed": true,
+      "output": "PASS GENVAL SQL stays unapplied and refuses live apply language\nPASS functions are hardened and hidden is not a caller flag\nPASS rehearsal target is loopback and refuses hosted Supabase\nPASS JS oracle matches pin slice and is deterministic\nPASS implementation report does not claim production apply\nPASS D44 reconciliation hash-locks 001 and does not authorize WIRE\nPASS D43 apply report hash-locks 001 and leaves WIRE and reset unapproved\nPASS D40 readiness packet stays unapproved and hash-locks production 001\n\n8 passed"
+    },
+    {
+      "file": "a19-genval-spec-tests.js",
+      "passed": true,
+      "output": "PASS spec snapshot stays honest and D36 remains recorded\nPASS production apply history is reconciled without copying SQL into migrations\nPASS G1/C1/F1 and hidden-ability policy are fail-closed in the spec\nPASS synthetic fixture matrix parses and is not live Pokémon\nPASS legal Bulbasaur and Charizard fixtures match the pin level-up oracle\nPASS illegal fixtures encode IV, G1, C1, hidden, and legacy-row failures\n\n6 passed"
+    },
+    {
+      "file": "a19-schema-rehearsal-tests.js",
+      "passed": true,
+      "output": "PASS rehearsal target is loopback and refuses hosted Supabase\nPASS synthetic baseline has no Sora, Twinkle, or live catch ids\nPASS rehearsal files stay out of migrations and do not start GENVAL\nPASS SQL splitter keeps dollar-quoted DO blocks intact\nPASS 001/002/003 remain the only apply/rollback scripts\n\n5 passed"
+    },
+    {
+      "file": "a19-wire-impl-tests.js",
+      "passed": true,
+      "output": "PASS WIRE SQL stays unapplied and refuses live apply language\nPASS switch is table-only, default off, and ignores GUCs\nPASS WIRE-BIND preallocates catches.id and binds HA tickets to that uuid\nPASS GV7 SL public_id for new rows; grant/event refuse protected logins\nPASS persist dual-writes Gen IX fields and does not touch capture economy\nPASS rehearsal targets are loopback and refuse hosted Supabase\nPASS reset script strips stale showcase.shinyCatchId and stays unapplied\n\n7 passed"
+    },
+    {
+      "file": "account-diagnostics-tests.js",
+      "passed": true,
+      "output": "12 synthetic account diagnostics checks passed"
+    },
+    {
+      "file": "achievement-card-geometry-tests.js",
+      "passed": true,
+      "output": "PASS card anatomy helper puts progress above description\nPASS rewards region is always rendered\nPASS fixed grid tracks lock progress and reward Y\nPASS description is clamped and cannot resize the card\nPASS title region is reserved for two lines\nPASS reward region is reserved at a fixed height\nPASS completed and in-progress cards share bar height\nPASS Next Goals reuse the same anatomy helper\n8 tests ok"
+    },
+    {
+      "file": "achievements-loading-tests.js",
+      "passed": true,
+      "output": "PASS Signed-out view makes no progress call\nPASS Late progress cannot reopen signed-out content\nPASS Prior-account progress cannot overwrite new account\nPASS Late navigation snapshot cannot repaint prior identity\nPASS Late profile cannot start stale navigation or progress requests\nPASS Escaped failure and retry recover current progress\nPASS Stale failure cannot replace new successful content\nPASS Sign-out clears cached progress before filter interaction\n8 LOCAL actual-source mocked load/race checks;no network/Auth/gameplay mutation"
+    },
+    {
+      "file": "admin-hub-gate-17-s1-snapshot-tests.js",
+      "passed": true,
+      "output": "PASS Preview allowlist includes only the snapshot plus the two health RPCs\nPASS Preview HTML keeps the UNAVAILABLE fallback and lifecycle copy\nPASS Up migration is SELECT-only and staff-gated before reads\nPASS Up migration preflight refuses any existing function and does not replace\nPASS Rollback drops only the new snapshot function\nPASS Current encounter has no historical started_at fallback and settlement is unavailable\nPASS Twitch LIVE / RPG INACTIVE is not rendered as RPG ACTIVE\nPASS Twitch LIVE / RPG ACTIVE keeps the two states separate\nPASS Twitch OFFLINE / RPG INACTIVE is not UNKNOWN\nPASS Twitch UNKNOWN / RPG UNKNOWN is not rendered as INACTIVE or OFFLINE\nPASS Active encounter uses phase; no encounter is NONE\nPASS Stale Twitch uses STALE, not OFFLINE; director lastTickAt does not mark the snapshot stale\nPASS Historical lastEncounter is not rendered as the current encounter\nPASS Settlement stays UNAVAILABLE and last encounter stays historical\nPASS Missing director row is UNKNOWN, not INACTIVE\nPASS Unauthorized and network failures stay UNAVAILABLE and do not mutate\n\n16 passed"
+    },
+    {
+      "file": "admin-hub-gate-17-s1b-tests.js",
+      "passed": true,
+      "output": "PASS No generic dispatcher and no unsafe mutation controls\nPASS Polling is snapshot-only, single-flight, and stops off Operations / hidden\nPASS Presenter keeps Twitch STALE off OFFLINE and settlement off healthy\nPASS Legacy live director module is untouched\nPASS Preview HTML loads the presenter before the shell\n\n5 passed"
+    },
+    {
+      "file": "admin-hub-gate-2a-r-identity-tests.js",
+      "passed": true,
+      "output": "PASS SQL contract: UP is the applied artifact; DOWN stays emergency-only\nPASS SQL contract: UP preflight covers checksum, signature, catalog, and ACL\nPASS SQL contract: replacement inspect body is SELECT-only and staff-gated first\nPASS SQL contract: UP does not rewrite cosmetics unlock or change grants\nPASS Drift rejection: UP and DOWN abort on unexpected fingerprint or catalog drift\nPASS Atomicity: one transaction, advisory xact lock, no mid-script commit\nPASS Authorization contract: staff guard, 42501, and clone-only role tests\nPASS Response compatibility: keys and SELECT helpers stay identical\nPASS Helper volatility: catalog contract records STABLE/IMMUTABLE SELECT-only helpers\nPASS No-write static verification of post-UP inspect body\nPASS Fingerprints: DOWN body is the exact live baseline\nPASS Preview allowlist includes repaired inspect and excludes mutations\n\n12 passed"
+    },
+    {
+      "file": "admin-hub-gate-2a-trainer-tests.js",
+      "passed": true,
+      "output": "PASS Trainer reads are allowlisted and legacy mutations stay off\nPASS Directory uses verified list contract arguments and page size 50\nPASS Profile uses account + inspect and generation tracking\nPASS Presenter renders directory, empty, denied, and identity keys\nPASS Locked versus unlocked cosmetics stay visible\nPASS Keyboard search form and back navigation exist\nPASS Legacy admin and live director stay unchanged entry points\nPASS Sign-out and denied paths clear selected trainer state\n\n8 passed"
+    },
+    {
+      "file": "admin-hub-next-tests.js",
+      "passed": true,
+      "output": "PASS Next hub IA labels are the seven overhaul screens\nPASS Generic reads stay read-only; approved Mart adapter stays separate\nPASS Operations preview keeps the unavailable fallback and polls only the snapshot\nPASS Legacy Admin Hub and live controls remain the default\nPASS Lifecycle copy matches permission-only contract\nPASS Preview mutation deep links stay on the current hub\nPASS Staff gate and preview link stay additive\n\n7 passed"
+    },
+    {
+      "file": "admin-hub-overhaul-tests.js",
+      "passed": true,
+      "output": "PASS Command center documents and project rule exist\nPASS Overview dossier no longer repeats ranking, coins, or Twitch\nPASS Progression remains the canonical ranking and cosmetic pane\nPASS Directory status and pager hide when a single page is shown\nPASS Overview omits username when it matches login\nPASS Fixture stays local, blocks live RPCs, and exposes QA states\nPASS Legacy recovery stays routed to Support while Trainer gifts are available\nPASS Dossier uses cards and container-based layout instead of overlapping columns\nPASS Directory cards stay bounded and dossier sections use a stacked gap token\nPASS Legacy mutations stay isolated from the new audited reward route\nPASS Issue 6 wireframes exist and stay unwired\nPASS Issue 7 hub prototype stays unwired and records A8 without A9\nPASS Issue 8 visual v2 stays unwired and keeps Proposal A IA\nPASS Issue 9 Pokémon collection stays unwired and uses mons contract fields only\nPASS Issue 10 trainer UX stays unwired and keeps Proposal A IA\nPASS Issue 12 trainer record IA stays unwired and keeps Proposal A layout\nPASS Issue 16 legality audit stays design-only and does not claim PokéAPI legality\nPASS Issue 19 Gen IX rebuild plan stays planning-only and records D17\nPASS Issue 20 Gen IX pin stays offline and unapplied\nPASS Issue 21 readiness review stays offline and does not authorize SCHEMA\nPASS Issue 22 schema artifacts stay unapplied and do not start GENVAL\nPASS Issue 23 rehearsal stays local and does not apply live SQL\nPASS Issue 24 preflight stays read-only and does not approve apply\nPASS Issue 24 D35 apply report records schema-only GO without starting GENVAL\nPASS Issue 18 D46 WIRE-INTEGRATE stays unapplied\nPASS Issue 18 D53 WIRE-GO report records the catch and switch off\nPASS Issue 18 D54 economy SQL stays unapplied\nPASS Issue 18 D55 economy review keeps the safety-net throw\nPASS Issue 18 D63 mastery audit stays unimplemented\nPASS Issue 18 D64 mastery ledger stays unapplied\nPASS Issue 18 D65 mastery hardening stays unapplied\nPASS Issue 18 D66 mastery lifecycle stays unapplied\nPASS Issue 18 D67 mastery catch safety stays unapplied\nPASS Issue 18 D68 mastery install review stays unapplied\nPASS Issue 18 D69 mastery GO packet stays unapplied\nPASS Issue 18 D70 mastery schema is installed and inactive\nPASS Issue 18 D71 mastery integration plan stays inactive\nPASS Issue 18 D72 familiarity settlement draft stays unapplied\nPASS Issue 18 D73 familiarity packet is not an install GO\nPASS Issue 18 D74 familiarity integration is installed and inactive\nPASS Issue 18 D75 familiarity activation plan is not a GO\nPASS Issue 18 D76 stamp smoke packet is not a catch GO\nPASS Issue 18 D77 PlayerQA provisioning stays blocked\nPASS Issue 18 D77-R1 PlayerQA registration stays blocked\nPASS Issue 18 D77-R2 PlayerQA verification is not an encounter GO\nPASS Issue 18 D78 stamp smoke stops before a public encounter\nPASS Issue 18 D79 QA isolation stays a design no-go\nPASS Issue 18 D80 launch guard stays a draft\nPASS Issue 18 D81 launch-guard file stays unapplied\nPASS Issue 18 D82 launch-guard security gate is not an install\nPASS Issue 18 D83 launch-guard install does not open an encounter\nPASS Issue 18 D84 verification plan does not authorize a stamp\nPASS Issue 18 D85 stamp rehearsal stops on a definition mismatch\nPASS Historical handoff preserves D85 evidence while current runner records its local completion\nPASS Issue 18 D59 onboarding stays local and does not change gameplay\nPASS Issue 18 D58 live test records three encounters and WIRE off\nPASS Issue 18 D57 economy apply report records the catalog install\nPASS Issue 18 D56 economy apply decision stays unapproved\nPASS Play E2E gate refuses gameplay and session files\nPASS Issue 18 D51 WIRE-GO proposal stays unapproved and has no secrets\nPASS Issue 18 D50 WIRE-GO readiness stays unapproved\nPASS Issue 18 D49 WIRE-APPLY report records catalog install without WIRE-GO\nPASS Issue 18 D48 WIRE-APPLY decision stays unapproved\nPASS Issue 18 D47 WIRE parity stays unapplied\nPASS Issue 25 D45 WIRE-DEV stays unapplied and switch-off\nPASS Issue 25 D44 reconciliation and WIRE plan stay implementation-blocked\nPASS Issue 25 D43 apply report records catalog install and unapplied reset\nPASS Issue 25 D42 apply decision records incomplete GO and does not apply\nPASS Issue 25 D41 recovery runbook forbids automatic restore\nPASS Issue 25 D40 readiness stays read-only and does not approve GENVAL apply\nPASS A19-GENVAL spec stays planning-only and does not ship generator SQL\n\n71 passed"
+    },
+    {
+      "file": "admin-hub-workspace-v2-tests.js",
+      "passed": true,
+      "output": "PASS Workspace 2.0 is a separate fixture and does not replace admin-next Trainers\nPASS Directory is a compact table, not the 300px card gallery\nPASS Profile is a full-width workspace with All trainers restore control\nPASS Panes stay contract-truthful and Progression can filter unlocks\nPASS Fixture stays local, restores directory state, and keeps QA outside the canvas\nPASS Prototype does not add writes or touch legacy admin\n\n6 passed"
+    },
+    {
+      "file": "admin-oak-qa-tests.js",
+      "passed": true,
+      "output": "PASS Admin Hub HTML includes Evolution / Oak QA Toolkit\nPASS Sora OWNER / BROADCASTER warning is a polished card\nPASS admin_oak_qa is called via playCall with UUID p_user\nPASS CONTENT_VIEWS includes oakqa\nPASS migration mentions ADMIN_QA and is_play_admin()\nPASS Candy picker uses Evolution Line typeahead, not raw family ID typing\nPASS Trainer picker is a clickable staff list, not an empty select\nPASS Grant Pokémon uses Admin Hub-style species typeahead\nPASS Grant Items shows sprites on quantity tiles\nPASS Oak QA action buttons have press/loading/success/error feedback\nPASS Oak QA self-boots when deep-linked before admin.js callback\nPASS Play Tester target resolves to Play Tester UUID\nPASS Sora target resolves to owner UUID\nPASS empty query never defaults to Sora\nPASS changing selected Trainer changes RPC target UUID\nPASS UI display name does not override UUID in RPC args\nPASS Twitch username does not replace profile UUID\nPASS owner/broadcaster status does not prevent valid QA targeting\nPASS no silent fallback to Play Tester when Sora is selected\nPASS invalid / missing target shapes are rejected by UUID authority helpers\nPASS soraWarning success is not treated as RPC failure styling\n\n21 passed"
+    },
+    {
+      "file": "admin-record-tests.js",
+      "passed": true,
+      "output": "PASS Directory omits economy and exposes full-row trainer identity\nPASS Record header escapes identity and excludes balances\nPASS Inventory drill-in keeps zero distinct from unavailable\nPASS Unlocks never infer ownership from catalog presence\nPASS Pokemon details show only returned specimen data\nPASS Pokemon details use friendly known ball and gender names without inventing missing data\nPASS Presentation layer introduces no network or authority calls\nPASS Tickets wait for authorized data without invented cases\nPASS Snapshot-only row keys do not fabricate specimen ids\nPASS Loading and denied do not expose prior dossier data\nPASS Gym Badge ownership stays unavailable and separate from ribbons\nPASS Shiny identity, honest stats and human item labels\nPASS Connections preserve unknown capabilities and escape provider labels\nPASS Stored battle data preserves zero, missing fields and escaped move names\n14 passed"
+    },
+    {
+      "file": "admin-rewards-tests.js",
+      "passed": true,
+      "output": "PASS Claim timestamps do not prove delivery\nPASS Pass provenance remains readable when staff turns Pass off\nPASS Reward history and labels escape arbitrary names and reasons\nPASS Inventory groups use requested production labels\nPASS Missing login is omitted instead of shown as @Unavailable\nPASS Draft request binds target, UUID, action and payload before modal reason\nPASS Reward writes stay separate from the read allowlist and refresh is scoped\nPASS Sprite picker search matches names, padded dex and punctuation\nPASS Appearance and ribbons are correctly named; reasons only in review\nPASS Player item labels are reused instead of storage keys\nPASS Evolution stages show family candy artwork and name\nPASS Ribbon review uses mapped local PNG\nPASS Separated gift types preserve existing server payloads\nPASS Appearance categories and ordinary items filter independently\nPASS Gift search uses friendly multiword names and keeps categories isolated\nPASS Retired frames stay absent even if a stale catalog returns them\nPASS Non-Latin gift searches preserve text and cannot become empty filters\n17 passed"
+    },
+    {
+      "file": "build-hygiene-tests.js",
+      "passed": true,
+      "output": "PASS PLAY_BUILD matches generated build.js\nPASS mismatch is detected without auto-reload\nPASS idle mismatch shows update now and does not reload until clicked\nPASS encounter mismatch defers reload\nPASS result hold also defers reload\nPASS reload-loop protection blocks a second navigate\nPASS build info does not expose secrets\nPASS stale-client health view\n8/8 passed"
+    },
+    {
+      "file": "classic-gba-evolution-tests.js",
+      "passed": true,
+      "output": "PASS Classic GBA evolution stage uses owner backdrop behind sprites\nPASS Dual source/destination sprites drive silhouette alternation\nPASS Dialogue pages then in-place fade to result card\nPASS Presentation stays after authoritative evolve RPC\nPASS Reduced-motion stays non-mutating\nPASS Identity fields flow into sprites\nPASS No modern cinematic effects in classic path\n\n7 passed"
+    },
+    {
+      "file": "console-tests.js",
+      "passed": true,
+      "output": "PASS newest encounter events stay in time order\nPASS later encounters do not swallow earlier throws\nPASS round_id keeps overlapping encounters separate\nPASS catch stays above same-second throw echoes\nPASS a delayed Poké Ball banner stays under a faster lock-in\nPASS same-second status lines do not leapfrog a player action\nPASS console lines still name berries, honey, and throws\n7/7 passed"
+    },
+    {
+      "file": "d54-economy-static-tests.js",
+      "passed": true,
+      "output": "PASS d54 economy SQL stays branch-only and ledgers each spend"
+    },
+    {
+      "file": "d55-economy-static-tests.js",
+      "passed": true,
+      "output": "PASS d55 SQL keeps the safety-net skip, NB001, and atomic JSON debit\nPASS borrowed-ball rules match the live safety-net\nborrowed-ball rules: synthetic only, no database"
+    },
+    {
+      "file": "d64-mastery-static-tests.js",
+      "passed": true,
+      "output": "d64 static checks passed"
+    },
+    {
+      "file": "d65-mastery-static-tests.js",
+      "passed": true,
+      "output": "d65 static checks passed"
+    },
+    {
+      "file": "d66-mastery-static-tests.js",
+      "passed": true,
+      "output": "d66 static checks passed"
+    },
+    {
+      "file": "d67-mastery-static-tests.js",
+      "passed": true,
+      "output": "d67 static checks passed"
+    },
+    {
+      "file": "d68-mastery-static-tests.js",
+      "passed": true,
+      "output": "d68 static checks passed"
+    },
+    {
+      "file": "d71-mastery-static-tests.js",
+      "passed": true,
+      "output": "d71 static tests passed"
+    },
+    {
+      "file": "d72-mastery-static-tests.js",
+      "passed": true,
+      "output": "d72 static tests passed"
+    },
+    {
+      "file": "director-tests.js",
+      "passed": true,
+      "output": "PASS paused encounter timer says PAUSED, not a countdown\nPASS ad pause copy is player-facing, not an enum\n2/2 passed"
+    },
+    {
+      "file": "encounter-phase-driver-tests.js",
+      "passed": true,
+      "output": "PASS join only while the phase is join\nPASS prepare selects a berry, no berry, or honey from the phase\nPASS an empty berry bag does not invent a berry during prepare\nPASS throw waits for the throw phase and refuses an empty ball bag\nPASS reveal is the result step, not another click\nencounter-phase-driver: synthetic only, no browser"
+    },
+    {
+      "file": "encounter-stability-tests.js",
+      "passed": true,
+      "output": "ok stale snapshot cannot regress THROW + pending Ball to PREPARE\nok pending Berry never flashes back to available before success\nok result hold starts at settlement, not original reveal deadline\nok very late settlement still gets a full result hold\nok unresolved rounds stay loadable past original reveal+8s\nok unresolved reveal does not jump to RESULTS while the ball is still wobbling\nok phase is monotonic unless a newer snapshot rewinds it\nok refresh coordinator is single-flight and coalesces follow-ups\nok frozen pointer defers refresh instead of running it\nok action structure key ignores selected/qty/pending and phase\nok prepare window stays closed while the server is still in Join\nok prepare window matches the server 1s join-edge grace\nok cancelled no-join remains visible for the result hold\nok browser clock ahead of the server cannot open Prepare buttons early\nok playServerNowMs adds time since the snapshot was received\nok confirmed prep/ball survive a snapshot that omits them\nok successful click pins the choice even if me is missing\nok timer seconds follow serverNow not the browser clock\nok click freeze stays true until pendingAction is set\nok Play inventories realtime is filtered to the signed-in Trainer\nok Master Ball confirm freezes intent before RPC\nok a missing snapshot cannot drop a resolved round during the result hold\nok first-click tracker treats missing RPC me.prep as unconfirmed until sync\nok first-click tracker confirms throw from later authoritative ball\nok RPC payload confirmation helper does not require undocumented fields\n25/25 passed"
+    },
+    {
+      "file": "encounter-stage-tests.js",
+      "passed": true,
+      "output": "PASS catch sequence no longer prints CATCH ATTEMPT on the map\nPASS player stage keeps the external CATCH ATTEMPT timer\nPASS join stage does not repeat the wild appearance line\nPASS success copy uses a cinematic banner and ball plate, not a second GOTCHA card\nPASS shiny success and failure use high-contrast HUD copy\nPASS personal success is not shown as a breakout\nPASS waiting wobble does not play the miss flee classes\nPASS resolved throw without a catch is a breakout\nPASS live HUD patches do not remount the catch sequence\nPASS join stage uses a shared centered actor frame\nPASS admin/staff preview uses the same catch sequence as Play\nPASS breakout uses the shared actor frame instead of leftover catch offsets\nPASS empty location falls back to the generic Kanto stage\nPASS no-throw results do not fabricate a personal failure banner\nPASS spectators watch the catch without personal GOTCHA copy\nPASS community result waits for the personal results scene\nPASS live patches can inject the catch sequence without remounting the map\nPASS join and item patches do not hide the wild sprite\nPASS level chip uses authoritative round.level and hides when missing\nPASS level chip sits in the upper-right metadata cluster\nPASS female shiny stacks identity chips with level\nPASS GOTCHA banner stays in stage center, not with the level chip\nPASS wild sprite has no white glow and does not bob after intro\nPASS late load still shows the settled result scene\nPASS stale unresolved snapshot cannot leave the results scene\nPASS catch animation elapsed follows the throw deadline clock\nPASS TEST rounds surface an accelerated-timer chip on Play\nPASS normal AUTO rounds do not show the TEST chip\n28/28 passed"
+    },
+    {
+      "file": "evolution-candy-integrity-tests.js",
+      "passed": true,
+      "output": "PASS migration 20260919030000 sets family_candy_species_id = family_id\nPASS play_transfer_oak grants by family_id and returns candyBaseDex/candyName\nPASS migration asserts Chansey/Rhyhorn/Pikachu/Sandshrew separation\nPASS audit CSV exists with zero invalid rows and required species\nPASS oak-transfer.js does not use playItemSprite(species-familyId) as sole path without candyBaseDex\n5/5 passed"
+    },
+    {
+      "file": "evolution-line-integrity-tests.js",
+      "passed": true,
+      "output": "PASS family rebuild migration exists and asserts Pikachu/Sandshrew\nPASS approved Oak research copy is exact\nPASS page is Prof. Oak's Lab with Send + Evolve tabs\nPASS Game Boy transfer uses local Oak pixel sprite and Poké Ball\nPASS filters: All first; Shiny/Favorites removed\nPASS Rare Candy maps to local rare-candy.png, not lgpe-candy\nPASS Evolution Candy species keys use local candy ITEM art, not Rare Candy\nPASS Professor Oak lab asset is local\nPASS candy manifest prepared with Gen1 gameplay only\nPASS candy identity fix migration and audit CSV are present\n10/10 passed"
+    },
+    {
+      "file": "evolve-ux-tests.js",
+      "passed": true,
+      "output": "evolve-ux tests: 29 passed"
+    },
+    {
+      "file": "form-aware-identity-tests.js",
+      "passed": true,
+      "output": "PASS migration establishes pokemon_forms + form columns\nPASS launch / settle / catch_json are form-aware\nPASS AUTO / normal spawn hard-firewall forces BASE\nPASS seed matrix: 146 ordinary base / 5 special base / 0 non-base normal / 85 event-ready\nPASS representative forms are EVENT_READY with verified FormIds\nPASS identity distinctions: base != alternate at FormId level\nPASS client resolver uses formId stems; refuses variant-axis forms; Back not selectable\nPASS Front/Back are not separate gameplay identities in catalog\nPASS migration integrity block asserts containment counts\n9/9 passed"
+    },
+    {
+      "file": "gen9-ref-readiness-tests.js",
+      "passed": true,
+      "output": "PASS pin checksums and 220/16 coverage stay unchanged\nPASS all 12 Gigantamax forms have no own learnset and match Kantonian base combat identity\nPASS Gmax proposal shares resolved base without inventing moves or authorizing the rule\nPASS Champions megas stay fail-closed and do not gain fabricated SV or SWSH learnsets\nPASS friendship pin stays historical; proposed Gen IX map is 70 to 50 only\nPASS current unapplied SQL is public, unlocked, and not a live migration\nPASS proposed secure SQL stays review-only and names the security gaps\nPASS readiness review document records proposals without authorizing SCHEMA\n\n8 passed"
+    },
+    {
+      "file": "gen9-ref-tests.js",
+      "passed": true,
+      "output": "PASS pin manifest checksums match committed files\nPASS natures are the official 25 with valid stat modifiers\nPASS Kanto species 1-151 exist with gender rates and friendship\nPASS catalog forms map to PokéAPI pokemon ids and never invent a base inherit\nPASS Bulbasaur level-5 wild slice is legal SV level-up only\nPASS Charizard base uses SV; Mega X uses ORAS and not the base SV set\nPASS Alolan and Hisuian forms resolve on their own ids\nPASS Gigantamax and Champions megas fail closed without invented moves\nPASS special obtain and gender-locked species\nPASS Johto Mareep is a documented out-of-roster placeholder\nPASS unapplied SQL is review-only and not a live migration\nPASS coverage reports Mega and regional gaps honestly\n\n12 passed"
+    },
+    {
+      "file": "help-navigation-tests.js",
+      "passed": true,
+      "output": "PASS Signed-out guide exits unknown navigation state\nPASS Signed-in guide renders current profile using reads only\nPASS Auth sign-out invalidates an in-flight profile response immediately\nPASS Account switch schedules outside Auth callback and suppresses old identity\nPASS Token noise and explicit navigation sign-out cannot repaint stale identity\nPASS Session failure resolves shell with retry guidance and no gameplay RPC\n6 LOCAL mocked navigation checks passed;no Auth or network call"
+    },
+    {
+      "file": "identity-tests.js",
+      "passed": true,
+      "output": "identity tests: 9 passed"
+    },
+    {
+      "file": "inventory-loading-tests.js",
+      "passed": true,
+      "output": "PASS Signed-out inventory makes no RPC and hides account data\nPASS State failure shows retry,not empty bag;retry recovers\nPASS Partial collection failure cannot present incomplete inventory\nPASS Late prior-account state cannot repaint current inventory\nPASS Late prior-account collection cannot repopulate cached items\nPASS Sign-out cancels subscription and suppresses in-flight refresh\nPASS History failure is distinguished from no item history\nPASS Search misses do not claim that owned bag is empty\nPASS Reordered realtime responses cannot overwrite newer inventory\nPASS Successful realtime recovery clears its obsolete warning\nPASS Realtime success preserves unrelated status text\n11 LOCAL mocked Inventory load/race checks passed;no Auth/network/gameplay mutation"
+    },
+    {
+      "file": "kanto-release-containment-tests.js",
+      "passed": true,
+      "output": "PASS authoritative normal_spawn_max_dex is 151\nPASS spawn_species_eligible uses release max, not national catalog max\nPASS spawn_pick_random_dex cannot escape into unreleased generations\nPASS kanto availability model is v1-kanto-release with 146+5\nPASS integrity block asserts 146 ordinary / 0 post-Kanto eligible / catalog preserved\nPASS national catalog migrations remain (species rows not deleted)\nPASS roster builder must not re-widen ordinary spawn to national max\nPASS play sprite resolver never falls forward to non-base forms\nPASS KANTO_RELEASE_NORMAL_POOL is 146 BASE species conceptually\nPASS national PLAY_VARIANTS may exceed 151 while release pool stays 146\nPASS form-aware phase keeps normal pool BASE-only (seed matrix)\nPASS form-aware migration exists and never enables non-base normal encounters\n12/12 passed"
+    },
+    {
+      "file": "live-rpg-session-lifecycle-tests.js",
+      "passed": true,
+      "output": "PASS Twitch LIVE is permission, not RPG session authority\nPASS rc37 kept offline end and stopped tick auto-restart\nPASS Admin Hub separates Twitch / Live RPG / Director Auto\n\n3 passed"
+    },
+    {
+      "file": "location-visual-tests.js",
+      "passed": true,
+      "output": "PASS normalizes Pokémon spelling and punctuation\nPASS Route 1 does not match Route 10 or 11\nPASS Viridian Forest matches both FL and full maps\nPASS Mt. Moon matches FL Mt Moon as HIGH/EXACT and floors as HIGH\nPASS city names prefer the outdoor map over gyms and shops\nPASS Cerulean Cave reports multiple floor matches\nPASS runtime lookup uses the curated local asset\nPASS presentation defaults and difficult-location overrides\nPASS unknown locations fall back to Kanto\nPASS CSS background urls are document-absolute so play.css does not resolve them under /css/\nPASS Kanto region map matches the FRLG Kanto file\n11/11 passed"
+    },
+    {
+      "file": "new-table-access-tests.js",
+      "passed": true,
+      "output": "16 table-access source-preflight checks passed; dynamic SQL still requires manual review"
+    },
+    {
+      "file": "oak-lab-card-tests.js",
+      "passed": true,
+      "output": "PASS Transfer Station filters to eligible candidates only\nPASS Transfer inspect and select are separate buttons\nPASS Evolution inspect and evolve are separate click targets\nPASS Transfer/Evolution cards drop level, gender, and janky ball icon\nPASS Shared Oak card geometry uses reserved tracks\nPASS Evolution Candy item art is local and not a runtime hotlink\nPASS Research summary has explicit overall progress semantics\nPASS Transfer success uses shared playToast, not inline success copy\nPASS Evolution confirm is a wide pair layout without a tall forced card\nPASS Research complete lists milestone before reward\nPASS Research claim result path is still rc117 non-redundant enqueue\nPASS Evolution Research All filter does not append fully evolved terminals\nPASS Candy requirement copy uses explicit owned/required labels\nPASS Evolution confirm does not escape gender HTML into visible text\nPASS Chansey uses designated GO candy PNG, not generic lgpe-candy\n\n15 passed"
+    },
+    {
+      "file": "oak-lab-rc123-tests.js",
+      "passed": true,
+      "output": "PASS readyRows filters to enabled Kanto evolutions only\nPASS filter counts use eligible readyRows only\nPASS hasEligibleEvolution keeps under-resourced and drops terminals\nPASS Chansey candy key is family 113 designated PNG\nPASS Kanto candy PNGs resolve without generic lgpe fallback\nPASS card anatomy uses viewer / context / reserved footer\nPASS requirement copy is explicit owned/required\nPASS empty Evolution Research distinguishes filter vs collection\nPASS inspect/action split and confirm stay non-mutating until RPC\nPASS authority surfaces are unchanged\n\n10 passed"
+    },
+    {
+      "file": "oak-lab-rc124-tests.js",
+      "passed": true,
+      "output": "PASS Candy helpers never emit Evolution Line Evolution Candy\nPASS Lab candy art is a single item PNG with no Pokémon overlay\nPASS Chansey designated candy remains family 113 PNG\nPASS Transfer and Evolution cards keep inspect/action split\nPASS Evolution eligibility filter from RC123 is preserved\nPASS Card geometry uses reserved tracks without hover-blur\nPASS Authority call sites stay unchanged\n\n7 passed"
+    },
+    {
+      "file": "oak-lab-rc126-tests.js",
+      "passed": true,
+      "output": "PASS Evolution thumbnails drop requirement text and keep candy icon + status\nPASS Evolution confirmation still lists full candy and item requirements\nPASS Transfer Candy labels are two block elements, not one wrapping string\nPASS Candy family identity is unchanged and decorative Pikachu candy is separate\nPASS Evolution cards use one compact reserved-track height\nPASS Transfer and Evolution share Lab overview presentation\nPASS Research header is compact and History is a read-only nav view\nPASS Claimable milestones stay on active tracks; History has no claim control\nPASS PokéCoin is a local GO coin PNG, not a hotlink or substitute coin\nPASS Inspect/action split and authority call sites stay unchanged\n\n10 passed"
+    },
+    {
+      "file": "oak-lab-ux-tests.js",
+      "passed": true,
+      "output": "PASS Lab identity band replaces boxed workbench header\nPASS Professor Oak is the left visual host\nPASS Transfer, Evolution, and Research are workstation tabs\nPASS Counters live in Evolution workspace / stations, not floating header chip\nPASS Research notes are collapsed by default\nPASS Collection toolbar is cohesive\nPASS Oak contextual messages cover transfer, evolution, and research tracks\nPASS Collection CTA uses Send N Pokémon to Oak\nPASS Station keyboard navigation is supported\nPASS Only one workstation and one research track are active\nPASS Tab-return soft refresh avoids global loading flash\n\n11 passed"
+    },
+    {
+      "file": "oak-transfer-tests.js",
+      "passed": true,
+      "output": "PASS single transfer plan mode\nPASS batch transfer plan mode\nPASS failed results are excluded from presentation plan\nPASS reward summary uses authoritative candy amounts by family\nPASS Pikachu and Sandshrew candy stay on separate lines\nPASS Chansey transfer never displays Rhyhorn candy\nPASS Rhyhorn transfer never displays Chansey candy\nPASS candyArt prefers candyBaseDex over mismatched familyId\nPASS batch aggregation keeps Chansey and Rhyhorn families separate\nPASS familyId is not used as dex when candyBaseDex is present\nPASS confirm model never invents candy totals\nPASS transfer layout drops Game Boy tags and receiver chamber\nPASS sprite identity includes shiny and form when present\nPASS animation helpers cannot grant candy or delete catches\nPASS local Oak and Poké Ball assets configured\nPASS transfer complete plays Oak Wonderful SFX once\nPASS Game Boy markup helpers expose A/B screens and link cable\nPASS stage order covers prepare → link → travel → arrive → oak → reward\nPASS shiny and gender captions preserve identity\nPASS sprite identity includes form id for alternate forms\nPASS presentation source builds Game Boy shells and Pokémon token travel\nPASS equipped Trainer avatar resolves via authoritative sprite helper\nPASS reward fill appends Received and omits Evolution Line\nPASS CSS keeps Game Boys on one horizontal axis with fixed screen geometry\nPASS Oak transfer eligibility mirrors play_transfer_oak\nPASS Team members remain excluded when other copies are transferable\nPASS Last-copy confirmation warns for singles and batches without blocking\nPASS candy item art is local candy asset, not a raw Pokémon sprite\nPASS evolve page wires oak-transfer after server success path\nPASS My PC wires shared oak-transfer after server success (no candy panel)\n30/30 passed"
+    },
+    {
+      "file": "onboarding-tests.js",
+      "passed": true,
+      "output": "PASS guide covers the first-time loop in one place\nPASS new trainer auto-opens and an experienced trainer does not\nPASS next, back, skip, and resume keep the step\nPASS live Play always collapses even after forced reopen\nPASS finish marks the guide done and reopen starts at the first step\nPASS anon progress is copied onto the signed-in trainer\nPASS expanded card is skippable and does not trap the page\nPASS guide file does not call gameplay or economy RPCs\n\n8 passed"
+    },
+    {
+      "file": "owner-recovery-email-tests.js",
+      "passed": true,
+      "output": "PASS Non-owner/stale caller denied before Auth Admin\nPASS Signed-out caller denied\nPASS Disabled configuration never resolves destination or sends\nPASS Only the existing verified destination is eligible\nPASS Prepare returns masked confirmation and never dispatches\nPASS Stale revision rejected before reservation\nPASS Empty reason and malformed request IDs rejected\nPASS Replay, cooldown and uncertain receipts never dispatch\nPASS Provider acceptance is distinct from delivered\nPASS Definitive provider rejection recorded as failed\nPASS Timeout and 5xx are uncertain, not retried\nPASS Failed receipt finalization never claims success\nPASS Cross-origin and GET requests cannot send\n13 synthetic recovery-email checks passed; no hosted mail"
+    },
+    {
+      "file": "password-recovery-tests.js",
+      "passed": true,
+      "output": "PASS Normal signed-in sessions do not enable recovery\nPASS PKCE verifier required, error/reused links fail closed\nPASS Valid recovery verifies user and updates only after explicit matching input\nPASS Duplicate submissions are locked while saving\nPASS Expired recovery stops before password update\nPASS Changing account or signing out invalidates recovery\nPASS Server user mismatch blocks updates\nPASS Sign-out during preflight prevents update\nPASS Weak password permits correction; uncertain errors never claim success\nPASS Legacy bearer recovery fragments are rejected and discarded\nPASS Early sign-in routing preserves normal OAuth and scrubs recovery callback\nPASS Recovery storage never imports or overwrites persistent sign-in\nPASS Actual Supabase SDK exchanges and updates using isolated memory storage with mocked HTTP\nPASS Recovery page has no app bootstrap or game authority\nPASS Recovery routing suppresses both shared Auth and sign-in bootstrap\nPASS Other-tab logout/account changes invalidate, same-user refresh does not\nPASS Recipient recovery verifies one-use token without staff browser verifier\nPASS Other token types and expired recipient links fail closed\nPASS Recipient token is captured early and scrubbed; email template uses fixed fragment link\nPASS Actual SDK redeems recipient token with recovery type into memory only\n20 recovery checks passed; no hosted traffic"
+    },
+    {
+      "file": "pc-box-ops-tests.js",
+      "passed": true,
+      "output": "PASS Move uses owned catch UUID, not box-slot index\nPASS Auto-Arrange uses current box index only\nPASS RPC helper resolves live catches.id, not public_id\nPASS Auto-Arrange skips stale slots instead of aborting the box\nPASS Auto-Arrange preserves relative order and current box only\nPASS Move rewrites storage of the same catch UUID\nPASS Stale leftover slots do not abort Move\nPASS Client keeps selection on catch identity after arrange\nPASS Move stays on the source box and clears selection\nPASS Move success uses Auto-Arrange playToast, not box-status\nPASS One failed box action uses a single error presenter\nPASS Friendly PC errors do not expose SQL internals\n12 tests ok"
+    },
+    {
+      "file": "pc-stat-values-tests.js",
+      "passed": true,
+      "output": "3 LOCAL HARNESS checks passed: actual stat renderer preserves known/zero values and marks missing data unavailable"
+    },
+    {
+      "file": "phase10-special-tests.js",
+      "passed": true,
+      "output": "PASS  schema is smallest-fit and reuses Phase 1 launch\nPASS  Kanto availability is 146 normal + 5 special + 0 unavailable\nPASS  Legendaries are not ordinary auto-spawns\nPASS  Kanto v1 acquisition model is documented and unchanged\nPASS  Phase 10 migration note documents manual 70000/71000 apply\nPASS  Mew is Mythical and hidden by default\nPASS  hidden public cards cannot leak Mew before reveal\nPASS  admin special RPCs are not anon-executable\nPASS  Bits cannot buy Legendary access, Shinies, or catch odds\nPASS  Director cannot overwrite a live Special Event\nPASS  duplicate start cannot duplicate rounds\nPASS  client uses Phase 3 presentation instead of a new modal system\nPASS  Pokédex does not spoil hidden Mew\nPASS  overlay and Live Ops distinguish special vs normal\nPASS  destructive live controls require confirmation\nPASS  timezone is shown, not a bare clock\nPASS  selftest never launches 144-151 against Sora\nPASS  achievements reuse existing catalog plus Kanto legend set\nPASS  Phase 9 legendary catch tier is unchanged\nPASS  1 vs 3 independent event encounters stay below the 0.85 cap"
+    },
+    {
+      "file": "phase4-hardening-tests.js",
+      "passed": true,
+      "output": "phase4-hardening tests: 17 passed"
+    },
+    {
+      "file": "phase5-identity-tests.js",
+      "passed": true,
+      "output": "phase5-identity tests: 1 file checks passed"
+    },
+    {
+      "file": "phase6-rankings-tests.js",
+      "passed": true,
+      "output": "phase6-rankings tests: 1 file checks passed"
+    },
+    {
+      "file": "phase7-content-tests.js",
+      "passed": true,
+      "output": "PASS Mart details add information beyond the short purpose\nPASS Collector Balls are labeled as collector, not secretly stronger\nPASS Honey stays community support, not a Berry\nPASS Bag space and avatar packs do not use the generic Trainer-item fallback\nPASS Rare Candy converts into Evolution Candy\nPASS Portrait crop favors head/upper torso and keeps margin\nPASS Wide hair / hat is not cropped flush\nPASS Mart cards no longer use redundant accordion details\nPASS Pack builder and Pass share the content picker\nPASS Portrait upload path is derived, not destructive\nPASS Generated portraits exist for the live look library\nPASS Bits packs cannot be defined with odds in the UI copy\n12/12 passed"
+    },
+    {
+      "file": "phase8-bits-tests.js",
+      "passed": true,
+      "output": "PASS EventSub only fulfills Custom Power-Up redemptions\nPASS credit_bits_from_twitch is not browser-callable\nPASS duplicate EventSub events cannot double-grant\nPASS unlinked support is queued, not granted to a lookalike\nPASS bot identities cannot receive player inventory\nPASS Bits products reject random rewards, Pokémon, Shinies, and Master Ball\nPASS general cheers are not Store checkout\nPASS admin retry reuses the original verified event\nPASS Game Health and Studio expose Bits fulfillment\nPASS overlay supporter alerts never wait on Encounter\nPASS draft packs stay unpublished\nPASS Star Bits are not invented as a 1:1 Bits conversion\n12/12 passed"
+    },
+    {
+      "file": "phase9-balance-tests.js",
+      "passed": true,
+      "output": "PASS  capture formula clamps and Master Ball is guaranteed\nPASS  every specialist Ball is mediocre outside its niche\nPASS  Pinap reward is distinct from Oran and not duplicated\nPASS  Honey scales by participation rate and stays under the 0.85 cap\nPASS  CR 45 uses the 0.16 tier in Balance V1\nPASS  throw context is wired and Master Ball is not a Mart/Bits SKU\nPASS  bag bonus cap exists and does not claw back\nPASS  daily, Pinap, and Bits pack V1 values are explicit\nPASS  Game Health economy snapshot is read-only and anonymous\nPASS  Content Studio shows price and pack Mart equivalent\nPASS  simulator is developer-only and seeded"
+    },
+    {
+      "file": "pikachu-cosplay-gender-tests.js",
+      "passed": true,
+      "output": "PASS Rock Star / Belle / Pop Star / PhD / Libre / Cosplay = COSPLAY female-only\nPASS Cosplay forms never classified COSTUME in catalog\nPASS Cap / Gigantamax / Base are not COSPLAY\nPASS Male Base → Cosplay reconciles Female; Cosplay → Base restores Male/Female\nPASS Server migration enforces forced_gender + rejects Male Cosplay\nPASS Containment unchanged: 146/5/0 non-base normal\nPASS Sprite stems: Cosplay uses forms/{FormId}; Front+Shiny available\nPASS Pikachu Forms filter still umbrella (16)\n8/8 passed"
+    },
+    {
+      "file": "play-perf-tests.js",
+      "passed": true,
+      "output": "play-perf tests: 14 passed; mocked preference changes, not OS/device acceptance"
+    },
+    {
+      "file": "play-present-tests.js",
+      "passed": true,
+      "output": "play-present tests: 19 passed, 0 failed"
+    },
+    {
+      "file": "play-ux-tests.js",
+      "passed": true,
+      "output": "PASS joined state copy is centralized\nPASS item lock copy names the item\nPASS no-item selection is a valid lock\nPASS Honey copy is communal\nPASS Honey meter is a compact strip without trainer chips\nPASS Honey join state does not use a broken denominator\nPASS Used summary stays a slim row\nPASS Master Ball is categorized as a Poké Ball\nPASS Honey is a community item\nPASS Thunder Stone is an evolution item\nPASS Evolution items list the Pokémon they evolve\nPASS Balls sort recommended then specialist then Ultra\nPASS Timer warning is not color-only\nPASS Phase-closed errors become human copy\nPASS Network errors become reconnecting\nPASS Insufficient-item errors stay friendly\nPASS economy and lock errors stay friendly\nPASS PC box-op errors stay friendly and hide slot internals\nPASS Twitch sign-in RPC copy becomes site-account copy\nPASS internal bridge errors stay player-safe\nPASS Premier preview uses 10 qualifying Balls\nPASS Ledger labels hide internal IDs\nPASS Mart Ball copy never shows a raw multiplier\nPASS Master Ball shop copy is guaranteed, not recommended\nPASS item cards reserve selected-mark space before selection\nPASS ball cards use fixed icon/name/count/rating regions\nPASS excellent ball advice is shown as BEST\nPASS play actions submit on click, not pointerdown\nPASS live sync coalesces and freezes action DOM, not the snapshot itself\nPASS result actions are not rebuilt when the layout key is unchanged\nPASS join pending does not use berry selected styles\nPASS Other Poké Balls copy is centralized\nPASS throw phase lists favorite Balls instead of the whole bag\nPASS community result panel does not fade in on every patch\nPASS play-modal stays hidden until open so encounter UI cannot paint over it\n35/35 passed"
+    },
+    {
+      "file": "pokedex-discovery-tests.js",
+      "passed": true,
+      "output": "PASS no region/gen/form/gender grid filters\nPASS inline detail section removed\nPASS overlay mount + counters present\nPASS local pokedex reference script included\nPASS no live pokeapi.co fetch in pokedex.js\nPASS local reference helper used\nPASS dialog semantics present\nPASS scroll lock present\nPASS backdrop/X close hooks present\nPASS gated entry RPC used\nPASS undiscovered gate message\nPASS no Ready to evolve on main grid\nPASS no shiny chips on main grid\nPASS Stats tab removed from player UI\nPASS old stats state falls back to overview\nPASS join registers form-aware seen\nPASS snapshot seen removed\nPASS caught→seen backfill present\nPASS forward-only policy recorded\nPASS backfill section uses catches\nPASS backfill section has no encounter_players fill\n21/21 passed"
+    },
+    {
+      "file": "pokedex-kanto-boundary-tests.js",
+      "passed": true,
+      "output": "PASS pokedex page has no region/gen selectors\nPASS pokedex.js uses released Kanto roster helpers\nPASS game.js exposes Kanto release helpers\nPASS released-only parse blocks Chikorita and #152\nPASS reference catalog still contains later-generation names\n5/5 passed"
+    },
+    {
+      "file": "rc127-presentation-tests.js",
+      "passed": true,
+      "output": "PASS Primary nav labels and order are exact\nPASS Nav stays accessible on narrow viewports via existing panel\nPASS Trainer ID starts with neutral public-facing copy before ownership loads\nPASS Evolution thumbnails have no Candy art; confirmation keeps requirements\nPASS My Team removes ground shadows and uses a container glow\nPASS Authority call sites stay unchanged\n\n6 passed"
+    },
+    {
+      "file": "rc128-presentation-tests.js",
+      "passed": true,
+      "output": "PASS Mart is last in primary navigation\nPASS Evolution Lines player section is gone; shared family logic remains\nPASS Achievement filters use a compact two-row toolbar with a category select\nPASS Transfer collection controls match Evolution Research and Send has dedicated action\nPASS Research overview keeps tracks, History, and claims\nPASS Authority call sites stay unchanged\n\n6 passed"
+    },
+    {
+      "file": "rc129-presentation-tests.js",
+      "passed": true,
+      "output": "PASS Lab search labels and placeholders are identical\nPASS Name and Pokédex number search cover partial names and padded numbers\nPASS Sort option wording is standardized and Ready first stays Evolution-only\nPASS Research-tab Notes are gone; Transfer and Evolution notes remain\nPASS Shared progress presentation uses tokens without changing authority math\nPASS Achievement card geometry and RC128 toolbar remain\nPASS Mobile Lab toolbars still stack and nav order is unchanged\n\n7 passed"
+    },
+    {
+      "file": "refresh-pass-override-tests.js",
+      "passed": true,
+      "output": "8 refresh-pass mocked handler checks passed; no network or hosted writes"
+    },
+    {
+      "file": "species-familiarity-reader-tests.js",
+      "passed": true,
+      "output": "PASS signed-out and unreleased dex requests make no read\nPASS reads only the own-trainer species progress row and preserves server tier/count\nPASS pending requests are deduplicated and completed rows cached\nPASS missing delivered progress is empty, never a fabricated zero or Mastery-derived tier\nPASS failed reads stay unavailable and never expose database error details\nPASS malformed or mismatched view rows fail closed\nPASS late old-account success cannot replace new-account progress\nPASS logout invalidates an in-flight read and same-user reset starts a fresh epoch\nPASS late old-account error cannot poison the new owner cache\nPASS species are cached separately and the Kanto boundary includes Mew\nPASS all server tier names display directly and singular count is readable\n11 LOCAL HARNESS checks passed"
+    },
+    {
+      "file": "species-mastery-tests.js",
+      "passed": true,
+      "output": "PASS tier boundaries are finite and cosmetic-only\nPASS duplicate catches increment one species and keep each record intact\nPASS settlement replay is idempotent\nPASS conflicting catch ids are flagged, never remapped\nPASS different species and evolutions have independent mastery\nPASS failed rounds and uncertain provenance never count\nPASS trainers cannot accrue each other's synthetic records\nPASS mastery thresholds do not touch catch odds, coin, or inventory\nPASS invalid inputs fail closed\n9/9 passed"
+    },
+    {
+      "file": "sprite-variant-tests.js",
+      "passed": true,
+      "output": "PASS Play variants catalog is loaded nationally\nPASS species without a female Front file default to the species sprite\nPASS Venusaur keeps a distinct female Front\nPASS all catalog female visuals exist on the first requested path\nPASS sprite URLs carry the current SPRITE_BUILD stamp\nPASS form-aware stems resolve Mega / regional via FormId, not variant axis\nPASS resolver never falls forward to Mega / regional / costume forms or Backs\nPASS female roster matches Organized FrontFemale matrix\nPASS no Back sprite files under images/pokemon\n9/9 passed\n[play] refused non-base sprite form for dex 6: mega-x\n[play] refused non-base sprite form for dex 6: charizard-megay\n[play] refused non-base sprite form for dex 26: alola\n[play] refused non-base sprite form for dex 25: pikachu-belle\n[play] refused non-base sprite form for dex 25: shiny-kantocap\n[play] refused non-base sprite form for dex 1: back"
+    },
+    {
+      "file": "twitch-disconnect-controller-tests.js",
+      "passed": true,
+      "output": "PASS Confirmation required before provider removal\nPASS Supported API removes exact Twitch identity then verifies completion\nPASS Wrong account from Auth cannot start RPC\nPASS Stale prepare response cannot target new account\nPASS Account switch after identity lookup prevents unlink\nPASS Email identity cannot be unlinked as Twitch\nPASS Uncertain provider response reconciles actual server absence\nPASS Provider error with identity still present never claims completion\nPASS Retry after lost response reconciles without second mutation\nPASS Malformed receipt rejected before provider API\nPASS Invalid expiry rejected before provider API\nPASS Expired review cannot start provider mutation\nPASS SDK lookup failure preserves retryable request\nPASS Server RPC failure preserves request for safe reconciliation\nPASS Unexpected finish response cannot trigger provider operation\nPASS Cancellation after provider removal reconciles instead\nPASS Refresh can resume own durable pending request\nPASS Reset discards old account operation\nPASS Concurrent confirmations perform one provider mutation\n19 SYNTHETIC SDK/RPC contract checks passed; no real Auth/provider calls"
+    },
+    {
+      "file": "play-present-focus-tests.js",
+      "passed": true,
+      "output": "{\n  \"classification\": \"LOCAL HARNESS actual-source modeled-DOM events;not native keyboard or screen-reader certification\",\n  \"passed\": 9,\n  \"checks\": [\n    \"Level popup focuses Continue and isolates existing page controls\",\n    \"Single-control forward/backward Tab wraps\",\n    \"Focus entering newly added background content is returned to popup\",\n    \"Escape restores opener and preserves preexisting inert state\",\n    \"Two-control unlock wraps at both edges\",\n    \"A control hidden after rendering is excluded from keyboard targets\",\n    \"No available control keeps focus on popup stage\",\n    \"Reset restores page interactivity/focus and removes modal listeners\",\n    \"A subsequent achievement popup remains dismissible after reset\"\n  ]\n}"
+    },
+    {
+      "file": "support-loading-tests.js",
+      "passed": true,
+      "output": "PASS Pending case change cannot submit old draft against new case\nPASS Loading/error state clears prior case and its mutation controls\nPASS List filtering cannot invalidate an independent conversation load\nPASS Out-of-order case response cannot overwrite the selected conversation\nPASS Out-of-order list response cannot overwrite newer filters\nPASS Late save receipt cannot navigate away from a newer selected case\nPASS conflict preserves transition dialog and draft\nPASS limited preserves transition dialog and draft\nPASS Account change removes case data and rejects late response\nPASS Mutation requires selected and rendered case identity to agree\nPASS Successful reply refreshes the same case and list with the new revision\n11 LOCAL actual-source mocked Helpdesk load/mutation-boundary checks;no network or hosted writes"
+    },
+    {
+      "file": "nav-focus-tests.js",
+      "passed": true,
+      "output": "PASS Escape from navigation link closes panel and restores toggle\nPASS Escape from account item restores account button\nPASS Dismissing background menus does not steal unrelated modal/content focus\nPASS Escape with menus closed leaves focus unchanged\nPASS Non-Escape keyboard handling remains unchanged\nPASS Missing navigation controls are tolerated\n6 LOCAL actual-source navigation focus checks passed"
+    },
+    {
+      "file": "registration-feedback-tests.js",
+      "passed": true,
+      "output": "PASS Throttle feedback asks user to wait without changing address or retrying\nPASS Throttle feedback asks user to wait without changing address or retrying\nPASS Throttle feedback asks user to wait without changing address or retrying\nPASS Weak-password feedback remains actionable\nPASS Unknown failure does not blame email address or expose SDK detail\nPASS Thrown SDK failure resolves to safe retry feedback\nPASS Username lookup failure does not claim the name is taken\nPASS Confirmed unavailable username remains unchanged\nPASS Successful verification flow and signup payload/redirect are unchanged\nPASS Duplicate submit is suppressed;failure restores previous control states\nPASS Thrown UI action leaves form usable for an explicit manual retry\n11 LOCAL actual-source mocked signup-feedback checks;no network,Auth user,email or credential mutation"
+    },
+    {
+      "file": "refresh-pass-identity-tests.js",
+      "passed": true,
+      "output": "PASS metadata-only user denied\nPASS display login cannot grant broadcaster Pass\nPASS identity UUID alone cannot replace confirmed connection\nPASS trusted broadcaster ID preserves existing no-token benefit\nPASS invalid connection numeric ID denied\nPASS mismatched token user denied\nPASS mismatched token client denied\nPASS invalid token denied\nPASS missing token leaves current Pass unchanged\nPASS valid subscription grants normally\nPASS confirmed non-subscriber clears normal state\nPASS staff forced-off reflected\nPASS staff forced-on reflected\nPASS provider failure does not clear existing state\nPASS empty provider response does not grant\nPASS provider network error preserves Pass\nPASS failed site_config read denies writes\nPASS failed profiles read denies writes\nPASS failed twitch_connections read denies writes\nPASS missing channel ID resolved using validated token\nPASS failed save returns failure\nPASS unauthenticated denied\n22 LOCAL actual-handler identity checks pass;mocked network only"
+    },
+    {
+      "file": "edge-staff-boundary-tests.js",
+      "passed": true,
+      "output": "PASS bits-connect rejects no session before privileged client/network\nPASS bits-connect rejects ordinary trainer before privileged client/network\nPASS bits-connect rejects nullable staff result before privileged client/network\nPASS bits-connect rejects permission lookup error before privileged client/network\nPASS bits-connect rejects editable metadata cannot replace staff authorization before privileged client/network\nPASS twitch-ads rejects no session before privileged client/network\nPASS twitch-ads rejects ordinary trainer before privileged client/network\nPASS twitch-ads rejects nullable staff result before privileged client/network\nPASS twitch-ads rejects permission lookup error before privileged client/network\nPASS twitch-ads rejects editable metadata cannot replace staff authorization before privileged client/network\nPASS twitch-live rejects no session before privileged client/network\nPASS twitch-live rejects ordinary trainer before privileged client/network\nPASS twitch-live rejects nullable staff result before privileged client/network\nPASS twitch-live rejects permission lookup error before privileged client/network\nPASS twitch-live rejects editable metadata cannot replace staff authorization before privileged client/network\n15 LOCAL actual Edge handler denial cases;no network,secret read or hosted invocation\n(node:3116) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)"
+    },
+    {
+      "file": "eventsub-authenticity-tests.js",
+      "passed": true,
+      "output": "PASS reject non-POST before RPC\nPASS reject missing twitch-eventsub-message-id\nPASS reject missing twitch-eventsub-message-timestamp\nPASS reject missing twitch-eventsub-message-signature\nPASS reject malformed/stale/future timestamp\nPASS reject malformed/stale/future timestamp\nPASS reject malformed/stale/future timestamp\nPASS reject invalid signature\nPASS reject body changed after signing\nPASS missing stored secret stops dispatch\nPASS valid signed challenge returns only challenge\nPASS signed invalid JSON rejected\nPASS signed unrelated notification ignored\nPASS signed Bits dispatch keeps provider event ID\n14 LOCAL signed webhook handler checks;fictional secret and RPC mocks only;no Twitch event or grant\n(node:60560) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)"
+    },
+    {
+      "file": "trainer-session-boundary-tests.js",
+      "passed": true,
+      "output": "PASS GET rejected before password check\nPASS malformed JSON safely rejected\nPASS missing password rejected\nPASS unknown username generic denial\nPASS failed email resolution not disclosed\nPASS wrong password generic denial username\nPASS wrong password generic denial email\nPASS valid mocked login projects only session tokens username\nPASS valid mocked login projects only session tokens email\n9 LOCAL trainer-session checks;fictional credentials/tokens;no network or actual sign-in\n(node:5828) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)"
+    },
+    {
+      "file": "store-asset-boundary-tests.js",
+      "passed": true,
+      "output": "PASS moderator denied before credential/network\nPASS player denied before credential/network\nPASS unauthenticated denied\nPASS non-true permission fails closed\nPASS non-true permission fails closed\nPASS non-true permission fails closed\nPASS non-true permission fails closed\nPASS permission lookup error fails closed\nPASS admin keeps normal PNG upload\nPASS owner keeps normal PNG upload\nPASS long double-extension stays PNG\nPASS bounded safe extension .gif\nPASS bounded safe extension .jpeg\nPASS bounded safe extension .webp\nPASS bounded safe extension .png\nPASS preserve trainer destination\nPASS preserve portrait destination\nPASS path traversal stays within fixed image directory\nPASS unsupported MIME denied before secret\nPASS missing image denied before secret\nPASS oversize image denied before secret\n21 LOCAL uploader boundary checks;mocked credentials/GitHub only\n(node:16936) ExperimentalWarning: stripTypeScriptTypes is an experimental feature and might change at any time\n(Use `node --trace-warnings ...` to show where the warning was created)"
+    },
+    {
+      "file": "signin-pending-tests.js",
+      "passed": true,
+      "output": "PASS signin pending dedupe,control restoration and thrown-error manual retry\nPASS reset pending dedupe,control restoration and thrown-error manual retry\nPASS username pending dedupe,control restoration and thrown-error manual retry\n7 LOCAL actual signin-source cases;fictional helper promises,no auth/mail/network"
+    },
+    {
+      "file": "staff-error-rendering-tests.js",
+      "passed": true,
+      "output": "15 actual-source staff error templates preserve text without markup;no RPC/network"
+    },
+    {
+      "file": "bits-status-rendering-tests.js",
+      "passed": true,
+      "output": "11 actual Bits status/template checks; text escaped, layout and status behavior preserved; no RPC/network"
+    },
+    {
+      "file": "vendor-lock-tests.js",
+      "passed": true,
+      "output": "22 runtime SDK tags verified; 20 exact/integrity pins and 2 documented unchanged exceptions; offline/no client or RPC"
+    },
+    {
+      "file": "rankings-loading-tests.js",
+      "passed": true,
+      "output": "9 LOCAL actual-source Rankings loading/search cases pass"
+    },
+    {
+      "file": "trade-board-loading-tests.js",
+      "passed": true,
+      "output": "6 LOCAL actual-source GTS board ordering/retry cases pass; fictional read replies only"
+    },
+    {
+      "file": "trade-detail-loading-tests.js",
+      "passed": true,
+      "output": "4 LOCAL actual-source GTS detail response-order cases pass; fictional reads only"
+    },
+    {
+      "file": "events-loading-tests.js",
+      "passed": true,
+      "output": "3 LOCAL actual-source public Events session/error cases pass; fictional reads only"
+    },
+    {
+      "file": "trainer-loading-tests.js",
+      "passed": true,
+      "output": "4 LOCAL actual-source Trainer error/current-team cases pass;fictional public reads only"
+    },
+    {
+      "file": "recovery-packet-integrity-tests.js",
+      "passed": true,
+      "output": "PASS matching raw bytes pass\nPASS content drift fails\nPASS CRLF drift fails\nPASS missing rollback fails\nPASS malformed hash fails\nPASS path traversal rejected\nPASS duplicate path rejected\nPASS missing pair rejected\nPASS null file rejected\nPASS null migration rejected\nPASS out-of-order migration rejected\nPASS wrong recorded migration version rejected\nPASS unlisted documented delta rejected\nPASS undocumented manifest delta rejected\nPASS missing inventory rejected\n20 LOCAL filesystem integrity checks passed; no SQL or network"
+    },
+    {
+      "file": "content-picker-loading-tests.js",
+      "passed": true,
+      "output": "7 LOCAL actual-source content-picker request/lifecycle cases passed; fictional RPC only"
+    },
+    {
+      "file": "store-pass-feedback-tests.js",
+      "passed": true,
+      "output": "10 LOCAL actual-source Mart Pass loading/error cases passed;no Auth/provider/network call"
+    },
+    {
+      "file": "pokedex-loading-tests.js",
+      "passed": true,
+      "output": "5 LOCAL actual-source Pokédex loading cases pass; fictional dependencies only"
+    },
+    {
+      "file": "oak-loading-tests.js",
+      "passed": true,
+      "output": "5 LOCAL actual-source Oak loading cases pass;fictional reads only;no evolution/transfer"
+    },
+    {
+      "file": "settings-loading-tests.js",
+      "passed": true,
+      "output": "7 LOCAL actual-source Settings loading/Pass feedback cases pass;fictional dependencies only"
+    },
+    {
+      "file": "trade-pc-search-tests.js",
+      "passed": true,
+      "output": "12 LOCAL actual GTS picker search/empty-state cases passed; no RPC/DOM mutation authority"
+    },
+    {
+      "file": "store-supply-presentation-tests.js",
+      "passed": true,
+      "output": "9 LOCAL actual Mart presentation scenarios passed; no claims or RPCs"
+    },
+    {
+      "file": "admin-next-mart-tests.js",
+      "passed": true,
+      "output": "Mart multiword/accent/SKU/detail search and floor isolation pass.\nNon-Latin Mart searches no longer collapse to an empty filter.\nMart local model/controller: payload preservation, validation, denial, stale reads, account reset, uncertain writes and no automatic retry pass."
+    },
+    {
+      "file": "admin-next-keyboard-tests.js",
+      "passed": true,
+      "output": "Admin tabs: manual activation, wrap/Home/End, modified/unhandled keys, one tab stop and seven panel associations pass."
+    },
+    {
+      "file": "admin-next-access-presentation-tests.js",
+      "passed": true,
+      "output": "Actual Hub access presentation: signed-out, denied, unavailable, allowed and stale earlier lookup pass without hosted Auth calls."
+    },
+    {
+      "file": "admin-next-health-loading-tests.js",
+      "passed": true,
+      "output": "Actual health loader: unavailable retry, partial/full states, existing reads only, staff gate, single flight and reset/stale result protection pass."
+    },
+    {
+      "file": "admin-next-analytics-tests.js",
+      "passed": true,
+      "output": "Malformed capture rates mark reports partial;zero/no-throw and0–100%boundaries remain accurate.\nAnalytics: strict adapter, identity before/after, projections, null/zero semantics, escaping, single-flight, range/view races, reset/cache and failures pass."
+    },
+    {
+      "file": "oauth-navigation-tests.js",
+      "passed": true,
+      "output": "Actual OAuth workflow: 8 link/login/error cases pass; unchanged scopes/targets, same-tab navigation, no extra URL probe."
+    },
+    {
+      "file": "settings-profile-keyboard-tests.js",
+      "passed": true,
+      "output": "Actual Settings tab synchronization and key handler: roving focus, wrapping, modifiers, panel naming and no focus-only rendering pass."
+    },
+    {
+      "file": "admin-next-config-tests.js",
+      "passed": true,
+      "output": "Reward editor: selected projections, strict fields/amounts/session/transport, exact changed-key payload, single flight, stale reset, receipt/denial and no write retry pass."
+    },
+    {
+      "file": "admin-pokemon-quantity-tests.js",
+      "passed": true,
+      "output": "PASS quantity capability, spinner, batch confirmation, single compatibility and invalid quantities"
+    },
+    {
+      "file": "admin-next-roster-tests.js",
+      "passed": true,
+      "output": "PASS roster projection, cursor precision, readonly adapter, target/session denial, paging, stale reset, pending suppression, unavailable state and Hub isolation"
+    }
+  ]
+}

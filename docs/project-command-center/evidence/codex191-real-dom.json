@@ -1,0 +1,34 @@
+{
+  "calls": "Simulated calls: admin_build_health {} admin_game_health {} admin_capture_report {\"p_days\":30}",
+  "cells": [
+    "Caterpie",
+    "24",
+    "18",
+    "Unavailable",
+    "Weedle",
+    "18",
+    "10",
+    "55.6%",
+    "Poké Ball",
+    "42",
+    "28",
+    "66.7%",
+    "No recorded activity in this window.",
+    "No recorded activity in this window."
+  ],
+  "metrics": [
+    {
+      "label": "Throws",
+      "value": "42"
+    },
+    {
+      "label": "Successful catches",
+      "value": "28"
+    },
+    {
+      "label": "Capture success",
+      "value": "Unavailable"
+    }
+  ],
+  "partial": true
+}

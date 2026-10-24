@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-192",
+      "status": "done",
+      "scope": "Current Admin Hub status readability and history separation",
+      "evidence": "CURRENT-ADMIN-HUB-STATUS.md;ADMIN-HUB-STATUS-HISTORY-THROUGH189.md",
+      "testResults": "Previous summary preserved exactly afterEOLnormalization;all new evidence links exist;no runtime changes",
+      "nextAction": "Continue independent review;owner decisions remain consolidated",
+      "approvalRequirement": "Documentation only;no new authority"
+    },
+    {
       "id": "CODEX-191",
       "status": "done",
       "scope": "Malformed capture-rate partial/unavailable presentation",

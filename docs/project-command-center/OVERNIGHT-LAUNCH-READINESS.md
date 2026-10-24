@@ -236,3 +236,5 @@ CODEX-189 complete:7Hublegacyhandoff routes resolve throughactual extractedsecti
 CODEX-190 complete:OWNER-RETURN-REVIEW-OCT24.md consolidates183publication/182localdesign decisions and actualacceptancegaps.183candidate/baseline/rollback hashesstillmatch;stored118suite/9case evidencechecked;23HubDOMrefs exist. No runtime/production action or redundant suite rerun.
 
 CODEX-191complete:routinemalformedcapture-ratepresentationnowUnavailable/partial,valid0–100%/nothrows preserved.118suites/build31/471/localactualDOM;exact1runtime main dab283d3/Pages40083117253success;100+1sourcesmatch.183excluded;nohostedreport/SQL/player/provideraction.
+
+CODEX-192complete:currentAdminstatusrewrittenasconcise capability/evidence/remaining-scope summary;priorchronologyretainedunchangedinADMIN-HUB-STATUS-HISTORY-THROUGH189.md. Archivecomparison/linkexistencepass. No runtime/action/test rerun;183/182decisionsremainheld.

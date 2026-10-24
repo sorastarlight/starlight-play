@@ -2454,3 +2454,7 @@ PreparedoneconsolidatedOct24reviewwith183publicationand182design decisions plush
 
 ## CODEX-191 — routine malformed capture-rate presentation
 Reproducedrate2shownasdashayetcomplete. Validaterates0–1;malformednon-nullratesUnavailable/partial;null/nothrowandvalidboundariespreserved.118suites/build31/471;actualfictionalreportDOM/screenshot. Exact1runtime main dab283d3/Pages40083117253success;100+1source matches. No hostedreports/notices/SQL/account/provider/saves.183heldcandidateexcluded. Temporaryfixtureclosed/stopped.
+
+
+## CODEX-192 — readable current Admin status
+Separatedcurrentcapability/evidence/remainingworkfromsupersededchronology;preservedpreviousdocumentexactlyafterEOLnormalizationinhistoryfile. Allsummaryevidencelinksresolve. No runtimechange,publication,backend/provider/accountaction orredundanttests. Initialpatchmethodrejecteddelete/addsamepath;wrotecurrentdocumentdirectlyandverifiedarchivepreservation.

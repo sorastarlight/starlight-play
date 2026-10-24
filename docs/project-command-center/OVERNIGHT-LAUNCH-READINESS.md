@@ -238,3 +238,5 @@ CODEX-190 complete:OWNER-RETURN-REVIEW-OCT24.md consolidates183publication/182lo
 CODEX-191complete:routinemalformedcapture-ratepresentationnowUnavailable/partial,valid0–100%/nothrows preserved.118suites/build31/471/localactualDOM;exact1runtime main dab283d3/Pages40083117253success;100+1sourcesmatch.183excluded;nohostedreport/SQL/player/provideraction.
 
 CODEX-192complete:currentAdminstatusrewrittenasconcise capability/evidence/remaining-scope summary;priorchronologyretainedunchangedinADMIN-HUB-STATUS-HISTORY-THROUGH189.md. Archivecomparison/linkexistencepass. No runtime/action/test rerun;183/182decisionsremainheld.
+
+CODEX-193complete:7localfragmentreferences classified1staticID/5Settingsroutes/1Martdynamicfloor. Actualextractedmaps/resolver withfictionalfloor pass;nohostedcatalog/startup/navigation/runtimechange. No missingtargetfixneeded.

@@ -1,0 +1,81 @@
+{
+  "kind": "Static fragments plus actual extracted Settings hash map/Mart route function;fictional floor;no script boot/navigation",
+  "checked": 7,
+  "rows": [
+    {
+      "source": "account.html",
+      "href": "./settings.html#connections",
+      "target": "settings.html",
+      "fragment": "connections",
+      "staticTargetExists": false,
+      "classification": "Settings hash route",
+      "resolved": {
+        "cat": "connections"
+      }
+    },
+    {
+      "source": "account.html",
+      "href": "./settings.html#connections",
+      "target": "settings.html",
+      "fragment": "connections",
+      "staticTargetExists": false,
+      "classification": "Settings hash route",
+      "resolved": {
+        "cat": "connections"
+      }
+    },
+    {
+      "source": "achievements.html",
+      "href": "./settings.html#trainer-id/titles",
+      "target": "settings.html",
+      "fragment": "trainer-id/titles",
+      "staticTargetExists": false,
+      "classification": "Settings hash route",
+      "resolved": {
+        "cat": "trainer-id",
+        "tab": "titles"
+      }
+    },
+    {
+      "source": "evolve.html",
+      "href": "./store.html#evolution",
+      "target": "store.html",
+      "fragment": "evolution",
+      "staticTargetExists": false,
+      "classification": "Mart dynamic floor route",
+      "resolved": "evolution (fictional matching floor)"
+    },
+    {
+      "source": "register.html",
+      "href": "./help.html#trainer-guide",
+      "target": "help.html",
+      "fragment": "trainer-guide",
+      "staticTargetExists": true,
+      "classification": "static ID"
+    },
+    {
+      "source": "settings.html",
+      "href": "#trainer-id",
+      "target": "settings.html",
+      "fragment": "trainer-id",
+      "staticTargetExists": false,
+      "classification": "Settings hash route",
+      "resolved": {
+        "cat": "trainer-id",
+        "tab": "identity"
+      }
+    },
+    {
+      "source": "trainer.html",
+      "href": "./settings.html#trainer-id",
+      "target": "settings.html",
+      "fragment": "trainer-id",
+      "staticTargetExists": false,
+      "classification": "Settings hash route",
+      "resolved": {
+        "cat": "trainer-id",
+        "tab": "identity"
+      }
+    }
+  ]
+}

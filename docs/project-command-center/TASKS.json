@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-193",
+      "status": "done",
+      "scope": "Local fragment and dynamic-route review",
+      "evidence": "LAUNCH-CODEX193-FRAGMENT-ROUTES.md;evidence/codex193-fragment-routes.json",
+      "testResults": "7references:1staticID/5Settingshashroutes/1fictionalMartfloor route;noneunresolved",
+      "nextAction": "Continue independent review;hosted/provider gaps remain separate",
+      "approvalRequirement": "No runtime/startup/navigation/application action"
+    },
+    {
       "id": "CODEX-192",
       "status": "done",
       "scope": "Current Admin Hub status readability and history separation",

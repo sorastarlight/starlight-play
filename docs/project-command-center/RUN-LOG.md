@@ -2458,3 +2458,7 @@ Reproducedrate2shownasdashayetcomplete. Validaterates0–1;malformednon-nullrate
 
 ## CODEX-192 — readable current Admin status
 Separatedcurrentcapability/evidence/remainingworkfromsupersededchronology;preservedpreviousdocumentexactlyafterEOLnormalizationinhistoryfile. Allsummaryevidencelinksresolve. No runtimechange,publication,backend/provider/accountaction orredundanttests. Initialpatchmethodrejecteddelete/addsamepath;wrotecurrentdocumentdirectlyandverifiedarchivepreservation.
+
+
+## CODEX-193 — local fragment route contracts
+Sevenstaticfragment-linkreferences reviewed:oneHTMLID,fiveSettingsLEGACY_HASHroutes,oneMart evolutionfloor route. Actualextracteddefinitionstestedwithfictionalfloor;noneunresolved. No runtimefix,fullboot,hostedcatalog/Auth/provider/application action orredundanttests. Complements600pathcheckwithoutclaimingdynamic/hostedcoverage.

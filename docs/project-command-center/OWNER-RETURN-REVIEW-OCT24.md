@@ -1,43 +1,27 @@
-# Owner return review — October24
+# Owner return review — October 24
 
-Current update: CODEX-196 publication complete after explicit owner approval: exact five runtime files published at main 08d4f7a6036572207913c744dbec7ba7941665af; Pages 40095860997 succeeded. Catalog-only recheck matched both public command/snapshot definitions and attributes plus three reviewed helper definitions. All 100 monitored and five changed versioned hosted sources match that commit. Previously completed 119 local regression suites, build 31 HTML/473 references and responsive/fictional workflow checks remain the validation basis. No authenticated navigation, notices, hosted snapshot/report, session command, SQL change or gameplay test ran. APP 20261008-rc133 unchanged. Publication approval spent; live Start/End acceptance requires separate bounded authority. The expired eight-hour heartbeat was paused without extending its deadline; this publication completed under the subsequent direct human approval.
+Current through CODEX-197 publication and CODEX-198 local review. The fixed eight-hour automation expired and is paused. Subsequent direct human instructions authorize continued in-session work, without extending that schedule.
 
-Current through CODEX-195 and the subsequent approved CODEX-183 publication. This consolidates decisions for the owner's return; it is not approval or a request to interrupt the current autonomous window. Hard stop remains12:42UTC/08:42Eastern today.
+## Completed
 
-## Completed during the current window
+- Operations Start/End controls: owner-approved five-file publication at main 08d4f7a6; Pages 40095860997 succeeded; 100 monitored and five changed versioned sources match. Existing command/snapshot source contracts match. No hosted command ran.
+- Mart product editing, six reward fields, five Analytics reports and full Trainer roster are implemented. The bounded owner inspection loaded Mart/catalog search/preview, all six fields, all five reports after approved CODEX-178 corrections, and EmailQA's single-record roster/detail. No saves or grants were part of that inspection.
+- Account-transition workspace clearing, Mart style isolation and invalid capture-rate presentation are published. Local Operations validation passes 119 suites and build 31 HTML/473 references. APP remains 20261008-rc133.
+- Empty-schema recovery replay/reversal covers 13 installed deltas, restoring reviewed metadata with 142 tables empty. The October 24 07:44:07 UTC physical backup was listed available after the latest recorded database correction. Neither certifies a physical restore or full Auth/Storage recovery.
+- Local reviews cover populated Support/Helpdesk layouts, 600 asset targets, seven legacy handoffs, mounted roster paging/search and Operations confirmations. These are bounded evidence, not blanket acceptance.
 
-- CODEX-178: approved two report functions installed/source verified; bounded Mart/reward-field/five-report/EmailQA roster-detail inspection complete. No saves or grants. Approval spent.
-- CODEX-179/181/191 and approved CODEX-183: Mart/report presentation and account-transition correction published. Current main d62fe3c4;Pages40092865776success;100monitored sources plus the changed versioned controller match. Current118suites/build31/471 pass;APP unchanged.
-- CODEX-180:13installed deltas forward/reverse on isolated empty schema;metadata restored,142tables empty. Independent of physical restore certification.
-- CODEX-184/185/186/189:29document static structure,8populated Support/Helpdesk width cases,600local path targets and7Admin handoff routes checked. No new runtime defect in these scopes.
-- CODEX-188:24Oct07:44:07UTC physical backup listed available after latest recorded migration178. No restore/export. Post-change availability observation complete.
+## Remaining launch acceptance
 
-## Important decisions prepared, not executed
+Human-reported S25 Ultra Help/Register checks and Chrome subscriber link/Pass success are recorded. Real iOS Safari, desktop zoom/screen-reader checks, Firefox post-correction retry and broader provider branches remain unrecorded. The new one-link restriction stays disabled. Do not create extra Twitch accounts to fill gaps.
 
-| Priority | Concrete decision to review | Evidence / limits |
-| --- | --- | --- |
-| 1 | Approve the CODEX-182 Operations Start/End slice for local implementation only. | ADMIN-HUB-OPERATIONS-MIGRATION-REVIEW.md explains automatic encounters/scheduling and dashboard tick side effects. Excludes force start,ad/credential/manual/test controls. No implementation/publication/live command authority yet. |
+Hosted Operations Start/End, Mart/reward saves, multi-page roster and gift-batch acceptance remain untested. Mutations need exact bounded decisions. More overhaul migration is not automatically a launch blocker; the final release scope and launch go/no-go remain owner decisions.
 
-CODEX-183 publication is complete and its narrow approval is spent. No immediate SQL correction is proposed by the remaining Operations design packet. Do not mistake remaining overhaul proposals for launch blockers automatically; final release scope still needs the owner's explicit go/no-go after required acceptance.
+## Remaining Admin Hub migration
 
-## Evidence requiring a human or separately bounded hosted access
+Mart creation/uploads/deletion, Bits/avatar products, broader capture/timing/XP configuration and System credentials/provider/role operations remain in current tools. They need concrete reviewed slices before implementation. Existing owner-only and staff permissions must be preserved; no credential values should be loaded just to make a dashboard look populated.
 
-Real iOS Safari and desktop zoom/screen-reader checks remain unrecorded. S25 Ultra bounded Help/Register visual/touch/keyboard acceptance is recorded. Chrome ordinary-subscriber link/Pass success is human-reported; Firefox post-correction retry and broader provider branches remain unverified. Keep one-link restriction disabled. Do not ask for extra manufactured Twitch accounts or reuse protected accounts to fill gaps.
+CODEX-198 private one-file channel-save sequencing correction is awaiting publication approval. Five targeted fictional cases and 119 candidate-substituted local suites pass; no real credential was used. Review: LOCALAPPDATA/PokemonStreamLink/security/codex198/README.md. No server/SQL change or live save test is proposed.
 
-Mart/reward live saves,hosted multi-page roster and gift-batch acceptance are not certified by the completed read inspection. New hosted mutations need exact scope. Physical restore/full Auth-service/Storage certification is not supplied by the available backup or logical rehearsal; do not silently add a production restore test. Final APP stamp/release remains held.
+There is no unapproved SQL correction awaiting installation from this work batch. Operations design and publication decisions are complete; do not prompt for them again. Historical status and approvals remain in individual reports, RUN-LOG and Git history.
 
-## Local packet cross-check
-
-CODEX-190 confirms current admin-next.js matches CODEX-183's tested baseline and rollback;candidate matches its tested hash. Stored118suite results all pass;no suites were re-run for this document. All23literal document-ID references in the current Hub controller exist in static admin-next.html. Evidence:evidence/codex190-owner-review-packet.json. This does not certify every dynamic module or real identity transition.
-
-
-CODEX-191 subsequent routine maintenance:malformedcapture ratesnowUnavailable/partial.118suites/build/localDOM;main dab283d3/Pages40083117253success;100+1source matches. OnlyAnalyticsmodulepublished;CODEX183Hubcontrollerbaseline remains unchanged. No new decision needed for this maintenance.
-
-
-CODEX-195 adds a disconnected Operations visual review at design-reset/hub-operations-review.html for the Operations decision. Five fictional scenarios/two dialog focus checks pass;no application controls,Auth or backend are connected. It remains feature-only and does not authorize implementation/publication/live commands.
-
-
-CURRENT DECISION UPDATE:owner subsequentlyapprovedCODEX183onefilepublication/sourceverification. main d62fe3c4/Pages40092865776success;current118suites/build31/471;100+1sourcesmatch. Decision1iscompleteandapprovalspent. No hostedaccount/provider/navigationtest. Decision2Operationslocalimplementationremainsheld. Earlierheld183statementsabovearehistorical.
-
-
-CURRENT OPERATIONS UPDATE:owner approved design/local implementation. CODEX-196 is locally complete at ead67dae with119suites/build31/473,8responsivecases andfictionalworkflowchecks. The remaining decision is exactfivefilepublication/sourceverificationonly;not design/local implementation. Livecommands/gameplay/SQL remain excluded. Publication decision requested separately after concrete implementation.
+CODEX-197 routine accessibility maintenance published at main 73ff83c671da1d0162415ee06d4dc7165dbd6eb2; Pages 40096315148 succeeded; 100 monitored and one changed versioned source match. Passive observation updates retain keyboard focus. All 119 local suites and build 31 HTML/473 references pass. No SQL, Auth/provider, hosted application call, command, grant or APP change.

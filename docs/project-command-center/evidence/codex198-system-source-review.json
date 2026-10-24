@@ -1,0 +1,64 @@
+{
+  "classification": "Extracted existing frontend handler; fictional transport only; no production calls",
+  "channelFailureContinuesToSecret": true,
+  "calls": [
+    "admin_save_channel",
+    "admin_save_twitch_client_secret"
+  ],
+  "finalStatus": "fictional secret saved",
+  "limitations": "No server permission flaw or live credential mutation is asserted; actual database state was not inspected",
+  "candidate": {
+    "classification": "Private local candidate only; not installed or published",
+    "tests": [
+      {
+        "mode": "success",
+        "passed": true,
+        "calls": [
+          "admin_save_channel",
+          "admin_save_twitch_client_secret"
+        ],
+        "status": "fictional success"
+      },
+      {
+        "mode": "channel-failure",
+        "passed": true,
+        "calls": [
+          "admin_save_channel"
+        ],
+        "status": "channel-failure"
+      },
+      {
+        "mode": "refresh-failure",
+        "passed": true,
+        "calls": [
+          "admin_save_channel"
+        ],
+        "status": "refresh-failure"
+      },
+      {
+        "mode": "secret-failure",
+        "passed": true,
+        "calls": [
+          "admin_save_channel",
+          "admin_save_twitch_client_secret"
+        ],
+        "status": "secret-failure"
+      },
+      {
+        "mode": "empty-secret",
+        "passed": true,
+        "calls": [
+          "admin_save_channel"
+        ],
+        "status": "fictional success"
+      }
+    ],
+    "baselineSha256": "a2ef87e875534f70a427a4a37ec7b7311c34d5ed27e677884e62bb51fbda2991",
+    "candidateSha256": "1dda7293ea45a9b9fb87638e71bf0f924e4c95f7911b3627a05772ae24326126",
+    "regressionValidation": {
+      "passed": 119,
+      "total": 119,
+      "classification": "Private source substitution in local tests only; actual repository runtime untouched"
+    }
+  }
+}

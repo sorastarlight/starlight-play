@@ -4,6 +4,24 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-198",
+      "status": "prepared",
+      "scope": "System source inventory and private channel-save sequencing candidate",
+      "evidence": "ADMIN-HUB-SYSTEM-MIGRATION-INVENTORY.md;evidence/codex198-system-source-review.json",
+      "testResults": "Fictional baseline reproduction;5candidatecases;119candidate-substitutedlocal suites;no live credential/provider calls",
+      "nextAction": "Await important credential-flow publication decision; do not copy candidate into runtime before approval",
+      "approvalRequirement": "Explicit CODEX-RUNNER credential-flow publication gate"
+    },
+    {
+      "id": "CODEX-197",
+      "status": "done",
+      "scope": "Routine Operations keyboard focus preservation",
+      "evidence": "LAUNCH-CODEX197-OPERATIONS-FOCUS.md;evidence/codex197-regressions.json;evidence/codex197-scope.json;evidence/codex197-publication.json",
+      "testResults": "119suites;build31/473;actual local focus and dialog checks;Pages40096315148success;100+1sourcesmatch",
+      "nextAction": "No repeated unchanged checks needed",
+      "approvalRequirement": "CODEX-78 routine accessibility maintenance"
+    },
+    {
       "id": "CODEX-196",
       "status": "done",
       "scope": "Approved Operations controls published and deployed source verified",

@@ -438,3 +438,6 @@ CODEX-176 VERIFIED: Unicode gift/Pokémon queries retain text and the picker no-
 
 
 CODEX-177:19REAL LOCAL role/RLS boundary cases passed using five exact installed definitions and fictional identities;catalog-only production review. No new defect in scope;no production mutation or broad certification. See LAUNCH-CODEX177-ROLE-BOUNDARIES.md.
+
+
+CODEX-178 PARTIAL HOSTED ACCEPTANCE:owner-approved single Hub load;Mart76products/search/selection and six-field rewards loaded without edits. Stopped at partial Health;remaining reports/EmailQA roster untested. Exact-source Health42702/Captures42803 reproduced locally;combined two-function correction/rollback held with19health/15capture/22combined cases. Owner notice acknowledgement permitted,not inspected. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md.

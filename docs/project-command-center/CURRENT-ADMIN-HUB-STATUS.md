@@ -47,3 +47,6 @@ CODEX-175 VERIFIED: routine Analytics roving focus and Unicode Mart search;118/1
 
 
 CODEX-176 VERIFIED: Unicode gift/Pokémon queries retain text and the picker no-results message spans the grid.118/118 suites/build31/471;actual rendered fictional matching/unmatched choices and empty picker checked. Exact2runtime main bae76909 / Pages40021856876 success;100monitored+2versioned sources match. No real catalog/application/grant/SQL/Auth/provider/APP action. See LAUNCH-CODEX176-GIFT-SEARCH.md.
+
+
+CODEX-178 PARTIAL HOSTED ACCEPTANCE:owner-approved single Hub load;Mart76products/search/selection and six-field rewards loaded without edits. Stopped at partial Health;remaining reports/EmailQA roster untested. Exact-source Health42702/Captures42803 reproduced locally;combined two-function correction/rollback held with19health/15capture/22combined cases. Owner notice acknowledgement permitted,not inspected. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md.

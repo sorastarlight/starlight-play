@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-178",
+      "status": "awaiting-owner-decision",
+      "scope": "Partial hosted Hub inspection;two report corrections prepared",
+      "evidence": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md;evidence/codex178-local-reports.json",
+      "testResults": "Hosted Mart/config load pass;Health partial;19health/15capture/22combined local cases;no install",
+      "nextAction": "Owner decision on exact combined SQL and one Health refresh;remaining approved hosted steps retained",
+      "approvalRequirement": "Production SQL and stopped-test resumption require exact owner decision"
+    },
+    {
       "id": "CODEX-177",
       "status": "done",
       "scope": "Bounded role/connection catalog review and fictional local RLS checks",

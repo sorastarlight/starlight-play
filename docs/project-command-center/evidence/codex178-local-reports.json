@@ -1,0 +1,252 @@
+{
+  "health": {
+    "classification": "REAL LOCAL PG17;fictional records;exact installed function;stubbed permission/build/ranking helpers;no production call or SQL installation",
+    "passed": 19,
+    "results": [
+      {
+        "name": "Exact installed source reproduces ambiguous column 42702",
+        "passed": true
+      },
+      {
+        "name": "Guarded candidate installs with unchanged ACL and owner",
+        "passed": true
+      },
+      {
+        "name": "Empty dataset health completes with zero duplicate keys",
+        "passed": true
+      },
+      {
+        "name": "Staff denial remains before metrics",
+        "passed": true
+      },
+      {
+        "name": "Distinct trainer keys are not the broadcaster variable",
+        "passed": true
+      },
+      {
+        "name": "Duplicate Twitch login group counted",
+        "passed": true
+      },
+      {
+        "name": "Empty Twitch login uses username fallback",
+        "passed": true
+      },
+      {
+        "name": "Missing public keys excluded",
+        "passed": true
+      },
+      {
+        "name": "Existing hidden bot-only and null XP counters preserved",
+        "passed": true
+      },
+      {
+        "name": "Negative economy and open-cancel warnings preserved",
+        "passed": true
+      },
+      {
+        "name": "Report never modifies fictional records",
+        "passed": true
+      },
+      {
+        "name": "Unavailable migration metadata remains UNKNOWN",
+        "passed": true
+      },
+      {
+        "name": "Repeated install refuses source drift",
+        "passed": true
+      },
+      {
+        "name": "Rollback restores original full source exactly",
+        "passed": true
+      },
+      {
+        "name": "Original failure is restored by rollback",
+        "passed": true
+      },
+      {
+        "name": "Rollback refuses repeated execution",
+        "passed": true
+      },
+      {
+        "name": "Install refuses changed function attributes",
+        "passed": true
+      },
+      {
+        "name": "Install refuses changed volatility",
+        "passed": true
+      },
+      {
+        "name": "Install refuses changed execution ACL",
+        "passed": true
+      }
+    ]
+  },
+  "capture": {
+    "classification": "REAL LOCAL PG17;exact installed function;fictional records;stub permission/item labels;no production report call or install",
+    "passed": 15,
+    "results": [
+      {
+        "name": "Exact installed capture source fails GROUP BY aggregate 42803",
+        "passed": true
+      },
+      {
+        "name": "Empty capture dataset succeeds with null rate and empty tiers",
+        "passed": true
+      },
+      {
+        "name": "All eight tier boundary groups retain their meanings",
+        "passed": true
+      },
+      {
+        "name": "Totals and rates preserved",
+        "passed": true
+      },
+      {
+        "name": "Species and ball grouping preserved",
+        "passed": true
+      },
+      {
+        "name": "Berry and Honey grouping preserved",
+        "passed": true
+      },
+      {
+        "name": "Default window excludes old rows",
+        "passed": true
+      },
+      {
+        "name": "Null day input retains thirty-day default",
+        "passed": true
+      },
+      {
+        "name": "Zero day input keeps one-day floor",
+        "passed": true
+      },
+      {
+        "name": "Encounter cancellation exclusion preserved",
+        "passed": true
+      },
+      {
+        "name": "Collection totals preserved",
+        "passed": true
+      },
+      {
+        "name": "Report performs no data writes",
+        "passed": true
+      },
+      {
+        "name": "Staff denial preserved",
+        "passed": true
+      },
+      {
+        "name": "Rollback restores exact original definition",
+        "passed": true
+      },
+      {
+        "name": "Original grouping failure returns after rollback",
+        "passed": true
+      }
+    ]
+  },
+  "combined": {
+    "classification": "REAL LOCAL PG17;fictional records;exact installed function;stubbed permission/build/ranking helpers;no production call or SQL installation",
+    "passed": 22,
+    "results": [
+      {
+        "name": "Exact installed source reproduces ambiguous column 42702",
+        "passed": true
+      },
+      {
+        "name": "Combined preflight refuses capture drift before changing health",
+        "passed": true
+      },
+      {
+        "name": "Combined candidate capture report runs without writes",
+        "passed": true
+      },
+      {
+        "name": "Guarded candidate installs with unchanged ACL and owner",
+        "passed": true
+      },
+      {
+        "name": "Empty dataset health completes with zero duplicate keys",
+        "passed": true
+      },
+      {
+        "name": "Staff denial remains before metrics",
+        "passed": true
+      },
+      {
+        "name": "Distinct trainer keys are not the broadcaster variable",
+        "passed": true
+      },
+      {
+        "name": "Duplicate Twitch login group counted",
+        "passed": true
+      },
+      {
+        "name": "Empty Twitch login uses username fallback",
+        "passed": true
+      },
+      {
+        "name": "Missing public keys excluded",
+        "passed": true
+      },
+      {
+        "name": "Existing hidden bot-only and null XP counters preserved",
+        "passed": true
+      },
+      {
+        "name": "Negative economy and open-cancel warnings preserved",
+        "passed": true
+      },
+      {
+        "name": "Report never modifies fictional records",
+        "passed": true
+      },
+      {
+        "name": "Unavailable migration metadata remains UNKNOWN",
+        "passed": true
+      },
+      {
+        "name": "Repeated install refuses source drift",
+        "passed": true
+      },
+      {
+        "name": "Rollback restores original full source exactly",
+        "passed": true
+      },
+      {
+        "name": "Combined rollback restores exact capture source",
+        "passed": true
+      },
+      {
+        "name": "Original failure is restored by rollback",
+        "passed": true
+      },
+      {
+        "name": "Rollback refuses repeated execution",
+        "passed": true
+      },
+      {
+        "name": "Install refuses changed function attributes",
+        "passed": true
+      },
+      {
+        "name": "Install refuses changed volatility",
+        "passed": true
+      },
+      {
+        "name": "Install refuses changed execution ACL",
+        "passed": true
+      }
+    ]
+  },
+  "packetSha256": {
+    "ORIGINAL.sql": "cece0a16bb2e97749049fa03fab0ac9e9762b5c9e2f871a2f8f3e632a3badcc2",
+    "CANDIDATE.sql": "11f857377f0d17f07e8e28d6bfac9a67f7d851b100050422925551026ad90754",
+    "CAPTURE-ORIGINAL.sql": "aa149239865d936783aab47b227fc3ae259e0d6fd4edfad9f176a305d0befb76",
+    "CAPTURE-CANDIDATE.sql": "76d0454ce3739a8ee8381afc226554105cc4d40b32bb4821aea21388b7a3ed25",
+    "INSTALL-BOTH.sql": "145330761fbec67e1203e9407830bda1728ab7a0d2934fa6f2b7bfa7abc20a20",
+    "ROLLBACK-BOTH.sql": "ef59de0c89024bd39228bef0cd99adacd83afcf706a080ee11ef14f77a157eaa"
+  }
+}

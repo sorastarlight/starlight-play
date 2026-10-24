@@ -1,0 +1,52 @@
+{
+  "classification": "Disconnected fictional design review; no backend/Auth/persistence",
+  "measurements": [
+    {
+      "requested": "1280",
+      "state": "editor",
+      "measurement": "{\"width\":1280,\"scrollWidth\":1265,\"dialogWidth\":null,\"small\":0}"
+    },
+    {
+      "requested": "768",
+      "state": "editor",
+      "measurement": "{\"width\":768,\"scrollWidth\":753,\"dialogWidth\":null,\"small\":0}"
+    },
+    {
+      "requested": "390",
+      "state": "editor",
+      "measurement": "{\"width\":375,\"scrollWidth\":375,\"dialogWidth\":null,\"small\":0}"
+    },
+    {
+      "requested": "320",
+      "state": "editor",
+      "measurement": "{\"width\":305,\"scrollWidth\":305,\"dialogWidth\":null,\"small\":0}"
+    },
+    {
+      "requested": "1280",
+      "state": "review",
+      "measurement": "{\"width\":1280,\"scrollWidth\":1265,\"dialogWidth\":580,\"small\":0}"
+    },
+    {
+      "requested": "768",
+      "state": "review",
+      "measurement": "{\"width\":768,\"scrollWidth\":753,\"dialogWidth\":580,\"small\":0}"
+    },
+    {
+      "requested": "390",
+      "state": "review",
+      "measurement": "{\"width\":375,\"scrollWidth\":375,\"dialogWidth\":335.20001220703125,\"small\":0}"
+    },
+    {
+      "requested": "320",
+      "state": "review",
+      "measurement": "{\"width\":305,\"scrollWidth\":305,\"dialogWidth\":264.8000183105469,\"small\":0}"
+    }
+  ],
+  "checks": {
+    "unavailableDisablesFields": true,
+    "dialogAutofocus": "Back to editing",
+    "escapeRestores": "Review changes",
+    "comparison": "Only edited field appears"
+  },
+  "limitations": "Local iframe widths; not real-device or server behavior acceptance"
+}

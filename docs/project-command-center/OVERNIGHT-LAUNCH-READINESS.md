@@ -260,3 +260,6 @@ CODEX-196 publicationdecisionrequested afterlocalcompletion:exact5runtimefiles/s
 
 CODEX-198 completed under explicit owner approval: only js/admin-tools.js published at main ceefc26ad8893fddb090cd529e623631584f5361; Pages 40110768347 succeeded; 100 monitored and one changed versioned source match. Both feature/main baselines and candidate matched reviewed hashes before copying. Five targeted fictional cases and all 120 actual-source local suites pass; build31HTML/473references. No authenticated navigation, real credential read/save, provider call, SQL or gameplay test. APP20261008-rc133 unchanged; approval spent.
 CODEX-199 current matrix/history normalization and isolated draft navigation checks complete; no further runtime change.
+
+
+CODEX-200 next Mart slice prepared: existing non-system PokéCoin floor name/description/visibility only. Disconnected prototype,8localwidthcases and keyboard/unavailable checks; no backend or publication. Review:ADMIN-HUB-MART-FLOOR-REVIEW.md. Design/local implementation needs an important owner decision; no existing production correction remains pending.

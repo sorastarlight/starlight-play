@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-200",
+      "status": "prepared",
+      "scope": "Disconnected existing PokéCoin floor presentation design",
+      "evidence": "ADMIN-HUB-MART-FLOOR-REVIEW.md;design-reset/hub-mart-floor-review.html;evidence/codex200-floor-layouts.json",
+      "testResults": "8renderedwidthcases;unavailabledisables;dialogautofocus/Escape;changedfieldsonly;noAuth/backend",
+      "nextAction": "Owner design/localimplementation decision; inspect server source before implementation",
+      "approvalRequirement": "New privileged workflow; no production publication or hosted save authority"
+    },
+    {
       "id": "CODEX-199",
       "status": "done",
       "scope": "Current acceptance index and isolated Config/Mart draft navigation",

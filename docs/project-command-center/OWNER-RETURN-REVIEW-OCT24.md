@@ -28,3 +28,6 @@ Mart/reward live saves,hosted multi-page roster and gift-batch acceptance are no
 ## Local packet cross-check
 
 CODEX-190 confirms current admin-next.js matches CODEX-183's tested baseline and rollback;candidate matches its tested hash. Stored118suite results all pass;no suites were re-run for this document. All23literal document-ID references in the current Hub controller exist in static admin-next.html. Evidence:evidence/codex190-owner-review-packet.json. This does not certify every dynamic module or real identity transition.
+
+
+CODEX-191 subsequent routine maintenance:malformedcapture ratesnowUnavailable/partial.118suites/build/localDOM;main dab283d3/Pages40083117253success;100+1source matches. OnlyAnalyticsmodulepublished;CODEX183Hubcontrollerbaseline remains unchanged. No new decision needed for this maintenance.

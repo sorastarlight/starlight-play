@@ -2450,3 +2450,7 @@ At08:12:28UTCdashboardshows24Oct07:44:07UTC PHYSICAL withRestorecontrol/noinprog
 
 ## CODEX-190 — owner-review consolidation and drift check
 PreparedoneconsolidatedOct24reviewwith183publicationand182design decisions plushonestdevice/provider/save/recoverylimitations. CurrentHubsource matchesprivate183baseline/rollback;candidatehashmatches;stored118suite/9case resultschecked.23literalDOMrefs resolve. No executionauthority,productioncall,runtimechange orredundantregressionrerun.
+
+
+## CODEX-191 — routine malformed capture-rate presentation
+Reproducedrate2shownasdashayetcomplete. Validaterates0–1;malformednon-nullratesUnavailable/partial;null/nothrowandvalidboundariespreserved.118suites/build31/471;actualfictionalreportDOM/screenshot. Exact1runtime main dab283d3/Pages40083117253success;100+1source matches. No hostedreports/notices/SQL/account/provider/saves.183heldcandidateexcluded. Temporaryfixtureclosed/stopped.

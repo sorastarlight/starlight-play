@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-191",
+      "status": "done",
+      "scope": "Malformed capture-rate partial/unavailable presentation",
+      "evidence": "LAUNCH-CODEX191-CAPTURE-RATE-PRESENTATION.md;evidence/codex191-regressions.json;evidence/codex191-real-dom.json;evidence/codex191-publication.json",
+      "testResults": "118suites/build31/471;actual local malformed report partial/Unavailable;mainonefiledab283d3;Pages40083117253success;100+1source matches",
+      "nextAction": "Continue independent review;no repeated hostedreports",
+      "approvalRequirement": "CODEX-78 routine frontend maintenance;no hostedreportcall"
+    },
+    {
       "id": "CODEX-190",
       "status": "done",
       "scope": "Consolidated owner review and private packet drift check",

@@ -1,0 +1,150 @@
+{
+  "classification": "STATIC local evidence links",
+  "links": [
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "../../admin-next.html",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "ADMIN-HUB-MART-CREATE-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "OWNER-RETURN-REVIEW-OCT24.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "REAL-ACCEPTANCE-CHECKLIST.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "OVERNIGHT-LAUNCH-READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "LAUNCH-CODEX188-POST-REPORT-BACKUP.md",
+      "exists": true
+    },
+    {
+      "file": "CURRENT-ADMIN-HUB-STATUS.md",
+      "target": "CURRENT-ADMIN-HUB-STATUS-HISTORY-THROUGH209.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "ADMIN-HUB-MART-CREATE-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "CURRENT-ADMIN-HUB-STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "REAL-ACCEPTANCE-CHECKLIST.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "OVERNIGHT-LAUNCH-READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "OWNER-RETURN-REVIEW-OCT24.md",
+      "target": "OWNER-RETURN-REVIEW-OCT24-HISTORY-THROUGH209.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "CURRENT-ADMIN-HUB-STATUS.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "OWNER-RETURN-REVIEW-OCT24.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "REAL-ACCEPTANCE-CHECKLIST.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "RECOVERY-DRILL-CODEX71.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "RECOVERY-POST-DRILL-DELTAS.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX188-POST-REPORT-BACKUP.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "ADMIN-HUB-MART-CREATE-REVIEW.md",
+      "exists": true
+    },
+    {
+      "file": "LAUNCH-ACCEPTANCE-MATRIX.md",
+      "target": "OVERNIGHT-LAUNCH-READINESS.md",
+      "exists": true
+    },
+    {
+      "file": "ADMIN-HUB-MART-CREATE-REVIEW.md",
+      "target": "design-reset/hub-mart-create-review.html",
+      "exists": true
+    }
+  ]
+}

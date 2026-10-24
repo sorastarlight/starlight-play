@@ -4,13 +4,24 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-213",
+      "status": "done",
+      "scope": "Create-only hidden Mart draft source/design proposal",
+      "evidence": "ADMIN-HUB-MART-CREATE-REVIEW.md;design-reset/hub-mart-create-review.html;evidence/codex213-creation-source.json;evidence/codex213-browser-review.json",
+      "testResults": "8disconnected interaction cases;8responsive edit/review states;script syntax/build;no server implementation",
+      "nextAction": "Owner design/local implementation decision including isolated create-only endpoint/rollback preparation",
+      "approvalRequirement": "New privileged workflow;production SQL,publication and live creation held"
+    },
+    {
       "id": "CODEX-212",
       "status": "done",
       "scope": "Floor empty-state and overflowing review focus maintenance",
-      "evidence": "LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md;evidence/codex212-runtime-scope.json;evidence/codex212-browser-checks.json;evidence/codex212-regressions.json",
+      "evidence": "LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md;evidence/codex212-runtime-scope.json;evidence/codex212-browser-checks.json;evidence/codex212-regressions.json;evidence/codex212-publication.json",
       "testResults": "122suites;8long width states;7DOMcases;model/transport unchanged;rollback/drift refusal",
-      "nextAction": "Exact one-file routine publication/source verification under CODEX78",
-      "approvalRequirement": "CODEX78routine maintenance only;no live call or SQL"
+      "nextAction": "Published/source verified;no repeated unchanged checks. Continue next source/design review.",
+      "approvalRequirement": "CODEX78maintenance complete;no new authority",
+      "publicationCommit": "de722c21f9dcd54673e582d618d0d00776190deb",
+      "pagesRun": 40144190134
     },
     {
       "id": "CODEX-211",
@@ -29,7 +40,7 @@
       "scope": "Consolidated current Hub and owner-return evidence indexes",
       "evidence": "CURRENT-ADMIN-HUB-STATUS.md;OWNER-RETURN-REVIEW-OCT24.md;evidence/codex210-index-links.json",
       "testResults": "STATIC:29local evidence links resolve;historical snapshots preserved;no runtime change",
-      "nextAction": "Remaining real acceptance/access and two prepared design decisions need owner/reviewer input;no repeated unchanged tests",
+      "nextAction": "Subsequent design/local/publication completed in CODEX211;archival evidence,not a pending decision",
       "approvalRequirement": "Documentation only;no new production authority"
     },
     {
@@ -38,7 +49,7 @@
       "scope": "Disconnected two-field capture bounds design and retained-source review",
       "evidence": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md;evidence/codex209-offline-contract-review.json;evidence/codex209-browser-checks.json",
       "testResults": "8local interaction cases;4editor measurements;4review widths;no runtime change",
-      "nextAction": "Design approved;local integration complete in CODEX211;publication decision next",
+      "nextAction": "Subsequent design/local/publication completed in CODEX211;archival evidence,not a pending decision",
       "approvalRequirement": "Design/local approval spent;publication/live calls held"
     },
     {
@@ -96,7 +107,7 @@
       "scope": "Disconnected Mart floor-order design proposal",
       "evidence": "ADMIN-HUB-MART-ORDER-REVIEW.md;design-reset/hub-mart-order-review.html",
       "testResults": "REAL LOCAL DOM fixed system slot/hidden retention/boundary buttons/focus/Escape/discard/unavailable;visual320/375/1024",
-      "nextAction": "Design approved;local integration complete in CODEX211;publication decision next",
+      "nextAction": "Subsequent design/local/publication completed in CODEX211;archival evidence,not a pending decision",
       "approvalRequirement": "Design/local approval spent;publication/live calls held"
     },
     {

@@ -1,28 +1,12 @@
-# Current autonomous window — October 24, 2026
+# Current launch readiness handoff — through CODEX-213
 
-**Current publication:**CODEX-211 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-limits-order.js,css/admin-limits-order.css published at main9436b8041bc9f57e2c2c895b36eab2f4bca54f34;Pages40143356806succeeded. All11current server source/ACL contracts and4candidate/baseline hashes matched before publication.100monitored plus4changed versioned hosted sources match exact main.122local suites,12responsive states,11DOMcases,build31HTML477refs and guarded rollback remain the validation basis. No authenticated navigation,notices,live catalog/configuration read/save,SQL,Auth/provider,gameplay/grant,protected-account action or APP stamp. APP20261008-rc133 unchanged;publication approval spent. Hosted reads/saves remain separate.
+Runtime main de722c21 / Pages40144190134 succeeded;100monitored plus1changed versioned source match. APP20261008-rc133 unchanged;122local suites/build31HTML477refs. CODEX211approved ordering/capture publication complete;CODEX212routine empty/long-review presentation complete. Separate feature/main histories preserved.
 
+Current user authorizes autonomous in-session readiness/visual work. Existing heartbeat remains PAUSED;no renewed schedule or extra background systems. No delegation. Preserve SQL/Auth/provider/credential/gameplay/grant/notice/protected-account/spending/APP/final-launch boundaries.
 
-**Latest CODEX-211:**owner approved Mart ordering and Capture Limits designs/local implementation. Both are locally complete:122suites,12responsive states,11DOMcases,build31/477 and guarded rollback. See [local review](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md). Earlier203/209design-held statements are superseded;exact four-file publication/source-only decision is next. Production remains6d740c21;no application calls/saves,SQL,Auth/provider or APP change. Existing automation remains paused;this human instruction did not extend its expired window.
+CODEX213source/design proposal is ready:one inventory-item hidden Mart draft in existing non-system PokéCoin floor. Existing save upserts;future atomic create-only endpoint must reject collisions. Owner design/local implementation decision next,including isolated backend packet preparation. No new production SQL/live creation/publication authority. See ADMIN-HUB-MART-CREATE-REVIEW.md. Do not reprompt203/209/211approvals.
 
-
-Renewed by direct human request at 16:51:52 UTC. Final scheduled cycle completed before the hard stop of **20:51:52 UTC / 16:51:52 America/New_York**. Existing heartbeat is now **PAUSED**, with its original UNTIL preserved and no extension. Available independent queue is complete; remaining real acceptance and two prepared design decisions require owner/reviewer input. No delegation or extra background systems.
-
-Current runtime: main **6d740c21**, Pages **40125318465 succeeded**. All 100 monitored and one changed versioned source match. APP stays **20261008-rc133**. Separate main/feature histories are preserved.
-
-| Completed slice | Evidence |
-| --- | --- |
-| CODEX-202: explicit failed Mart receipt feedback | Main189c2801;121 suites;local pending/reset checks;source verified |
-| CODEX-203: floor-order proposal | Disconnected prototype only;owner-return design decision remains held |
-| CODEX-204: reward pending feedback and roster boundaries | Main20401579;121 suites;11 local boundary checks;source verified |
-| CODEX-205: gift headings,grammar and read-error copy | Main96663993;121 suites;five local states;source verified |
-| CODEX-206: review close control/focus maintenance | Maine3401b70;121 suites;controlled baseline/candidate event order;source verified |
-
-**CODEX-207 completed**: seven mounted Analytics transition/keyboard/error cases and eight measured layouts pass; targeted tests pass; no runtime change. **CODEX-208 completed**: ten local Helpdesk read/reset cases,121suites/build and source verification pass; accurate read-error copy published. **CODEX-209 completed**: two-field Capture bounds disconnected proposal, retained-source review, eight interaction cases and eight responsive edit/review states. No runtime change. Owner-return design/local integration decision held; current source/helper closure must be checked before integration. See ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md. Do not repeat unchanged suites or backup polls to simulate progress. CODEX-205's timing observation is now addressed by CODEX-206;no server or normal physical-user timing claim is made.
-
-CODEX-201 floor publication approval is spent. No live catalog action is authorized. Routine frontend maintenance remains limited to CODEX-78. No new SQL,permissions,Auth/security,credentials,provider/DNS,authenticated navigation/notices,hosted application call,gameplay/grant,real email,protected-account mutation,spending,APP stamp or final-launch authority. Continue independent work while consequential proposals are held;consolidate decisions for owner return.
-
-**CODEX-210 completed**: current Hub/owner-return indexes consolidated, older snapshots preserved,29local evidence links verified. No runtime change or repeated unchanged backup/regression polling. The physical/device/provider and bounded hosted acceptance limits remain open.
+Real device/assistive/provider and bounded hosted mutation acceptance remain as indexed in LAUNCH-ACCEPTANCE-MATRIX.md. Recovery evidence unchanged after latest SQL178;do not poll unchanged backups or rerun unchanged suites to simulate progress. No unapproved SQL install is pending from this batch.
 
 Historical windows below are superseded.
 

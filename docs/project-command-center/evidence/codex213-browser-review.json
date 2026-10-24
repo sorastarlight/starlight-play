@@ -1,0 +1,62 @@
+{
+  "classification": "REAL LOCAL DOM disconnected proposal;not implemented workflow",
+  "cases": [
+    "duplicate demo code rejected with focus",
+    "normalized friendly inventory search",
+    "zero quantity rejected",
+    "zero price explicitly reviewed",
+    "Escape restores review opener",
+    "no-match inventory blocks review",
+    "unavailable catalog hides/disables editing",
+    "demo-only creation and duplicate rejection afterward"
+  ],
+  "layouts": [
+    {
+      "width": "320",
+      "state": "editor",
+      "measurement": "Viewport 320 / scroll 305"
+    },
+    {
+      "width": "320",
+      "state": "review",
+      "hiddenDraft": true,
+      "demoOnly": true
+    },
+    {
+      "width": "390",
+      "state": "editor",
+      "measurement": "Viewport 390 / scroll 375"
+    },
+    {
+      "width": "390",
+      "state": "review",
+      "hiddenDraft": true,
+      "demoOnly": true
+    },
+    {
+      "width": "768",
+      "state": "editor",
+      "measurement": "Viewport 768 / scroll 753"
+    },
+    {
+      "width": "768",
+      "state": "review",
+      "hiddenDraft": true,
+      "demoOnly": true
+    },
+    {
+      "width": "1024",
+      "state": "editor",
+      "measurement": "Viewport 1024 / scroll 1009"
+    },
+    {
+      "width": "1024",
+      "state": "review",
+      "hiddenDraft": true,
+      "demoOnly": true
+    }
+  ],
+  "productionCalls": 0,
+  "serverImplementation": false,
+  "limits": "No SQL correctness,actual create-only guarantee,real-device or hosted acceptance claimed"
+}

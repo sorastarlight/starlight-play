@@ -1,0 +1,33 @@
+{
+  "classification": "Catalog source only;not production mutation test",
+  "functions": [
+    {
+      "schema": "public",
+      "name": "admin_store_save_item",
+      "args": "p_row jsonb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "sha256": "ad2ed01b6c5848605432c230bcc7ec7b26cdb9acdec09a62b031d2f7db835a8b"
+    },
+    {
+      "schema": "private",
+      "name": "bits_amount_collisions",
+      "args": "",
+      "acl": null,
+      "sha256": "93ed4b7c8217153bbb93f8066777e2aa3afce566c86423da8395a4e3db1d8a7f"
+    },
+    {
+      "schema": "private",
+      "name": "validate_store_grants",
+      "args": "p_grants jsonb",
+      "acl": null,
+      "sha256": "60bb6d54a6c4daaf1323f82e562be6630c341996e6fe48611199a6b8eb9c3368"
+    }
+  ],
+  "observations": [
+    "Current save is an upsert by SKU;not create-only",
+    "Existing legacy New item starts a draft and reuses save",
+    "Coins branch validates grants;save has separate Bits/avatar branches",
+    "No ordinary catalog records queried;no save invoked"
+  ],
+  "limits": "Full helper/trigger/permission closure required before proposed local backend implementation"
+}

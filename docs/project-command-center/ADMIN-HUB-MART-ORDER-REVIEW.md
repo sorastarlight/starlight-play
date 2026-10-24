@@ -17,3 +17,7 @@ Disconnected prototype: design-reset/hub-mart-order-review.html. Fictional IDs/n
 ## Local proposal acceptance
 
 Actual disconnected DOM: one eligible floor moved across a fixed system slot; hidden floor retained; corresponding button focused. Before/after comparison preserved every fictional floor. Escape restored Review focus. Discard restored order; unavailable state disabled all mutations. Visual widths 320,375,1024 inspected. No programmatic overflow measurement is claimed: cross-frame DOM access was unavailable in the browser tool. This is proposal evidence only. Temporary fixture server/tab closed.
+
+## Subsequent owner approval and implementation
+
+The owner approved this design and local implementation on October24. CODEX-211 completes both local editors after fresh source/ACL closure,122local suites,rendered checks and guarded frontend rollback. See LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md. Earlier design-held language is historical;production publication and live application calls/saves remain held.

@@ -27,3 +27,7 @@ Disconnected prototype uses connect-src none, no SDK, no Auth, no transport and 
 ## Owner-return decision
 
 Approve this two-field design and local integration/testing only, after source/permission closure review. Production publication, hosted reads/saves and any SQL remain separate decisions. No approval prompt was sent while the owner is away; independent readiness work continues.
+
+## Subsequent owner approval and implementation
+
+The owner approved this design and local implementation on October24. CODEX-211 completes both local editors after fresh source/ACL closure,122local suites,rendered checks and guarded frontend rollback. See LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md. Earlier design-held language is historical;production publication and live application calls/saves remain held.

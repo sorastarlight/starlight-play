@@ -2556,3 +2556,7 @@ Selected offline CODEX165 save/staff-helper definitions reviewed without live ca
 ## CODEX-210 — Final autonomous-window evidence consolidation
 
 Current Hub status and owner-return review rewritten into one consistent present-state index;older snapshots retained separately.29local evidence links resolve. No runtime change,new test-freshness claim,hosted application call,SQL,Auth/provider,notice,grant,gameplay,protected-account action or APP stamp. Sora NO;Twinkle NO;PlayTester role unchanged. Final scheduled cycle completed before20:51:52UTC;existing heartbeat PAUSED with original UNTIL unchanged. Remaining real acceptance and203/209design decisions require owner/reviewer input;no approval prompt sent while owner away.
+
+## CODEX-211 — Approved local Mart ordering and Capture Limits
+
+Fresh catalog-only11definition/helper/ACL closure;no application calls. Actual module/UI and shell wiring complete;122LOCAL HARNESS suites,11REAL LOCAL DOM cases,12responsive states,build31/477;exact four-file frontend rollback/drift refusal pass. Minimal capture patch and complete UUID floor order preserve existing permissions/authority. No SQL,hosted save,notices,Auth/provider,gameplay/grant,APP or protected-account action. Sora NO;Twinkle NO;PlayTester unchanged. Exact publication/source-only decision next;do not reprompt design/local approval.

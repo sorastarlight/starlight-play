@@ -1,0 +1,118 @@
+{
+  "classification": "Catalog source/ACL inspection only;no application endpoint invoked",
+  "functions": [
+    {
+      "schema": "private",
+      "name": "is_play_admin",
+      "args": "",
+      "definitionSha256": "ab66acfdf4094ef99ee82f75f8a663dc2cc8d8cac571dbfdfad01bcab52b7ce0",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "security_definer": true,
+      "proconfig": [
+        "search_path=public"
+      ]
+    },
+    {
+      "schema": "private",
+      "name": "play_staff_role",
+      "args": "p_uid uuid",
+      "definitionSha256": "03dedb36d0349dcf29d6daba6e639924863b7420f740a3ce013bd6b23517fe3a",
+      "acl": null,
+      "security_definer": true,
+      "proconfig": [
+        "search_path=public"
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "admin_store_reorder",
+      "args": "p_kind text, p_ids jsonb",
+      "definitionSha256": "1f7ad2aad4b95010530b9951e204306a62ae4f3b35c256d23f37a244b9a3d0d8",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "security_definer": true,
+      "proconfig": [
+        "search_path=public"
+      ]
+    },
+    {
+      "schema": "private",
+      "name": "capture_config",
+      "args": "",
+      "definitionSha256": "c5c53b5892c3e93e457716103f4416365411c9b82a4da2d212ecd50911806c29",
+      "acl": null,
+      "security_definer": false,
+      "proconfig": null
+    },
+    {
+      "schema": "public",
+      "name": "admin_capture_save_balance",
+      "args": "p_balance jsonb",
+      "definitionSha256": "3fe1ef8fad9ac703fa04c3c530dfea5f982322294dda3b567a987005f3c755fc",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "security_definer": true,
+      "proconfig": [
+        "search_path=public"
+      ]
+    },
+    {
+      "schema": "public",
+      "name": "admin_capture_overview",
+      "args": "",
+      "definitionSha256": "f60a76d184203e3e621ffc859b7d1ba86091659fabb26295076cbe66aaf5c7db",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "security_definer": true,
+      "proconfig": [
+        "search_path=public"
+      ]
+    },
+    {
+      "schema": "private",
+      "name": "game_settings",
+      "args": "",
+      "definitionSha256": "d08cbb092d49fca04a3332b899457db077f4316c23905fff12247cd2bf0ad311",
+      "acl": null,
+      "security_definer": false,
+      "proconfig": null
+    },
+    {
+      "schema": "public",
+      "name": "admin_store_get",
+      "args": "",
+      "definitionSha256": "1ef153c67953b1780494f9ad6a437db7613eef940da5f19b025ebfbcd271cdcb",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "security_definer": true,
+      "proconfig": [
+        "search_path=public"
+      ]
+    },
+    {
+      "schema": "private",
+      "name": "require_staff_edit",
+      "args": "",
+      "definitionSha256": "1c7dce74779377598386b82871fe016df4c3422796d96e05af6d924b3d745108",
+      "acl": null,
+      "security_definer": false,
+      "proconfig": null
+    },
+    {
+      "schema": "private",
+      "name": "capture_base_chance",
+      "args": "p_catch_rate integer, p_config jsonb",
+      "definitionSha256": "04f9297bb5c3142c9f0100537b36d8451203a4d2cae38a6e41805fd3a46c9b4a",
+      "acl": null,
+      "security_definer": false,
+      "proconfig": null
+    },
+    {
+      "schema": "private",
+      "name": "require_hub",
+      "args": "",
+      "definitionSha256": "27f816b073a00d6d1ad44b51ae55a69f2b7331f62cb9b557ccc637a122f1d63d",
+      "acl": null,
+      "security_definer": false,
+      "proconfig": null
+    }
+  ],
+  "readSideEffects": "Inspected selected read/helper closure contains no writes;Auth uid platform helper unchanged",
+  "limits": "No SQL change;no CAS. Server remains authoritative;client fixed-slot and full-ID checks are not a new permission boundary."
+}

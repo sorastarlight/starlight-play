@@ -4,14 +4,15 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-211 | done | Mart ordering and Capture Limits local implementation | CODEX-203/209 | Exact publication decision next | 122suites;12responsive states;11DOMcases;rollback;no live calls |
 | CODEX-210 | done | Consolidated current status and owner handoff | CODEX-209 | Documentation only | 29links resolve;historical snapshots preserved;no runtime change |
-| CODEX-209 | done | Capture bounds disconnected proposal | CODEX-208 | Owner-return design decision | 8interaction cases;8width states;retained-source limits recorded;no runtime change |
+| CODEX-209 | done | Capture bounds disconnected proposal | CODEX-208 | Design approved/local complete | CODEX211;exact publication decision next |
 | CODEX-208 | done | Helpdesk read/reset checks and read-error copy | CODEX-207 | CODEX-78 | Live6d740c21;Pages40125318465;100+1sources;121suites |
 | CODEX-207 | done | Analytics pending/tab/error/reset and keyboard checks | CODEX-206 | Local only | 7local transition cases;8layouts;targeted tests;no runtime change |
 | CODEX-206 | done | Review transition control/focus maintenance | CODEX-205 | CODEX-78 | Livee3401b70;Pages40120689437;100+1sources;121suites |
 | CODEX-205 | done | Accurate gift confirmation/unavailable copy | CODEX-204 | CODEX-78 | Live96663993;Pages40118306522;100+1sources;121suites |
 | CODEX-204 | done | Gift/Pass pending presentation and roster boundaries | CODEX-202 | CODEX-78 | Live20401579;Pages40116137764;100+1source matches;121suites |
-| CODEX-203 | done | Floor-order design proposal | CODEX-201 | Review on owner return | Local prototype only; integration held |
+| CODEX-203 | done | Floor-order design proposal | CODEX-201 | Design approved/local complete | CODEX211;exact publication decision next |
 | CODEX-202 | done | Mart failed-receipt feedback | CODEX-201 | CODEX-78 | Live189c2801;Pages40114012274;100+1source matches;121suites |
 | CODEX-174 | done | Full read-only roster installed/published/source verified | CODEX-173 | Exact approval spent | Main2ea586f1/Pages40008418332;100+5source matches;118suites |
 | CODEX-173 | done | Read-only full roster design prepared | CODEX-168 | Owner-approved local scope spent | Implemented in CODEX-174 |

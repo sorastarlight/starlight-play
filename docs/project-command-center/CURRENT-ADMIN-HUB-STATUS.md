@@ -1,5 +1,8 @@
 # Current Admin Hub status
 
+**Latest CODEX-211:**owner approved Mart ordering and Capture Limits designs/local implementation. Both are locally complete:122suites,12responsive states,11DOMcases,build31/477 and guarded rollback. See [local review](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md). Earlier203/209design-held statements are superseded;exact four-file publication/source-only decision is next. Production remains6d740c21;no application calls/saves,SQL,Auth/provider or APP change. Existing automation remains paused;this human instruction did not extend its expired window.
+
+
 Updated October 24, 2026 through CODEX-209. The preview is [admin-next.html](../../admin-next.html). It remains a partial replacement for the current Hub; no final launch or complete-overhaul declaration is made.
 
 Production: main **6d740c21**, Pages **40125318465 succeeded**. Recorded hosted source verification matches all 100 monitored files plus the changed versioned file. APP **20261008-rc133** remains unchanged. Latest runtime regression evidence is 121 local suites and build 31 HTML / 475 references. No unchanged test or backup polling was repeated for this index.

@@ -1,0 +1,80 @@
+{
+  "classification": "REAL LOCAL DOM;fictional disconnected transport",
+  "cases": [
+    "explicit read loads both editors",
+    "move past fixed system slot;hidden floor retained;boundary controls and focus",
+    "complete before/after review;Escape returns opener focus",
+    "fictional ordering receipt requires reload",
+    "invalid max1 no save;invalid field focus",
+    "zero minimum review;only edited key fictional payload",
+    "fictional capture receipt requires reload",
+    "malformed reads hide both forms without defaults",
+    "lost capture receipt locks retry",
+    "denied ordering save clears data",
+    "session reset clears both editors"
+  ],
+  "layouts": [
+    {
+      "width": "320",
+      "kind": "editors",
+      "measurement": "Viewport 320 / scroll 305 / smallest control 44"
+    },
+    {
+      "width": "320",
+      "kind": "capture review",
+      "correct": true
+    },
+    {
+      "width": "390",
+      "kind": "editors",
+      "measurement": "Viewport 390 / scroll 375 / smallest control 44"
+    },
+    {
+      "width": "390",
+      "kind": "capture review",
+      "correct": true
+    },
+    {
+      "width": "768",
+      "kind": "editors",
+      "measurement": "Viewport 768 / scroll 753 / smallest control 44"
+    },
+    {
+      "width": "768",
+      "kind": "capture review",
+      "correct": true
+    },
+    {
+      "width": "1024",
+      "kind": "editors",
+      "measurement": "Viewport 1024 / scroll 1009 / smallest control 44"
+    },
+    {
+      "width": "1024",
+      "kind": "capture review",
+      "correct": true
+    },
+    {
+      "width": "320",
+      "kind": "floor review",
+      "correct": true
+    },
+    {
+      "width": "390",
+      "kind": "floor review",
+      "correct": true
+    },
+    {
+      "width": "768",
+      "kind": "floor review",
+      "correct": true
+    },
+    {
+      "width": "1024",
+      "kind": "floor review",
+      "correct": true
+    }
+  ],
+  "limits": "No actual device,screen-reader,hosted application endpoint or live save acceptance",
+  "fixturesClosed": true
+}

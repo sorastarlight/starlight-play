@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-211",
+      "status": "done",
+      "scope": "Owner-approved local floor ordering and two-field capture limits",
+      "evidence": "LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md;evidence/codex211-contracts.json;evidence/codex211-regressions.json;evidence/codex211-browser-checks.json;evidence/codex211-runtime-scope.json",
+      "testResults": "122local suites;12responsive states;11local interaction cases;build31/477;exact rollback and drift refusal",
+      "nextAction": "Separate exact four-file publication/source-only decision;no live calls or SQL",
+      "approvalRequirement": "Local implementation approved and complete;publication and hosted saves held"
+    },
+    {
       "id": "CODEX-210",
       "status": "done",
       "scope": "Consolidated current Hub and owner-return evidence indexes",
@@ -18,8 +27,8 @@
       "scope": "Disconnected two-field capture bounds design and retained-source review",
       "evidence": "ADMIN-HUB-CAPTURE-BALANCE-NEXT-REVIEW.md;evidence/codex209-offline-contract-review.json;evidence/codex209-browser-checks.json",
       "testResults": "8local interaction cases;4editor measurements;4review widths;no runtime change",
-      "nextAction": "Owner-return design/local integration decision;fresh source/helper closure required before integration",
-      "approvalRequirement": "Proposal only;implementation,publication,SQL and live calls held"
+      "nextAction": "Design approved;local integration complete in CODEX211;publication decision next",
+      "approvalRequirement": "Design/local approval spent;publication/live calls held"
     },
     {
       "id": "CODEX-208",
@@ -76,8 +85,8 @@
       "scope": "Disconnected Mart floor-order design proposal",
       "evidence": "ADMIN-HUB-MART-ORDER-REVIEW.md;design-reset/hub-mart-order-review.html",
       "testResults": "REAL LOCAL DOM fixed system slot/hidden retention/boundary buttons/focus/Escape/discard/unavailable;visual320/375/1024",
-      "nextAction": "Owner-return design/local integration decision; continue independent review meanwhile",
-      "approvalRequirement": "Proposal only; no implementation, publication or hosted call authority"
+      "nextAction": "Design approved;local integration complete in CODEX211;publication decision next",
+      "approvalRequirement": "Design/local approval spent;publication/live calls held"
     },
     {
       "id": "CODEX-202",

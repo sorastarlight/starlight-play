@@ -1,0 +1,30 @@
+{
+  "baselineCommit": "6d740c21427687e3bf727895b0667ce78ce4602a",
+  "files": [
+    {
+      "file": "admin-next.html",
+      "baselineSha256": "db589610fccb60e92f28e8a0a610f307a1f3fdbefdd3063e4d8547fa41ecb299",
+      "candidateSha256": "ecd70e09b5c8962dc07acc5e9380c6cbd4d620cbc8e3744ad68292662e88dcc0"
+    },
+    {
+      "file": "js/admin-next.js",
+      "baselineSha256": "04592f4f49c20acf461a81650aa47dda0ad04797bac88885bd76fe843e57c70a",
+      "candidateSha256": "edd991511a0cf97009c99084b59fc65e1a2641a1871980b5a993a37eb9719432"
+    },
+    {
+      "file": "js/admin-next-limits-order.js",
+      "baselineSha256": null,
+      "candidateSha256": "d1c5a3f2485f9ee5814c507c9697ead3bebb718a49c20ad60c7f3817db0e61a2"
+    },
+    {
+      "file": "css/admin-limits-order.css",
+      "baselineSha256": null,
+      "candidateSha256": "d2e43c79489ed39ca9cd493cd833756d14f183472f58a4e61e8ad35863c2a460"
+    }
+  ],
+  "rollback": {
+    "exactRestore": true,
+    "driftRefusedBeforeWrites": true
+  },
+  "productionPublication": false
+}

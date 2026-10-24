@@ -1,5 +1,8 @@
 # Current autonomous window — October 24, 2026
 
+**Latest CODEX-211:**owner approved Mart ordering and Capture Limits designs/local implementation. Both are locally complete:122suites,12responsive states,11DOMcases,build31/477 and guarded rollback. See [local review](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md). Earlier203/209design-held statements are superseded;exact four-file publication/source-only decision is next. Production remains6d740c21;no application calls/saves,SQL,Auth/provider or APP change. Existing automation remains paused;this human instruction did not extend its expired window.
+
+
 Renewed by direct human request at 16:51:52 UTC. Final scheduled cycle completed before the hard stop of **20:51:52 UTC / 16:51:52 America/New_York**. Existing heartbeat is now **PAUSED**, with its original UNTIL preserved and no extension. Available independent queue is complete; remaining real acceptance and two prepared design decisions require owner/reviewer input. No delegation or extra background systems.
 
 Current runtime: main **6d740c21**, Pages **40125318465 succeeded**. All 100 monitored and one changed versioned source match. APP stays **20261008-rc133**. Separate main/feature histories are preserved.

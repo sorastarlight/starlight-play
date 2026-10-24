@@ -1,5 +1,8 @@
 # Launch acceptance matrix
 
+**Latest CODEX-211:**owner approved Mart ordering and Capture Limits designs/local implementation. Both are locally complete:122suites,12responsive states,11DOMcases,build31/477 and guarded rollback. See [local review](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md). Earlier203/209design-held statements are superseded;exact four-file publication/source-only decision is next. Production remains6d740c21;no application calls/saves,SQL,Auth/provider or APP change. Existing automation remains paused;this human instruction did not extend its expired window.
+
+
 CODEX-209/210:two-field capture bounds proposal prepared disconnected;current Hub/owner-return indexes consolidated and29local evidence links verified. No runtime or live configuration change. Final authorized scheduled cycle completed;heartbeat paused without extending20:51:52UTC deadline. Real acceptance and bounded hosted mutation requirements below remain unchanged.
 
 CODEX-208 published at main 6d740c21427687e3bf727895b0667ce78ce4602a. Pages 40125318465 succeeded; all 100 monitored and one changed versioned source match. All 121 local suites and build validation pass. Ten local browser read/reset cases passed with zero fictional writes. No hosted support call, ticket action, Auth/provider change, SQL or APP stamp occurred.

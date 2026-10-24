@@ -4,7 +4,7 @@ Owner renewed eight hours of autonomous launch/Admin Hub/visual work. Existing h
 
 Current runtime main d62fe3c4/Pages40092865776success. CODEX-178 hosted Mart/catalog search/selection,six reward fields,all5reports and EmailQA1record roster/details passed after approved migration20261024044601. Two exact-source report fixes verified;guarded rollback retained. See LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md. All118 regression suites last passed currentCODEX183integration. CODEX-188 observed completed PHYSICAL24Oct07:44:07UTC recovery point at08:12:28UTC,after latest recorded migration178;no further unchanged backup polling.
 
-Working queue:CODEX-179/181 presentation fixes are published;CODEX-182 Operations side-effect/design review prepared,implementation held for a consolidated owner decision;continue concrete populated/error/keyboard inspections and risk-based source review;record new consequential packets privately and consolidate questions. Do not repeat unchanged suites/limitations to simulate progress.
+Working queue:CODEX-179/181/191 and approved183 are published;CODEX-182/195 Operations side-effect/design review is prepared,implementation held for an owner decision;continue concrete populated/error/keyboard inspections and risk-based source review;record new consequential packets privately and consolidate questions. Do not repeat unchanged suites/limitations to simulate progress.
 
 Historical handoff follows;older dates/main/tasks are superseded by current matrix/TASKS and this section.
 

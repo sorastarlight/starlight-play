@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-212",
+      "status": "done",
+      "scope": "Floor empty-state and overflowing review focus maintenance",
+      "evidence": "LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md;evidence/codex212-runtime-scope.json;evidence/codex212-browser-checks.json;evidence/codex212-regressions.json",
+      "testResults": "122suites;8long width states;7DOMcases;model/transport unchanged;rollback/drift refusal",
+      "nextAction": "Exact one-file routine publication/source verification under CODEX78",
+      "approvalRequirement": "CODEX78routine maintenance only;no live call or SQL"
+    },
+    {
       "id": "CODEX-211",
       "status": "done",
       "scope": "Owner-approved local floor ordering and two-field capture limits",

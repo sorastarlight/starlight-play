@@ -1,0 +1,9 @@
+{
+  "file": "js/admin-next-limits-order.js",
+  "baselineCommit": "9436b8041bc9f57e2c2c895b36eab2f4bca54f34",
+  "baselineSha256": "d1c5a3f2485f9ee5814c507c9697ead3bebb718a49c20ad60c7f3817db0e61a2",
+  "candidateSha256": "563ab341541823b11a95a8496882bc2fcddbf5a3a707ba7789272363dad2be31",
+  "modelAdapterAndControllerUnchanged": true,
+  "rollbackRestore": true,
+  "driftRefusal": true
+}

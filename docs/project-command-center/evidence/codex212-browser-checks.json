@@ -1,0 +1,66 @@
+{
+  "classification": "REAL LOCAL DOM;fictional transport",
+  "baseline": [
+    "empty list offers unusable review",
+    "fixed-only list offers unusable review",
+    "tall dialog starts at bottom button"
+  ],
+  "candidate": [
+    "empty copy and disabled controls",
+    "fixed-only explanation and disabled controls",
+    "long names render literal markup without injected element",
+    "independent capture draft survives order review/cancel/discard",
+    "long review heading focused;scrollTop0 and heading inside dialog",
+    "Tab reaches Back;Escape returns opener",
+    "short review retains Back autofocus"
+  ],
+  "layouts": [
+    {
+      "width": "320",
+      "state": "long editor",
+      "measurement": "Viewport 320 / scroll 305 / smallest control 44"
+    },
+    {
+      "width": "320",
+      "state": "long review",
+      "headingFocused": true,
+      "escapedLabel": true
+    },
+    {
+      "width": "390",
+      "state": "long editor",
+      "measurement": "Viewport 390 / scroll 375 / smallest control 44"
+    },
+    {
+      "width": "390",
+      "state": "long review",
+      "headingFocused": true,
+      "escapedLabel": true
+    },
+    {
+      "width": "768",
+      "state": "long editor",
+      "measurement": "Viewport 768 / scroll 753 / smallest control 44"
+    },
+    {
+      "width": "768",
+      "state": "long review",
+      "headingFocused": true,
+      "escapedLabel": true
+    },
+    {
+      "width": "1024",
+      "state": "long editor",
+      "measurement": "Viewport 1024 / scroll 1009 / smallest control 44"
+    },
+    {
+      "width": "1024",
+      "state": "long review",
+      "headingFocused": true,
+      "escapedLabel": true
+    }
+  ],
+  "fictionalWrites": 0,
+  "hostedApplicationCalls": 0,
+  "limits": "Browser fixture evidence only;no physical device or screen-reader acceptance"
+}

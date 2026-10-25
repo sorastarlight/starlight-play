@@ -1,0 +1,81 @@
+{
+  "classification": "REAL DOM / fictional localhost transport",
+  "layouts": [
+    {
+      "width": 320,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "broken": 0
+    }
+  ],
+  "observed": [
+    "closed mount has zero calls",
+    "daily removal preserves weekly Berry",
+    "searchable picker adds Great Ball only to daily",
+    "quantity editing survives review",
+    "current/proposed sprite lists",
+    "long review starts at heading",
+    "Escape restores review opener",
+    "unsaved navigation cancellation preserves draft",
+    "acknowledged save locks editor",
+    "unsupported and empty contents show no editable defaults",
+    "pending load disables repeat; reset rejects late reply",
+    "lost receipt locks with do-not-retry message",
+    "denied save clears bundles"
+  ],
+  "notTested": [
+    "hosted authenticated read/save",
+    "actual device or screen reader",
+    "claim processing"
+  ]
+}

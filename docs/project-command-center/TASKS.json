@@ -4,13 +4,23 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-219",
+      "status": "done",
+      "scope": "Approved local daily/weekly Starlight Pass bundle editor",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md;evidence/codex219-regressions.json;evidence/codex219-browser.json;evidence/codex219-runtime-scope.json",
+      "testResults": "125suites;8responsive editor/review states;fictional native interactions;guarded four-file rollback;build31HTML481refs",
+      "nextAction": "Separate four-file publication/source-only decision;no live settings or claims",
+      "approvalRequirement": "Local design implementation approval spent;production publication and live application calls separately held"
+    },
+    {
       "id": "CODEX-218",
       "status": "done",
       "scope": "New Hub daily/weekly Pass bundle editor source/design proposal",
       "branch": "admin-hub-overhaul",
       "evidence": "ADMIN-HUB-PASS-BUNDLES-REVIEW.md;design-reset/hub-pass-bundles-review.html;evidence/codex218-contracts.json;evidence/codex218-browser-review.json",
       "testResults": "5selected source/ACL contracts;9disconnected interactions;8responsive editor/review states",
-      "nextAction": "Owner design/local implementation decision;no integrated workflow or production change",
+      "nextAction": "Design/local implementation approved; completed locally in CODEX-219;publication/live calls remain held",
       "approvalRequirement": "New privileged workflow;local implementation,publication and live saves separately gated"
     },
     {

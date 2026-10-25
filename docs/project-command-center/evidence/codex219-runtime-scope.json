@@ -1,0 +1,34 @@
+{
+  "classification": "LOCAL implementation only",
+  "featureBefore": "f46bdc96fefb60a99637dcfb25266aa3bb7af5c4",
+  "files": [
+    {
+      "file": "admin-next.html",
+      "candidateHash": "9aa29f476520e9a035779f00445fcf0cf2f7ede241abc28b6c4ebf67d73edf93"
+    },
+    {
+      "file": "js/admin-next.js",
+      "candidateHash": "63babf066c97e8a72726a86d14283bf68bfa2427d749817156ab9296dafc30af"
+    },
+    {
+      "file": "js/admin-next-pass.js",
+      "candidateHash": "3892619e57f040abcdc312ae22f34585bea6f0cb8a1d94255eda7275270a4060"
+    },
+    {
+      "file": "css/admin-pass.css",
+      "candidateHash": "edef2f582a694ce074c019e1ac1d8c5c9a4d51476a1d2470c31adcb1a02ba6b2"
+    }
+  ],
+  "commands": [
+    "admin_content_studio",
+    "admin_save_pass_rewards"
+  ],
+  "automaticMountReads": 0,
+  "productionChanges": 0,
+  "rollback": {
+    "allCandidatesCheckedBeforeWrites": true,
+    "driftRefused": true,
+    "exactBaselineRestored": true,
+    "newFilesRemovedOnlyAtExplicitPaths": true
+  }
+}

@@ -29,3 +29,7 @@ Eight measured editor/review states320/390/768/1024 fit horizontally and show va
 Approve this design and **local implementation/tests only**,using the existing read/save contracts and eight supported keys. Test unavailable/unsupported data,strict payloads,server denial,session changes before/after transport,stale responses,single flight,no retry,receipt mismatch/loss,draft reset/discard,keyboard dialogs and responsive layouts. Preserve current Hub configuration tools and separate ordinary trainer Pass claims from staff bundle configuration.
 
 Production publication,live configuration reads/saves,SQL,claims/re-grants,provider work,APP stamp and final launch stay excluded. `.cursor/rules/streamlink-project.mdc` and CODEX-RUNNER.md require the design decision for a new privileged workflow outside CODEX-78 routine maintenance. This optional migration is not automatically a launch blocker.
+
+## Subsequent owner decision
+
+Owner approved design and local implementation. CODEX-219 completes that local scope with125suites,8responsive states and guarded rollback. Publication and live settings/claims remain excluded;see [local completion](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md).

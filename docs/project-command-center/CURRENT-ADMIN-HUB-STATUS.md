@@ -1,11 +1,11 @@
 # Current Admin Hub status
 
-Latest completion: [CODEX-217 Studio Pass draft maintenance](LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md),published/source verified at main10eeb1d6 / Pages40162962338success.124local suites;100+1hosted source matches. No configured Pass rewards or claim rules changed. [CODEX-218 new Hub Pass editor](ADMIN-HUB-PASS-BUNDLES-REVIEW.md) is a disconnected design pending its design/local-work decision.
+Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Publication/source-only decision is next;no live settings/claims. Production remains main10eeb1d6 / Pages40162962338success,with CODEX-217 maintenance published. APP unchanged.
 
 
-Updated through CODEX-218,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
+Updated through CODEX-219,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
 
-Production main **10eeb1d6**,Pages **40162962338 succeeded**.100monitored files and one changed versioned file match exact latest main. APP **20261008-rc133** unchanged. Local feature124suites/build31HTML479refs;isolated production build30HTML477refs. CODEX215new endpoint source/ACL verified without invoking it.
+Production main **10eeb1d6**,Pages **40162962338 succeeded**.100monitored files and one changed versioned file match exact latest main. APP **20261008-rc133** unchanged. Local feature125suites/build31HTML481refs;isolated production build30HTML477refs. CODEX215new endpoint source/ACL verified without invoking it.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |
@@ -20,7 +20,7 @@ Production main **10eeb1d6**,Pages **40162962338 succeeded**.100monitored files 
 
 ## Prepared next migration
 
-[Pass bundle editor review](ADMIN-HUB-PASS-BUNDLES-REVIEW.md):separate daily/weekly drafts,searchable eight-core-reward selection,quantities and complete before/after review. Disconnected proposal only;design/local implementation decision needed. Current Studio local draft maintenance is complete.
+[Pass bundle editor review](ADMIN-HUB-PASS-BUNDLES-REVIEW.md):separate daily/weekly drafts,searchable eight-core-reward selection,quantities and complete before/after review. Approved design implemented locally in CODEX219;publication/live settings held. Current Studio local draft maintenance is complete.
 
 ## Latest installed database slice
 

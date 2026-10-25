@@ -1,13 +1,13 @@
 # Owner return review — October24
 
-Latest completion: [CODEX-217 Studio Pass draft maintenance](LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md),published/source verified at main10eeb1d6 / Pages40162962338success.124local suites;100+1hosted source matches. No configured Pass rewards or claim rules changed. [CODEX-218 new Hub Pass editor](ADMIN-HUB-PASS-BUNDLES-REVIEW.md) is a disconnected design pending its design/local-work decision.
+Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Publication/source-only decision is next;no live settings/claims. Production remains main10eeb1d6 / Pages40162962338success,with CODEX-217 maintenance published. APP unchanged.
 
 
 Production main **10eeb1d6**,Pages **40162962338 succeeded**;APP **20261008-rc133** unchanged. Latest Studio maintenance has100+1static source matches and124local suites. Prior215new draft endpoint/full body/permissions verification,22SQL groups and14delta recovery proof remain recorded. No live draft/Pass configuration action.
 
 ## Current decision state
 
-CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. Next important decision:CODEX218Pass bundle editor design/local implementation only;production/live configuration stays held. Actual draft creation and other hosted mutations remain separate bounded decisions.
+CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. Next important decision:CODEX219four-file Pass editor publication/source-only verification;design/local implementation approved and complete. Live configuration stays held. Actual draft creation and other hosted mutations remain separate bounded decisions.
 
 ## Remaining launch evidence
 

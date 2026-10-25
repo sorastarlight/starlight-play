@@ -1,3 +1,7 @@
+## CODEX-219 — approved local Pass bundle editor (October25)
+
+125 LOCAL HARNESS suites;8 REAL LOCAL DOM editor/review states;fictional picker,isolated removal,keyboard,uncertain/denied/pending/session cases;guarded four-file rollback and build31HTML481refs pass. Four-file production publication/source-only decision remains held. No SQL,live settings,claims,notices,provider or protected-account action. Main10eeb1d6 and APP unchanged. See LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md.
+
 ## CODEX-217/218 — Pass maintenance complete;next migration reviewed (October25)
 
 217one-file main10eeb1d6/Pages40162962338success;100+1sources match,124suites,4width states and guarded rollback. Existing Studio local editing repaired;no live Pass config/save/claim.218new Hub Pass editor source/design mock has5selected contracts,9local interactions and8width states;design/local implementation decision next. Backup215notdue yet;no unchanged dashboard polling or new scheduler. Sora NO;Twinkle NO;PlayTester unchanged.

@@ -342,3 +342,6 @@ CODEX-245: direct correction endpoint/UI prepared and locally tested (133 suites
 
 
 CODEX245 LIVE: migration20261025215533;main36de4072;Pages40237781681success;100+5sources match.133suites;17correction+5trade-create/race+5rollbackgroups;all8installedsourcehashesmatch;0hostedcorrections.30recoveryfilesverified. Continue remaining Hub migration under current owner direction; no scheduling/APPstamp/finallaunch.
+
+
+CODEX246 LIVE: compact Configuration and Trainer XP editor;main7dafeb87;Pages40238184575success;100+4sources.134suites;4widths;guarded rollback. No SQL or live settings write. CODEX247 advanced capture rules locally in progress;configuration/Director/System migration remains.

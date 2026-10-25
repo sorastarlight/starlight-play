@@ -1,6 +1,6 @@
 # CODEX-246 — Compact Configuration and Trainer XP
 
-Status: locally complete; scoped publication next under the owner's full Hub migration/go-live direction.
+Status: LIVE at main7dafeb870476bff81bace6fb5f279ba1fa1713f1;Pages40238184575 succeeded;100 monitored and all four versioned changed sources match. Existing read/save contract hashes remain unchanged.
 
 Configuration now uses focused tabs for PokéCoin rewards, Pass rewards, capture limits and Trainer XP. The XP editor migrates the existing four controls: first-level XP cost, level-up curve, encounter participation XP and capture XP. It uses the existing read/save contracts and permissions, sends only changed approved keys, preserves unknown settings, and never exposes the prohibited trainer-level catch bonus. Nothing is loaded or saved through the new tool until staff explicitly loads it.
 

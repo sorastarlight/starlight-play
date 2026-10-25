@@ -2753,3 +2753,6 @@ CODEX244 LIVE: migration20261025211631;main6e97544f/Pages40234735264success;100+
 
 
 CODEX245 LIVE: migration20261025215533;main36de4072;Pages40237781681success;100+5sources match.133suites;17correction+5trade-create/race+5rollbackgroups;all8installedsourcehashesmatch;0hostedcorrections.30recoveryfilesverified. Continue remaining Hub migration under current owner direction; no scheduling/APPstamp/finallaunch.
+
+
+CODEX246 LIVE: compact Configuration and Trainer XP editor;main7dafeb87;Pages40238184575success;100+4sources.134suites;4widths;guarded rollback. No SQL or live settings write. CODEX247 advanced capture rules locally in progress;configuration/Director/System migration remains.

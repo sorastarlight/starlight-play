@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-246",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Compact Configuration and native Trainer XP editor",
       "evidence": "LAUNCH-CODEX246-CONFIGURATION-WORKSPACES.md",
-      "testResults": "134 suites;4 responsive widths;keyboard/uncertain/session cases;4-file rollback",
-      "nextAction": "Scoped publication/source verification",
+      "testResults": "134 suites;4 responsive widths;keyboard/uncertain/session cases;4-file rollback;Pages40238184575success;100+4sources",
+      "nextAction": "Continue capture rules and remaining Hub migration",
       "approvalRequirement": "Owner full Admin Hub migration and completed go-live authorized"
     },
     {

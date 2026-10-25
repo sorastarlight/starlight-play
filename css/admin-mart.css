@@ -16,6 +16,7 @@
 #next-mart :is(button,input,textarea,select):focus-visible{outline:3px solid #725cc6;outline-offset:3px}
 .mart-dialog{box-sizing:border-box;width:min(760px,calc(100vw - 32px));max-height:calc(100dvh - 32px);overflow:auto;padding:24px;border:2px solid #d2dced;border-radius:24px;color:#49465e;background:#fff;overflow-wrap:anywhere}
 .mart-dialog::backdrop{background:#27253eaa}.mart-dialog h3{font-family:Fredoka,sans-serif;font-size:24px;margin-top:0}
+#next-mart .mart-dialog [data-confirm]{background:linear-gradient(110deg,#f9d7ef,#e9ddff);border-color:#deb4d3;color:#604666}
 .mart-comparison{margin:16px 0}.mart-comparison>div{padding:12px 0;border-bottom:1px solid #e4ddef}.mart-comparison dt{font-weight:800}.mart-comparison dd{margin:8px 0}.mart-comparison span,.mart-comparison strong{display:block;white-space:pre-wrap}
 @media(max-width:850px){.mart-layout{grid-template-columns:minmax(0,1fr)}.admin-mart-card{padding:16px}}
 @media(max-width:440px){.mart-fields{grid-template-columns:minmax(0,1fr)}.mart-wide{grid-column:auto}.mart-dialog{padding:18px}.mart-actions button{min-width:100%;}}

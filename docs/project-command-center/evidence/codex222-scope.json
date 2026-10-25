@@ -1,0 +1,33 @@
+{
+  "classification": "CSS-only routine presentation maintenance",
+  "featureBefore": "6eed579a0668a8272ef1801289a2937bbeb86779",
+  "files": [
+    {
+      "file": "css/admin-mart.css",
+      "candidateHash": "836751885e63b4c5c07edc6b2f4f8bd33745ea02fc150cc05bd5ec401689444b"
+    },
+    {
+      "file": "css/admin-floors.css",
+      "candidateHash": "deb369626ae9f45bba7b9a57b947848ac12fa99635c44590ede953185e5ad217"
+    },
+    {
+      "file": "css/admin-limits-order.css",
+      "candidateHash": "0acf354257e52b9d5c323dd48263594267e21d8456a8c5527bd2c14522264c4d"
+    },
+    {
+      "file": "css/admin-config.css",
+      "candidateHash": "440eb54f3231838c00faa01cba2500fea08adb4388501250c7a6a681fb83b788"
+    },
+    {
+      "file": "css/admin-pass.css",
+      "candidateHash": "4f874e6d5ef02dde2aecce6b991cd2aa465525c7db69d5ea4778ac3b2ecf94a6"
+    }
+  ],
+  "javascriptAndHtmlUnchanged": true,
+  "rollback": {
+    "allHashesCheckedBeforeWrites": true,
+    "driftRefused": true,
+    "exactRestoration": true
+  },
+  "productionApplicationCalls": 0
+}

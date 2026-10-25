@@ -1,3 +1,7 @@
+## CODEX-222 — integrated Mart and confirmation presentation
+
+16baseline integrated states,28candidate dialog states and native draft/focus checks;126suites and five-CSS guarded rollback pass. Existing create confirmation accent reused consistently;no JS/HTML/transport/permission change. Routine publication/source verification next. No hosted application actions or SQL. Sora NO;Twinkle NO;PlayTester unchanged.
+
 ## CODEX-221 — routine publication/source verification complete
 
 CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL. Sora NO;Twinkle NO;PlayTester unchanged. No new schedule;all temporary fixtures stopped.

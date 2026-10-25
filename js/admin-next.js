@@ -69,6 +69,8 @@
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
     allowed: () => staffOpen, call: (command, args) => window.playCall(command, args)
   }));
+  const progressionApi=window.PLAY_ADMIN_PROGRESSION;
+  const progression=progressionApi?.mount(document.getElementById("next-progression"),progressionApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const passApi = window.PLAY_ADMIN_PASS_EDITOR;
   const passBundles = passApi?.mount(document.getElementById("next-pass-bundles"), passApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
@@ -485,6 +487,7 @@
   function resetHealth() {
     configIdentity = "";
     config?.reset();
+    progression?.reset();
     captureLimits?.reset();
     passBundles?.reset();
     analyticsIdentity = "";

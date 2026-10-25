@@ -8,3 +8,5 @@
 .config-dialog::backdrop{background:#27253eaa}.config-dialog h3{font-family:Fredoka,Nunito,sans-serif;font-size:24px;margin-top:0}
 .config-comparison>div{padding:14px 0;border-bottom:1px solid #e4ddef}.config-comparison dt{font-weight:800}.config-comparison dd{margin:6px 0 0;display:flex;flex-wrap:wrap;gap:8px 20px}.config-comparison dd strong{color:#70466b}
 @media(max-width:600px){.config-fields{grid-template-columns:minmax(0,1fr)}.config-dialog{padding:18px}}
+.config-dialog [data-config-confirm]{background:linear-gradient(110deg,#f9d7ef,#e9ddff);border-color:#deb4d3;color:#604666}
+.config-dialog [data-config-cancel]{background:#f4f8ff;border-color:#d2dced;color:#604666}

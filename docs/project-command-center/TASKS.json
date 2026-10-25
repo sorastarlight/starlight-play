@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-247",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Native capture multipliers and percentage tiers",
       "evidence": "LAUNCH-CODEX247-CAPTURE-RULES.md",
-      "testResults": "135 suites;12 responsive group/width layouts;exact tier patch and session/uncertain guards;4-file rollback",
-      "nextAction": "Scoped publication/source verification",
+      "testResults": "135 suites;12 responsive group/width layouts;exact tier patch and session/uncertain guards;4-file rollback;Pages40238769852success;100+4sources",
+      "nextAction": "Continue item supplies and remaining Hub migration",
       "approvalRequirement": "Owner full migration and completed go-live authorized"
     },
     {

@@ -2756,3 +2756,6 @@ CODEX245 LIVE: migration20261025215533;main36de4072;Pages40237781681success;100+
 
 
 CODEX246 LIVE: compact Configuration and Trainer XP editor;main7dafeb87;Pages40238184575success;100+4sources.134suites;4widths;guarded rollback. No SQL or live settings write. CODEX247 advanced capture rules locally in progress;configuration/Director/System migration remains.
+
+
+CODEX247 LIVE: native capture multipliers, percentage chance tiers and Honey tiers;main55c99a2a;Pages40238769852success;100+4sources;135suites;12layouts. Stored tiers inspected read-only;no settings write/SQL/encounter. Pinap old capture control is a fallback to economy configuration,so remaining Economy extension must use effective authority. CODEX248 supply UI locally in progress.

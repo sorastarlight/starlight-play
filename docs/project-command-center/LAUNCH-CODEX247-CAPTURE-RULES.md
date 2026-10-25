@@ -1,6 +1,6 @@
 # CODEX-247 — Capture rules migration
 
-Status: locally complete; scoped publication next under the owner's full Hub migration and go-live direction.
+Status: LIVE at main55c99a2a823c7b4e68b1843e725dfb8424620ab8;Pages40238769852 succeeded;100 monitored and all four changed versioned sources match. Existing capture read/save definition hashes remain unchanged.
 
 Configuration gains a native Capture rules tool with focused views for three capture multipliers, eight species chance tiers and seven Honey participation tiers. Chances display as percentages and convert exactly to stored probabilities. Tier boundaries and unrelated fields stay unchanged. The separate chance-limit editor remains available. Staff loads settings explicitly and reviews all changed values, including edits across views, before saving once.
 

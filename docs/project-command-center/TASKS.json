@@ -8,10 +8,12 @@
       "status": "done",
       "scope": "Approved local daily/weekly Starlight Pass bundle editor",
       "branch": "admin-hub-overhaul",
-      "evidence": "LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md;evidence/codex219-regressions.json;evidence/codex219-browser.json;evidence/codex219-runtime-scope.json",
-      "testResults": "125suites;8responsive editor/review states;fictional native interactions;guarded four-file rollback;build31HTML481refs",
-      "nextAction": "Separate four-file publication/source-only decision;no live settings or claims",
-      "approvalRequirement": "Local design implementation approval spent;production publication and live application calls separately held"
+      "evidence": "LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md;evidence/codex219-regressions.json;evidence/codex219-browser.json;evidence/codex219-runtime-scope.json;evidence/codex219-contract-recheck.json;evidence/codex219-publication.json",
+      "testResults": "125suites;8responsive editor/review states;fictional native interactions;guarded four-file rollback;build31HTML481refs;15contract matches;100+4hosted source matches",
+      "nextAction": "Published/source verified;live settings and claims remain separately held",
+      "approvalRequirement": "Local design implementation approval spent;production publication and live application calls separately held",
+      "publicationCommit": "361ba124217f724a4694e15855f0a57c0b94765b",
+      "pagesRun": 40164012374
     },
     {
       "id": "CODEX-218",

@@ -1,0 +1,125 @@
+{
+  "classification": "Catalog-only source/ACL/owner recheck;no application invocation",
+  "functions": [
+    {
+      "schema": "private",
+      "name": "capture_berry_keys",
+      "args": "",
+      "definitionMd5": "abaab3adc3978466446319e318e87c62",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "core_item_keys",
+      "args": "",
+      "definitionMd5": "476fea056906aad6e4bcb6c79242e0ec",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "evo_item_keys",
+      "args": "",
+      "definitionMd5": "8950cb284265715c27ed4490ab749be5",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "extra_ball_keys",
+      "args": "",
+      "definitionMd5": "42c5360398abb1acae5f2bb5bb8d354c",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "game_settings",
+      "args": "",
+      "definitionMd5": "3963b75b9790583ba5aab40e2d120eae",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "pass_reward_grants",
+      "args": "p_kind text",
+      "definitionMd5": "0e45c7e6fcc2e3f875d02c7a8b12f451",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "play_staff_role",
+      "args": "p_uid uuid",
+      "definitionMd5": "bbb6dc90f6d4a7790774ece8179dfd49",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "require_hub",
+      "args": "",
+      "definitionMd5": "0d3c14b0c96fbc20f27ca4a85cab5d25",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "require_staff_edit",
+      "args": "",
+      "definitionMd5": "c84c975f7872dad626813afd273c43f8",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "store_item_is_live",
+      "args": "i private.store_items",
+      "definitionMd5": "378db50133889dbc35909cf599d02a45",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "validate_store_grants",
+      "args": "p_grants jsonb",
+      "definitionMd5": "efc446f3f83c8451dd5db8bc249d8ec2",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "schema": "public",
+      "name": "admin_content_studio",
+      "args": "",
+      "definitionMd5": "2901998622a171a9b0486a93002eed0e",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres"
+    },
+    {
+      "schema": "public",
+      "name": "admin_save_pass_rewards",
+      "args": "p_daily jsonb, p_weekly jsonb",
+      "definitionMd5": "efedde0cb490951ffad9115c0211f03d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres"
+    },
+    {
+      "schema": "public",
+      "name": "admin_store_get",
+      "args": "",
+      "definitionMd5": "6c63ea0f5135ea06637e5e2a426c5dc9",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "owner": "postgres"
+    },
+    {
+      "schema": "private",
+      "name": "is_play_admin",
+      "args": "",
+      "definitionMd5": "e1449c28be1cd6f6c5208638d5a1df6f",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "owner": "postgres"
+    }
+  ]
+}

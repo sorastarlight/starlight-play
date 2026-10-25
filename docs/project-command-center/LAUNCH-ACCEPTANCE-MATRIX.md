@@ -1,9 +1,9 @@
 # Launch acceptance matrix
 
-Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Publication/source-only decision is next;no live settings/claims. Production remains main10eeb1d6 / Pages40162962338success,with CODEX-217 maintenance published. APP unchanged.
+Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
 
 
-Current through CODEX-219,October25. This indexes evidence,not final launch approval. Production main **10eeb1d6**,Pages **40162962338 succeeded**,APP **20261008-rc133** unchanged. Latest feature125local suites/build31HTML481refs;production build30HTML477refs;100monitored plus1changed versioned hosted sources match exact latest main. CODEX215previously verified100+4sources for create-only drafts;CODEX217changes only the existing Studio frontend.
+Current through CODEX-219,October25. This indexes evidence,not final launch approval. Production main **361ba124**,Pages **40164012374 succeeded**,APP **20261008-rc133** unchanged. Latest feature125local suites/build31HTML481refs;production build30HTML479refs;100monitored plus4changed versioned hosted sources match exact latest main. CODEX215previously verified100+4sources for create-only drafts;CODEX217changes only the existing Studio frontend.
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |

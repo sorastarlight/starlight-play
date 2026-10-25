@@ -1,11 +1,11 @@
 # Current Admin Hub status
 
-Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Publication/source-only decision is next;no live settings/claims. Production remains main10eeb1d6 / Pages40162962338success,with CODEX-217 maintenance published. APP unchanged.
+Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
 
 
 Updated through CODEX-219,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
 
-Production main **10eeb1d6**,Pages **40162962338 succeeded**.100monitored files and one changed versioned file match exact latest main. APP **20261008-rc133** unchanged. Local feature125suites/build31HTML481refs;isolated production build30HTML477refs. CODEX215new endpoint source/ACL verified without invoking it.
+Production main **361ba124**,Pages **40164012374 succeeded**.100monitored files and four changed versioned files match exact latest main. APP **20261008-rc133** unchanged. Local feature125suites/build31HTML481refs;isolated production build30HTML479refs. CODEX215new endpoint source/ACL verified without invoking it.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |
@@ -20,7 +20,7 @@ Production main **10eeb1d6**,Pages **40162962338 succeeded**.100monitored files 
 
 ## Prepared next migration
 
-[Pass bundle editor review](ADMIN-HUB-PASS-BUNDLES-REVIEW.md):separate daily/weekly drafts,searchable eight-core-reward selection,quantities and complete before/after review. Approved design implemented locally in CODEX219;publication/live settings held. Current Studio local draft maintenance is complete.
+[Pass bundle editor review](ADMIN-HUB-PASS-BUNDLES-REVIEW.md):separate daily/weekly drafts,searchable eight-core-reward selection,quantities and complete before/after review. Implemented and published in CODEX219;live settings/claims held. Current Studio local draft maintenance is complete.
 
 ## Latest installed database slice
 

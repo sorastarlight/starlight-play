@@ -1,3 +1,7 @@
+## CODEX-219 — scoped publication/source verification complete (October25)
+
+Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent. Sora NO;Twinkle NO;PlayTester role unchanged. No new schedule.
+
 ## CODEX-219 — approved local Pass bundle editor (October25)
 
 125 LOCAL HARNESS suites;8 REAL LOCAL DOM editor/review states;fictional picker,isolated removal,keyboard,uncertain/denied/pending/session cases;guarded four-file rollback and build31HTML481refs pass. Four-file production publication/source-only decision remains held. No SQL,live settings,claims,notices,provider or protected-account action. Main10eeb1d6 and APP unchanged. See LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md.

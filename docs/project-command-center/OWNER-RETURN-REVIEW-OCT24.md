@@ -1,13 +1,13 @@
 # Owner return review — October24
 
-Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Publication/source-only decision is next;no live settings/claims. Production remains main10eeb1d6 / Pages40162962338success,with CODEX-217 maintenance published. APP unchanged.
+Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
 
 
-Production main **10eeb1d6**,Pages **40162962338 succeeded**;APP **20261008-rc133** unchanged. Latest Studio maintenance has100+1static source matches and124local suites. Prior215new draft endpoint/full body/permissions verification,22SQL groups and14delta recovery proof remain recorded. No live draft/Pass configuration action.
+Production main **361ba124**,Pages **40164012374 succeeded**;APP **20261008-rc133** unchanged. Latest Studio maintenance has100+1static source matches and124local suites. Prior215new draft endpoint/full body/permissions verification,22SQL groups and14delta recovery proof remain recorded. No live draft/Pass configuration action.
 
 ## Current decision state
 
-CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. Next important decision:CODEX219four-file Pass editor publication/source-only verification;design/local implementation approved and complete. Live configuration stays held. Actual draft creation and other hosted mutations remain separate bounded decisions.
+CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. CODEX219publication/source-only decision is complete and spent. Live configuration stays held. Actual draft creation and other hosted mutations remain separate bounded decisions.
 
 ## Remaining launch evidence
 

@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-219 | done | Local Pass bundle editor | CODEX-218 | Local implementation approved | 125suites;8width states;guarded rollback;publication held |
+| CODEX-219 | done | Local Pass bundle editor | CODEX-218 | Exact publication approved/spent | Main361ba124;Pages40164012374;15contracts;100+4sources |
 | CODEX-218 | done | Pass bundle editor source/design proposal | CODEX-216/217 | Design/local approved;implemented219 | 9disconnected cases;8width states;5selected contracts |
 | CODEX-217 | done | Existing Studio Pass draft correction published | CODEX-216 | CODEX-78 maintenance | Main10eeb1d6;Pages40162962338;100+1sources;124suites |
 | CODEX-216 | done | Record future content-management requirements and verify repository Pokémon source | CODEX-215 | Owner request;documentation only | Future Mart/Pass/pages/Pokémon tools recorded;implementation not approved |

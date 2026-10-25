@@ -281,8 +281,8 @@ test("Unauthorized and network failures stay UNAVAILABLE and do not mutate", () 
   const network = contract.presentLiveOperations({ error: "network" });
   const missing = contract.presentLiveOperations({ error: "missing" });
   assert(denied.status.includes("restricted to staff"));
-  assert(network.status.includes("Live status unavailable in preview"));
-  assert(missing.status.includes("current Dashboard to view and manage the Live RPG"));
+  assert(network.status.includes("Live status is unavailable"));
+  assert(missing.status.includes("Reload Operations to try again"));
   [denied, network, missing].forEach((view) => {
     assert(card(view, "Twitch").value === "UNAVAILABLE");
     assert(card(view, "Live RPG session").value === "UNAVAILABLE");

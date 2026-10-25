@@ -138,3 +138,6 @@
 
 .roster-filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr) auto;gap:12px;align-items:end}.roster-filters label{display:grid;gap:8px}.roster-filters input,.roster-filters select{box-sizing:border-box;width:100%;min-width:0;min-height:44px;padding:10px;border:1px solid #ced8ef;border-radius:12px;font:inherit}.roster-pager{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:18px}.roster-filters button,.roster-pager button{min-height:44px}@media(max-width:600px){.roster-filters{grid-template-columns:minmax(0,1fr)}}
 .record-hit[data-roster-mon] .admin-next-trainer-handle{display:block;margin-top:4px}
+[data-trainer-roster] .reward-dialog header>div{min-width:0;overflow-wrap:anywhere}
+[data-trainer-roster] .reward-dialog header>button{flex-shrink:0}
+@media(max-width:520px){[data-trainer-roster] .reward-dialog header{flex-direction:column;align-items:stretch}[data-trainer-roster] .reward-dialog header>button{align-self:flex-start;max-width:100%}}

@@ -42,7 +42,7 @@
     return [
       { id: "currency", name: "PokéCoins and Inventory Space", items: items([["coins", "PokéCoins"], ["used", "Inventory used"], ["capacity", "Inventory capacity"]]) },
       { id: "balls", name: "Poké Balls", items: items([["pokeball", "Poké Ball"], ["greatball", "Great Ball"], ["ultraball", "Ultra Ball"], ["masterball", "Master Ball"]]) },
-      { id: "consumables", name: "Consumables", items: items([["berry", "Berries"], ["bait", "Bait"], ["lure", "Lure"]]) },
+      { id: "consumables", name: "Consumables", items: items([["berry", "Berries"], ["bait", "Honey"], ["lure", "Poké Radar"]]) },
       { id: "candy", name: "Evolution Candy", items: (view.candy || []).filter((row) => Number(row.qty) > 0).map((row) => ({ id: row.familyId, name: row.name || row.familyId, qty: row.qty })) }
     ];
   }

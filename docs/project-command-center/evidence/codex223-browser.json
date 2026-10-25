@@ -1,0 +1,528 @@
+{
+  "classification": "REAL LOCAL DOM with fictional roster/inventory transports;actual styles/presenters",
+  "baseline": [
+    {
+      "width": 320,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 320,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": true,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": true,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 390,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": true,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": true,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 768,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 1024,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    }
+  ],
+  "candidate": [
+    {
+      "width": 320,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 390,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 390,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "empty",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "error",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 0,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 320,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 390,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 768,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 768,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "normal",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "last",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 3,
+      "broken": 0,
+      "calls": 2
+    },
+    {
+      "width": 1024,
+      "mode": "dialog",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    },
+    {
+      "width": 1024,
+      "mode": "missing",
+      "overflow": false,
+      "dialogOverflow": false,
+      "rows": 40,
+      "broken": 0,
+      "calls": 1
+    }
+  ],
+  "inventory": [
+    {
+      "width": 320,
+      "overflow": false,
+      "items": [
+        {
+          "id": "berry",
+          "text": "Berries · 2"
+        },
+        {
+          "id": "bait",
+          "text": "Honey · 3"
+        },
+        {
+          "id": "lure",
+          "text": "Poké Radar · 4"
+        }
+      ]
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "items": [
+        {
+          "id": "berry",
+          "text": "Berries · 2"
+        },
+        {
+          "id": "bait",
+          "text": "Honey · 3"
+        },
+        {
+          "id": "lure",
+          "text": "Poké Radar · 4"
+        }
+      ]
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "items": [
+        {
+          "id": "berry",
+          "text": "Berries · 2"
+        },
+        {
+          "id": "bait",
+          "text": "Honey · 3"
+        },
+        {
+          "id": "lure",
+          "text": "Poké Radar · 4"
+        }
+      ]
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "items": [
+        {
+          "id": "berry",
+          "text": "Berries · 2"
+        },
+        {
+          "id": "bait",
+          "text": "Honey · 3"
+        },
+        {
+          "id": "lure",
+          "text": "Poké Radar · 4"
+        }
+      ]
+    }
+  ],
+  "nativeObserved": [
+    "page2 shows41–43;Previous returns1–40",
+    "empty search disables both page buttons",
+    "Shiny entry uses shiny/1.png",
+    "Escape restores selected Shiny row focus",
+    "pending read disables all roster controls",
+    "reset plus late response leaves roster empty",
+    "missing moves/ability/nature/HP/IVs stay unavailable;Edit stats disabled",
+    "320px nickname/header screenshot inspected;Close visible"
+  ],
+  "notCertified": [
+    "hosted roster read",
+    "physical mobile or assistive technology",
+    "iframe default focus"
+  ]
+}

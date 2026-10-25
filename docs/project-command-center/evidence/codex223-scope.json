@@ -1,0 +1,22 @@
+{
+  "classification": "Routine roster layout and inventory label maintenance",
+  "featureBefore": "7bdbf8f13c875cad41949d2987c4d240de46eb29",
+  "files": [
+    {
+      "file": "css/admin-record.css",
+      "candidateHash": "e1fd6b4ea6cb7d6006f72e82c856fed39a6b2e02d51932459a2c1df3779a79e5"
+    },
+    {
+      "file": "js/admin-next-record.js",
+      "candidateHash": "1c94cd8c839245c7fce0eff46eaf61fcd750c341fc9fc9b1cdc86309984566ef"
+    }
+  ],
+  "rosterAndHubControllersUnchanged": true,
+  "recordJsDiff": "One display-label line only;item IDs/quantities preserved",
+  "rollback": {
+    "allHashesCheckedBeforeWrites": true,
+    "driftRefused": true,
+    "exactRestore": true
+  },
+  "hostedApplicationCalls": 0
+}

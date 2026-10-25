@@ -1,3 +1,7 @@
+## CODEX-223 — roster visual/paging and inventory naming review
+
+Valid12character nickname reproduced4narrow-dialog overflows;scoped CSS fixes all24roster states. Honey/Poké Radar labels align withgame.js whileIDs/quantities stay;4inventory widths pass. Native paging/empty/Shiny/focus/pending/reset/missing-stat checks and126suites pass. Two-file rollback verified. Routine publication/source verification next. No hosted app or SQL. Sora NO;Twinkle NO;PlayTester unchanged.
+
 ## CODEX-222 — scoped CSS publication/source verification complete
 
 CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation. Sora NO;Twinkle NO;PlayTester unchanged;heartbeat paused.

@@ -194,7 +194,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       card.classList.add("account-menu-btn");
     }
     const staff = els.staff || document.getElementById("account-staff");
-    if (staff) staff.classList.add("account-menu-btn", "account-staff-action");
+    if (staff) { staff.classList.add("account-menu-btn", "account-staff-action"); staff.href = "./admin-next.html"; }
     document.getElementById("account-connections")?.remove();
     els.home = home;
     els.settings = null;
@@ -385,7 +385,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       els.staff.hidden = !isAdmin;
       els.staff.classList.toggle("account-staff-action", isAdmin);
       if (isAdmin) {
-        els.staff.setAttribute("aria-current", (page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store") ? "page" : "false");
+        els.staff.setAttribute("aria-current", (page === "admin-next" || page === "admin" || page === "admin-live" || page === "admin-tools" || page === "admin-store") ? "page" : "false");
       } else {
         els.staff.removeAttribute("aria-current");
       }

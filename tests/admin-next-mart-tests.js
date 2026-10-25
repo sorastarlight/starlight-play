@@ -7,8 +7,8 @@ const catalog = () => structuredClone({ categories, items: [row] });
 const defer = () => { let resolve, reject; const promise = new Promise((a, b) => { resolve = a; reject = b; }); return { promise, resolve, reject }; };
 (async () => {
   assert(api.eligible(row, categories));
-  for (const change of [{ bits: 1 }, { productKind: "avatar" }, { extra: { pack: "pack" } }, { grants: { berry: 5, bait: 1 } }, { cost: -1 }, { visible: null }, { extra: { status: "draft" } }, { grants: { berry: 1.5 } }, { extra: [] }, { extra: { looks: {} } }]) assert.equal(api.eligible({ ...row, ...change }, categories), false);
-  assert.equal(api.eligible(row, [{ ...categories[0], kind: "bits" }]), false);
+  for (const change of [{ productKind: "avatar" }, { cost: -1 }, { visible: null }, { extra: { status: "draft" } }, { grants: { berry: 1.5 } }, { extra: [] }, { extra: { looks: {} } }]) assert.equal(api.eligible({ ...row, ...change }, categories), false);
+  assert.equal(api.eligible(row, [{ ...categories[0], kind: "bits" }]), true);
   const edited = { ...api.draft(row), name: " Fresh Berries ", cost: "100", quantity: "7", detail: "New details", status: "draft", visible: true, featured: true };
   const payload = api.payload(row, edited, categories).p_row;
   assert.equal(payload.name, "Fresh Berries"); assert.equal(payload.cost, 100); assert.deepEqual(payload.grants, { berry: 7 });
@@ -19,7 +19,13 @@ const defer = () => { let resolve, reject; const promise = new Promise((a, b) =>
   assert.throws(() => api.payload(row, { ...edited, quantity: "0" }, categories));
   assert.throws(() => api.payload(row, { ...edited, name: " " }, categories));
   assert.throws(() => api.payload(row, { ...edited, status: "removed" }, categories));
-  assert.throws(() => api.payload({ ...row, bits: 2 }, edited, categories));
+  const bundle={...row,grants:{berry:5,bait:2}};const bd=api.draft(bundle);bd.quantities.bait='4';assert.deepEqual(api.payload(bundle,bd,categories).p_row.grants,{berry:5,bait:4});
+  assert.throws(()=>api.payload(bundle,{...bd,quantities:{berry:'5'}},categories));
+  assert.equal(api.eligible({...row,grants:{masterball:1}},categories),false);
+  const bits={...row,bits:100,extra:{...row.extra,bitsTitles:['Cheer reward']}};const bitDraft=api.draft(bits);bitDraft.bits='200';assert.equal(api.payload(bits,bitDraft,categories).p_row.bits,200);
+  assert.throws(()=>api.payload(bits,{...bitDraft,bitsTitles:''},categories));
+  const avatar={...row,productKind:'avatar',grants:{},extra:{...row.extra,productKind:'avatar',pack:'test',looks:['trainer-a']}};
+  const ac=[{...categories[0],kind:'avatars'}];assert(api.eligible(avatar,ac));assert.deepEqual(api.payload(avatar,api.draft(avatar),ac).p_row.extra.looks,['trainer-a']);
   let calls = [], receipt = { sku: row.sku };
   const c = api.createController(async (name, args) => { calls.push([name, args]); if (name === "admin_store_get") return catalog(); if (receipt instanceof Error) throw receipt; return receipt; });
   await c.load(); assert.equal(calls.length, 0); await c.open(); c.select(row.sku); assert(!c.dirty());

@@ -68,8 +68,8 @@ test("Generic reads stay read-only; approved Mart adapter stays separate", () =>
 });
 
 test("Operations preview keeps the unavailable fallback and polls only the snapshot", () => {
-  assert(nextHtml.includes("Live status unavailable in preview"));
-  assert(nextHtml.includes("Use the current Dashboard to view and manage the Live RPG"));
+  assert(nextHtml.includes("Live status is unavailable"));
+  assert(nextHtml.includes("Reload Operations to try again"));
   assert(nextHtml.includes("UNAVAILABLE"));
   assert(nextHtml.includes("Last recorded encounter"));
   assert(nextHtml.includes("Settlement"));
@@ -105,7 +105,7 @@ test("Lifecycle copy matches permission-only contract", () => {
 test("Preview mutation deep links stay on the current hub", () => {
   assert(nextHtml.includes('href="./admin.html?section=trainers"'));
   assert(nextHtml.includes("section=content") && nextHtml.includes("view=oakqa"));
-  assert(nextHtml.includes("section=economy") && nextHtml.includes("view=catalog"));
+  assert(!nextHtml.includes("view=catalog"), "Mart editing stays in the new Hub");
   assert(!nextHtml.includes('href="./admin-tools.html"'), "bare admin-tools.html redirects to System Twitch");
   assert(!nextHtml.includes('href="./admin-store.html"'), "bare admin-store.html redirects away from embed");
 });

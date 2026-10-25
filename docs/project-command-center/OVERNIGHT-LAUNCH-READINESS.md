@@ -330,3 +330,5 @@ CODEX-201 publication completed under explicit owner approval:only admin-next.ht
 
 ### CODEX-242 redesign checkpoint
 Main799b8043 / Pages40229491912 succeeds with100+10source matches. New names and compact views live. Local130suite pass;27fictionalSQLchecks. Expanded reward and correction workflows not live. Master Ball choice recorded. Legacy admin-store category wording local only. No scheduling renewal; previous automation remains paused. Continue typed delivery, public concealment, eligibility catalog, correction endpoints and exact cleanup proposal; destructive production cleanup held.
+
+CODEX-243: owner requested primary Hub and replacement of legacy handoffs. Six-file native ticket/product slice tested;130suites,4ticketwidths,guarded rollback. Full migration still in progress;no production data changed. See LAUNCH-CODEX243-TICKET-AND-PRODUCT-WORKSPACES.md.

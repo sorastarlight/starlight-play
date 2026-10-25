@@ -1,3 +1,7 @@
+## CODEX-235 — Local Helpdesk visible focus
+
+Populated24state review passed;native paging revealed offscreen focus. One-expression routine correction makes existing focus target visible.126suites,11support cases/build and rollback pass. No hosted calls;exact publication next.
+
 ## CODEX-234 — Gift wrapping publication verified
 
 CODEX-234 gift confirmation wrapping is published at main **5aa6b86c**, Pages **40184787606 succeeded**;100monitored+one versioned source match. Two scoped CSS rules fix six long-name overflow cases. All36local states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. Gift quantities,payloads,permissions and behavior stay unchanged;no hosted gift/application call. Temporary browser tabs closed and local fixture server stopped;private rollback retained. Sora NO;Twinkle NO;PlayTester unchanged.

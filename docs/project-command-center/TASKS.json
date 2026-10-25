@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-235",
+      "status": "doing",
+      "scope": "Helpdesk populated conversation and visible keyboard focus",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX235-HELPDESK-VISIBLE-FOCUS.md;evidence/codex235-helpdesk.json;evidence/codex235-regressions.json",
+      "testResults": "24rendered states;native focus repro/fix;11support cases;126suites/build;guarded rollback",
+      "nextAction": "One-file routine accessibility publication/source verification",
+      "approvalRequirement": "CODEX78 routine focus scrolling only;no hosted application calls"
+    },
+    {
       "id": "CODEX-234",
       "status": "done",
       "scope": "Gift confirmation narrow wrapping",

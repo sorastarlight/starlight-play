@@ -1,0 +1,59 @@
+{
+  "classification": "LOCAL schema-only replay from existing reviewed archive;no application/Auth data import,new export,production connection or original retained DB mutation",
+  "startedAt": "2026-10-25T22:22:46.466Z",
+  "completedPackets": [
+    "20261022014528",
+    "20261022084110",
+    "20261022084115",
+    "20261022162826",
+    "20261022171505",
+    "20261022185226",
+    "20261023012959",
+    "20261023013015",
+    "20261023020246",
+    "20261023025714",
+    "20261023173738",
+    "20261023190339",
+    "20261024044601",
+    "20261025042627",
+    "20261025211631",
+    "20261025215533"
+  ],
+  "newExport": false,
+  "dataImported": false,
+  "productionConnected": false,
+  "emptyApplicationTables": 142,
+  "isolationVerified": true,
+  "attemptedPacket": "20261023025714",
+  "giftSourceHashesMatch": true,
+  "proposedRosterSourceMatches": true,
+  "installedReportSourcesMatch": true,
+  "createDraftSourceAndDenialMatch": true,
+  "timingChecks": [
+    "Nonstaff denied before timing access",
+    "Missing timings unavailable without defaults",
+    "Read is side-effect free and revision-bearing",
+    "Strict key/type/range validation makes no partial changes",
+    "Standalone Play save preserves unrelated settings and retains existing Bits-off policy",
+    "Stale review and repeated request refused before queuing",
+    "Connected stream PC receives one exact settings payload",
+    "Successful changes retain before/after and command audit",
+    "Queue failure rolls back settings and audit atomically",
+    "Old Bits-disabling save route retired",
+    "Anonymous and private helper grants denied"
+  ],
+  "raceChecks": [
+    "Observed overlapping save serializes;loser sees stale revision",
+    "Exactly one stream settings command and audit survive"
+  ],
+  "rollbackChecks": [
+    "Source drift refused",
+    "Exact original timing function restored",
+    "New public APIs disabled",
+    "Audit/queued-command records retained"
+  ],
+  "status": "PASS",
+  "runtimeStopped": true,
+  "originalSchemaArchiveUnchanged": true,
+  "endedAt": "2026-10-25T22:22:53.400Z"
+}

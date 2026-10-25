@@ -1,0 +1,25 @@
+{
+  "classification": "LOCAL fictional rendered transport",
+  "results": [
+    {
+      "width": 320,
+      "overflow": false,
+      "fields": 4
+    },
+    {
+      "width": 390,
+      "overflow": false,
+      "fields": 4
+    },
+    {
+      "width": 768,
+      "overflow": false,
+      "fields": 4
+    },
+    {
+      "width": 1024,
+      "overflow": false,
+      "fields": 4
+    }
+  ]
+}

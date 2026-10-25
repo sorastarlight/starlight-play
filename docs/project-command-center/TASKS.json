@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-249",
+      "status": "in_progress",
+      "scope": "Revision-checked encounter timing and bridge settings audit",
+      "evidence": "LAUNCH-CODEX249-ENCOUNTER-TIMINGS.md;supabase/unapplied/hub-encounter-timings/README.md",
+      "testResults": "137 suites;11 SQL groups;2 concurrency cases;4 rollback checks;4 widths;4-file frontend rollback",
+      "nextAction": "Guarded installation and scoped publication/source verification",
+      "approvalRequirement": "Owner full Admin Hub migration and completed go-live authorized;Bits activation remains held"
+    },
+    {
       "id": "CODEX-248",
       "status": "done",
       "scope": "Native item supply settings and individual reward-table entries",

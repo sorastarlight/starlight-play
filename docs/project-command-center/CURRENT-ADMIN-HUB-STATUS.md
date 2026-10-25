@@ -1,13 +1,8 @@
 # Current Admin Hub status
 
-CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action. See [integrated visual evidence](LAUNCH-CODEX220-CONFIGURATION-CONSISTENCY.md).
+Current through CODEX-221,October25. CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
 
-Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
-
-
-Updated through CODEX-220,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
-
-Production main **b6daf681**,Pages **40165498737 succeeded**.100monitored files and two changed versioned files match exact latest main. APP **20261008-rc133** unchanged. Local feature125suites/build31HTML481refs;isolated production build30HTML479refs. CODEX215new endpoint source/ACL verified without invoking it.
+CODEX-220 corrected Pass input/search sizing and Configuration headings using actual repository styles:15 fields and12 responsive combined states passed. New Pass bundles remain published;live settings read/save and claims are untested. Feature build31HTML481refs;isolated production build30HTML479refs. Preview:[Admin Hub](../../admin-next.html). This remains a partial migration,not a final-launch declaration.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |
@@ -20,7 +15,7 @@ Production main **b6daf681**,Pages **40165498737 succeeded**.100monitored files 
 | Analytics | Health,Captures,Progression,Evolution & Trading,Economy | All five loaded in approved CODEX178 inspection;local transitions/layout evidence does not prove broader hosted/device behavior. |
 | System/Access | Current-tool handoff | Credentials,integrations,roles and identity authority remain unmigrated. |
 
-## Prepared next migration
+## Pass bundle migration
 
 [Pass bundle editor review](ADMIN-HUB-PASS-BUNDLES-REVIEW.md):separate daily/weekly drafts,searchable eight-core-reward selection,quantities and complete before/after review. Implemented and published in CODEX219;live settings/claims held. Current Studio local draft maintenance is complete.
 

@@ -8,10 +8,12 @@
       "status": "done",
       "scope": "Pending Pass save navigation presentation",
       "branch": "admin-hub-overhaul",
-      "evidence": "LAUNCH-CODEX221-PASS-PENDING-NAVIGATION.md;evidence/codex221-scope.json;evidence/codex221-regressions.json",
+      "evidence": "LAUNCH-CODEX221-PASS-PENDING-NAVIGATION.md;evidence/codex221-scope.json;evidence/codex221-regressions.json;evidence/codex221-publication.json",
       "testResults": "126suites;actual handler baseline failure/candidate pass;native fictional pending/resolution;exact rollback",
-      "nextAction": "Routine one-file publication/source verification",
-      "approvalRequirement": "CODEX78routine UI maintenance;no save/transport/authority change"
+      "nextAction": "Published/source verified;remaining hosted/device/provider boundaries retained",
+      "approvalRequirement": "CODEX78routine UI maintenance;no save/transport/authority change",
+      "publicationCommit": "cbafe131dd27e653998ca90a4df56ef95153fec7",
+      "pagesRun": 40165825515
     },
     {
       "id": "CODEX-220",

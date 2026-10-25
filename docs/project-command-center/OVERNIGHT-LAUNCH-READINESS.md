@@ -1,6 +1,8 @@
-# Current launch readiness handoff — through CODEX-220
+# Current launch readiness handoff — through CODEX-221
 
-Runtime mainb6daf681 / Pages40165498737success;100+2sources match. CODEX217existing Studio local draft/bundle-isolation maintenance only.125local suites;APP20261008-rc133 unchanged. Latest SQL remains215;14delta recovery and3checkoutfiles unchanged.
+Runtime maincbafe131 / Pages40165825515success;100+1sources match. CODEX217existing Studio local draft/bundle-isolation maintenance only.125local suites;APP20261008-rc133 unchanged. Latest SQL remains215;14delta recovery and3checkoutfiles unchanged.
+
+CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
 
 CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action.
 

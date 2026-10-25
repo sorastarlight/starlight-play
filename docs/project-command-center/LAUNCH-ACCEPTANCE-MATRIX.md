@@ -1,11 +1,8 @@
 # Launch acceptance matrix
 
-CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action. See [integrated visual evidence](LAUNCH-CODEX220-CONFIGURATION-CONSISTENCY.md).
+Current through CODEX-221,October25. CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
 
-Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
-
-
-Current through CODEX-220,October25. This indexes evidence,not final launch approval. Production main **b6daf681**,Pages **40165498737 succeeded**,APP **20261008-rc133** unchanged. Latest feature125local suites/build31HTML481refs;production build30HTML479refs;100monitored plus2changed versioned hosted sources match exact latest main. CODEX215previously verified100+4sources for create-only drafts;CODEX217changes only the existing Studio frontend.
+CODEX219Pass bundles published;CODEX220integrated controls/headings corrected. Real device/provider and hosted mutation gaps below remain.
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |

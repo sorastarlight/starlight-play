@@ -69,11 +69,14 @@
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
     allowed: () => staffOpen, call: (command, args) => window.playCall(command, args)
   }));
-  const passApi = window.PLAY_ADMIN_PASS_BUNDLES;
+  const passApi = window.PLAY_ADMIN_PASS_EDITOR;
   const passBundles = passApi?.mount(document.getElementById("next-pass-bundles"), passApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
-    allowed: () => staffOpen, call: (name, args) => name === "admin_content_studio"
-      ? window.playCall("admin_content_studio") : window.playCall("admin_save_pass_rewards", args)
+    allowed: () => staffOpen, call: (name, args) => {
+      if (name === "admin_pass_rewards_read") return window.playCall("admin_pass_rewards_read");
+      if (name === "admin_pass_rewards_save") return window.playCall("admin_pass_rewards_save", args);
+      throw new Error("Unsupported Pass operation.");
+    }
   }));
   const analyticsApi = window.PLAY_ADMIN_NEXT_ANALYTICS;
   const analytics = analyticsApi?.mount(document.getElementById("next-analytics-reports"), analyticsApi.adapter({

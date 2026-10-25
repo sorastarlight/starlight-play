@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-244",
+      "status": "in_progress",
+      "scope": "Expanded Pass rewards and private atomic delivery",
+      "evidence": "LAUNCH-CODEX244-EXPANDED-PASS.md;supabase/unapplied/hub-pass-rewards-v2/README.md",
+      "testResults": "132 suites;15 SQL groups;guarded rollback/drift;4 widths;311 artworks",
+      "nextAction": "Install guarded migration and publish exact frontend;continue direct corrections",
+      "approvalRequirement": "Owner explicitly authorized implementation, migration and completed go-live"
+    },
+    {
       "id": "CODEX-243",
       "status": "done",
       "scope": "Native ticket workspace and expanded product editing",

@@ -10,7 +10,8 @@ function create(transport,onChange=()=>{}){
  async function load(){reset();const token=epoch;state.phase='loading';emit();try{const result=await transport('read');if(token!==epoch)return;
  if(!result||typeof result.revision!=='string'||!result.revision)throw Error('Reward settings could not be verified.');
  const rows=catalog.catalog(result.catalog,'pass');
- const daily=catalog.bundle(result.daily,rows).rewards,weekly=catalog.bundle(result.weekly,rows).rewards;
+ const readable=rows.map(r=>({...r,enabled:true}));
+ const daily=catalog.bundle(result.daily,readable).rewards,weekly=catalog.bundle(result.weekly,readable).rewards;
  Object.assign(state,{phase:'ready',catalog:rows,daily,weekly,revision:result.revision});emit();
  }catch(error){if(token!==epoch)return;state.phase='error';state.message=error.message;emit();}}
  function period(name){if(!['daily','weekly'].includes(name))throw Error('Choose daily or weekly rewards.');return state[name];}

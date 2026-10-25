@@ -1,3 +1,7 @@
+## CODEX-220 — routine publication/source verification complete
+
+CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action.
+
 ## CODEX-220 — integrated Configuration visual maintenance (October25)
 
 Actual repository CSS reproduced21px Pass controls against44px siblings;scoped CSS fixes quantities/search/focus and page/subheading hierarchy.125suites,15measured fields,12responsive combined states and guarded two-file rollback pass. No JS/transport/server behavior changes. Routine publication/source verification next under CODEX78. Sora NO;Twinkle NO;PlayTester role unchanged.

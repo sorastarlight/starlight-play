@@ -1,6 +1,8 @@
-# Current launch readiness handoff — through CODEX-219
+# Current launch readiness handoff — through CODEX-220
 
-Runtime main361ba124 / Pages40164012374success;100+4sources match. CODEX217existing Studio local draft/bundle-isolation maintenance only.125local suites;APP20261008-rc133 unchanged. Latest SQL remains215;14delta recovery and3checkoutfiles unchanged.
+Runtime mainb6daf681 / Pages40165498737success;100+2sources match. CODEX217existing Studio local draft/bundle-isolation maintenance only.125local suites;APP20261008-rc133 unchanged. Latest SQL remains215;14delta recovery and3checkoutfiles unchanged.
+
+CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action.
 
 Current user authorizes autonomous in-session readiness/visual work. Existing heartbeat remains PAUSED;no renewed schedule or extra background systems. No delegation. Preserve SQL/Auth/provider/credential/gameplay/grant/notice/protected-account/spending/APP/final-launch boundaries.
 

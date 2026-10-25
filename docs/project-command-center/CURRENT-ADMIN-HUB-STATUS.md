@@ -1,11 +1,13 @@
 # Current Admin Hub status
 
+CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action. See [integrated visual evidence](LAUNCH-CODEX220-CONFIGURATION-CONSISTENCY.md).
+
 Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
 
 
-Updated through CODEX-219,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
+Updated through CODEX-220,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
 
-Production main **361ba124**,Pages **40164012374 succeeded**.100monitored files and four changed versioned files match exact latest main. APP **20261008-rc133** unchanged. Local feature125suites/build31HTML481refs;isolated production build30HTML479refs. CODEX215new endpoint source/ACL verified without invoking it.
+Production main **b6daf681**,Pages **40165498737 succeeded**.100monitored files and two changed versioned files match exact latest main. APP **20261008-rc133** unchanged. Local feature125suites/build31HTML481refs;isolated production build30HTML479refs. CODEX215new endpoint source/ACL verified without invoking it.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |
@@ -14,7 +16,7 @@ Production main **361ba124**,Pages **40164012374 succeeded**.100monitored files 
 | Support/Recovery | Owner Helpdesk,player Support,ticket history,masked diagnostics,recovery email confirmation | Prior hosted QA plus local populated/read/reset/error checks;attachments,notifications and guided identity recovery deferred. |
 | Operations | Observation cards and reviewed Start/End controls | Source/local evidence complete;hosted commands untested and require bounded scope because Start can enable Auto/scheduling. |
 | Mart | Existing single-reward PokéCoin product editing,create-only hidden core inventory drafts,existing non-system floor presentation,and floor ordering with complete-ID/fixed-slot review | Approved catalog/search/selection inspection exists;live product/floor/order saves untested. Other new product types/new floors,uploads,deletion,Bits/avatar products and product ordering remain in current tools. |
-| Configuration | Six PokéCoin reward amounts and minimum/maximum capture chance bounds | Six-field hosted loading recorded;capture loading and all new saves untested. Other capture settings,timing,XP and rarity rules remain in current tools. |
+| Configuration | Six PokéCoin reward amounts,daily/weekly Starlight Pass bundles and minimum/maximum capture chance bounds | Six-field hosted loading recorded;capture loading and all new saves untested. Other capture settings,timing,XP and rarity rules remain in current tools. |
 | Analytics | Health,Captures,Progression,Evolution & Trading,Economy | All five loaded in approved CODEX178 inspection;local transitions/layout evidence does not prove broader hosted/device behavior. |
 | System/Access | Current-tool handoff | Credentials,integrations,roles and identity authority remain unmigrated. |
 

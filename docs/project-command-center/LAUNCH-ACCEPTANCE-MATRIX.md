@@ -1,9 +1,11 @@
 # Launch acceptance matrix
 
+CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action. See [integrated visual evidence](LAUNCH-CODEX220-CONFIGURATION-CONSISTENCY.md).
+
 Latest local completion: [CODEX-219 Pass bundle editor](LAUNCH-CODEX219-LOCAL-PASS-BUNDLES.md),following the owner-approved CODEX-218 design.125local suites,8responsive editor/review states and exact four-file rollback pass. Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent.
 
 
-Current through CODEX-219,October25. This indexes evidence,not final launch approval. Production main **361ba124**,Pages **40164012374 succeeded**,APP **20261008-rc133** unchanged. Latest feature125local suites/build31HTML481refs;production build30HTML479refs;100monitored plus4changed versioned hosted sources match exact latest main. CODEX215previously verified100+4sources for create-only drafts;CODEX217changes only the existing Studio frontend.
+Current through CODEX-220,October25. This indexes evidence,not final launch approval. Production main **b6daf681**,Pages **40165498737 succeeded**,APP **20261008-rc133** unchanged. Latest feature125local suites/build31HTML481refs;production build30HTML479refs;100monitored plus2changed versioned hosted sources match exact latest main. CODEX215previously verified100+4sources for create-only drafts;CODEX217changes only the existing Studio frontend.
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |
@@ -17,6 +19,6 @@ Current through CODEX-219,October25. This indexes evidence,not final launch appr
 | Visual/keyboard maintenance | Routine copy/loading/focus fixes published with scoped source evidence;new empty/fixed/long-review and independent-draft checks complete. | Local fixtures are not blanket hosted/device/assistive certification. |
 | Latest optional migration | CODEX215create-only hidden Mart draft installed/published/source verified;123suites,22SQL groups,8responsive states,100+4source matches and14delta recovery. | Hosted creation/application acceptance remains untested and needs exact scope. |
 | Final release | Requirements,accepted constraints and limits recorded. | Owner scope/go-no-go and APP stamp still separate;no final launch declaration. |
-| Next optional migration | CODEX218new Hub Pass bundle editor source/design mock:9disconnected cases,8responsive states,5selected source contracts. | Design/local implementation decision next;no SQL,live settings read/save or publication included. |
+| Latest Pass migration | CODEX219bundle editor published/source verified;CODEX220integrated style maintenance published. | Hosted Pass settings reads/saves and claims remain outside completed scope. |
 
 See [Hub status](CURRENT-ADMIN-HUB-STATUS.md),[owner review](OWNER-RETURN-REVIEW-OCT24.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md),[recovery drill](RECOVERY-DRILL-CODEX71.md),[delta recovery](RECOVERY-POST-DRILL-DELTAS.md),[backup](LAUNCH-CODEX188-POST-REPORT-BACKUP.md),[hosted Hub inspection](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md),[ordering/capture implementation](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md),[latest presentation maintenance](LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md),[creation proposal](ADMIN-HUB-MART-CREATE-REVIEW.md) and [handoff](OVERNIGHT-LAUNCH-READINESS.md). Historical reports/Git retain exact approvals;later decisions supersede earlier held-state wording.

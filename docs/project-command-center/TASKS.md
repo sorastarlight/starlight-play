@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-250 | in_progress | Native System connections and Bits activity | Owner full migration | Install/completed go-live authorized;no live credential action | Finish local UI and guarded release |
+| CODEX-251 | done | Retired client ad-token route and retry review | System source review | Safe legacy replacement authorized | Migration20261025225608;4controls unchanged;retry already safe |
 | CODEX-249 | done | Audited encounter timing | Owner full migration | Install/completed go-live authorized;Bits activation held | Live;100+4sources;remaining System/Director next |
 | CODEX-248 | done | Native item supplies and reward entries | Owner full migration | Completed go-live authorized | Live;100+5sources;encounter timing next |
 | CODEX-247 | done | Native capture rules | Owner full migration | Completed go-live authorized | Live;100+4sources;item supplies next |
@@ -11,7 +13,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 | CODEX-245 | done | Audited direct trainer corrections | Owner expanded Hub | Implementation/install/go-live authorized | Live;100+5sources;remaining tools next |
 | CODEX-244 | done | Expanded Pass rewards and atomic delivery | Owner Oct25 continuation | Implementation/migration/go-live authorized | Live;direct corrections next |
 | CODEX-243 | done | Ticket workspace and native product editing | Owner Oct25 direction | Implementation/go-live authorized | Live;76products compatible;remaining integration CODEX242 |
-| CODEX-242 | in_progress | Hub redesign, shared rewards and direct corrections | Owner Oct25 request | Destructive production scope held | Compact layout live; typed delivery and direct corrections local |
+| CODEX-242 | in_progress | Hub redesign, shared rewards and direct corrections | Owner Oct25 request | Destructive production scope held | Pass/direct corrections and configuration live;System/Director next |
 | CODEX-241 | done | Tracked delta credential review | CODEX-106/240 | STATIC only | 596texts;0selected flags/artifacts;2skipped |
 | CODEX-240 | done | Real acceptance and return handoff | CODEX-164/171/229/239 | Docs only | 4documents;17links;no requirements changed |
 | CODEX-239 | done | Mounted Pass draft departure | CODEX-219/227 | LOCAL only | 16cases;native keys;2suites;no runtime change |

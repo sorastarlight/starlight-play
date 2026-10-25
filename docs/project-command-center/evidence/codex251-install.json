@@ -1,0 +1,99 @@
+{
+  "classification": "Source/ACL verification only;no runtime/provider invocation",
+  "installed": {
+    "functions": [
+      {
+        "args": "p_event_id text",
+        "hash": "4e34d88c2ea94c9464869f73cf39cbb0",
+        "name": "admin_bits_retry",
+        "service": true,
+        "authenticated": true
+      },
+      {
+        "args": "p_action text, p_payload jsonb",
+        "hash": "275819eada17b74badc050c062dee4b1",
+        "name": "admin_director_command",
+        "service": true,
+        "authenticated": true
+      },
+      {
+        "args": "p_event_id text, p_login text, p_title text, p_bits integer",
+        "hash": "c1cb7b30edd86f6f7888d2b1fa88294f",
+        "name": "credit_bits_from_twitch",
+        "service": true,
+        "authenticated": false
+      },
+      {
+        "args": "p_event_id text, p_login text, p_title text, p_bits integer, p_twitch_user_id text",
+        "hash": "870ecd35b5e6c85611430c9eadce92f1",
+        "name": "credit_bits_from_twitch",
+        "service": true,
+        "authenticated": false
+      },
+      {
+        "args": "p_token text, p_scopes text, p_manage boolean",
+        "hash": "1f6dfd4d41be95dd6204936e393ded35",
+        "name": "service_director_save_ads_auth",
+        "service": true,
+        "authenticated": false
+      }
+    ],
+    "migration": [
+      {
+        "name": "retire_unvalidated_ads_token_route",
+        "version": "20261025225608"
+      }
+    ]
+  },
+  "local": {
+    "classification": "LOCAL schema-only replay from existing reviewed archive;no application/Auth data import,new export,production connection or original retained DB mutation",
+    "startedAt": "2026-10-25T22:54:36.643Z",
+    "completedPackets": [
+      "20261022014528",
+      "20261022084110",
+      "20261022084115",
+      "20261022162826",
+      "20261022171505",
+      "20261022185226",
+      "20261023012959",
+      "20261023013015",
+      "20261023020246",
+      "20261023025714",
+      "20261023173738",
+      "20261023190339",
+      "20261024044601",
+      "20261025042627",
+      "20261025211631",
+      "20261025215533",
+      "20261025222511"
+    ],
+    "newExport": false,
+    "dataImported": false,
+    "productionConnected": false,
+    "emptyApplicationTables": 142,
+    "isolationVerified": true,
+    "attemptedPacket": "20261023025714",
+    "giftSourceHashesMatch": true,
+    "proposedRosterSourceMatches": true,
+    "installedReportSourcesMatch": true,
+    "createDraftSourceAndDenialMatch": true,
+    "baseline": [
+      "Baseline moderator can store unvalidated ad authorization via unused command branch",
+      "Observed overlapping retry is already safe:one inventory reward,notice and support total",
+      "Completed Bits retry is a no-op;no retry function replacement is needed"
+    ],
+    "corrected": [
+      "Retired token branch refuses every client role before credentials change",
+      "Ordinary staff gate remains authoritative",
+      "Normal Director pause action remains available"
+    ],
+    "rollbackChecks": [
+      "Exact definition restore",
+      "Candidate drift refusal"
+    ],
+    "status": "PASS",
+    "runtimeStopped": true,
+    "originalSchemaArchiveUnchanged": true,
+    "endedAt": "2026-10-25T22:54:43.771Z"
+  }
+}

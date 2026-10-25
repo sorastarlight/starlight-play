@@ -209,6 +209,19 @@
           "sha256": "9b2e57bb234968b7ca9e2a0a6dc2a3d60361d1a37754b9701cc113d8318632e7"
         }
       ]
+    },
+    {
+      "version": "20261025225608",
+      "files": [
+        {
+          "file": "supabase/unapplied/retired-ads-token-route/INSTALL.sql",
+          "sha256": "4d3c946872b91728cda5def55b299712909a8d18f2885ac295a90ac20c221bb2"
+        },
+        {
+          "file": "supabase/unapplied/retired-ads-token-route/ROLLBACK.sql",
+          "sha256": "e369005da0d819033cb8927366c1e9d00da8eba1489c0304ddce9f58052f1f33"
+        }
+      ]
     }
   ]
 }

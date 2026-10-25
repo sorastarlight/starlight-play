@@ -35,3 +35,6 @@ supabase/unapplied/hub-trainer-corrections/*.sql text eol=lf
 supabase/unapplied/hub-encounter-timings/*.sql text eol=lf
 supabase/migrations/*_hub_encounter_timings.sql text eol=lf
 supabase/migrations/*_hub_trainer_corrections.sql text eol=lf
+
+supabase/unapplied/retired-ads-token-route/*.sql text eol=lf
+supabase/migrations/*_retire_unvalidated_ads_token_route.sql text eol=lf

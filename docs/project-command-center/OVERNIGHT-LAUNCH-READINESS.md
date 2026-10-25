@@ -354,3 +354,6 @@ CODEX248 LIVE: native item supply settings and single reward-entry editor;main12
 
 
 CODEX249 LIVE: migration20261025222511;main379523f0;Pages40240143996success;100+4sources.137suites;11SQLgroups+2concurrency+4rollback;all4installedsourcesmatch;3controlsunchanged;0timingauditrows.32recoveryfilesverified. No hosted timings/stream command/encounter/notice/provider/grant. Continue System/Director migration. Bits purchases remain held by existingkeep_bits_offpolicy;do not silently enable.
+
+
+CODEX251 LIVE: migration20261025225608 retires only unused client ad-token branch;exact candidate match;4controls unchanged;validatedEdgewriter remains service-only. Concurrent Bits retry is already safe(one reward/notice/support credit),so no retry SQL change.34recoveryfiles. No production credential/provider/Director/Bits/gameplay call. CODEX250 native System/keys/Bits locally in progress;do not claim published.

@@ -4,6 +4,24 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-250",
+      "status": "in_progress",
+      "scope": "Native System connections and Bits activity",
+      "evidence": "Local implementation;connection schema-only tests in private security/codex250",
+      "testResults": "138 suites at first core checkpoint;13 connection SQL+2 races+4 rollback groups;Bits UI tests pending",
+      "nextAction": "Finish composed UI,tests,guarded System install and scoped publication",
+      "approvalRequirement": "Owner full Admin Hub migration and completed go-live authorized;no live credentials/provider actions"
+    },
+    {
+      "id": "CODEX-251",
+      "status": "done",
+      "scope": "Retire unused client ad-token route;rehearse Bits retry",
+      "evidence": "LAUNCH-CODEX251-SYSTEM-ROUTE-REVIEW.md;supabase/unapplied/retired-ads-token-route/README.md",
+      "testResults": "Migration20261025225608;exact source match;4 unchanged controls;6 local groups+2rollback;concurrent retry at-most-once",
+      "nextAction": "Continue native System/Director migration",
+      "approvalRequirement": "Owner full migration/legacy replacement authorized;no actual credential/provider/gameplay action"
+    },
+    {
       "id": "CODEX-249",
       "status": "done",
       "scope": "Revision-checked encounter timing and bridge settings audit",
@@ -73,7 +91,7 @@
       "branch": "admin-hub-overhaul",
       "evidence": "ADMIN-HUB-REDESIGN-OCT25.md;LAUNCH-CODEX242-ADMIN-REDESIGN.md;evidence/codex242-regressions.json",
       "testResults": "130 suites;27 local SQL cases;4 picker widths;draft/keyboard browser checks;10-file rollback;Pages40229491912 success;100+10 source matches",
-      "nextAction": "Complete typed delivery, server concealment and direct correction integration; exact destructive cleanup scope held",
+      "nextAction": "Pass/direct corrections and configuration live;System/Director migration in progress",
       "approvalRequirement": "Owner requested implementation; exact destructive production migration remains held"
     },
     {

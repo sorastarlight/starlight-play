@@ -169,3 +169,12 @@ Migration20261025222511 adds a revision-checked timing read/save pair, private a
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025222511 hub_encounter_timings|supabase/unapplied/hub-encounter-timings/INSTALL.sql|c6b2bc6d45cfec012fd95cc119910f4ce1be774d61b68cdf3fb5c5bfec1e8be4|
+
+
+## CODEX-251 — Retired client ad-token route
+
+Migration20261025225608 retires one unused client credential-storage branch while preserving the supported validated Edge flow and normal Director operations. Install/rollback are source-guarded;rollback restores the known unsafe branch and requires security review. No credentials or player records are changed by installation.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025225608 retire_unvalidated_ads_token_route|supabase/unapplied/retired-ads-token-route/INSTALL.sql|4d3c946872b91728cda5def55b299712909a8d18f2885ac295a90ac20c221bb2|

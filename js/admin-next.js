@@ -164,7 +164,7 @@
       return presenter.presentLiveOperations(input);
     }
     return {
-      status: presenter.FALLBACK_STATUS || "Live status unavailable in preview. Legacy Live Operations remains on the current Dashboard. This preview does not refresh, settle, or tick gameplay.",
+      status: presenter.FALLBACK_STATUS || "Live status is unavailable. Reload Operations to try again.",
       freshness: "—",
       cards: [
         { label: "Twitch", value: "UNAVAILABLE", state: "unavailable" },
@@ -518,7 +518,7 @@
       if (els.healthStatus) els.healthStatus.textContent = !build && !game
         ? "Health is unavailable. Refresh to try again."
         : !build || !game ? "Partial health snapshot. Some checks are unavailable; refresh to try again."
-          : "Read-only health snapshot. Live RPG session state is not included. Mutation tools stay on the current hub.";
+          : "System health summary. Open Operations for Live RPG status and controls.";
     } catch (error) {
       if (generation === healthGeneration && staffOpen && els.healthStatus) {
         els.healthStatus.textContent = window.playRpcError?.(error, "Could not load health.") || "Could not load health.";
@@ -549,7 +549,7 @@
     if (els.staff) els.staff.hidden = true;
     if (els.gate) {
       els.gate.hidden = false;
-      els.gate.textContent = "Sign in to open the Admin Hub preview.";
+      els.gate.textContent = "Sign in to open the Admin Hub.";
     }
     renderOperationsFallback();
   }

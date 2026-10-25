@@ -1,0 +1,17 @@
+{
+  "classification": "CSS-only recovery dialog wrapping;no Auth/payload/transport change",
+  "file": "css/admin-record.css",
+  "baselineHash": "e1fd6b4ea6cb7d6006f72e82c856fed39a6b2e02d51932459a2c1df3779a79e5",
+  "candidateHash": "b047123d6bc5a73c900f7f78457355d7a7155d5e0b4d36d272f46ee36bdade51",
+  "addedRules": 3,
+  "guardedRollback": {
+    "driftRefused": true,
+    "exactRestore": true
+  },
+  "unchanged": [
+    "js/admin-next-recovery-email.js",
+    "js/admin-next-diagnostics.js",
+    "admin-next.html"
+  ],
+  "app": "20261008-rc133"
+}

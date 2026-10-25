@@ -1,3 +1,7 @@
+## CODEX-233 — confirmed narrow recovery-dialog overflow corrected locally
+
+Valid20character name reproduces two internal overflows;three scoped CSS rules fix12local states.126suites/build pass;actual file rollback tested;Auth JS/HTML unchanged. One-file routine publication/static verification next;no real email or hosted application action.
+
 ## CODEX-232 — Trainer reset composition and release boundary
 
 CODEX-232 full-shell local Trainer review passed24profile/roster/detail account transitions,roster harness and9separate mocked sign-in checks. Source review distinguishes stamping release helper from read-only validation;neither release nor new stamp ran. [Report](LAUNCH-CODEX232-TRAINER-SHELL-TRANSITIONS.md). No runtime or hosted changes.

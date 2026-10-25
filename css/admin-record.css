@@ -141,3 +141,6 @@
 [data-trainer-roster] .reward-dialog header>div{min-width:0;overflow-wrap:anywhere}
 [data-trainer-roster] .reward-dialog header>button{flex-shrink:0}
 @media(max-width:520px){[data-trainer-roster] .reward-dialog header{flex-direction:column;align-items:stretch}[data-trainer-roster] .reward-dialog header>button{align-self:flex-start;max-width:100%}}
+.reward-dialog[aria-label="Confirm recovery email"] .reward-review-form{grid-template-columns:minmax(0,1fr)}
+.reward-dialog[aria-label="Confirm recovery email"] .reward-review-hero{min-width:0;overflow-wrap:anywhere}
+.reward-dialog[aria-label="Confirm recovery email"] header>div{min-width:0;overflow-wrap:anywhere}

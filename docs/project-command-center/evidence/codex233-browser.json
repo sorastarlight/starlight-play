@@ -1,0 +1,230 @@
+{
+  "classification": "REAL LOCAL DOM;actual recovery controller with fictional prepare-only transport;no send route;connect-src none",
+  "baseline": [
+    {
+      "width": 320,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": true,
+      "dialogWidth": 266.8000183105469,
+      "heroWidth": 450.2242126464844,
+      "heroScroll": 458,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 320,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 320,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 390,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": true,
+      "dialogWidth": 337.20001220703125,
+      "heroWidth": 450.2242126464844,
+      "heroScroll": 458,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 390,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 390,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 768,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": false,
+      "dialogWidth": 714.7999877929688,
+      "heroWidth": 651.89599609375,
+      "heroScroll": 664,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 768,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 768,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 1024,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": false,
+      "dialogWidth": 760,
+      "heroWidth": 696.1920166015625,
+      "heroScroll": 709,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 1024,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 1024,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    }
+  ],
+  "candidate": [
+    {
+      "width": 320,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": false,
+      "dialogWidth": 266.8000183105469,
+      "heroWidth": 213.64004516601562,
+      "heroScroll": 216,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 320,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 320,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 390,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": false,
+      "dialogWidth": 337.20001220703125,
+      "heroWidth": 282.6320495605469,
+      "heroScroll": 287,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 390,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 390,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 768,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": false,
+      "dialogWidth": 714.7999877929688,
+      "heroWidth": 651.89599609375,
+      "heroScroll": 664,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 768,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 768,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 1024,
+      "mode": "review",
+      "dialog": true,
+      "overflow": false,
+      "dialogOverflow": false,
+      "dialogWidth": 760,
+      "heroWidth": 696.1920166015625,
+      "heroScroll": 709,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 1024,
+      "mode": "clear",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    },
+    {
+      "width": 1024,
+      "mode": "pending",
+      "dialog": false,
+      "overflow": false,
+      "dialogOverflow": false,
+      "calls": "Fictional calls: 1"
+    }
+  ],
+  "validNameLength": 20,
+  "registrationMaximum": 20,
+  "limits": [
+    "No email dispatched",
+    "No real Auth/provider/hosted application test",
+    "No physical-device/assistive certification"
+  ]
+}

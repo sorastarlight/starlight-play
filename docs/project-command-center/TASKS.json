@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-233",
+      "status": "doing",
+      "scope": "Recovery confirmation CSS-only narrow wrapping",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md;evidence/codex233-browser.json;evidence/codex233-regressions.json;evidence/codex233-scope.json",
+      "testResults": "2baseline internal overflows fixed;12local states;126suites/build;actual file rollback",
+      "nextAction": "Exact one-CSS CODEX78publication and static-source verification",
+      "approvalRequirement": "Routine presentation only;no Auth behavior or live mail"
+    },
+    {
       "id": "CODEX-232",
       "status": "done",
       "scope": "Full-shell Trainer/roster reset and release-tool boundary review",

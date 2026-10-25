@@ -1,0 +1,16 @@
+{
+  "classification": "LOCAL frontend maintenance;no server or save-contract change",
+  "mainBefore": "7d9d01047e73d646cdb3a8905d7932f5e2ae7f78",
+  "files": [
+    {
+      "file": "js/admin-studio.js",
+      "candidateHash": "f132be04b6e5e78f89f8c6ce621187a9f521eb3d7f1075a4bbc96cc26f1c53e5",
+      "baselineHash": "60410b01c23e8fba83378d4d32c5da9b3609b3a376ec97c9e82de064e8f9b684"
+    }
+  ],
+  "existingTransportNamesUnchanged": true,
+  "rollback": {
+    "exactRestore": true,
+    "driftRefusedBeforeWrites": true
+  }
+}

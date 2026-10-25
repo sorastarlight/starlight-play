@@ -1,3 +1,7 @@
+## CODEX-217 — existing Studio Pass draft maintenance (October25)
+
+Baseline actual handler loses added rewards during render;shared removal targets both bags. Narrow frontend correction preserves local drafts and isolates removal;transport/save/server rules unchanged.124LOCAL HARNESS suites,7REAL LOCAL DOM cases,4widths and exact rollback pass. Routine one-file CODEX78publication/source verification next;no live catalog/Pass save/claim. Sora NO;Twinkle NO;PlayTester unchanged. See LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md.
+
 ## CODEX-215 — approved production completion (October25)
 
 Owner separately approved installation and exact four-file publication/source-only verification. Migration20261025042627 installed;new full body/hash/attributes/ACL match,10dependencies and existing edit unchanged. Main7d9d01047e73d646cdb3a8905d7932f5e2ae7f78 / Pages40161937835 succeeded;100monitored+4changed versioned sources match. APP20261008-rc133 unchanged. Feature123suites/build31HTML479refs;isolated main build30HTML477refs. No live catalog/application read/create,authenticated navigation/notice,provider,grant/gameplay or protected-account mutation. Approval spent. Local14delta schema recovery/reverse and3exactGitcheckoutSQLfiles pass. New post-change backup observation pending when due. Sora NO;Twinkle NO;PlayTester role unchanged. See LAUNCH-CODEX215-LOCAL-MART-CREATE.md and current handoff.

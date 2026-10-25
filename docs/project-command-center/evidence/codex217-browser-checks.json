@@ -1,0 +1,49 @@
+{
+  "classification": "REAL LOCAL DOM;entire Studio script;fictional transport/item picker;CSP connect-src none",
+  "cases": [
+    "Daily addition survives render",
+    "Daily removal preserves same weekly item",
+    "Weekly addition/removal independent",
+    "Overview/Pass tab round-trip preserves draft",
+    "No fake save before explicit save",
+    "Exact fake payload matches displayed bags",
+    "Focus returns to same bundle Add reward"
+  ],
+  "layouts": [
+    {
+      "fixture217": true,
+      "width": 320,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "fixture217": true,
+      "width": 390,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "fixture217": true,
+      "width": 768,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "fixture217": true,
+      "width": 1024,
+      "overflow": false,
+      "brokenImages": 0
+    }
+  ],
+  "fakeSave": {
+    "p_daily": {
+      "berry": 1,
+      "bait": 3
+    },
+    "p_weekly": {
+      "pokeball": 5,
+      "bait": 3
+    }
+  },
+  "limitations": "No actual picker/Auth/server save/device or assistive certification"
+}

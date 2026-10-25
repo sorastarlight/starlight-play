@@ -208,14 +208,17 @@
 
   async function reloadStudio() {
     state.studio = await window.playCall("admin_content_studio");
+    const rewards = state.studio?.passRewards || {};
+    state.passDaily = { ...(rewards.daily || {}) };
+    state.passWeekly = { ...(rewards.weekly || {}) };
     try { state.health = await window.playCall("admin_content_health"); } catch (_) { state.health = null; }
     return state.studio;
   }
 
-  function grantChips(grants) {
+  function grantChips(grants, bundle = "") {
     const lines = typeof window.playGrantLines === "function" ? window.playGrantLines(grants) : [];
     if (!lines.length) return `<p class="muted">Empty pack.</p>`;
-    return `<ul class="mart-grants studio-pack-grants">${lines.map((line) => `<li><img src="${esc(line.sprite)}" alt=""><span>${esc(line.label)}</span> <button type="button" class="secondary" data-remove-grant="${esc(line.key)}">Remove</button></li>`).join("")}</ul>`;
+    return `<ul class="mart-grants studio-pack-grants">${lines.map((line) => `<li><img src="${esc(line.sprite)}" alt=""><span>${esc(line.label)}</span> <button type="button" class="secondary" data-remove-grant="${esc(line.key)}"${bundle ? ` data-pass-bundle="${esc(bundle)}"` : ""}>Remove</button></li>`).join("")}</ul>`;
   }
 
   function renderOverview() {
@@ -482,19 +485,16 @@
   function renderPass() {
     const el = document.getElementById("studio-pass");
     if (!el) return;
-    const rewards = state.studio?.passRewards || {};
-    state.passDaily = { ...(rewards.daily || {}) };
-    state.passWeekly = { ...(rewards.weekly || {}) };
     el.innerHTML = `
       <div class="studio-pass-cols">
         <section>
           <h3>Daily gift</h3>
-          ${grantChips(state.passDaily)}
+          ${grantChips(state.passDaily, "daily")}
           <button type="button" data-pass-add="daily">Add reward</button>
         </section>
         <section>
           <h3>Weekly crate</h3>
-          ${grantChips(state.passWeekly)}
+          ${grantChips(state.passWeekly, "weekly")}
           <button type="button" data-pass-add="weekly">Add reward</button>
         </section>
       </div>
@@ -730,9 +730,11 @@
         delete state.pack.grants[remove.dataset.removeGrant];
         renderPack();
       } else if (state.view === "pass") {
-        delete state.passDaily[remove.dataset.removeGrant];
-        delete state.passWeekly[remove.dataset.removeGrant];
+        const bundle = remove.dataset.passBundle;
+        if (bundle !== "daily" && bundle !== "weekly") return;
+        delete (bundle === "daily" ? state.passDaily : state.passWeekly)[remove.dataset.removeGrant];
         renderPass();
+        document.querySelector(`[data-pass-add="${bundle}"]`)?.focus();
       }
       return;
     }
@@ -767,6 +769,7 @@
         const bag = passAdd.dataset.passAdd === "weekly" ? state.passWeekly : state.passDaily;
         bag[picked.key] = Number(bag[picked.key] || 0) + Number(picked.qty || 1);
         renderPass();
+        document.querySelector(`[data-pass-add="${passAdd.dataset.passAdd}"]`)?.focus();
       }
       return;
     }

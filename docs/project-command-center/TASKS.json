@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-248",
+      "status": "in_progress",
+      "scope": "Native item supply settings and individual reward-table entries",
+      "evidence": "LAUNCH-CODEX248-ITEM-SUPPLIES.md",
+      "testResults": "136 suites;8 responsive cases;one-entry disabled preservation;strict patches/session/retry guards;5-file rollback",
+      "nextAction": "Scoped publication/source verification",
+      "approvalRequirement": "Owner full migration and completed go-live authorized"
+    },
+    {
       "id": "CODEX-247",
       "status": "done",
       "scope": "Native capture multipliers and percentage tiers",

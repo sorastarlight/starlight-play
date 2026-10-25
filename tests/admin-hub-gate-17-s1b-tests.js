@@ -38,6 +38,7 @@ test("No generic dispatcher and no unsafe mutation controls", () => {
   assert(JSON.stringify(require("../js/admin-next-config.js").commands) === JSON.stringify(["admin_economy_overview", "admin_economy_save"]), "configuration adapter must stay restricted");
   assert(JSON.stringify(require("../js/admin-next-progression").commands)===JSON.stringify(["admin_progression_overview","admin_progression_save"]));
   assert(JSON.stringify(require("../js/admin-next-capture-rules").commands)===JSON.stringify(["admin_capture_overview","admin_capture_save_balance"]));
+  assert(JSON.stringify(require("../js/admin-next-supplies").commands)===JSON.stringify(["admin_loot_tables","admin_loot_save_config","admin_loot_save_entry"]));
   const analytics = require("../js/admin-next-analytics.js");
   assert(JSON.stringify(Object.values(analytics.commands)) === JSON.stringify(["admin_capture_report", "admin_progression_overview", "admin_collection_overview", "admin_economy_overview"]), "report adapter must stay restricted");
   assert(!nextHtml.includes("Start random"));

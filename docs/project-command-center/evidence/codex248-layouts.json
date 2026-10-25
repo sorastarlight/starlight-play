@@ -1,0 +1,53 @@
+{
+  "classification": "LOCAL rendered fictional transport",
+  "results": [
+    {
+      "width": 320,
+      "entry": "0",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 320,
+      "entry": "1",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 390,
+      "entry": "0",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 390,
+      "entry": "1",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 768,
+      "entry": "0",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 768,
+      "entry": "1",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 1024,
+      "entry": "0",
+      "overflow": false,
+      "entries": 31
+    },
+    {
+      "width": 1024,
+      "entry": "1",
+      "overflow": false,
+      "entries": 31
+    }
+  ]
+}

@@ -73,6 +73,8 @@
   const progression=progressionApi?.mount(document.getElementById("next-progression"),progressionApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const captureRulesApi=window.PLAY_ADMIN_CAPTURE_RULES;
   const captureRules=captureRulesApi?.mount(document.getElementById("next-capture-rules"),captureRulesApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
+  const suppliesApi=window.PLAY_ADMIN_SUPPLIES;
+  const supplies=suppliesApi?.mount(document.getElementById("next-supplies"),suppliesApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const passApi = window.PLAY_ADMIN_PASS_EDITOR;
   const passBundles = passApi?.mount(document.getElementById("next-pass-bundles"), passApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
@@ -491,6 +493,7 @@
     config?.reset();
     progression?.reset();
     captureRules?.reset();
+    supplies?.reset();
     captureLimits?.reset();
     passBundles?.reset();
     analyticsIdentity = "";

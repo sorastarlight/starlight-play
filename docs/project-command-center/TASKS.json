@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-247",
+      "status": "in_progress",
+      "scope": "Native capture multipliers and percentage tiers",
+      "evidence": "LAUNCH-CODEX247-CAPTURE-RULES.md",
+      "testResults": "135 suites;12 responsive group/width layouts;exact tier patch and session/uncertain guards;4-file rollback",
+      "nextAction": "Scoped publication/source verification",
+      "approvalRequirement": "Owner full migration and completed go-live authorized"
+    },
+    {
       "id": "CODEX-246",
       "status": "done",
       "scope": "Compact Configuration and native Trainer XP editor",

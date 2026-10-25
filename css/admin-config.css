@@ -12,3 +12,7 @@
 .config-dialog [data-config-cancel]{background:#f4f8ff;border-color:#d2dced;color:#604666}
 
 #next-progression fieldset{border:0;padding:0;margin:0;min-width:0}#next-progression :is(button,input):focus-visible{outline:3px solid #725cc6;outline-offset:3px}
+
+#next-capture-rules fieldset{border:0;padding:0;margin:0;min-width:0}.capture-rule-tabs{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}.capture-rule-tabs button[aria-pressed=true]{background:#eaddf4;border-color:#aa83c7}#next-capture-rules :is(button,input):focus-visible{outline:3px solid #725cc6;outline-offset:3px}
+
+@media(min-width:1000px){#next-capture-rules .config-fields{grid-template-columns:repeat(3,minmax(0,1fr))}}

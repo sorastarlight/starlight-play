@@ -1,0 +1,89 @@
+{
+  "classification": "LOCAL rendered fictional transport",
+  "results": [
+    {
+      "width": 320,
+      "group": 0,
+      "overflow": false,
+      "groups": 3,
+      "fields": 3
+    },
+    {
+      "width": 320,
+      "group": 1,
+      "overflow": false,
+      "groups": 3,
+      "fields": 8
+    },
+    {
+      "width": 320,
+      "group": 2,
+      "overflow": false,
+      "groups": 3,
+      "fields": 7
+    },
+    {
+      "width": 390,
+      "group": 0,
+      "overflow": false,
+      "groups": 3,
+      "fields": 3
+    },
+    {
+      "width": 390,
+      "group": 1,
+      "overflow": false,
+      "groups": 3,
+      "fields": 8
+    },
+    {
+      "width": 768,
+      "group": 1,
+      "overflow": false,
+      "groups": 3,
+      "fields": 8
+    },
+    {
+      "width": 390,
+      "group": 2,
+      "overflow": false,
+      "groups": 3,
+      "fields": 7
+    },
+    {
+      "width": 768,
+      "group": 0,
+      "overflow": false,
+      "groups": 3,
+      "fields": 3
+    },
+    {
+      "width": 768,
+      "group": 2,
+      "overflow": false,
+      "groups": 3,
+      "fields": 7
+    },
+    {
+      "width": 1024,
+      "group": 1,
+      "overflow": false,
+      "groups": 3,
+      "fields": 8
+    },
+    {
+      "width": 1024,
+      "group": 2,
+      "overflow": false,
+      "groups": 3,
+      "fields": 7
+    },
+    {
+      "width": 1024,
+      "group": 0,
+      "overflow": false,
+      "groups": 3,
+      "fields": 3
+    }
+  ]
+}

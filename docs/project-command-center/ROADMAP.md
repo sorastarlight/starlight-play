@@ -1,5 +1,7 @@
 # Roadmap
 
+Current future-content requirement: [Owner-manageable content additions](FUTURE-CONTENT-MANAGEMENT.md),recorded October25. Covers Mart product/item kinds,Starlight Pass bundle contents,new pages and individually imported Pokémon with validated data dependencies. Requirements only;not an implementation approval or additional launch blocker. Current delivery state remains in TASKS and CURRENT-ADMIN-HUB-STATUS.
+
 Working branch: `admin-hub-overhaul`. Current CODEX tasks and owner approvals supersede historical frontend publication restrictions below. Routine GitHub publication is authorized; gameplay activation/reset/APP stamp remain separately gated. D85 fingerprint inputs reconciled in CODEX-17; local rehearsal escaped; stamp proof pending, D86 unauthorized.
 
 | Batch | Name | Authorization | Status |

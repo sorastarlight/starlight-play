@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-216",
+      "status": "done",
+      "scope": "Record owner future content-management requirements and verify repository Pokémon reference-source architecture",
+      "branch": "admin-hub-overhaul",
+      "evidence": "FUTURE-CONTENT-MANAGEMENT.md;tools/build-gen9-ref.js;data/gen9-ref/README.md",
+      "testResults": "Documentation/source inspection;local links and JSON checked;no runtime or database execution",
+      "nextAction": "Retain Mart all-kind,Pass bundle,page and individual Pokémon import needs for later scoped design;not a launch blocker",
+      "approvalRequirement": "Requirements recording only;no implementation,publication or content activation authority"
+    },
+    {
       "id": "CODEX-215",
       "status": "done",
       "scope": "Owner-approved local create-only hidden Mart draft implementation and isolated atomic endpoint/rollback",

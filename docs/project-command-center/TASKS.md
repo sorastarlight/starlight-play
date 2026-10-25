@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-216 | done | Record future content-management requirements and verify repository Pokémon source | CODEX-215 | Owner request;documentation only | Future Mart/Pass/pages/Pokémon tools recorded;implementation not approved |
 | CODEX-215 | done | Create-only hidden Mart draft installed/published/source verified | CODEX-213 | Exact decision spent | SQL20261025042627;main7d9d0104;Pages40161937835;100+4sources;14delta recovery |
 | CODEX-214 | done | Sibling long-review focus published | CODEX-212 | CODEX-78 | Mainae110601;Pages40145088416;100+3sources;122suites |
 | CODEX-213 | done | Create-only Mart draft proposal | CODEX-212 | Design/local approved | Local implementation completed in CODEX215;production held |

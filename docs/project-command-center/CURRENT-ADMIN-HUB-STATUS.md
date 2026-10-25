@@ -24,6 +24,8 @@ Owner separately approved installation and exact four-file publication/source-on
 
 ## Launch evidence still required
 
+Future owner requirement: [Easier content additions](FUTURE-CONTENT-MANAGEMENT.md),including all Mart item kinds,Starlight Pass bundle contents,new pages and individual Pokémon imports. Recorded separately from current launch gates;no implementation or activation is implied.
+
 Android S25Ultra Help/Register and Chrome ordinary-subscriber link/active Pass are human-reported passes within their scopes. Real iOS Safari,desktop zoom/screen reader,Firefox post-correction retry and broader provider branches remain open. New one-link policy stays disabled.
 
 Hosted Operations commands,Mart draft creation/product/floor/order/reward/capture saves,multi-page roster and batch gifts remain untested. Exact mutation decisions remain separate. Completing all remaining legacy-tool migration is not automatically a launch blocker;final scope/go-no-go/APP stamp remain owner decisions.

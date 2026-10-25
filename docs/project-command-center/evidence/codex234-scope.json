@@ -1,0 +1,32 @@
+{
+  "files": [
+    {
+      "file": "css/admin-record.css",
+      "baselineHash": "b047123d6bc5a73c900f7f78457355d7a7155d5e0b4d36d272f46ee36bdade51",
+      "candidateHash": "bd7c59bb17edd7ff96ec4472ae5e8ff82c91529274da5cd3bb029fae6f9935ba"
+    }
+  ],
+  "runtimeDiff": "Two scoped CSS rules only",
+  "rollback": {
+    "driftRefused": true,
+    "baselineRestored": true
+  },
+  "unchanged": [
+    {
+      "file": "js/admin-next-rewards.js",
+      "hash": "6282007f8b27c68684d159c957a4477d40b9b05669f528451354c31ca47209b5",
+      "matchesHead": true
+    },
+    {
+      "file": "js/admin-next-recovery-email.js",
+      "hash": "0417b7cd2ff85b4e868b0e6ae237cfb77713961e68101e9d8fc842d487d9df44",
+      "matchesHead": true
+    },
+    {
+      "file": "admin-next.html",
+      "hash": "e1c595ad084840a0596daae3f24b0ca028f2c304ad4558cfc12a2656e3754e64",
+      "matchesHead": true
+    }
+  ],
+  "app": "20261008-rc133"
+}

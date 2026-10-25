@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-234",
+      "status": "doing",
+      "scope": "Gift confirmation narrow wrapping",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md;evidence/codex234-browser.json;evidence/codex234-regressions.json;evidence/codex234-scope.json",
+      "testResults": "6baseline overflows fixed;36local states;126suites/build;guarded rollback",
+      "nextAction": "Exact one-CSS publication/source verification under CODEX78",
+      "approvalRequirement": "Routine presentation only;no gift or authority change"
+    },
+    {
       "id": "CODEX-233",
       "status": "done",
       "scope": "Recovery confirmation CSS-only narrow wrapping",

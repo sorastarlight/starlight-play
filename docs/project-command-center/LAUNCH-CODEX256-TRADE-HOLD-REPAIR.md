@@ -1,6 +1,6 @@
 # CODEX-256 — Audited expired trade hold repair
 
-Status: tested locally; guarded installation and three-file publication pending.
+Status: LIVE. Migration20261025234842;main54e3b3d83038a2e25342b701625323535bbb815f;Pages40246446510success. All four installed definitions/ACLs match tested candidates;correction audit0.100 monitored and three changed versioned sources match. No actual hold or account repair was invoked.
 
 The old Clear Lock directly cleared a trainer's personal locked flag and transaction fields. A local fictional protected-account case reproduced this. Its replacement is native Trainers / Corrections / Trade holds. Staff inspect a specific held specimen, see whether it is eligible, add a reason and review the exact repair. An active listing/offer/direct request, a processing exchange even after expiry, a future received cooldown or a protected account refuses the action. Only the expired transaction reservation/timer can change; personal lock/favorite, ownership, stats, balances and rewards remain unchanged.
 

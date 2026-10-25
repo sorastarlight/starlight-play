@@ -366,3 +366,6 @@ CODEX252 LIVE: migration20261025232700;main145f4778;Pages40244825944success;100+
 
 
 CODEX254 LIVE: migration20261025233857;main5b2c60bb;Pages40245719723success;100+2sources;140suites;10SQLgroups;12layouts;3source/ACLmatches;giftgenerator unchanged;correctionaudit0;40recoveryfiles. Correction provenanceADMIN_CORRECTION/admin:correction skips real XP/presentation triggers. No hosted correction/grant/notice. Continue maintenance/provider/content/parity and primary Hub entry switch.
+
+
+CODEX256 LIVE: migration20261025234842;main54e3b3d8;Pages40246446510success;100+3sources;140suites;11SQLgroups;12layouts;4source/ACLmatches;correctionaudit0;42recoveryfiles. Blind unlock retired;personal locks/favorites retained;active trades/live cooldown/protected accounts refuse. No hosted repair. Two migrated editor files have a local Unicode correction pending routine publication.

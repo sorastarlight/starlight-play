@@ -205,3 +205,12 @@ Three installed definitions/ACLs match local candidates. Canonical gift generato
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025233857 trainer_pokemon_quantity|supabase/unapplied/trainer-pokemon-quantity/INSTALL.sql|d1e586bd93b319fb73bd7450347344e88850cc26271a0a948cc0538c0ca505d5|
+
+
+## CODEX-256 — Audited expired trade hold repair
+
+Four installed definitions/ACLs match locally tested candidates;correction audit0. No actual hold/account repair invoked. Rollback retains audit/data but restores unsafe blind unlock and requires security review.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025234842 audited_trade_hold_repairs|supabase/unapplied/audited-trade-hold-repairs/INSTALL.sql|7b75c6711531575dc543216960643376b80c0ae9e502348cd3787bec7b872899|

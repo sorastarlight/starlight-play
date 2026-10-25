@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-256",
+      "status": "done",
+      "scope": "Audited expired trade hold repair replaces blind unlock",
+      "evidence": "LAUNCH-CODEX256-TRADE-HOLD-REPAIR.md",
+      "testResults": "140 suites;11SQLgroups;12layouts;4source/ACLmatches;audit0;Pages40246446510success;100+3sources",
+      "nextAction": "Remaining provider/content/role tools and primary entry switch",
+      "approvalRequirement": "Full migration and legacy replacement authorized;no actual hold repair"
+    },
+    {
       "id": "CODEX-254",
       "status": "done",
       "scope": "Direct resulting Pokemon species quantities separate from gifts",

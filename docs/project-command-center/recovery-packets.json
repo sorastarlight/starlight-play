@@ -261,6 +261,19 @@
           "sha256": "82fe17324c6907527796e8eff59adfd49249e1e7230ff14a0653c1bbdaac225a"
         }
       ]
+    },
+    {
+      "version": "20261025234842",
+      "files": [
+        {
+          "file": "supabase/unapplied/audited-trade-hold-repairs/INSTALL.sql",
+          "sha256": "7b75c6711531575dc543216960643376b80c0ae9e502348cd3787bec7b872899"
+        },
+        {
+          "file": "supabase/unapplied/audited-trade-hold-repairs/ROLLBACK.sql",
+          "sha256": "2388b57142517e504afb493e9304d505c0083aff46c0424df3ba19349f0daa40"
+        }
+      ]
     }
   ]
 }

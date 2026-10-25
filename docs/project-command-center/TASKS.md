@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-256 | done | Audited expired trade hold repair | Owner full migration | Legacy replacement authorized | Migration20261025234842;Pages40246446510success;100+3sources |
 | CODEX-254 | done | Direct Pokemon species quantity corrections | Owner expanded corrections | Completed go-live authorized | Migration20261025233857;Pages40245719723success;100+2sources |
 | CODEX-252 | done | Native Operations and effective Pinap bonus | Owner full migration | Completed go-live authorized | Migration20261025232700;Pages40244825944success;100+6sources |
 | CODEX-250 | done | Native System connections and Bits activity | Owner full migration | Install/completed go-live authorized;no live credential action | Migration20261025231537;Pages40243972531success;100+6sources |

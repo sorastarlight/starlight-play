@@ -15,3 +15,11 @@ LOCAL130 suites pass; build31HTML/483references, APP unchanged. Guarded six-file
 ## Remaining full migration
 
 This is not completion of the full redesign. Typed all-item Pass delivery/Secret Gift server concealment, direct trainer correction endpoints, broader product creation and remaining System/Encounter workflows still require implementation and validation. Legacy data cleanup has not run. No claim that every old product has been read or migrated. Publication evidence to follow.
+
+## Publication complete
+
+Main faf17b8c048aca2526aedfe88431fc2133b28a47, Pages40231206566 success. Earlier six-file slice2096d538/Pages40231038589 also succeeded. Final100monitored+8changed versioned sources match. Exact six-file and two-file rollback packets remain private. No build stamp changed.
+
+Read-only catalog inventory:76products across4avatar,42ball,7Bits and23other PokéCoin products. All76 pass expanded editor eligibility, and local no-op payload round trips retain exact prices and reward quantities. Seven category names already use ordinary shop names; no visible floor-name data rewrite needed. This is stored-data/model evidence, not a hosted save test. No product needed deletion to remove the editor handoff. Private snapshot outside Git.
+
+Remaining: typed all-item Pass delivery and Secret Gift concealment; direct trainer correction endpoints; expanded creation flows; remaining encounter/system workflows. Keep CODEX242 in progress. Owner's latest request authorizes migration and go-live, rather than maintaining a preview/legacy split; prepare recoverable replacements and do not equate blanket UI cleanup with permission to erase unrelated player history.

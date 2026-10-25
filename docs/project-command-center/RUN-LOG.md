@@ -2746,3 +2746,5 @@ Owner requested compact layouts, Service Desk, Items & Economy, Shop Categories,
 CODEX-242 checkpoint: first ten-file compact Hub layout/copy slice published at main799b8043 / Pages40229491912; 100+10 static source matches. LOCAL130 suites and27 SQL prototype checks pass. Expanded models remain local; production delivery/correction endpoints and cleanup remain outstanding. No hosted RPC/grant/account edit/SQL or APP stamp.
 
 CODEX-243: owner requested primary Hub and replacement of legacy handoffs. Six-file native ticket/product slice tested;130suites,4ticketwidths,guarded rollback. Full migration still in progress;no production data changed. See LAUNCH-CODEX243-TICKET-AND-PRODUCT-WORKSPACES.md.
+
+CODEX243 complete: mainfaf17b8c / Pages40231206566 success;100+8source matches.76stored products locally round-trip unchanged. Ticket disclosures removed;staff menu targets newHub. No catalog save,SQLmigration,notices,grants,cleanup or APPstamp. Full CODEX242 remains in progress for typedPass/directcorrections and remaining workspaces.

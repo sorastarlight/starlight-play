@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-243",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Native ticket workspace and expanded product editing",
       "evidence": "LAUNCH-CODEX243-TICKET-AND-PRODUCT-WORKSPACES.md",
-      "testResults": "130 suites;4 ticket widths;bundle review;6-file rollback",
-      "nextAction": "Publish exact six-file slice;continue full reward/correction integration",
+      "testResults": "130 suites;4 ticket widths;76/76 catalog model round trips;100+8 source matches;Pages40231206566 success",
+      "nextAction": "Continue CODEX242 expanded reward/correction integration",
       "approvalRequirement": "Owner explicitly requested implementation and go-live; no data cleanup in this slice"
     },
     {

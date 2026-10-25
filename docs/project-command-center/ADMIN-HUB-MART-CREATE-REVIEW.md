@@ -25,3 +25,7 @@ The UI must explicitly load current data,fail closed on missing/ambiguous catalo
 Catalog SELECT inspected the existing save and two selected helpers without querying product records or calling application functions. This is not a full dependency closure or SQL validation. Eight disconnected interaction cases and eight editor/review width states320/390/768/1024 pass with no measured horizontal overflow. No SDK,Auth,transport or persistence;CSP connect-src none. Temporary fixture server/tabs are closed. The mock's demo action changes only its in-memory set.
 
 Important owner decision:approve this design and local implementation/testing,including preparation and isolated testing of the create-only endpoint plus guarded install/rollback packet. Production SQL installation,frontend publication,live reads/creation,uploads,deletion,Bits/provider work and APP stamp remain held. This new privileged workflow is outside CODEX-78;streamlink-project.mdc and CODEX-RUNNER.md require that design decision. It is an optional next overhaul slice,not automatically a launch blocker.
+
+## Subsequent owner decision — October25
+
+Owner approved this design and local implementation,including isolated endpoint/install/rollback preparation. Completed in [CODEX-215](LAUNCH-CODEX215-LOCAL-MART-CREATE.md). Earlier proposal language above is historical. Production SQL,publication and live creation remain separately held.

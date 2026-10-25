@@ -89,6 +89,12 @@
     allowed: () => staffOpen, call: (name, args) => name === "admin_store_get"
       ? window.playCall("admin_store_get") : window.playCall("admin_store_save_category", args)
   }));
+  const createApi = window.PLAY_ADMIN_CREATE;
+  const draftCreator = createApi?.mount(document.getElementById("next-mart-create"), createApi.adapter({
+    session: () => supabase.auth.getSession(), identity: () => martIdentity,
+    allowed: () => staffOpen, call: (name, args) => name === "admin_store_get"
+      ? window.playCall("admin_store_get") : window.playCall("admin_store_create_draft", args)
+  }));
   const boundedApi = window.PLAY_ADMIN_LIMITS_ORDER;
   const floorOrder = boundedApi?.mount(document.getElementById("next-floor-order"), "order", boundedApi.adapter("order", {
     session: () => supabase.auth.getSession(), identity: () => martIdentity,
@@ -527,6 +533,7 @@
     martIdentity = "";
     mart?.reset();
     floorEditor?.reset();
+    draftCreator?.reset();
     floorOrder?.reset();
     staffOpen = false;
     stopOpsPoll();
@@ -548,6 +555,7 @@
       martIdentity = "";
       mart?.reset();
       floorEditor?.reset();
+      draftCreator?.reset();
       floorOrder?.reset();
       resetOperations();
       staffOpen = false;
@@ -572,6 +580,7 @@
       martIdentity = "";
       mart?.reset();
       floorEditor?.reset();
+      draftCreator?.reset();
       floorOrder?.reset();
       resetHealth();
       stopOpsPoll();

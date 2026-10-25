@@ -1,0 +1,29 @@
+{
+  "classification": "REAL LOCAL PostgreSQL;fictional records;exact inspected helper/trigger closure",
+  "passed": 22,
+  "candidateHash": "999ea1f6d8366e0bbfc40eb2e7fb9e25",
+  "checks": [
+    "Exact create-only install and complete inspected helper/trigger closure",
+    "Owner authenticated create returns exact bounded receipt;free price explicit;hidden/unfeatured draft pinned",
+    "Duplicate rejects atomically and existing product remains byte-equivalent",
+    "Admin allowed through existing guard",
+    "No insert for moderator role",
+    "No insert for staff role",
+    "No insert for player role",
+    "No insert for unassigned role",
+    "No-session denied",
+    "Anon execute denied without table rights",
+    "25 malformed/overbroad/unsupported payloads fail before insert",
+    "Wrong kinds and system floors denied",
+    "All six canonical inventory mappings and integer upper bounds",
+    "Concurrent same-code requests:observed lock wait,exactly one insert,no overwrite",
+    "SHARE lock blocks concurrent non-key floor reclassification",
+    "Waited floor classification is rechecked after competing commit",
+    "Repeated install fails closed",
+    "Rollback refuses attribute drift",
+    "Rollback removes only new endpoint;created drafts are retained",
+    "Forward/reverse replay preserves created rows and dependency definitions",
+    "Install refuses helper ACL drift",
+    "Install refuses schema drift before DDL"
+  ]
+}

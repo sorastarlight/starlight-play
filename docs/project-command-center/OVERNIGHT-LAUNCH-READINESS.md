@@ -1,12 +1,12 @@
-# Current launch readiness handoff — through CODEX-214
+# Current launch readiness handoff — through CODEX-215
 
 Runtime main ae110601 / Pages40145088416 succeeded;100monitored plus3changed versioned source match. APP20261008-rc133 unchanged;122local suites/build31HTML477refs. CODEX211approved ordering/capture publication complete;CODEX212routine empty/long-review presentation and CODEX214sibling-dialog focus maintenance complete. Separate feature/main histories preserved.
 
 Current user authorizes autonomous in-session readiness/visual work. Existing heartbeat remains PAUSED;no renewed schedule or extra background systems. No delegation. Preserve SQL/Auth/provider/credential/gameplay/grant/notice/protected-account/spending/APP/final-launch boundaries.
 
-CODEX213source/design proposal is ready:one inventory-item hidden Mart draft in existing non-system PokéCoin floor. Existing save upserts;future atomic create-only endpoint must reject collisions. Owner design/local implementation question has been sent and remains pending,including isolated backend packet preparation. No new production SQL/live creation/publication authority. See ADMIN-HUB-MART-CREATE-REVIEW.md. Do not reprompt203/209/211approvals.
+CODEX213design/local implementation is now owner-approved and completed in CODEX215.123local suites,22SQL groups,8responsive DOM states,10native interaction cases and guarded install/rollback pass. One new atomic create-only endpoint plus four frontend files are prepared,not installed/published. Separate exact production decision next;no live creation/catalog call or authenticated navigation authority. See LAUNCH-CODEX215-LOCAL-MART-CREATE.md. Do not repeat prior design/publication approvals.
 
-Real device/assistive/provider and bounded hosted mutation acceptance remain as indexed in LAUNCH-ACCEPTANCE-MATRIX.md. Recovery evidence unchanged after latest SQL178;do not poll unchanged backups or rerun unchanged suites to simulate progress. No unapproved SQL install is pending from this batch.
+Real device/assistive/provider and bounded hosted mutation acceptance remain as indexed in LAUNCH-ACCEPTANCE-MATRIX.md. Recovery evidence unchanged after latest SQL178;do not poll unchanged backups or rerun unchanged suites to simulate progress. CODEX215new endpoint install is held for a separate owner decision.
 
 Historical windows below are superseded.
 

@@ -1,0 +1,106 @@
+{
+  "classification": "REAL LOCAL DOM;actual mounted module;fictional transport;CSP connect-src none",
+  "interactions": [
+    "Normalized poke ball search",
+    "No matches feedback",
+    "Existing code rejected before transport",
+    "One acknowledged create and disabled retry",
+    "Lost response uncertain and disabled retry",
+    "Server duplicate requires reload",
+    "Permission denial clears fields",
+    "No eligible floor has no create form",
+    "Unavailable catalog has no create form",
+    "Account switch during pending create discards stale completion"
+  ],
+  "keyboard": {
+    "shortReviewBackAutofocus": true,
+    "escapeReturnsReviewButton": true,
+    "overflowReviewHeadingFocus": true,
+    "overflowReviewScrollTop": 0
+  },
+  "layouts": [
+    {
+      "layout": "editor",
+      "width": 320,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "layout": "review",
+      "width": 320,
+      "overflow": false,
+      "dialog": {
+        "top": 12,
+        "bottom": 728,
+        "scrollTop": 0,
+        "overflow": false
+      },
+      "brokenImages": 0
+    },
+    {
+      "layout": "editor",
+      "width": 390,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "layout": "review",
+      "width": 390,
+      "overflow": false,
+      "dialog": {
+        "top": 12,
+        "bottom": 728,
+        "scrollTop": 0,
+        "overflow": false
+      },
+      "brokenImages": 0
+    },
+    {
+      "layout": "editor",
+      "width": 768,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "layout": "review",
+      "width": 768,
+      "overflow": false,
+      "dialog": {
+        "top": 12,
+        "bottom": 728,
+        "scrollTop": 0,
+        "overflow": false
+      },
+      "brokenImages": 0
+    },
+    {
+      "layout": "editor",
+      "width": 1024,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "layout": "review",
+      "width": 1024,
+      "overflow": false,
+      "dialog": {
+        "top": 12,
+        "bottom": 728,
+        "scrollTop": 0,
+        "overflow": false
+      },
+      "brokenImages": 0
+    }
+  ],
+  "screenshotsPrivate": [
+    "create-review.png",
+    "narrow-review.png",
+    "create-review-final.png"
+  ],
+  "limitations": "Nested-frame focus values excluded;no real mobile/screen-reader/hosted acceptance implied.",
+  "finalStyledReviewEscapeReturn": true
+}

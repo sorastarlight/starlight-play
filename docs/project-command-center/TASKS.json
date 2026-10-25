@@ -4,12 +4,25 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-215",
+      "status": "done",
+      "scope": "Owner-approved local create-only hidden Mart draft implementation and isolated atomic endpoint/rollback",
+      "dependencies": [
+        "CODEX-213"
+      ],
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX215-LOCAL-MART-CREATE.md;evidence/codex215-regressions.json;evidence/codex215-sql-checks.json;evidence/codex215-browser-checks.json;evidence/codex215-runtime-scope.json",
+      "testResults": "123suites;22REAL LOCAL SQL groups;8responsive DOM states;10interaction cases;keyboard/reset and guarded rollback",
+      "nextAction": "Separate exact endpoint install/four-file publication and source-verification decision;no live creation authorized",
+      "approvalRequirement": "Design/local scope approved;production SQL/publication/live reads and writes held"
+    },
+    {
       "id": "CODEX-214",
       "status": "done",
       "scope": "Existing sibling long-confirmation focus maintenance",
       "evidence": "LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md;evidence/codex214-runtime-scope.json;evidence/codex214-browser-checks.json;evidence/codex214-regressions.json;evidence/codex214-publication.json",
       "testResults": "122suites;12responsive reviews/4editor layouts;3short focus/cancel;exact rollback/drift refusal",
-      "nextAction": "Published/source verified. CODEX213design/local implementation question pending;real acceptance requires external access/bounded scope.",
+      "nextAction": "Published/source verified;local create workflow complete in CODEX215;production decision separate",
       "approvalRequirement": "CODEX78maintenance complete;no new authority",
       "publicationCommit": "ae1106019ec368fe356811466d9ff1c0464bab56",
       "pagesRun": 40145088416
@@ -20,7 +33,7 @@
       "scope": "Create-only hidden Mart draft source/design proposal",
       "evidence": "ADMIN-HUB-MART-CREATE-REVIEW.md;design-reset/hub-mart-create-review.html;evidence/codex213-creation-source.json;evidence/codex213-browser-review.json",
       "testResults": "8disconnected interaction cases;8responsive edit/review states;script syntax/build;no server implementation",
-      "nextAction": "Owner design/local implementation decision including isolated create-only endpoint/rollback preparation",
+      "nextAction": "Design/local implementation approved by owner;completed in CODEX215;no production authority",
       "approvalRequirement": "New privileged workflow;production SQL,publication and live creation held"
     },
     {

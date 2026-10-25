@@ -1,0 +1,296 @@
+{
+  "classification": "Catalog-only source/constraint/trigger inspection;no product/account rows or application execution",
+  "functions": [
+    {
+      "signature": "private.capture_berry_keys()",
+      "definitionMd5": "abaab3adc3978466446319e318e87c62",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.evo_item_keys()",
+      "definitionMd5": "8950cb284265715c27ed4490ab749be5",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.extra_ball_keys()",
+      "definitionMd5": "42c5360398abb1acae5f2bb5bb8d354c",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.is_play_admin()",
+      "definitionMd5": "e1449c28be1cd6f6c5208638d5a1df6f",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres}",
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.play_staff_role(uuid)",
+      "definitionMd5": "bbb6dc90f6d4a7790774ece8179dfd49",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.require_hub()",
+      "definitionMd5": "0d3c14b0c96fbc20f27ca4a85cab5d25",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.require_staff_edit()",
+      "definitionMd5": "c84c975f7872dad626813afd273c43f8",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.validate_store_grants(jsonb)",
+      "definitionMd5": "efc446f3f83c8451dd5db8bc249d8ec2",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.core_item_keys()",
+      "definitionMd5": "476fea056906aad6e4bcb6c79242e0ec",
+      "acl": null,
+      "owner": "postgres"
+    },
+    {
+      "signature": "private.store_items_before_write()",
+      "definitionMd5": "fb9927efc13af208dd957fda938fd196",
+      "acl": null,
+      "owner": "postgres"
+    }
+  ],
+  "relations": [
+    {
+      "kind": "column",
+      "name": "store_categories",
+      "data": [
+        {
+          "udt": "uuid",
+          "name": "id",
+          "type": "uuid",
+          "default": "gen_random_uuid()",
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "key",
+          "type": "text",
+          "default": null,
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "blurb",
+          "type": "text",
+          "default": "''::text",
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "icon",
+          "type": "text",
+          "default": "'poke-ball.png'::text",
+          "nullable": "NO"
+        },
+        {
+          "udt": "int4",
+          "name": "sort",
+          "type": "integer",
+          "default": "0",
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "kind",
+          "type": "text",
+          "default": null,
+          "nullable": "NO"
+        },
+        {
+          "udt": "bool",
+          "name": "visible",
+          "type": "boolean",
+          "default": "true",
+          "nullable": "NO"
+        },
+        {
+          "udt": "bool",
+          "name": "system",
+          "type": "boolean",
+          "default": "false",
+          "nullable": "NO"
+        },
+        {
+          "udt": "jsonb",
+          "name": "extra",
+          "type": "jsonb",
+          "default": "'{}'::jsonb",
+          "nullable": "NO"
+        }
+      ]
+    },
+    {
+      "kind": "column",
+      "name": "store_items",
+      "data": [
+        {
+          "udt": "text",
+          "name": "sku",
+          "type": "text",
+          "default": null,
+          "nullable": "NO"
+        },
+        {
+          "udt": "uuid",
+          "name": "category_id",
+          "type": "uuid",
+          "default": null,
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "name",
+          "type": "text",
+          "default": null,
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "blurb",
+          "type": "text",
+          "default": "''::text",
+          "nullable": "NO"
+        },
+        {
+          "udt": "int4",
+          "name": "cost",
+          "type": "integer",
+          "default": "0",
+          "nullable": "NO"
+        },
+        {
+          "udt": "int4",
+          "name": "bits",
+          "type": "integer",
+          "default": "0",
+          "nullable": "NO"
+        },
+        {
+          "udt": "jsonb",
+          "name": "grants",
+          "type": "jsonb",
+          "default": "'{}'::jsonb",
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "sprite",
+          "type": "text",
+          "default": "''::text",
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "thumb",
+          "type": "text",
+          "default": "''::text",
+          "nullable": "NO"
+        },
+        {
+          "udt": "bool",
+          "name": "featured",
+          "type": "boolean",
+          "default": "false",
+          "nullable": "NO"
+        },
+        {
+          "udt": "int4",
+          "name": "sort",
+          "type": "integer",
+          "default": "0",
+          "nullable": "NO"
+        },
+        {
+          "udt": "bool",
+          "name": "visible",
+          "type": "boolean",
+          "default": "true",
+          "nullable": "NO"
+        },
+        {
+          "udt": "jsonb",
+          "name": "extra",
+          "type": "jsonb",
+          "default": "'{}'::jsonb",
+          "nullable": "NO"
+        },
+        {
+          "udt": "text",
+          "name": "status",
+          "type": "text",
+          "default": "'published'::text",
+          "nullable": "NO"
+        }
+      ]
+    },
+    {
+      "kind": "constraint",
+      "name": "store_categories",
+      "data": [
+        {
+          "name": "store_categories_key_key",
+          "definition": "UNIQUE (key)"
+        },
+        {
+          "name": "store_categories_kind_check",
+          "definition": "CHECK ((kind = ANY (ARRAY['pass'::text, 'coins'::text, 'balls'::text, 'avatars'::text, 'bits'::text])))"
+        },
+        {
+          "name": "store_categories_pkey",
+          "definition": "PRIMARY KEY (id)"
+        }
+      ]
+    },
+    {
+      "kind": "constraint",
+      "name": "store_items",
+      "data": [
+        {
+          "name": "store_items_category_id_fkey",
+          "definition": "FOREIGN KEY (category_id) REFERENCES private.store_categories(id) ON DELETE CASCADE"
+        },
+        {
+          "name": "store_items_pkey",
+          "definition": "PRIMARY KEY (sku)"
+        }
+      ]
+    }
+  ],
+  "triggers": [
+    {
+      "relation": "store_categories",
+      "triggers": []
+    },
+    {
+      "relation": "store_items",
+      "triggers": [
+        {
+          "definition": "CREATE TRIGGER store_items_before_write BEFORE INSERT OR UPDATE ON private.store_items FOR EACH ROW EXECUTE FUNCTION private.store_items_before_write()",
+          "functionMd5": "fb9927efc13af208dd957fda938fd196"
+        }
+      ]
+    }
+  ],
+  "newEndpointAbsent": true,
+  "canonicalMappingSource": "js/game.js core mappings;all six local PNGs present"
+}

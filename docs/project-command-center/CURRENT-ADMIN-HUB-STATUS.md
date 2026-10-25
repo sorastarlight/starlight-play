@@ -1,9 +1,9 @@
 # Current Admin Hub status
 
-Latest routine completion: [CODEX-214 sibling review focus](LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md),source verified. The CODEX-213 design/local implementation question is pending;no implementation or deployment is inferred.
+Latest local completion: [CODEX-215 create-only Mart drafts](LAUNCH-CODEX215-LOCAL-MART-CREATE.md),following the approved CODEX-213 design.123suites,22local SQL check groups and8responsive DOM states pass;guarded install/rollback prepared. Production installation/publication remain a separate decision. Published runtime remains CODEX-214.
 
 
-Updated through CODEX-214,October24. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
+Updated through CODEX-215,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
 
 Production main **ae110601**,Pages **40145088416 succeeded**.100monitored files and three changed versioned files match exact main. APP **20261008-rc133** unchanged. Latest runtime evidence:122local suites,build31HTML/477references. CODEX-211 ordering/capture publication,CODEX-212 empty/long-dialog maintenance and CODEX-214 sibling-dialog focus maintenance are complete;do not request their approvals again.
 
@@ -18,9 +18,9 @@ Production main **ae110601**,Pages **40145088416 succeeded**.100monitored files 
 | Analytics | Health,Captures,Progression,Evolution & Trading,Economy | All five loaded in approved CODEX178 inspection;local transitions/layout evidence does not prove broader hosted/device behavior. |
 | System/Access | Current-tool handoff | Credentials,integrations,roles and identity authority remain unmigrated. |
 
-## Prepared next design
+## Locally implemented next slice
 
-[CODEX-213 create-only Mart drafts](ADMIN-HUB-MART-CREATE-REVIEW.md) has a disconnected mock and selected source review only. It proposes one inventory reward in an existing non-system PokéCoin floor,always hidden draft. Existing save is an upsert;safe create-only behavior needs a separately prepared atomic endpoint. Design/local implementation and isolated endpoint/rollback preparation need an owner decision;production SQL,publication and live creation stay separate. No new SQL correction is awaiting installation from this batch.
+[CODEX-215 create-only Mart drafts](LAUNCH-CODEX215-LOCAL-MART-CREATE.md) implements the approved design locally:one supported inventory reward in an existing non-system PokéCoin floor,always hidden/unfeatured draft. A separate atomic endpoint rejects duplicate codes and locks floor classification.123local suites,22SQL groups,8responsive states and guarded frontend/SQL rollback pass. Production SQL,exact four-file publication and source verification need a separate decision;live catalog calls/creation remain excluded. Existing published runtime evidence above is unchanged.
 
 ## Launch evidence still required
 

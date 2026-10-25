@@ -1,15 +1,13 @@
 # Owner return review — October24
 
-Latest routine completion: [CODEX-214 sibling review focus](LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md),source verified. The CODEX-213 design/local implementation question is pending;no implementation or deployment is inferred.
+Latest local completion: [CODEX-215 create-only Mart drafts](LAUNCH-CODEX215-LOCAL-MART-CREATE.md),following the approved CODEX-213 design.123suites,22local SQL check groups and8responsive DOM states pass;guarded install/rollback prepared. Production installation/publication remain a separate decision. Published runtime remains CODEX-214.
 
 
 Production main **ae110601**,Pages **40145088416 succeeded**;APP **20261008-rc133** unchanged. Both approved ordering/capture editors are published and source-verified. Routine empty-state and tall-review focus fixes across the new and existing editors are also published.122local suites/build31HTML477refs;latest100+3hosted source matches. No live catalog/settings action,SQL,notice,Auth/provider,grant/gameplay or protected-account mutation ran.
 
 ## Next important decision
 
-[CODEX-213:Create-only Mart drafts](ADMIN-HUB-MART-CREATE-REVIEW.md). Approve the design and local implementation/testing,including preparation and isolated validation of a create-only endpoint/install/rollback packet. One inventory reward,existing non-system PokéCoin floor,always hidden draft. Existing upsert cannot guarantee non-replacement at creation;the proposed atomic insert must reject existing codes. Production SQL,publication,live creation,uploads,deletion,Bits/provider work and APP stamp remain excluded. Disconnected mock/source review only;this is an optional migration slice,not automatically a launch blocker.
-
-No decision remains for CODEX203/209designs or CODEX211publication;those approvals are complete/spent. No unapproved SQL install is waiting from this batch.
+[CODEX-215:Locally implemented create-only Mart drafts](LAUNCH-CODEX215-LOCAL-MART-CREATE.md). The design/local approval is complete. The next decision is installation of the single new guarded endpoint and exact four-file frontend publication,followed by source verification only.123local suites,22SQL groups,8responsive states and guarded rollbacks pass. No live creation,catalog application read,authenticated navigation/notice,product publication,uploads,deletion,Bits/provider action or APP stamp is proposed. Existing runtime/main remains unchanged.
 
 ## Remaining launch evidence
 

@@ -1,3 +1,7 @@
+## CODEX-215 — approved local create-only Mart drafts (October25)
+
+Completed approved CODEX213local scope. New dedicated module/UI and atomic endpoint/guarded rollback prepared;existing upsert unchanged.123LOCAL HARNESS suites,22REAL LOCAL SQL check groups,8responsive REAL LOCAL DOM states,10interaction cases and keyboard/session/reset/rollback checks pass. Build31HTML479refs. No production SQL/application/notice/Auth/provider/grant/gameplay/protected-account action. Mainae110601/Pages40145088416/APP20261008-rc133 unchanged. Sora NO;Twinkle NO;PlayTester role unchanged. Next important decision:exact endpoint install/four-file publication/source verification only;live creation remains separate. See LAUNCH-CODEX215-LOCAL-MART-CREATE.md.
+
 ## CODEX-38/39 — One-event delivery complete; stat formatter patch prepared (2026-10-20 EDT)
 
 Explicit one-event approval used02:07:27 UTC;Caterpie event delivered once,profile/inventory/specimen/lifecycle unchanged by guarded transaction. Independent queue0/events1/Familiar1 and actual Pokédex UI verified. No scheduler/reconcile/new encounter. Separate read formatter patch prepared/unapplied:storedHP plus pinned WIRE stats, legacy/non-stat/CP preserved.14 SQL/3 renderer/78 non-writing suites pass;build31/423. Frontend missing stats use accessible dash. See FAMILIARITY-ONE-EVENT-DELIVERY.md and WIRE-STAT-FORMATTER-FIX.md.

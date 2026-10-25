@@ -1,0 +1,30 @@
+{
+  "classification": "LOCAL candidate only;publication held",
+  "baselineCommit": "6f0f8512db6b5c568cf51ec6686b3161827d7e7c",
+  "files": [
+    {
+      "file": "admin-next.html",
+      "candidateHash": "0d0c6b4fbdc0f7ca942ad7efd3ec17cb75039ca4ff10c7c3cb8a6c82f7161743",
+      "added": false
+    },
+    {
+      "file": "js/admin-next.js",
+      "candidateHash": "0e80af56c6724ad86572024ef1e802cee7c7d6a31e5909594044e7c0438e607c",
+      "added": false
+    },
+    {
+      "file": "js/admin-next-create.js",
+      "candidateHash": "a12180e24d3cb23ee5baf2ca95fa925c7c4e3952da19175cc35a2ff3ba7a8dd9",
+      "added": true
+    },
+    {
+      "file": "css/admin-create.css",
+      "candidateHash": "7863ca7eac532b61646f166bfe0791468b1d353c5270c0d10726cb97de2eeb74",
+      "added": true
+    }
+  ],
+  "rollback": {
+    "exactRestore": true,
+    "driftRefusedBeforeWrites": true
+  }
+}

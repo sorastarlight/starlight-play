@@ -1,0 +1,497 @@
+{
+  "classification": "LOCAL HARNESS",
+  "results": [
+    {
+      "file": "a19-apply-decision-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-apply-handoff-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-apply-preflight-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-apply-report-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-genval-impl-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-genval-spec-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-schema-rehearsal-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "a19-wire-impl-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "account-diagnostics-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "achievement-card-geometry-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "achievements-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-gate-17-s1-snapshot-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-gate-17-s1b-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-gate-2a-r-identity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-gate-2a-trainer-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-next-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-overhaul-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-hub-workspace-v2-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-oak-qa-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-record-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-rewards-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "build-hygiene-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "classic-gba-evolution-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "console-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d54-economy-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d55-economy-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d64-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d65-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d66-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d67-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d68-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d71-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "d72-mastery-static-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "director-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "encounter-phase-driver-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "encounter-stability-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "encounter-stage-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "evolution-candy-integrity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "evolution-line-integrity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "evolve-ux-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "form-aware-identity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "gen9-ref-readiness-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "gen9-ref-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "help-navigation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "identity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "inventory-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "kanto-release-containment-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "live-rpg-session-lifecycle-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "location-visual-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "new-table-access-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-lab-card-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-lab-rc123-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-lab-rc124-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-lab-rc126-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-lab-ux-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-transfer-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "onboarding-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "owner-recovery-email-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "password-recovery-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "pc-box-ops-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "pc-stat-values-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase10-special-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase4-hardening-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase5-identity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase6-rankings-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase7-content-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase8-bits-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "phase9-balance-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "pikachu-cosplay-gender-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "play-perf-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "play-present-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "play-ux-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "pokedex-discovery-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "pokedex-kanto-boundary-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "rc127-presentation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "rc128-presentation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "rc129-presentation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "refresh-pass-override-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "species-familiarity-reader-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "species-mastery-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "sprite-variant-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "twitch-disconnect-controller-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "play-present-focus-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "support-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "nav-focus-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "registration-feedback-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "refresh-pass-identity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "edge-staff-boundary-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "eventsub-authenticity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "trainer-session-boundary-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "store-asset-boundary-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "signin-pending-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "staff-error-rendering-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "bits-status-rendering-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "vendor-lock-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "rankings-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "trade-board-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "trade-detail-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "events-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "trainer-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "recovery-packet-integrity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "content-picker-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "store-pass-feedback-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "pokedex-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oak-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "settings-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "trade-pc-search-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "store-supply-presentation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-mart-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-keyboard-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-access-presentation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-health-loading-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-analytics-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "oauth-navigation-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "settings-profile-keyboard-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-config-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-pokemon-quantity-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-roster-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-session-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-channel-save-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-floors-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-limits-order-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-next-create-tests.js",
+      "exitCode": 0
+    }
+  ]
+}

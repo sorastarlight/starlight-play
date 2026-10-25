@@ -5,13 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-234",
-      "status": "doing",
+      "status": "done",
       "scope": "Gift confirmation narrow wrapping",
       "branch": "admin-hub-overhaul",
-      "evidence": "LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md;evidence/codex234-browser.json;evidence/codex234-regressions.json;evidence/codex234-scope.json",
+      "evidence": "LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md;evidence/codex234-browser.json;evidence/codex234-regressions.json;evidence/codex234-scope.json;evidence/codex234-publication.json",
       "testResults": "6baseline overflows fixed;36local states;126suites/build;guarded rollback",
-      "nextAction": "Exact one-CSS publication/source verification under CODEX78",
-      "approvalRequirement": "Routine presentation only;no gift or authority change"
+      "nextAction": "Published/source verified;continue independent work;critical decisions held",
+      "approvalRequirement": "Routine presentation only;no gift or authority change",
+      "publicationCommit": "5aa6b86c8e4aad466c9a473bd74111554e7ebfed",
+      "pagesRun": 40184787606
     },
     {
       "id": "CODEX-233",

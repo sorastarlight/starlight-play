@@ -1,8 +1,8 @@
-# Owner return review — current October25,through CODEX-233
+# Owner return review — current October25,through CODEX-234
 
 ## Completed this overnight window
 
-Production is **main ec93d129 / APP20261008-rc133**. CODEX233published one routine CSS-only recovery-dialog wrapping fix;126suites and12local states pass with100+1deployed source matches. CODEX225–232 made no runtime change. Critical production decisions remain held.
+Production is **main 5aa6b86c / APP20261008-rc133**. CODEX233recovery and234gift confirmation wrapping are routine CSS-only fixes. Latest126suites and36gift layout/reset states pass with100+1deployed source matches. CODEX225–232 made no runtime change. Critical production decisions remain held.
 
 - [Configuration hosted loading](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md):six PokéCoin fields,Pass bundles and capture bounds loaded;no saves. Bounded owner notice exception completed/spent.
 - [Operations local review](LAUNCH-CODEX225-OPERATIONS-INTEGRATED-REVIEW.md):40layouts,native focus/pending/reset;no live commands.
@@ -14,6 +14,8 @@ Production is **main ec93d129 / APP20261008-rc133**. CODEX233published one routi
 - [Queue reconciliation](LAUNCH-CODEX231-CHECKLIST-RECONCILIATION.md):old Operations preparation gates resolved by196;Trainer visual direction closed with real acceptance centralized in100. No required acceptance silently closed.
 
 - [Recovery confirmation wrapping](LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md):valid20character names now fit narrow dialogs;one CSS file published,no email/flow change.
+
+- [Gift confirmation wrapping](LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md):maximum-length recipients fit narrow reviews;one CSS file published,no grants or behavior change.
 
 ## What genuinely remains
 

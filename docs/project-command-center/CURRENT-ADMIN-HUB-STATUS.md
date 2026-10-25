@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+CODEX-234 gift confirmation wrapping is published at main **5aa6b86c**, Pages **40184787606 succeeded**;100monitored+one versioned source match. Two scoped CSS rules fix six long-name overflow cases. All36local states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. Gift quantities,payloads,permissions and behavior stay unchanged;no hosted gift/application call. [Report](LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md).
+
 CODEX-233 recovery confirmation wrapping is published at main **ec93d129**, Pages **40182783398 succeeded**;100monitored+one versioned source match. Three CSS rules fix valid20character-name overflow at320/390px. Twelve local review/reset states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No Auth JS/transport/permissions,real mail or hosted application action. [Report](LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md).
 
 CODEX-232 full-shell local Trainer review passed24profile/roster/detail account transitions,roster harness and9separate mocked sign-in checks. Source review distinguishes stamping release helper from read-only validation;neither release nor new stamp ran. [Report](LAUNCH-CODEX232-TRAINER-SHELL-TRANSITIONS.md). No runtime or hosted changes.

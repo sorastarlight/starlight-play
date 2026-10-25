@@ -1,3 +1,7 @@
+## CODEX-234 — Gift wrapping publication verified
+
+CODEX-234 gift confirmation wrapping is published at main **5aa6b86c**, Pages **40184787606 succeeded**;100monitored+one versioned source match. Two scoped CSS rules fix six long-name overflow cases. All36local states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. Gift quantities,payloads,permissions and behavior stay unchanged;no hosted gift/application call. Temporary browser tabs closed and local fixture server stopped;private rollback retained. Sora NO;Twinkle NO;PlayTester unchanged.
+
 ## CODEX-234 — Local gift confirmation wrapping
 
 Six internal overflow cases fixed by two scoped CSS rules;36rendered states and126suites pass. No gift or hosted call. Exact one-CSS publication next.

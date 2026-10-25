@@ -1,3 +1,7 @@
+## CODEX-217/218 — Pass maintenance complete;next migration reviewed (October25)
+
+217one-file main10eeb1d6/Pages40162962338success;100+1sources match,124suites,4width states and guarded rollback. Existing Studio local editing repaired;no live Pass config/save/claim.218new Hub Pass editor source/design mock has5selected contracts,9local interactions and8width states;design/local implementation decision next. Backup215notdue yet;no unchanged dashboard polling or new scheduler. Sora NO;Twinkle NO;PlayTester unchanged.
+
 ## CODEX-217 — existing Studio Pass draft maintenance (October25)
 
 Baseline actual handler loses added rewards during render;shared removal targets both bags. Narrow frontend correction preserves local drafts and isolates removal;transport/save/server rules unchanged.124LOCAL HARNESS suites,7REAL LOCAL DOM cases,4widths and exact rollback pass. Routine one-file CODEX78publication/source verification next;no live catalog/Pass save/claim. Sora NO;Twinkle NO;PlayTester unchanged. See LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md.

@@ -1,9 +1,9 @@
 # Launch acceptance matrix
 
-Latest completion: [CODEX-215 create-only Mart drafts](LAUNCH-CODEX215-LOCAL-MART-CREATE.md),installed/published after explicit owner approval. Migration20261025042627;main7d9d0104;Pages40161937835success;100+4hosted source matches. Approval spent. No live draft creation or authenticated application call.
+Latest completion: [CODEX-217 Studio Pass draft maintenance](LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md),published/source verified at main10eeb1d6 / Pages40162962338success.124local suites;100+1hosted source matches. No configured Pass rewards or claim rules changed. [CODEX-218 new Hub Pass editor](ADMIN-HUB-PASS-BUNDLES-REVIEW.md) is a disconnected design pending its design/local-work decision.
 
 
-Current through CODEX-215,October25. This indexes evidence,not final launch approval. Production main **7d9d0104**,Pages **40161937835 succeeded**,APP **20261008-rc133** unchanged. Latest feature123local suites/build31HTML479refs;production build30HTML477refs;100monitored plus4changed versioned hosted sources match exact main. CODEX211previously verified100+4sources for both new editors;CODEX212changes only their presentation module.
+Current through CODEX-218,October25. This indexes evidence,not final launch approval. Production main **10eeb1d6**,Pages **40162962338 succeeded**,APP **20261008-rc133** unchanged. Latest feature124local suites/build31HTML479refs;production build30HTML477refs;100monitored plus1changed versioned hosted sources match exact latest main. CODEX215previously verified100+4sources for create-only drafts;CODEX217changes only the existing Studio frontend.
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |
@@ -17,5 +17,6 @@ Current through CODEX-215,October25. This indexes evidence,not final launch appr
 | Visual/keyboard maintenance | Routine copy/loading/focus fixes published with scoped source evidence;new empty/fixed/long-review and independent-draft checks complete. | Local fixtures are not blanket hosted/device/assistive certification. |
 | Latest optional migration | CODEX215create-only hidden Mart draft installed/published/source verified;123suites,22SQL groups,8responsive states,100+4source matches and14delta recovery. | Hosted creation/application acceptance remains untested and needs exact scope. |
 | Final release | Requirements,accepted constraints and limits recorded. | Owner scope/go-no-go and APP stamp still separate;no final launch declaration. |
+| Next optional migration | CODEX218new Hub Pass bundle editor source/design mock:9disconnected cases,8responsive states,5selected source contracts. | Design/local implementation decision next;no SQL,live settings read/save or publication included. |
 
 See [Hub status](CURRENT-ADMIN-HUB-STATUS.md),[owner review](OWNER-RETURN-REVIEW-OCT24.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md),[recovery drill](RECOVERY-DRILL-CODEX71.md),[delta recovery](RECOVERY-POST-DRILL-DELTAS.md),[backup](LAUNCH-CODEX188-POST-REPORT-BACKUP.md),[hosted Hub inspection](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md),[ordering/capture implementation](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md),[latest presentation maintenance](LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md),[creation proposal](ADMIN-HUB-MART-CREATE-REVIEW.md) and [handoff](OVERNIGHT-LAUNCH-READINESS.md). Historical reports/Git retain exact approvals;later decisions supersede earlier held-state wording.

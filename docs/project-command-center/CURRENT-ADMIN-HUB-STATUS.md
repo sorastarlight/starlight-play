@@ -1,11 +1,11 @@
 # Current Admin Hub status
 
-Latest completion: [CODEX-215 create-only Mart drafts](LAUNCH-CODEX215-LOCAL-MART-CREATE.md),installed/published after explicit owner approval. Migration20261025042627;main7d9d0104;Pages40161937835success;100+4hosted source matches. Approval spent. No live draft creation or authenticated application call.
+Latest completion: [CODEX-217 Studio Pass draft maintenance](LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md),published/source verified at main10eeb1d6 / Pages40162962338success.124local suites;100+1hosted source matches. No configured Pass rewards or claim rules changed. [CODEX-218 new Hub Pass editor](ADMIN-HUB-PASS-BUNDLES-REVIEW.md) is a disconnected design pending its design/local-work decision.
 
 
-Updated through CODEX-215,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
+Updated through CODEX-218,October25. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
 
-Production main **7d9d0104**,Pages **40161937835 succeeded**.100monitored files and four changed versioned files match exact main. APP **20261008-rc133** unchanged. Local feature123suites/build31HTML479refs;isolated production build30HTML477refs. CODEX215new endpoint source/ACL verified without invoking it.
+Production main **10eeb1d6**,Pages **40162962338 succeeded**.100monitored files and one changed versioned file match exact latest main. APP **20261008-rc133** unchanged. Local feature124suites/build31HTML479refs;isolated production build30HTML477refs. CODEX215new endpoint source/ACL verified without invoking it.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |
@@ -18,7 +18,11 @@ Production main **7d9d0104**,Pages **40161937835 succeeded**.100monitored files 
 | Analytics | Health,Captures,Progression,Evolution & Trading,Economy | All five loaded in approved CODEX178 inspection;local transitions/layout evidence does not prove broader hosted/device behavior. |
 | System/Access | Current-tool handoff | Credentials,integrations,roles and identity authority remain unmigrated. |
 
-## Latest installed slice
+## Prepared next migration
+
+[Pass bundle editor review](ADMIN-HUB-PASS-BUNDLES-REVIEW.md):separate daily/weekly drafts,searchable eight-core-reward selection,quantities and complete before/after review. Disconnected proposal only;design/local implementation decision needed. Current Studio local draft maintenance is complete.
+
+## Latest installed database slice
 
 Owner separately approved installation and exact four-file publication/source-only verification. Migration20261025042627 installed;new full body/hash/attributes/ACL match,10dependencies and existing edit unchanged. Main7d9d01047e73d646cdb3a8905d7932f5e2ae7f78 / Pages40161937835 succeeded;100monitored+4changed versioned sources match. APP20261008-rc133 unchanged. Feature123suites/build31HTML479refs;isolated main build30HTML477refs. No live catalog/application read/create,authenticated navigation/notice,provider,grant/gameplay or protected-account mutation. Approval spent. See [implementation/production evidence](LAUNCH-CODEX215-LOCAL-MART-CREATE.md). Hosted create acceptance remains separate.
 

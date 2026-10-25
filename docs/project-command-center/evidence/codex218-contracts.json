@@ -1,0 +1,40 @@
+{
+  "classification": "Catalog-only selected source inspection;no live configuration values or application calls",
+  "functions": [
+    {
+      "schema": "public",
+      "name": "admin_content_studio",
+      "args": "",
+      "definitionMd5": "2901998622a171a9b0486a93002eed0e",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "public",
+      "name": "admin_save_pass_rewards",
+      "args": "p_daily jsonb, p_weekly jsonb",
+      "definitionMd5": "efedde0cb490951ffad9115c0211f03d",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "schema": "private",
+      "name": "game_settings",
+      "args": "",
+      "definitionMd5": "3963b75b9790583ba5aab40e2d120eae",
+      "acl": null
+    },
+    {
+      "schema": "private",
+      "name": "pass_reward_grants",
+      "args": "p_kind text",
+      "definitionMd5": "0e45c7e6fcc2e3f875d02c7a8b12f451",
+      "acl": null
+    },
+    {
+      "schema": "private",
+      "name": "store_item_is_live",
+      "args": "i private.store_items",
+      "definitionMd5": "378db50133889dbc35909cf599d02a45",
+      "acl": null
+    }
+  ]
+}

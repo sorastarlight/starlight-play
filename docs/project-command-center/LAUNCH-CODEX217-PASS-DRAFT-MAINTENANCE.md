@@ -17,3 +17,7 @@ Only `js/admin-studio.js` changes at runtime. Existing read/write endpoint names
 Build31HTML/479refs,APP20261008-rc133 unchanged. Exact one-file frontend rollback and drift refusal before writes pass. Baseline/candidate/transport evidence:[scope](evidence/codex217-runtime-scope.json),[regressions](evidence/codex217-regressions.json),[browser](evidence/codex217-browser-checks.json). Raw fixtures/screenshot/rollback remain private at `C:\Users\FET\AppData\Local\PokemonStreamLink\security\codex217\`.
 
 This corrects the already-existing local editing behavior;it adds no privileged workflow or server operation. Publication is within the owner's CODEX-78 maintenance exception,limited to the exact one-file diff followed by static hosted source verification. It authorizes no live Pass configuration save or claim. Sora NO;Twinkle NO;PlayTester role unchanged. Temporary fixture tabs/server are closed.
+
+## Publication complete
+
+Exact one-file main10eeb1d662fcc379a0127196aab0b9d0cbf6b40d;Pages40162962338success.100monitored sources and1changed versioned source match the published Git commit. Isolated production build30HTML477refs passes;APP20261008-rc133 unchanged. No authenticated page,live Pass read/save or claim. Evidence:evidence/codex217-publication.json.

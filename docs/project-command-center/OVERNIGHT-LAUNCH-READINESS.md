@@ -1,12 +1,14 @@
-# Current launch readiness handoff — through CODEX-215
+# Current launch readiness handoff — through CODEX-218
 
-Runtime main7d9d0104 / Pages40161937835success;100+4sources match. New endpoint migration20261025042627full source/ACL verified. Feature123suites/build31HTML479refs;main isolated build30HTML477refs. APP20261008-rc133 unchanged;separate feature/main histories preserved.
+Runtime main10eeb1d6 / Pages40162962338success;100+1sources match. CODEX217existing Studio local draft/bundle-isolation maintenance only.124local suites;APP20261008-rc133 unchanged. Latest SQL remains215;14delta recovery and3checkoutfiles unchanged.
 
 Current user authorizes autonomous in-session readiness/visual work. Existing heartbeat remains PAUSED;no renewed schedule or extra background systems. No delegation. Preserve SQL/Auth/provider/credential/gameplay/grant/notice/protected-account/spending/APP/final-launch boundaries.
 
 Owner separately approved installation and exact four-file publication/source-only verification. Migration20261025042627 installed;new full body/hash/attributes/ACL match,10dependencies and existing edit unchanged. Main7d9d01047e73d646cdb3a8905d7932f5e2ae7f78 / Pages40161937835 succeeded;100monitored+4changed versioned sources match. APP20261008-rc133 unchanged. Feature123suites/build31HTML479refs;isolated main build30HTML477refs. No live catalog/application read/create,authenticated navigation/notice,provider,grant/gameplay or protected-account mutation. Approval spent. See LAUNCH-CODEX215-LOCAL-MART-CREATE.md.
 
 Local recovery14delta replay/reverse passes;3SQLcheckoutfiles match LFbytes. Latest observed Oct24 07:44:07UTC backup predates SQL215;observe next completed post-change backup when due,without a new schedule or restore. Real device/provider and bounded hosted mutation gaps remain in the matrix. No repeated application calls or owner notices.
+
+CODEX218source/design proposal ready:daily/weekly Pass bundle editor,eightcorekeys,existing guarded contracts.9disconnected interactions/8responsive states;no integration,SQL,live configuration or publication authority. See ADMIN-HUB-PASS-BUNDLES-REVIEW.md. Design/local work decision next;continue independent local review while held.
 
 Historical windows below are superseded.
 

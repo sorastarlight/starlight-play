@@ -4,14 +4,26 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-218",
+      "status": "done",
+      "scope": "New Hub daily/weekly Pass bundle editor source/design proposal",
+      "branch": "admin-hub-overhaul",
+      "evidence": "ADMIN-HUB-PASS-BUNDLES-REVIEW.md;design-reset/hub-pass-bundles-review.html;evidence/codex218-contracts.json;evidence/codex218-browser-review.json",
+      "testResults": "5selected source/ACL contracts;9disconnected interactions;8responsive editor/review states",
+      "nextAction": "Owner design/local implementation decision;no integrated workflow or production change",
+      "approvalRequirement": "New privileged workflow;local implementation,publication and live saves separately gated"
+    },
+    {
       "id": "CODEX-217",
-      "status": "doing",
+      "status": "done",
       "scope": "Existing Studio Pass local draft persistence and bundle-isolated removal maintenance",
       "branch": "admin-hub-overhaul",
       "evidence": "LAUNCH-CODEX217-PASS-DRAFT-MAINTENANCE.md;evidence/codex217-runtime-scope.json;evidence/codex217-regressions.json;evidence/codex217-browser-checks.json",
-      "testResults": "124suites;actual handlers baseline failure/candidate pass;7rendered interactions;4width states;rollback",
-      "nextAction": "Publish exact one-file routine maintenance under CODEX78;verify static source only",
-      "approvalRequirement": "Standing routine maintenance;no live Pass save or new workflow authority"
+      "testResults": "124suites;4responsive states;7native cases;100+1hosted source matches;guarded rollback",
+      "nextAction": "Published/source verified;no live Pass save or claims",
+      "approvalRequirement": "Standing routine maintenance;no live Pass save or new workflow authority",
+      "publicationCommit": "10eeb1d662fcc379a0127196aab0b9d0cbf6b40d",
+      "pagesRun": 40162962338
     },
     {
       "id": "CODEX-216",

@@ -1,0 +1,101 @@
+{
+  "classification": "REAL LOCAL DOM;disconnected design only;CSP connect-src none",
+  "cases": [
+    "No-change feedback",
+    "Only changed daily bundle appears in review",
+    "Weekly removal does not alter daily copy",
+    "Invalid zero quantity focuses named input",
+    "Normalized poke ball search",
+    "No-match item search",
+    "Escape returns review/picker opener",
+    "Demo apply changes in-memory values only",
+    "Unavailable state hides editor and disables review"
+  ],
+  "layouts": [
+    {
+      "fixture218": true,
+      "state": "editor",
+      "width": 320,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "review",
+      "width": 320,
+      "overflow": false,
+      "dialog": {
+        "top": 12,
+        "bottom": 788,
+        "scrollTop": 0,
+        "horizontalOverflow": false
+      },
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "editor",
+      "width": 390,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "review",
+      "width": 390,
+      "overflow": false,
+      "dialog": {
+        "top": 12,
+        "bottom": 788,
+        "scrollTop": 0,
+        "horizontalOverflow": false
+      },
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "editor",
+      "width": 768,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "review",
+      "width": 768,
+      "overflow": false,
+      "dialog": {
+        "top": 85.92500305175781,
+        "bottom": 714.0625152587891,
+        "scrollTop": 0,
+        "horizontalOverflow": false
+      },
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "editor",
+      "width": 1024,
+      "overflow": false,
+      "dialog": null,
+      "brokenImages": 0
+    },
+    {
+      "fixture218": true,
+      "state": "review",
+      "width": 1024,
+      "overflow": false,
+      "dialog": {
+        "top": 85.92500305175781,
+        "bottom": 714.0625152587891,
+        "scrollTop": 0,
+        "horizontalOverflow": false
+      },
+      "brokenImages": 0
+    }
+  ],
+  "limitations": "Not integrated model/adapter,real device,actual picker,hosted access or server save."
+}

@@ -1,3 +1,9 @@
+## CODEX-227 — full-shell Configuration reset composition
+
+CODEX-227 full-shell local Configuration transition review passed40staff-to-ordinary/staff-to-new-staff cases and four targeted suites. Old workspace/dialogs clear before access verification;late reads stay discarded and new staff gets fresh fields only. No runtime change or hosted call. [Report](LAUNCH-CODEX227-FULL-SHELL-TRANSITIONS.md). Overnight window remains14:22UTC/10:22Eastern;backup observation not due before07:44UTC.
+
+No new approvals consumed. Fixtures closed/server stopped;no new background system. Feature-only evidence commit follows.
+
 ## CODEX-226 — local Helpdesk failure and reset acceptance
 
 20rendered states,11actual-source checks,and native duplicate-submit/focus checks pass. Draft retained for limited/network/unknown outcomes;late create response stays discarded after account reset. No runtime/publication/hosted action. Preliminary before-dispatch reset measurements were discarded and corrected. Backup observation remains not due before07:44UTC;no unchanged poll.

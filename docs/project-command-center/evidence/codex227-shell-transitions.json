@@ -1,0 +1,1044 @@
+{
+  "classification": "REAL LOCAL DOM;actual admin-next.html,all admin-next modules and CSS;fictional auth/profile/staff checks and three reads;connect-src none",
+  "rows": [
+    {
+      "mode": "passRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_economy_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_economy_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_economy_overview"
+    },
+    {
+      "mode": "passRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio admin_economy_overview"
+    },
+    {
+      "mode": "captureDialog",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 8,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview admin_economy_overview"
+    },
+    {
+      "mode": "rewardDialog",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "configInputs": 6,
+        "gate": "Checking staff access…",
+        "newParticipation": "701",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_economy_overview"
+    },
+    {
+      "mode": "captureRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_capture_overview"
+    },
+    {
+      "mode": "passDialog",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 14,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "configInputs": 0,
+        "gate": "This workspace is for staff. Your trainer account does not have access.",
+        "passInputs": 0,
+        "captureInputs": 0,
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_economy_overview admin_content_studio"
+    }
+  ],
+  "checks": {
+    "oldWorkspaceClearedBeforeGate": true,
+    "lateSettingsRepliesDiscarded": true,
+    "newStaffFreshDataOnly": true,
+    "commandsSent": 0
+  },
+  "targetedSuites": [
+    "admin-next-pass-tests.js",
+    "admin-next-limits-order-tests.js",
+    "admin-next-health-loading-tests.js",
+    "admin-next-config-tests.js"
+  ],
+  "limitations": [
+    "No hosted Auth/account switch",
+    "No profile/provider/notice behavior certified",
+    "No real save or command",
+    "Shared SDK/game/nav omitted,so header Checking sign-in is a fixture limitation",
+    "No physical device/screen reader certification"
+  ]
+}

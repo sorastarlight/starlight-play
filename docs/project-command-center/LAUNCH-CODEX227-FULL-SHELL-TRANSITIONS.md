@@ -1,0 +1,9 @@
+# CODEX-227 — Full Admin Hub Configuration account transitions
+
+The actual current admin-next.html,all admin-next modules and current styles were exercised against fictional auth/profile/staff gates and three read-only mock endpoints. Auth SDK,game/nav and provider scripts were omitted;CSP connect-src none. Header sign-in rendering is therefore outside this fixture,not a product defect.
+
+Forty rendered transitions at320/390/768/1024px:pending Pass read,pending capture read,open Pass picker,open capture review,and open PokéCoin review;each switches from fictional staff to either ordinary denied account or a different allowed staff identity. The staff workspace hides,dialogs close and all old Configuration inputs clear synchronously before the held access gate completes. Late settings replies remain discarded. Denied account stays hidden;new staff reloads its own distinct participation value701 with Pass/capture still closed. No old draft restored. No final document overflow in measured states.
+
+Four targeted LOCAL HARNESS suites pass:Pass bundles,capture/order,reward editor and actual health loader. No runtime correction,publication,full regression rerun or new build was needed. [Structured evidence](evidence/codex227-shell-transitions.json). Private fixture and inspected screenshot:security/codex227/new-staff-config.png. Initial helper IDs were corrected to match actual staff/gate elements before browser execution.
+
+This extends local shell-composition evidence for the newer editors;it does not certify real Auth/provider transitions,server authorization,notices,saves,other workspaces,physical devices or assistive technology. No hosted call,SQL,protected-account mutation,grant/gameplay,spending,APPstamp or final launch. Sora NO;Twinkle NO;PlayTester unchanged. Existing critical decisions remain held for owner return.

@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-227",
+      "status": "done",
+      "scope": "Full shell Configuration editor account-transition acceptance",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX227-FULL-SHELL-TRANSITIONS.md;evidence/codex227-shell-transitions.json",
+      "testResults": "40rendered switches;four targeted suites;immediate clear and late-reply suppression",
+      "nextAction": "Continue independent visual/security review;check post-SQL215 backup once due after07:44UTC",
+      "approvalRequirement": "Local only;critical production authority held"
+    },
+    {
       "id": "CODEX-226",
       "status": "done",
       "scope": "Local Helpdesk create failure,draft and account-reset acceptance",

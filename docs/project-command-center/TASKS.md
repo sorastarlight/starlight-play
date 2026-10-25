@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-231 | done | Reconcile queue and owner-return evidence | CODEX-196/229/230 | Docs only | Historical gates resolved;real acceptance remains open |
 | CODEX-230 | done | Composed Hub/report keyboard | CODEX-162/229 | Local only | Native keys/range;two targeted suites;no runtime change |
 | CODEX-229 | done | Post-SQL215 physical backup availability | CODEX-215 | Read-only | Oct25 07:44:36UTC recovery point available;no restore |
 | CODEX-228 | done | Full-shell Mart account transitions | CODEX-215/227 | Local only | 56cases;four targeted suites;no runtime change |
@@ -103,7 +104,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 | CODEX-25 | done | Trainer keyboard and narrow stats QA | CODEX-24 | Routine frontend work | 21 checks + real DOM passed; zoom/motion emulation remains open |
 | CODEX-24 | done | Stored Pokémon stats read/display | CODEX-23 | Owner approved read-only patch | 14 SQL/37 JS checks; nulls preserved; no editing/backfill |
 | CODEX-23 | done | Reviewed Trainer v6 presentation slice | CODEX-22 | Owner proceeded | 36 checks and local DOM passed; full issue15 matrix remains open |
-| CODEX-22 | blocked | Issue15 Trainer v6 remaining real acceptance | CODEX-100 | Direction accepted/implemented | Real zoom/device/OS-motion evidence tracked under CODEX-100; no new visual direction prompt |
+| CODEX-22 | done | Issue15 Trainer v6 accepted direction | CODEX-23/24 | Direction accepted/implemented | Required real zoom/device/OS-motion evidence remains centralized in CODEX-100 |
 | CODEX-21 | done | Disabled hosted Twitch policy install | CODEX-20 | Disabled install/QA approved | Verified disabled; no separate test Twitch identity, provider QA unperformed; continue UI cleanup |
 | CODEX-20 | done | Issue17 local server-enforcement core | CODEX-19 | Implementation/local tests approved | 65 SQL checks; full workflow and hosted activation incomplete |
 | CODEX-19 | done | Issue17 Twitch linking policy audit/design | CODEX-18 | Research/design only | Source-grounded policy ready; account-link implementation decision pending |
@@ -202,7 +203,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 | HANDOFF-1 | done | Historical Gemini planning handoff | I51 | Archival; superseded by owner | Codex is current sole runner |
 | I13 | done | Issue #13 owner account recovery design | epic #11 | security design | Design complete; see ACCOUNT-RECOVERY-ISSUE-13.md |
 | I14 | done | Issue #14 helpdesk architecture | epic #11 | visual review | Approved design implemented and verified in CODEX-16 |
-| F | blocked | Privileged operations | A3, new owner prompt | **required** | Stop |
+| F | blocked | Live privileged operations | Exact bounded owner authority | **required** | Hold writes;continue independent local work |
 
 ## Current precedence — 2026-10-19
 

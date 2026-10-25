@@ -1,21 +1,30 @@
-# Owner return review — updated October25
+# Owner return review — current October25,through CODEX-231
 
-CODEX-224 hosted Configuration read acceptance passed. One approved owner page load successfully loaded the six PokéCoin fields, daily/weekly Pass bundles and capture limits. Picker search/dismiss and sprite/overflow/focus checks passed. No edits or saves. The bounded notice exception is spent. [Report](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md). Production remains maind93e90c2 / Pages40167468786; APP20261008-rc133 unchanged.
+## Completed this overnight window
 
-CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
+Production remains **main d93e90c2 / APP20261008-rc133**. No new runtime or production changes in CODEX225–231. Retained latest full regression baseline:126suites from CODEX223;later targeted suites are scoped below.
 
-No new decision was needed for this routine styling/inspection batch.
+- [Configuration hosted loading](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md):six PokéCoin fields,Pass bundles and capture bounds loaded;no saves. Bounded owner notice exception completed/spent.
+- [Operations local review](LAUNCH-CODEX225-OPERATIONS-INTEGRATED-REVIEW.md):40layouts,native focus/pending/reset;no live commands.
+- [Helpdesk failure review](LAUNCH-CODEX226-SUPPORT-FAILURE-REVIEW.md):20layouts,draft retention,pending-submit/reset handling and11targeted checks;no real tickets.
+- [Full-shell Configuration transitions](LAUNCH-CODEX227-FULL-SHELL-TRANSITIONS.md):40local account switches and four targeted suites.
+- [Full-shell Mart transitions](LAUNCH-CODEX228-MART-SHELL-TRANSITIONS.md):56completed cases across reviews/pending reads;four targeted suites.
+- [Backup availability](LAUNCH-CODEX229-POST-CREATE-BACKUP.md):completed **Oct25 07:44:36UTC /03:44:36Eastern** PHYSICAL point after latest migration20261025042627. No restore/export or backup-content certification.
+- [Composed keyboard review](LAUNCH-CODEX230-COMPOSED-KEYBOARD.md):manual tab activation,range validation,zero/no-throw semantics and two targeted suites.
+- [Queue reconciliation](LAUNCH-CODEX231-CHECKLIST-RECONCILIATION.md):old Operations preparation gates resolved by196;Trainer visual direction closed with real acceptance centralized in100. No required acceptance silently closed.
 
-## Current decision state
+## What genuinely remains
 
-CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. CODEX219publication/source-only decision is complete and spent. CODEX224 bounded configuration loading is complete; live saves stay held. Actual draft creation and other hosted mutations remain separate bounded decisions.
+**Required real evidence remains open.** Owner required real acceptance before launch. Human-reported S25Ultra Help/Register and Chrome ordinary-subscriber link/active Pass are recorded within their scopes. Real iOS Safari,desktop200%zoom/screen reader,Firefox post-correction retry and wider provider branches remain unrecorded. Do not manufacture additional Twitch accounts or change a working connection as a probe. Local DOM/keyboard fixtures cannot close these requirements. See [real checklist](REAL-ACCEPTANCE-CHECKLIST.md).
 
-## Remaining launch evidence
+**Hosted mutations remain untested.** Operations Start/End,Mart creation/product/floor/order saves,reward/capture/Pass bundle saves,quantity-batch gifts,and multi-page hosted roster coverage remain separate bounded scopes. Existing source/local/read evidence is not save/command acceptance. Which remaining migration pieces must be included at launch is an owner scope decision;unfinished optional legacy-tool migration is not automatically a blocker. No blanket mutation packet is proposed here.
 
-Real iOS Safari,desktop zoom/screen reader,Firefox retry and broader provider branches remain unrecorded. Android S25Ultra Help/Register and Chrome ordinary-subscriber link/Pass reports remain valid within their scopes. No extra Twitch accounts are requested;one-link restriction stays disabled.
+**Final release decision remains yours.** Exact final configuration/go-no-go/APP stamp need a separate decision after required evidence. New Twitch one-link restriction remains disabled. No final launch declaration or beta deferral has been made.
 
-Hosted Operations commands,product/floor/order/reward/capture saves,multi-page roster and gift-batch acceptance remain open. Mutations need exact bounded scopes;prior source/read inspection does not authorize saves. Final release scope/go-no-go/APP stamp remain owner decisions.
+## Accepted constraints and current operating window
 
-Daily-backup RPO accepted;logical drill/14delta replay-reversal recorded. Latest observed Oct24 07:44:07UTC backup predates SQL215;observe the next completed recovery point when due. No new export/restore or physical/full Auth/Storage certification.
+Daily-backup loss window,free email capacity and90-day closed Helpdesk retention remain accepted. Logical recovery plus14delta replay/reversals and completed post-change physical availability are recorded;physical restore/full Auth-service/Storage certification remain distinct limitations. No new restore/export or purchase is requested.
 
-Existing automation remains paused without a renewed schedule. Work follows direct human instructions in this chat. See [current status](CURRENT-ADMIN-HUB-STATUS.md),[matrix](LAUNCH-ACCEPTANCE-MATRIX.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md) and [handoff](OVERNIGHT-LAUNCH-READINESS.md). Historical snapshots are retained in Git/reports and [earlier review](OWNER-RETURN-REVIEW-OCT24-HISTORY-THROUGH209.md).
+Existing same-chat overnight heartbeat is **ACTIVE until14:22UTC /10:22Eastern October25**. It is not an indefinite extension. Keep critical SQL/permissions/Auth/provider/credentials/gameplay/protected-account/spending/final-launch decisions held;continue independent local work. No new critical production defect or new decision was identified by this documentation reconciliation.
+
+[Current Hub status](CURRENT-ADMIN-HUB-STATUS.md) · [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md) · [consolidated handoff](OVERNIGHT-LAUNCH-READINESS.md). Historical snapshots remain in Git and [earlier review](OWNER-RETURN-REVIEW-OCT24-HISTORY-THROUGH209.md).

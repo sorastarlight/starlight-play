@@ -1,3 +1,9 @@
+## CODEX-231 — launch checklist and owner handoff reconciled
+
+CODEX-231 launch queue/owner-return summary reconciled with196Operations publication,164Chrome subscriber and171Android reports,and229backup. Old design gates resolved;CODEX100real acceptance remains in progress. [Current return review](OWNER-RETURN-REVIEW-OCT24.md). Documentation only;no runtime or requirements change.
+
+No new critical decision requested while owner sleeps. Publication authority,real acceptance and final launch gates unchanged.
+
 ## CODEX-230 — composed native keyboard acceptance
 
 CODEX-230 composed local Hub/Analytics keyboard review passed manual tab activation,wrap/Home/End,one-stop tablists and native invalid/valid range checks. Two targeted suites pass;no runtime change or hosted call. [Report](LAUNCH-CODEX230-COMPOSED-KEYBOARD.md). Real assistive/device/provider evidence remains separate;completed backup observation needs no further polling.

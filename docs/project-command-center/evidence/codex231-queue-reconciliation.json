@@ -1,0 +1,81 @@
+{
+  "classification": "DOCUMENTATION reconciliation against recorded evidence;no new hosted probe",
+  "changes": [
+    {
+      "id": "CODEX-182",
+      "before": {
+        "status": "prepared",
+        "nextAction": "Consolidate first-slice design decision;continue independent review",
+        "testResults": "Catalog/source only:2public contracts and3private helpers;no application call or implementation"
+      },
+      "after": {
+        "status": "done",
+        "nextAction": "Source/design preparation implemented and published under CODEX-196;hosted session commands remain separately held",
+        "resolvedBy": "CODEX-196",
+        "approvalRequirement": "Historical preparation complete;CODEX196 publication approval spent;no new live command authority"
+      }
+    },
+    {
+      "id": "CODEX-195",
+      "before": {
+        "status": "prepared",
+        "nextAction": "Owner design/localimplementation decision remainsheld;do not publish/enablecontrols",
+        "testResults": "5fictionalscenarios/2dialogfocus cases;no Auth/transport/persistence;not applicationimplementation"
+      },
+      "after": {
+        "status": "done",
+        "nextAction": "Source/design preparation implemented and published under CODEX-196;hosted session commands remain separately held",
+        "resolvedBy": "CODEX-196",
+        "approvalRequirement": "Historical preparation complete;CODEX196 publication approval spent;no new live command authority"
+      }
+    },
+    {
+      "id": "CODEX-22",
+      "before": {
+        "status": "blocked",
+        "nextAction": "Accepted direction implemented in CODEX-23/24;remaining real zoom/OS-motion/device evidence tracked centrally in CODEX-100. No renewed design prompt.",
+        "testResults": "Focused real DOM drilldowns,44px targets and constrained390/1024 frame review passed; build31/422"
+      },
+      "after": {
+        "status": "done",
+        "nextAction": "Visual direction implemented in CODEX23/24;remaining real zoom/device/OS-motion evidence remains required and centralized in CODEX100",
+        "resolvedBy": "CODEX-23/24;acceptance follow-up CODEX-100"
+      }
+    },
+    {
+      "id": "CODEX-100",
+      "before": {
+        "status": "in_progress",
+        "nextAction": "Owner confirms no non-broadcaster tester available:subscriber acceptance blocked. Android/PC results and iOS/screen-reader access pending;do not manufacture identities or infer beta deferral",
+        "testResults": "No new real-device/provider result yet; existing synthetic evidence not substituted"
+      },
+      "after": {
+        "status": "in_progress",
+        "testResults": "HUMAN-REPORTED CODEX171 S25Ultra Help/Register pass and CODEX164 Chrome ordinary-subscriber link/active Pass positive path;not blanket device/provider certification",
+        "nextAction": "Required real iOS Safari,desktop200%zoom/screen-reader,Firefox retry and wider provider branches remain unrecorded;no manufactured accounts or inferred beta deferral",
+        "evidence": "REAL-ACCEPTANCE-CHECKLIST.md;LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md;LAUNCH-ACCEPTANCE-MATRIX.md;owner requires real acceptance"
+      }
+    },
+    {
+      "id": "F",
+      "before": {
+        "status": "blocked",
+        "nextAction": "Stop until a new owner authorization",
+        "testResults": "not run"
+      },
+      "after": {
+        "status": "blocked",
+        "nextAction": "Hold live privileged writes until an exact bounded owner authorization;continue independent local work"
+      }
+    }
+  ],
+  "inputs": [
+    "LAUNCH-CODEX196-LOCAL-OPERATIONS.md",
+    "LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md",
+    "REAL-ACCEPTANCE-CHECKLIST.md",
+    "LAUNCH-CODEX229-POST-CREATE-BACKUP.md"
+  ],
+  "runtimeChanges": 0,
+  "requirementsDeferred": 0,
+  "criticalPermissionsAdded": 0
+}

@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+CODEX-232 full-shell local Trainer review passed24profile/roster/detail account transitions,roster harness and9separate mocked sign-in checks. Source review distinguishes stamping release helper from read-only validation;neither release nor new stamp ran. [Report](LAUNCH-CODEX232-TRAINER-SHELL-TRANSITIONS.md). No runtime or hosted changes.
+
 CODEX-231 launch queue/owner-return summary reconciled with196Operations publication,164Chrome subscriber and171Android reports,and229backup. Old design gates resolved;CODEX100real acceptance remains in progress. [Current return review](OWNER-RETURN-REVIEW-OCT24.md). Documentation only;no runtime or requirements change.
 
 CODEX-230 composed local Hub/Analytics keyboard review passed manual tab activation,wrap/Home/End,one-stop tablists and native invalid/valid range checks. Two targeted suites pass;no runtime change or hosted call. [Report](LAUNCH-CODEX230-COMPOSED-KEYBOARD.md). Real assistive/device/provider evidence remains separate;completed backup observation needs no further polling.

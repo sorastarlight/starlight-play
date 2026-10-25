@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-232",
+      "status": "done",
+      "scope": "Full-shell Trainer/roster reset and release-tool boundary review",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX232-TRAINER-SHELL-TRANSITIONS.md;evidence/codex232-trainer-transitions.json",
+      "testResults": "24rendered transitions;roster harness;9separate mocked sign-in boundary cases",
+      "nextAction": "Continue independent readiness work;critical release and real acceptance boundaries remain",
+      "approvalRequirement": "Local/source only;no runtime or production action"
+    },
+    {
       "id": "CODEX-231",
       "status": "done",
       "scope": "Reconcile live launch queue and consolidated owner-return decisions",

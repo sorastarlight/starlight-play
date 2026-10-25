@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-232 | done | Trainer/roster full-shell resets | CODEX-174/231 | Local only | 24cases;roster harness;9mock sign-in checks |
 | CODEX-231 | done | Reconcile queue and owner-return evidence | CODEX-196/229/230 | Docs only | Historical gates resolved;real acceptance remains open |
 | CODEX-230 | done | Composed Hub/report keyboard | CODEX-162/229 | Local only | Native keys/range;two targeted suites;no runtime change |
 | CODEX-229 | done | Post-SQL215 physical backup availability | CODEX-215 | Read-only | Oct25 07:44:36UTC recovery point available;no restore |

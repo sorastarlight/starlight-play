@@ -1,0 +1,617 @@
+{
+  "classification": "REAL LOCAL DOM;actual Hub/Trainer/roster modules and styles;fictional auth/profile/access/directory/record reads;connect-src none",
+  "rows": [
+    {
+      "mode": "profileRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_list_users"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_list_users"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_list_users"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect"
+    },
+    {
+      "mode": "profileRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 16
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_list_users"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon"
+    },
+    {
+      "mode": "rosterRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "held": true,
+        "dialogs": 0,
+        "detailLength": 550
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    },
+    {
+      "mode": "rosterDialog",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "held": false,
+        "dialogs": 1,
+        "detailLength": 937
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "details": "",
+        "rows": 0,
+        "directory": "TrainerRole / PassPokémonLast seen\n      FFresh trainer directory@fictional-target\n      player No Pass\n      1 Pokémon—\n    ",
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_list_users admin_user_account admin_identity_inspect admin_trainer_pokemon admin_list_users"
+    }
+  ],
+  "targeted": {
+    "rosterSuite": "passed",
+    "separateMockedTrainerSignInBoundaryCases": 9
+  },
+  "runtimeChanges": 0,
+  "hostedCalls": 0,
+  "limits": [
+    "No real Auth transition or server data",
+    "No gameplay/grant/account modification",
+    "No physical-device or assistive certification",
+    "Mocked sign-in checks are separate from Hub transition evidence"
+  ]
+}

@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-249",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Revision-checked encounter timing and bridge settings audit",
       "evidence": "LAUNCH-CODEX249-ENCOUNTER-TIMINGS.md;supabase/unapplied/hub-encounter-timings/README.md",
-      "testResults": "137 suites;11 SQL groups;2 concurrency cases;4 rollback checks;4 widths;4-file frontend rollback",
-      "nextAction": "Guarded installation and scoped publication/source verification",
+      "testResults": "137 suites;11 SQL groups;2 concurrency cases;4 rollback checks;4 widths;4-file frontend rollback;migration20261025222511;Pages40240143996success;100+4sources;4installeddefinitionsmatch",
+      "nextAction": "Continue remaining System/Director migration and Pinap authority",
       "approvalRequirement": "Owner full Admin Hub migration and completed go-live authorized;Bits activation remains held"
     },
     {

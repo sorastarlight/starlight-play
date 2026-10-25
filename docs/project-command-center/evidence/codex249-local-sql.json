@@ -1,6 +1,6 @@
 {
   "classification": "LOCAL schema-only replay from existing reviewed archive;no application/Auth data import,new export,production connection or original retained DB mutation",
-  "startedAt": "2026-10-25T22:22:46.466Z",
+  "startedAt": "2026-10-25T22:30:20.084Z",
   "completedPackets": [
     "20261022014528",
     "20261022084110",
@@ -29,6 +29,7 @@
   "proposedRosterSourceMatches": true,
   "installedReportSourcesMatch": true,
   "createDraftSourceAndDenialMatch": true,
+  "allFourInstalledSourcesMatch": true,
   "timingChecks": [
     "Nonstaff denied before timing access",
     "Missing timings unavailable without defaults",
@@ -55,5 +56,5 @@
   "status": "PASS",
   "runtimeStopped": true,
   "originalSchemaArchiveUnchanged": true,
-  "endedAt": "2026-10-25T22:22:53.400Z"
+  "endedAt": "2026-10-25T22:30:27.170Z"
 }

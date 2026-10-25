@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-249 | in_progress | Audited encounter timing | Owner full migration | Install/completed go-live authorized;Bits activation held | Guarded install and source checks |
+| CODEX-249 | done | Audited encounter timing | Owner full migration | Install/completed go-live authorized;Bits activation held | Live;100+4sources;remaining System/Director next |
 | CODEX-248 | done | Native item supplies and reward entries | Owner full migration | Completed go-live authorized | Live;100+5sources;encounter timing next |
 | CODEX-247 | done | Native capture rules | Owner full migration | Completed go-live authorized | Live;100+4sources;item supplies next |
 | CODEX-246 | done | Compact Configuration and Trainer XP | Owner full migration | Completed go-live authorized | Live;100+4sources;capture rules next |

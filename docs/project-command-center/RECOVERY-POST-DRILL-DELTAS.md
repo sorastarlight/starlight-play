@@ -160,3 +160,12 @@ Migration 20261025215533 adds the staff read/write correction pair, private audi
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025215533 hub_trainer_corrections|supabase/unapplied/hub-trainer-corrections/INSTALL.sql|ee452a1876b6e103e879c9c883790fa80a2c159a1b6ec0dd4c5fff46c06a4244|
+
+
+## CODEX-249 — Encounter timings
+
+Migration20261025222511 adds a revision-checked timing read/save pair, private audit and optional atomic stream settings queue. Existing Bits-off policy and helpers remain unchanged. It retires the old broad timing-save route. Recovery retains settings, audit and queued commands; rollback restores the old function and disables new browser APIs without undoing operational results.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025222511 hub_encounter_timings|supabase/unapplied/hub-encounter-timings/INSTALL.sql|c6b2bc6d45cfec012fd95cc119910f4ce1be774d61b68cdf3fb5c5bfec1e8be4|

@@ -196,6 +196,19 @@
           "sha256": "98063561bca525105d8b10d1a21f1c917939baec4fe2c70f9581d9ce99ddd0d0"
         }
       ]
+    },
+    {
+      "version": "20261025222511",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-encounter-timings/INSTALL.sql",
+          "sha256": "c6b2bc6d45cfec012fd95cc119910f4ce1be774d61b68cdf3fb5c5bfec1e8be4"
+        },
+        {
+          "file": "supabase/unapplied/hub-encounter-timings/ROLLBACK.sql",
+          "sha256": "9b2e57bb234968b7ca9e2a0a6dc2a3d60361d1a37754b9701cc113d8318632e7"
+        }
+      ]
     }
   ]
 }

@@ -2762,3 +2762,6 @@ CODEX247 LIVE: native capture multipliers, percentage chance tiers and Honey tie
 
 
 CODEX248 LIVE: native item supply settings and single reward-entry editor;main1236f514;Pages40239365290success;100+5sources;136suites;8layouts. MasterBall drop entry count0;no live save/grant. CODEX249 timing migration local:oldsaveexplicitlysetsBitsoff and separatekeep_bits_offpolicyalsoexists;policywillremain. Newsavepreparesrevision/atomicbridge/audit;no production timing action.
+
+
+CODEX249 LIVE: migration20261025222511;main379523f0;Pages40240143996success;100+4sources.137suites;11SQLgroups+2concurrency+4rollback;all4installedsourcesmatch;3controlsunchanged;0timingauditrows.32recoveryfilesverified. No hosted timings/stream command/encounter/notice/provider/grant. Continue System/Director migration. Bits purchases remain held by existingkeep_bits_offpolicy;do not silently enable.

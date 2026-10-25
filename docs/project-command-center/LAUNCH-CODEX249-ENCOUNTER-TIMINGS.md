@@ -1,6 +1,6 @@
 # CODEX-249 — Audited encounter timing migration
 
-Status: locally complete; guarded install and scoped publication next under the owner's full Admin Hub migration/go-live direction.
+Status: LIVE. Migration20261025222511;main379523f05a96e4795f026ed2b90ebf6c56834565;Pages40240143996 succeeded.100 monitored and all four changed versioned sources match. All four installed definitions match the local candidate;three existing helper/policy controls are unchanged, audit RLS is enabled and audit rows remain0. No hosted timing save/stream command was invoked.
 
 Game settings gains four existing timing controls with plain phase names and seconds. Saves are revision-checked and serialized on the settings row. A before/after audit is private. When a bridge is configured, the existing settings command is queued atomically; without one, Play saves normally. A queue error rolls back the whole save. No encounter is started. The old broad save route is retired.
 

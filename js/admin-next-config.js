@@ -4,11 +4,11 @@
   else root.PLAY_ADMIN_NEXT_CONFIG = api;
 })(typeof window === "undefined" ? globalThis : window, function () {
   "use strict";
-  const fields = Object.freeze({ participationReward: "Encounter participation", captureReward: "Successful capture", newDexReward: "New Pokédex entry", shinyReward: "Shiny capture", legendaryReward: "Legendary capture", streamAttendanceReward: "Stream attendance" });
+  const fields = Object.freeze({ participationReward: "Encounter participation", captureReward: "Successful capture", newDexReward: "New PokÃ©dex entry", shinyReward: "Shiny capture", legendaryReward: "Legendary capture", streamAttendanceReward: "Stream attendance", rewardBonusCoins: "Pinap Berry bonus" });
   const commands = Object.freeze(["admin_economy_overview", "admin_economy_save"]);
   const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   function amount(value) {
-    if (typeof value !== "number" || !Number.isInteger(value) || value < 0 || value > 2147483647) throw Error("Use whole PokéCoin amounts from 0 to 2,147,483,647.");
+    if (typeof value !== "number" || !Number.isInteger(value) || value < 0 || value > 2147483647) throw Error("Use whole PokÃ©Coin amounts from 0 to 2,147,483,647.");
     return value;
   }
   function project(raw) {
@@ -19,7 +19,7 @@
     if (!current || !draft || Object.keys(draft).some(key => !Object.hasOwn(fields, key))) throw Error("Unsupported reward field.");
     const next = {};
     for (const key of Object.keys(fields)) {
-      if (!/^\d+$/.test(String(draft[key]))) throw Error("Use whole PokéCoin amounts from 0 to 2,147,483,647.");
+      if (!/^\d+$/.test(String(draft[key]))) throw Error("Use whole PokÃ©Coin amounts from 0 to 2,147,483,647.");
       const value = amount(Number(draft[key]));
       if (value !== amount(current[key])) next[key] = value;
     }
@@ -47,7 +47,7 @@
     async function load() {
       if (!active || ["loading", "saving"].includes(state.phase)) return;
       const request = ++epoch;
-      Object.assign(state, { phase: "loading", current: null, draft: null, uncertain: false, message: "Loading reward configuration…" }); emit();
+      Object.assign(state, { phase: "loading", current: null, draft: null, uncertain: false, message: "Loading reward configurationâ€¦" }); emit();
       try {
         const raw = await transport("admin_economy_overview");
         if (!active || request !== epoch) return;
@@ -64,7 +64,7 @@
       const changes = patch(state.current, state.draft);
       if (!Object.keys(changes).length) throw Error("No changes to review.");
       const request = epoch;
-      state.phase = "saving"; state.message = "Saving once…"; emit();
+      state.phase = "saving"; state.message = "Saving onceâ€¦"; emit();
       try {
         const receipt = await transport("admin_economy_save", { p_balance: changes });
         if (!active || request !== epoch) return;
@@ -89,7 +89,7 @@
     function render() {
       const s = ui.state, focused = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
       root.querySelector("dialog")?.close();
-      root.innerHTML = `<p class="config-status" role="status" tabindex="-1">${esc(s.message)}</p><button type="button" data-config-reload ${["closed", "loading", "saving"].includes(s.phase) ? "disabled" : ""}>Reload reward settings</button>${s.draft ? `<form data-config-form><fieldset ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><div class="config-fields">${Object.entries(fields).map(([key, label]) => `<label>${esc(label)}<input type="number" name="${key}" value="${esc(s.draft[key])}" min="0" max="2147483647" step="1" required><small>PokéCoins · existing reward amount</small></label>`).join("")}</div><p role="alert" data-config-validation></p><div class="config-actions"><button type="button" data-config-discard>Discard local edits</button><button type="submit">Review changes</button></div></fieldset></form>` : ""}`;
+      root.innerHTML = `<p class="config-status" role="status" tabindex="-1">${esc(s.message)}</p><button type="button" data-config-reload ${["closed", "loading", "saving"].includes(s.phase) ? "disabled" : ""}>Reload reward settings</button>${s.draft ? `<form data-config-form><fieldset ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><div class="config-fields">${Object.entries(fields).map(([key, label]) => `<label>${esc(label)}<input type="number" name="${key}" value="${esc(s.draft[key])}" min="0" max="2147483647" step="1" required><small>PokÃ©Coins Â· existing reward amount</small></label>`).join("")}</div><p role="alert" data-config-validation></p><div class="config-actions"><button type="button" data-config-discard>Discard local edits</button><button type="submit">Review changes</button></div></fieldset></form>` : ""}`;
       if (focused) root.querySelector(".config-status")?.focus({ preventScroll: true });
     }
     function dialog(title, content, action, label) {
@@ -117,7 +117,7 @@
       try {
         const changes = patch(ui.state.current, ui.state.draft);
         if (!Object.keys(changes).length) throw Error("No changes to review.");
-        dialog("Review reward changes", `<p>This updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} PokéCoins</span><strong>Proposed: ${value.toLocaleString("en-US")} PokéCoins</strong></dd></div>`).join("")}</dl><p>Another staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.</p>`, () => ui.save(), "Save reward settings");
+        dialog("Review reward changes", `<p>This updates site-wide reward rules. It does not grant PokÃ©Coins or repair past rewards.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} PokÃ©Coins</span><strong>Proposed: ${value.toLocaleString("en-US")} PokÃ©Coins</strong></dd></div>`).join("")}</dl><p>Another staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.</p>`, () => ui.save(), "Save reward settings");
       } catch (error) { root.querySelector("[data-config-validation]").textContent = error.message; }
     });
     root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty()) { event.preventDefault(); event.returnValue = ""; } });

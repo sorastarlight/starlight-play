@@ -1,8 +1,8 @@
 # Current Admin Hub status
 
-Current through CODEX-222,October25. CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
+CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
 
-[Latest integrated review](LAUNCH-CODEX222-MART-INTEGRATED-REVIEW.md). Feature build31HTML481refs;isolated main build30HTML479refs. Preview:[Admin Hub](../../admin-next.html). This remains a partial migration,not a final-launch declaration.
+[Latest roster review](LAUNCH-CODEX223-ROSTER-VISUAL-REVIEW.md). Feature build31HTML481refs;isolated main build30HTML479refs. Preview:[Admin Hub](../../admin-next.html). This remains a partial migration,not a final-launch declaration.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |
@@ -34,3 +34,7 @@ Hosted Operations commands,Mart draft creation/product/floor/order/reward/captur
 Recovery:logical drill plus14empty-schema delta replays/reversals. Latest observed Oct24 07:44:07UTC physical backup predates new SQL215;observe a subsequent completed backup when due. No physical restore/full Auth or Storage certification. Daily-backup loss window accepted;no unchanged polls,exports or restores repeated.
 
 See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md),[owner review](OWNER-RETURN-REVIEW-OCT24.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md),[current handoff](OVERNIGHT-LAUNCH-READINESS.md),[CODEX211](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md),[CODEX212](LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md),[hosted inspection](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md) and [backup evidence](LAUNCH-CODEX188-POST-REPORT-BACKUP.md). Reports/Git and [earlier snapshots](CURRENT-ADMIN-HUB-STATUS-HISTORY-THROUGH209.md) preserve historical approvals.
+
+## Next bounded acceptance proposal
+
+[CODEX-224 Configuration read packet](BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md) is prepared but not authorized. It proposes one owner page load, one Pass bundle read and one capture-limit read, including automatic PokéCoin settings loading and a single ordinary automatic notice acknowledgement. No edits/saves/claims. Prior notice permission is spent; new protected-owner acknowledgement requires a decision. Independent local work remains permitted.

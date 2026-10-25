@@ -1,8 +1,8 @@
 # Launch acceptance matrix
 
-Current through CODEX-222,October25. CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
+CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
 
-Actual device/provider and hosted mutation evidence remain separate. [Latest local review](LAUNCH-CODEX222-MART-INTEGRATED-REVIEW.md).
+Actual device/provider and hosted mutation evidence remain separate. [Latest local review](LAUNCH-CODEX223-ROSTER-VISUAL-REVIEW.md).
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |

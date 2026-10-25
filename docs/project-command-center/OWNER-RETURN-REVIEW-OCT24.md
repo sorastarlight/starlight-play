@@ -1,6 +1,6 @@
 # Owner return review — updated October25
 
-CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
+CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
 
 No new decision was needed for this routine styling/inspection batch.
 
@@ -17,3 +17,7 @@ Hosted Operations commands,product/floor/order/reward/capture saves,multi-page r
 Daily-backup RPO accepted;logical drill/14delta replay-reversal recorded. Latest observed Oct24 07:44:07UTC backup predates SQL215;observe the next completed recovery point when due. No new export/restore or physical/full Auth/Storage certification.
 
 Existing automation remains paused without a renewed schedule. Work follows direct human instructions in this chat. See [current status](CURRENT-ADMIN-HUB-STATUS.md),[matrix](LAUNCH-ACCEPTANCE-MATRIX.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md) and [handoff](OVERNIGHT-LAUNCH-READINESS.md). Historical snapshots are retained in Git/reports and [earlier review](OWNER-RETURN-REVIEW-OCT24-HISTORY-THROUGH209.md).
+
+## Next bounded acceptance proposal
+
+[CODEX-224 Configuration read packet](BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md) is prepared but not authorized. It proposes one owner page load, one Pass bundle read and one capture-limit read, including automatic PokéCoin settings loading and a single ordinary automatic notice acknowledgement. No edits/saves/claims. Prior notice permission is spent; new protected-owner acknowledgement requires a decision. Independent local work remains permitted.

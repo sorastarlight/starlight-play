@@ -4,7 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-223 | done | Narrow roster dialog and inventory naming | CODEX-222 | CODEX-78 | 126suites;24+4states;native paging/reset;two-file rollback |
+| CODEX-224 | blocked | Bounded Configuration read acceptance | CODEX-219/223 | New protected-owner notice exception | Prepared review; no execution |
+| CODEX-223 | done | Narrow roster dialog and inventory naming | CODEX-222 | CODEX-78 | Maind93e90c2;Pages40167468786;100+2sources;126suites |
 | CODEX-222 | done | Integrated Mart/draft inspection and confirmation styling | CODEX-221 | CODEX-78 | Mainffc57bcd;Pages40166688718;100+5sources;126suites |
 | CODEX-221 | done | Pending-save navigation presentation | CODEX-219/220 | CODEX-78 | Maincbafe131;Pages40165825515;100+1sources;126suites |
 | CODEX-220 | done | Integrated Configuration visual consistency | CODEX-219 | CODEX-78routine maintenance | Mainb6daf681;Pages40165498737;100+2sources |

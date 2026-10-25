@@ -20,3 +20,7 @@ A separate copy inconsistency in `js/admin-next-record.js` displayed the interna
 [Browser measurements](evidence/codex223-browser.json) · [regressions](evidence/codex223-regressions.json) · [scope and rollback](evidence/codex223-scope.json). Private fixture/screenshot/rollback directory:`C:\Users\FET\AppData\Local\PokemonStreamLink\security\codex223`.
 
 Routine CODEX-78 publication is limited to `css/admin-record.css` and `js/admin-next-record.js`,followed by static-source verification. No SQL,new privileged workflow,authenticated navigation/notices,hosted application call,grant,claim,provider change,protected-account mutation,spending,schedule,APP stamp or final launch. Sora NO;Twinkle NO;PlayTester unchanged. Temporary fixtures are stopped/closed.
+
+## Publication verified
+
+CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation. [Static source evidence](evidence/codex223-publication.json). Isolated production build:30 HTML/479 refs.

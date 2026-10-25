@@ -4,14 +4,25 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-224",
+      "status": "blocked",
+      "scope": "Bounded hosted Configuration read acceptance proposal",
+      "branch": "admin-hub-overhaul",
+      "evidence": "BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md",
+      "nextAction": "Await owner decision; continue independent local work",
+      "approvalRequirement": "New bounded reads and automatic protected-owner notice acknowledgement; no saves"
+    },
+    {
       "id": "CODEX-223",
       "status": "done",
       "scope": "Roster narrow-dialog layout and canonical inventory labels",
       "branch": "admin-hub-overhaul",
-      "evidence": "LAUNCH-CODEX223-ROSTER-VISUAL-REVIEW.md;evidence/codex223-browser.json;evidence/codex223-regressions.json;evidence/codex223-scope.json",
+      "evidence": "LAUNCH-CODEX223-ROSTER-VISUAL-REVIEW.md;evidence/codex223-browser.json;evidence/codex223-regressions.json;evidence/codex223-scope.json;evidence/codex223-publication.json",
       "testResults": "126suites;4baseline overflows fixed;24roster+4inventory layouts;native paging/reset/focus;two-file rollback",
-      "nextAction": "Routine two-file publication/static-source verification",
-      "approvalRequirement": "CODEX78presentation/copy only;no transport or privileged workflow change"
+      "nextAction": "Published and static-source verified; hosted/device boundaries remain",
+      "approvalRequirement": "CODEX78presentation/copy only;no transport or privileged workflow change",
+      "publicationCommit": "d93e90c29a94f56787d9d3cf1cdf8d5d29e75377",
+      "pagesRun": 40167468786
     },
     {
       "id": "CODEX-222",

@@ -1,3 +1,7 @@
+## CODEX-223 publication complete; CODEX-224 acceptance proposed
+
+CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation. CODEX-224 concrete bounded Configuration read packet is prepared and held for owner decision because initial navigation acknowledges owner notices. No hosted reads or acknowledgement executed. Heartbeat remains paused.
+
 ## CODEX-223 — roster visual/paging and inventory naming review
 
 Valid12character nickname reproduced4narrow-dialog overflows;scoped CSS fixes all24roster states. Honey/Poké Radar labels align withgame.js whileIDs/quantities stay;4inventory widths pass. Native paging/empty/Shiny/focus/pending/reset/missing-stat checks and126suites pass. Two-file rollback verified. Routine publication/source verification next. No hosted app or SQL. Sora NO;Twinkle NO;PlayTester unchanged.

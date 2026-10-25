@@ -160,16 +160,17 @@
         </section>
         <section id="next-panel-config" role="tabpanel" aria-labelledby="next-tab-config" tabindex="0" class="hub-card admin-next-panel" data-next-panel="config" hidden>
           <p class="eyebrow">Game Configuration</p>
-          <h2>Reward and capture settings</h2>
-          <p>Configure PokéCoin rewards, Starlight Pass bundles and capture chance limits. Changes apply site-wide.</p>
+          <h2>Game settings</h2>
+          <p>Manage rewards, Trainer XP, item drops and capture rules. Changes apply site-wide.</p>
           <div class="hub-workspaces" data-workspaces aria-label="Game settings"><section data-workspace="PokéCoin rewards"><h3>PokéCoin rewards</h3>
           <p>Edit the existing six PokéCoin reward amounts.</p>
           <div id="next-config"></div>
           </section><section data-workspace="Pass rewards" class="bounded-editor" aria-labelledby="pass-bundles-heading"><h3 id="pass-bundles-heading">Starlight Pass rewards</h3><p>Configure the daily gift and weekly crate. Trainer-specific Pass controls remain in Trainer records.</p><div id="next-pass-bundles"></div></section>
           <section data-workspace="Capture limits" class="bounded-editor" id="next-capture-section"><h3>Capture chance limits</h3><p>Edit only the minimum and maximum probability bounds.</p><div id="next-capture-limits"></div></section>
           <section data-workspace="Capture rules"><h3>Capture rules</h3><p>Set species capture chances and Shiny, event and Honey bonuses. Chance limits remain in their own tab.</p><div id="next-capture-rules"></div></section>
+          <section data-workspace="Item supplies"><h3>Item supplies</h3><p>Choose drop chances and the items each reward table can award. Review each save separately.</p><div id="next-supplies"></div></section>
           <section data-workspace="Trainer XP"><h3>Trainer XP</h3><p>Set the level-up curve and XP from encounters. These settings apply to future play; existing trainer XP is not changed.</p><div id="next-progression"></div></section></div>
-          <p class="muted">Encounter timing and item supply tools are the next configuration tools being migrated.</p>
+          <p class="muted">Encounter timing and the remaining economy controls are being migrated next.</p>
           <p><a class="admin-next-legacy" href="./admin.html?section=encounters">Open Encounters</a></p>
         </section>
         <section id="next-panel-analytics" role="tabpanel" aria-labelledby="next-tab-analytics" tabindex="0" class="hub-card admin-next-panel" data-next-panel="analytics" hidden>
@@ -226,6 +227,7 @@
 <script src="js/admin-next-config.js?v=20261008-rc133"></script>
 <script src="js/admin-next-progression.js?v=20261008-rc133"></script>
 <script src="js/admin-next-capture-rules.js?v=20261008-rc133"></script>
+<script src="js/admin-next-supplies.js?v=20261008-rc133"></script>
 <script src="js/admin-next-limits-order.js?v=20261008-rc133"></script>
 <script src="js/admin-next-roster.js?v=20261008-rc133"></script>
 <script src="js/admin-next-session.js?v=20261008-rc133"></script>

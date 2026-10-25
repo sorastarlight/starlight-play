@@ -1,0 +1,156 @@
+{
+  "classification": "LOCAL isolated frontend recovery rehearsal;no production change",
+  "main": "9356623fe5c2825dc1ceda4605a373828238df42",
+  "preChangeCommit": "d93e90c29a94f56787d9d3cf1cdf8d5d29e75377",
+  "files": [
+    "css/admin-record.css",
+    "js/support.js"
+  ],
+  "steps": [
+    {
+      "stage": "current production source copied locally",
+      "commit": "9356623fe5c2825dc1ceda4605a373828238df42",
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "bd7c59bb17edd7ff96ec4472ae5e8ff82c91529274da5cd3bb029fae6f9935ba"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "6dd7b7b58b48047906e5886e111afaaf324ab0b00ff1507d50e993da3e54581a"
+        }
+      ]
+    },
+    {
+      "stage": "rollback 235",
+      "expectedBaseline": true,
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "bd7c59bb17edd7ff96ec4472ae5e8ff82c91529274da5cd3bb029fae6f9935ba"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "4145ce6bd3ead473945ca501740c77376b0eedd28817bc20d526bccaa3dfae4f"
+        }
+      ]
+    },
+    {
+      "stage": "rollback 234",
+      "expectedBaseline": true,
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "b047123d6bc5a73c900f7f78457355d7a7155d5e0b4d36d272f46ee36bdade51"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "4145ce6bd3ead473945ca501740c77376b0eedd28817bc20d526bccaa3dfae4f"
+        }
+      ]
+    },
+    {
+      "stage": "rollback 233",
+      "expectedBaseline": true,
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "e1fd6b4ea6cb7d6006f72e82c856fed39a6b2e02d51932459a2c1df3779a79e5"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "4145ce6bd3ead473945ca501740c77376b0eedd28817bc20d526bccaa3dfae4f"
+        }
+      ]
+    },
+    {
+      "stage": "all reversals equal pre-233 production",
+      "commit": "d93e90c29a94f56787d9d3cf1cdf8d5d29e75377",
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "e1fd6b4ea6cb7d6006f72e82c856fed39a6b2e02d51932459a2c1df3779a79e5"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "4145ce6bd3ead473945ca501740c77376b0eedd28817bc20d526bccaa3dfae4f"
+        }
+      ]
+    },
+    {
+      "stage": "reapply 233",
+      "commit": "ec93d12977d5c368916300f869a7bdd5b53ffeb5",
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "b047123d6bc5a73c900f7f78457355d7a7155d5e0b4d36d272f46ee36bdade51"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "4145ce6bd3ead473945ca501740c77376b0eedd28817bc20d526bccaa3dfae4f"
+        }
+      ]
+    },
+    {
+      "stage": "reapply 234",
+      "commit": "5aa6b86c8e4aad466c9a473bd74111554e7ebfed",
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "bd7c59bb17edd7ff96ec4472ae5e8ff82c91529274da5cd3bb029fae6f9935ba"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "4145ce6bd3ead473945ca501740c77376b0eedd28817bc20d526bccaa3dfae4f"
+        }
+      ]
+    },
+    {
+      "stage": "reapply 235",
+      "commit": "9356623fe5c2825dc1ceda4605a373828238df42",
+      "state": [
+        {
+          "file": "css/admin-record.css",
+          "hash": "bd7c59bb17edd7ff96ec4472ae5e8ff82c91529274da5cd3bb029fae6f9935ba"
+        },
+        {
+          "file": "js/support.js",
+          "hash": "6dd7b7b58b48047906e5886e111afaaf324ab0b00ff1507d50e993da3e54581a"
+        }
+      ]
+    }
+  ],
+  "restoredExactly": true,
+  "reappliedExactly": true,
+  "limitations": [
+    "Only two runtime files touched by CODEX233/234/235 are copied;not a production restore or full site rebuild",
+    "Existing rollback scripts executed against private temporary directory only",
+    "No SQL,Auth,data,asset or provider configuration touched;APP unchanged"
+  ],
+  "publicationScopes": [
+    {
+      "commit": "ec93d12977d5c368916300f869a7bdd5b53ffeb5",
+      "parent": "d93e90c29a94f56787d9d3cf1cdf8d5d29e75377",
+      "files": [
+        "css/admin-record.css"
+      ],
+      "exactScope": true
+    },
+    {
+      "commit": "5aa6b86c8e4aad466c9a473bd74111554e7ebfed",
+      "parent": "ec93d12977d5c368916300f869a7bdd5b53ffeb5",
+      "files": [
+        "css/admin-record.css"
+      ],
+      "exactScope": true
+    },
+    {
+      "commit": "9356623fe5c2825dc1ceda4605a373828238df42",
+      "parent": "5aa6b86c8e4aad466c9a473bd74111554e7ebfed",
+      "files": [
+        "js/support.js"
+      ],
+      "exactScope": true
+    }
+  ]
+}

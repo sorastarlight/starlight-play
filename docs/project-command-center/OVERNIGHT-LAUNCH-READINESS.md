@@ -1,4 +1,6 @@
-# Current launch readiness handoff — through CODEX-237
+# Current launch readiness handoff — through CODEX-238
+
+CODEX-238 combined frontend recovery rehearsal passed:three guarded rollback scripts restore the two affected files exactly to pre-233 production,and three reapplications reproduce current main9356623f. All three main commits have exact reviewed one-file scopes and sequential parents. Local private copies only;production and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX238-FRONTEND-RECOVERY-CHAIN.md).
 
 CODEX-237 published-asset review passed525local references across30HTML/13CSS files and browser-decoded all449existing Kanto/candy/Ribbon PNGs with matching dimensions. No missing or corrupt image was confirmed. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX237-PUBLISHED-ASSETS.md).
 

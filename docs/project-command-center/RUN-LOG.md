@@ -1,3 +1,7 @@
+## CODEX-238 — Combined frontend recovery rehearsal
+
+CODEX-238 combined frontend recovery rehearsal passed:three guarded rollback scripts restore the two affected files exactly to pre-233 production,and three reapplications reproduce current main9356623f. All three main commits have exact reviewed one-file scopes and sequential parents. Local private copies only;production and APP20261008-rc133 unchanged. Existing local regression evidence retained;no new changes or hosted calls.
+
 ## CODEX-237 — Published asset integrity
 
 CODEX-237 published-asset review passed525local references across30HTML/13CSS files and browser-decoded all449existing Kanto/candy/Ribbon PNGs with matching dimensions. No missing or corrupt image was confirmed. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. Local public-asset copies/evidence remain outside Git;no new external request or production action.

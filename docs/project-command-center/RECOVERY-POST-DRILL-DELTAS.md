@@ -143,3 +143,11 @@ All14deltas replay/reverse on separate empty PG17 schema fixture;585function/143
 CODEX-229 post-SQL215 backup availability verified:completed PHYSICAL recovery point **October25 07:44:36UTC /03:44:36Eastern**,after latest migration20261025042627. [Report](LAUNCH-CODEX229-POST-CREATE-BACKUP.md). No restore/export;backup-content/physical restore/Auth/Storage certification remains outside evidence. Pending newer-backup observation is complete;do not poll it again unchanged.
 
 Latest migration remains20261025042627. Retained logical archive/delta packets stay unchanged;no new export or restore. Older pending-backup observations above are historical.
+
+## CODEX-244 expanded Pass migration
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261025211631 hub_pass_rewards_v2|supabase/unapplied/hub-pass-rewards-v2/INSTALL.sql|185bd89466b3113d2538c90f3e936a243b3ff80a3a72b518c0775393d0493403|
+
+Rollback: supabase/unapplied/hub-pass-rewards-v2/ROLLBACK.sql SHA256 cb0c9acc8327da4023b0a9435535f73b51cdb5b492da3475c1449b70aaaef5e9. Exact SQL payload encoding preserves pre-existing function line endings and their source guards. Private records retained; rewards already received are not undone. Physical recovery point after this migration not yet observed.

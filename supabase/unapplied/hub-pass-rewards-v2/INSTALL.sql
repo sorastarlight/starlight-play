@@ -1,675 +1,707 @@
-do $guard$ begin
-if md5(pg_get_functiondef('private.persist_staff_gift(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text)'::regprocedure)) is distinct from '9266f4b080ff9e661d5305c0943af257' then raise exception 'Source drift: canonical generator';end if;
-if md5(pg_get_functiondef('public.admin_save_pass_rewards(jsonb,jsonb)'::regprocedure)) is distinct from 'efedde0cb490951ffad9115c0211f03d' then raise exception 'Source drift: admin_save_pass_rewards';end if;
-if md5(pg_get_functiondef('public.play_claim_pass(text)'::regprocedure)) is distinct from 'be665de34438b3055441f5ead2594dc4' then raise exception 'Source drift: play_claim_pass';end if;
-if md5(pg_get_functiondef('public.play_store()'::regprocedure)) is distinct from 'f0f435743b076e8356a67f58c01f0e56' then raise exception 'Source drift: play_store';end if;
-if md5(pg_get_functiondef('public.admin_trainer_reward_action(uuid,uuid,text,jsonb,text)'::regprocedure)) is distinct from '7e58b6d5f7cb647e5f414d53ccb27d87' then raise exception 'Source drift: admin_trainer_reward_action';end if;
-if to_regclass('private.hub_pass_settings') is not null then raise exception 'Pass migration conflicts.';end if;end $guard$;
--- Expanded Pass bundles. Private definitions, atomic receipts, exact legacy conversion.
-create view private.hub_reward_catalog with (security_invoker=true) as
-with core(id,kind,name,sprite,category,target_key) as (values
- ('item:berry','item','Berry','images/items/oran-berry.png','Berries','berry'),
- ('item:bait','item','Honey','images/items/honey.png','Capture tools','bait'),
- ('item:pokeball','item','Poké Ball','images/items/poke-ball.png','Poké Balls','pokeball'),
- ('item:greatball','item','Great Ball','images/items/great-ball.png','Poké Balls','greatball'),
- ('item:ultraball','item','Ultra Ball','images/items/ultra-ball.png','Poké Balls','ultraball'),
- ('item:lure','item','Poké Radar','images/items/poke-radar.png','Capture tools','lure'),
- ('coins','coins','PokéCoins','images/items/pokecoin.png','Currency','coins'),
- ('space','space','Inventory Space','images/items/inventory-bag.png','Capacity','bag_bonus'),
- ('item:firestone','item','Fire Stone','images/items/fire-stone.png','Evolution items','firestone'),
- ('item:waterstone','item','Water Stone','images/items/water-stone.png','Evolution items','waterstone'),
- ('item:thunderstone','item','Thunder Stone','images/items/thunder-stone.png','Evolution items','thunderstone'),
- ('item:leafstone','item','Leaf Stone','images/items/leaf-stone.png','Evolution items','leafstone'),
- ('item:moonstone','item','Moon Stone','images/items/moon-stone.png','Evolution items','moonstone'),
- ('item:linkingcord','item','Linking Cord','images/items/linking-cord.png','Evolution items','linkingcord'),
- ('item:rarecandy','item','Rare Candy','images/items/rare-candy.png','Evolution items','rarecandy')
-), all_rows as (
- select *,null::int target_number,true enabled from core
- union all select 'item:'||b.key,'item',b.name,case when b.image like 'images/%' then b.image else 'images/items/'||b.image end,'Poké Balls',b.key,null,b.enabled from public.capture_balls b where not exists(select 1 from core where target_key=b.key)
- union all select 'item:'||b.key,'item',b.name,case when b.sprite like 'images/%' then b.sprite else 'images/items/'||b.sprite end,'Berries',b.key,null,b.enabled from public.capture_berries b where not exists(select 1 from core where target_key=b.key)
- union all select 'item:'||p.item_slug,'item',c.display_name,c.sprite_path,'Other items',p.item_slug,null,p.inventory_enabled and (p.admin_grant_enabled or p.mart_buy_enabled) from public.item_policy p join public.item_catalog c on c.slug=p.item_slug where p.inventory_enabled and not exists(select 1 from core where target_key=p.item_slug) and not exists(select 1 from public.capture_balls b where b.key=p.item_slug) and not exists(select 1 from public.capture_berries b where b.key=p.item_slug)
- union all select 'candy:'||f.id,'candy',f.name||' Evolution Candy','images/items/evolution-candy/'||f.id||'.png','Evolution Candy',null,f.id,true from public.evolution_families f where f.id in (select distinct coalesce(nullif(s.family_candy_species_id,0),s.family_id,s.dex) from public.species s where s.dex between 1 and 151)
- union all select 'pokemon:'||s.dex,'pokemon',s.name,'images/pokemon/home/'||s.dex||'.png','Pokémon',null,s.dex,true from public.species s where s.dex between 1 and 151
-)
-select id,kind,coalesce(name,initcap(id)) name,case when sprite ~ '^images/[a-zA-Z0-9_./-]+[.](png|webp|svg)$' and sprite not like '%..%' then sprite else 'images/items/secret-gift.svg' end sprite,category,target_key,target_number,coalesce(enabled,false) enabled,case when kind='pokemon' then 100 else 10000 end max_quantity,id<>'item:masterball' shop_allowed,true pass_allowed,true staff_allowed from all_rows;
-revoke all on private.hub_reward_catalog from public,anon,authenticated;
-create function private.hub_validate_rewards(p_bundle jsonb,p_context text) returns jsonb
-language plpgsql stable set search_path='' as $$
-declare entry jsonb; item private.hub_reward_catalog; qty numeric; lvl numeric;
-begin
- if p_context is null or p_context not in ('shop','pass','staff') then raise exception 'Unknown reward use.'; end if;
- if p_bundle is null or jsonb_typeof(p_bundle)<>'object' or p_bundle->'version' is distinct from '2'::jsonb or
- (select count(*) from jsonb_object_keys(p_bundle))<>2 or jsonb_typeof(p_bundle->'rewards') is distinct from 'array' then
- raise exception 'Invalid reward bundle.'; end if;
- if jsonb_array_length(p_bundle->'rewards') not between 1 and 100 then raise exception 'Choose between 1 and 100 rewards.'; end if;
- for entry in select value from jsonb_array_elements(p_bundle->'rewards') loop
-  if jsonb_typeof(entry)<>'object' then raise exception 'Invalid reward.'; end if;
-  if exists(select 1 from jsonb_object_keys(entry) k where k not in ('catalogId','quantity','secret','level','shiny')) then raise exception 'Unknown reward option.'; end if;
-  if jsonb_typeof(entry->'catalogId') is distinct from 'string' or jsonb_typeof(entry->'quantity') is distinct from 'number' or jsonb_typeof(entry->'secret') is distinct from 'boolean' then raise exception 'Invalid reward details.'; end if;
-  select * into item from private.hub_reward_catalog where id=entry->>'catalogId';
-  if not found or item.enabled is not true then raise exception 'Reward unavailable.'; end if;
-  if (p_context='shop' and (item.shop_allowed is not true or item.id='item:masterball')) or
-     (p_context='pass' and item.pass_allowed is not true) or
-     (p_context='staff' and item.staff_allowed is not true) then raise exception 'Reward unavailable for this use.'; end if;
-  qty:=(entry->>'quantity')::numeric;
-  if qty<>trunc(qty) or qty<1 or qty>item.max_quantity then raise exception 'Invalid reward quantity.'; end if;
-  if item.kind='pokemon' then
-   if jsonb_typeof(entry->'level') is distinct from 'number' or jsonb_typeof(entry->'shiny') is distinct from 'boolean' then raise exception 'Invalid Pokemon options.'; end if;
-   lvl:=(entry->>'level')::numeric;
-   if lvl<>trunc(lvl) or lvl<1 or lvl>100 then raise exception 'Invalid Pokemon level.'; end if;
-  elsif entry ? 'level' or entry ? 'shiny' then raise exception 'Only Pokemon have level and appearance options.';
-  end if;
- end loop;
- if exists(select 1 from jsonb_array_elements(p_bundle->'rewards') e join private.hub_reward_catalog c on c.id=e->>'catalogId' group by c.id,c.max_quantity having sum((e->>'quantity')::numeric)>c.max_quantity) then raise exception 'Combined quantity exceeds this reward limit.'; end if;
- if (select coalesce(sum((e->>'quantity')::numeric),0) from jsonb_array_elements(p_bundle->'rewards') e join private.hub_reward_catalog c on c.id=e->>'catalogId' where c.kind='pokemon')>100 then raise exception 'A bundle can contain at most 100 Pokemon.'; end if;
- return p_bundle;
-end;
-$$;
-revoke all on function private.hub_validate_rewards(jsonb,text) from public;
-create function private.hub_player_reward_preview(p_bundle jsonb,p_context text) returns jsonb
-language plpgsql stable set search_path='' as $$
-declare entry jsonb; item private.hub_reward_catalog; result jsonb:='[]';
-begin
- perform private.hub_validate_rewards(p_bundle,p_context);
- for entry in select value from jsonb_array_elements(p_bundle->'rewards') loop
-  if (entry->>'secret')::boolean then
-   result:=result||jsonb_build_array(jsonb_build_object('name','Secret Gift','sprite','images/items/secret-gift.svg','secret',true));
-  else
-   select * into item from private.hub_reward_catalog where id=entry->>'catalogId';
-   result:=result||jsonb_build_array(jsonb_build_object('name',item.name,'sprite',item.sprite,'quantity',entry->'quantity','secret',false)||case when item.kind='pokemon' then jsonb_build_object('level',entry->'level','shiny',entry->'shiny') else '{}'::jsonb end);
-  end if;
- end loop;
- return result;
-end;
-$$;
-revoke all on function private.hub_player_reward_preview(jsonb,text) from public;
-
-create table private.hub_pass_settings(id boolean primary key default true check(id),daily jsonb not null,weekly jsonb not null,revision bigint not null default 1,updated_by uuid,updated_at timestamptz not null default now());
-create table private.hub_pass_settings_history(id bigint generated always as identity primary key,actor_id uuid,request_id uuid unique,before_value jsonb not null,after_value jsonb not null,after_revision bigint not null,created_at timestamptz not null default now());
-create table private.hub_reward_deliveries(idempotency text primary key,actor_id uuid not null,target_id uuid not null,bundle jsonb not null,status text not null check(status in ('pending','delivered')),result jsonb,created_at timestamptz not null default now());
-alter table private.hub_pass_settings enable row level security;
-alter table private.hub_pass_settings_history enable row level security;
-alter table private.hub_reward_deliveries enable row level security;
-revoke all on private.hub_pass_settings,private.hub_pass_settings_history,private.hub_reward_deliveries from public,anon,authenticated;
-
-create function private.hub_convert_pass(p_old jsonb) returns jsonb language plpgsql stable set search_path='' as $$
-declare result jsonb;begin
- select jsonb_build_object('version',2,'rewards',jsonb_agg(jsonb_build_object('catalogId',case e.key when 'coins' then 'coins' when 'bag_bonus' then 'space' else 'item:'||e.key end,'quantity',e.value,'secret',false) order by e.key)) into result from jsonb_each(p_old) e;
- return private.hub_validate_rewards(result,'pass');end $$;
-revoke all on function private.hub_convert_pass(jsonb) from public;
-insert into private.hub_pass_settings(id,daily,weekly) values(true,private.hub_convert_pass(private.pass_reward_grants('daily')),private.hub_convert_pass(private.pass_reward_grants('weekly')));
-insert into private.hub_pass_settings_history(actor_id,before_value,after_value,after_revision) select null,jsonb_build_object('daily',private.pass_reward_grants('daily'),'weekly',private.pass_reward_grants('weekly')),jsonb_build_object('daily',daily,'weekly',weekly),revision from private.hub_pass_settings;
-
-create function public.admin_pass_rewards_read() returns jsonb language plpgsql security definer set search_path='' as $$
-begin perform private.require_staff_edit();return (select jsonb_build_object('revision',revision::text,'daily',daily->'rewards','weekly',weekly->'rewards','catalog',(select jsonb_agg(jsonb_build_object('id',id,'kind',kind,'name',name,'sprite',sprite,'category',category,'enabled',enabled,'maxQuantity',max_quantity) order by category,name) from private.hub_reward_catalog)) from private.hub_pass_settings where id);end $$;
-revoke all on function public.admin_pass_rewards_read() from public,anon;
-grant execute on function public.admin_pass_rewards_read() to authenticated;
-
-create function public.admin_pass_rewards_save(p_request uuid,p_revision text,p_daily jsonb,p_weekly jsonb) returns jsonb language plpgsql security definer set search_path='' as $$
-declare old private.hub_pass_settings;prior private.hub_pass_settings_history;v_after jsonb;begin
- perform private.require_staff_edit();if auth.uid() is null or p_request is null then raise exception 'Sign in and reload rewards.' using errcode='42501';end if;
- select * into old from private.hub_pass_settings where id for update;
- select * into prior from private.hub_pass_settings_history where request_id=p_request;
- v_after:=jsonb_build_object('daily',private.hub_validate_rewards(p_daily,'pass'),'weekly',private.hub_validate_rewards(p_weekly,'pass'));
- if found then if prior.actor_id is distinct from auth.uid() or prior.after_value is distinct from v_after then raise exception 'Request does not match the saved changes.';end if;return jsonb_build_object('status','saved','requestId',p_request,'revision',prior.after_revision::text,'replayed',true);end if;
- if p_revision is distinct from old.revision::text then raise exception 'Rewards changed. Reload before saving.' using errcode='40001';end if;
- insert into private.hub_pass_settings_history(actor_id,request_id,before_value,after_value,after_revision) values(auth.uid(),p_request,jsonb_build_object('daily',old.daily,'weekly',old.weekly),v_after,old.revision+1);
- update private.hub_pass_settings set daily=p_daily,weekly=p_weekly,revision=revision+1,updated_by=auth.uid(),updated_at=now() where id;
- return jsonb_build_object('status','saved','requestId',p_request,'revision',(old.revision+1)::text);end $$;
-revoke all on function public.admin_pass_rewards_save(uuid,text,jsonb,jsonb) from public,anon;
-grant execute on function public.admin_pass_rewards_save(uuid,text,jsonb,jsonb) to authenticated;
-
-CREATE OR REPLACE FUNCTION private.persist_pass_reward(p_user_id uuid, p_form_id integer, p_level integer, p_ctx text, p_source_key text, p_ball text DEFAULT 'poke'::text, p_round_id uuid DEFAULT NULL::uuid, p_shiny boolean DEFAULT false, p_content_build text DEFAULT 'sl-ref-20261013-227b573'::text, p_hidden_ticket text DEFAULT NULL::text, p_variant text DEFAULT 'normal'::text, p_name text DEFAULT NULL::text, p_gender text DEFAULT NULL::text)
- RETURNS jsonb
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO 'pg_catalog'
-AS $function$
-
-DECLARE
-
-  catch_id uuid;
-
-  prep jsonb;
-
-  mon jsonb;
-
-  legal jsonb;
-
-  ticket_uuid uuid;
-
-  v_name text;
-
-  v_variant text;
-
-  v_public text;
-
-  legacy text[];
-
-  inserted uuid;
-
-BEGIN
-
-  IF p_ctx IS DISTINCT FROM 'grant' OR NOT EXISTS(
-    SELECT 1 FROM private.hub_reward_deliveries d WHERE d.target_id=p_user_id AND d.actor_id=auth.uid()
-      AND d.status='pending' AND p_source_key LIKE 'grant:pass:'||d.idempotency||':%'
-  ) THEN RAISE EXCEPTION 'An authorized pending Pass delivery is required.' USING ERRCODE='42501'; END IF;
-  IF p_user_id IS NULL THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('missing-user'));
-
-  END IF;
-
-  IF p_ctx IS NULL OR p_ctx NOT IN ('catch', 'grant', 'event') THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-ctx'));
-
-  END IF;
-
-  IF p_source_key IS NULL OR btrim(p_source_key) = '' THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('missing-source-key'));
-
-  END IF;
-
-  IF p_ctx = 'catch' AND p_source_key NOT LIKE 'play:%' THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-source-key'));
-
-  END IF;
-
-  IF p_ctx = 'grant' AND p_source_key NOT LIKE 'grant:%' THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-source-key'));
-
-  END IF;
-
-  IF p_ctx = 'event' AND p_source_key NOT LIKE 'event:%' THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('bad-source-key'));
-
-  END IF;
-
-  IF auth.uid() IS DISTINCT FROM p_user_id AND private.streamlink_protected_trainer(p_user_id) THEN
-
-    RETURN jsonb_build_object('ok', false, 'errors', jsonb_build_array('protected-trainer'));
-
-  END IF;
-
-
-
-  catch_id := gen_random_uuid();
-
-  prep := private.streamlink_generate_prepare(
-
-    p_form_id, p_level, p_ctx, coalesce(p_content_build, 'sl-ref-20261013-227b573'), p_hidden_ticket
-
-  );
-
-  IF (prep->>'ok') IS DISTINCT FROM 'true' THEN
-
-    RETURN prep;
-
-  END IF;
-
-
-
-  mon := private.streamlink_complete_and_bind(
-
-    prep,
-
-    coalesce(p_shiny, false),
-
-    (private.streamlink_secure_u32() % 25)::int + 1,
-
-    (private.streamlink_secure_u32() % 2147483647)::int,
-
-    (private.streamlink_secure_u32() % 32)::int,
-
-    (private.streamlink_secure_u32() % 32)::int,
-
-    (private.streamlink_secure_u32() % 32)::int,
-
-    (private.streamlink_secure_u32() % 32)::int,
-
-    (private.streamlink_secure_u32() % 32)::int,
-
-    (private.streamlink_secure_u32() % 32)::int,
-
-    private.streamlink_secure_u32(),
-
-    catch_id
-
-  );
-
-  IF (mon->>'ok') IS DISTINCT FROM 'true' THEN
-
-    RETURN mon;
-
-  END IF;
-
-
-
-  IF (prep->>'ticketUuid') IS NOT NULL AND btrim(prep->>'ticketUuid') <> '' THEN
-
-    ticket_uuid := (prep->>'ticketUuid')::uuid;
-
-  END IF;
-
-  legal := private.assert_streamlink_legal(mon, p_ctx, ticket_uuid);
-
-  IF (legal->>'ok') IS DISTINCT FROM 'true' THEN
-
-    RETURN legal;
-
-  END IF;
-
-
-
-  SELECT initcap(replace(s.slug, '-', ' '))
-
-    INTO v_name
-
-  FROM private.ref_species s
-
-  WHERE s.content_build = prep->>'build'
-
-    AND s.dex = private.streamlink_json_int(prep->'dex');
-
-  v_name := coalesce(nullif(btrim(p_name), ''), v_name, 'Pokemon');
-
-  v_variant := CASE
-
-    WHEN coalesce(p_shiny, false) THEN 'shiny'
-
-    ELSE coalesce(nullif(btrim(p_variant), ''), 'normal')
-
-  END;
-
-  v_public := private.streamlink_next_public_id('SL');
-
-  SELECT coalesce(array_agg(x), ARRAY[]::text[])
-
-    INTO legacy
-
-  FROM jsonb_array_elements_text(mon->'legacyMoves') x;
-
-
-
-  BEGIN
-
-    INSERT INTO public.catches (
-
-      id, user_id, dex, name, variant, gender, ball, round_id, source_key,
-
-      public_id, level, pokemon_form_id,
-
-      iv_hp, iv_atk, iv_def, iv_spa, iv_spd, iv_spe,
-
-      moves, friendship, height_m, weight_kg,
-
-      nature_id, ability_id, ability_slot,
-
-      ev_hp, ev_atk, ev_def, ev_spa, ev_spd, ev_spe,
-
-      move_slots, ruleset_id, content_build,
-
-      hp_current, hp_max, status, held_item, gigantamax_factor
-
-    ) VALUES (
-
-      catch_id,
-
-      p_user_id,
-
-      private.streamlink_json_int(mon->'dex'),
-
-      v_name,
-
-      v_variant,
-
-      coalesce(nullif(btrim(p_gender), ''), mon->>'gender'),
-
-      coalesce(nullif(btrim(p_ball), ''), 'poke'),
-
-      p_round_id,
-
-      p_source_key,
-
-      v_public,
-
-      private.streamlink_json_int(mon->'level'),
-
-      private.streamlink_json_int(mon->'formId'),
-
-      private.streamlink_json_int(mon#>'{ivs,hp}'),
-
-      private.streamlink_json_int(mon#>'{ivs,atk}'),
-
-      private.streamlink_json_int(mon#>'{ivs,def}'),
-
-      private.streamlink_json_int(mon#>'{ivs,spa}'),
-
-      private.streamlink_json_int(mon#>'{ivs,spd}'),
-
-      private.streamlink_json_int(mon#>'{ivs,spe}'),
-
-      legacy,
-
-      private.streamlink_json_int(mon->'friendship'),
-
-      (mon->>'heightM')::numeric,
-
-      (mon->>'weightKg')::numeric,
-
-      private.streamlink_json_int(mon->'natureId'),
-
-      private.streamlink_json_int(mon->'abilityId'),
-
-      mon->>'abilitySlot',
-
-      0, 0, 0, 0, 0, 0,
-
-      mon->'moveSlots',
-
-      mon->>'rulesetId',
-
-      mon->>'contentBuild',
-
-      private.streamlink_json_int(mon->'hpCurrent'),
-
-      private.streamlink_json_int(mon->'hpMax'),
-
-      NULL,
-
-      NULL,
-
-      false
-
-    )
-
-    RETURNING id INTO inserted;
-
-  EXCEPTION WHEN unique_violation THEN
-
-    RETURN jsonb_build_object(
-
-      'ok', false,
-
-      'errors', jsonb_build_array('already-settled'),
-
-      'replay', true,
-
-      'path', 'wire'
-
-    );
-
-  END;
-
-
-
-  RETURN jsonb_build_object(
-
-    'ok', true,
-
-    'catchId', inserted,
-
-    'publicId', v_public,
-
-    'path', 'wire',
-
-    'mon', mon
-
-  );
-
-END
-
-$function$
-;
-revoke all on function private.persist_pass_reward(uuid,integer,integer,text,text,text,uuid,boolean,text,text,text,text,text) from public,anon,authenticated;
-
-create function private.hub_deliver_pass(p_user uuid,p_bundle jsonb,p_idem text) returns jsonb
-language plpgsql security definer set search_path='' as $$
-declare existing private.hub_reward_deliveries;e jsonb;r private.hub_reward_catalog;flat jsonb:='{}';g jsonb;mon jsonb;delivered jsonb:='[]';i int;ordinal int:=0;v_qty int;inv public.inventories;
-begin
- if auth.uid() is null or p_user is null or p_idem is null or length(p_idem)>200 then raise exception 'Invalid delivery request.' using errcode='42501';end if;
- if p_user is distinct from auth.uid() then perform private.require_staff_edit();if private.streamlink_protected_trainer(p_user) then raise exception 'This trainer is protected.' using errcode='42501';end if;end if;
- perform private.hub_validate_rewards(p_bundle,'pass');
- -- Same lock order as normal claims: profile, inventory, then candy/specimens.
- perform 1 from public.profiles where id=p_user for update;if not found then raise exception 'Trainer not found.';end if;
- perform private.ensure_inventory(p_user);select * into inv from public.inventories where user_id=p_user for update;
- insert into private.hub_reward_deliveries(idempotency,actor_id,target_id,bundle,status) values(p_idem,auth.uid(),p_user,p_bundle,'pending') on conflict do nothing;
- if not found then select * into existing from private.hub_reward_deliveries where idempotency=p_idem;
-  if existing.actor_id is distinct from auth.uid() or existing.target_id is distinct from p_user or existing.bundle is distinct from p_bundle or existing.status<>'delivered' then raise exception 'Delivery request does not match.';end if;
-  return existing.result||jsonb_build_object('duplicate',true);
- end if;
- for e in select value from jsonb_array_elements(p_bundle->'rewards') loop
-  select * into r from private.hub_reward_catalog where id=e->>'catalogId';
-  if r.kind in ('item','coins','space') then flat:=jsonb_set(flat,array[r.target_key],to_jsonb(coalesce((flat->>r.target_key)::int,0)+(e->>'quantity')::int));end if;
- end loop;
- if coalesce((flat->>'bag_bonus')::int,0)>least(greatest(private.bag_bonus_cap()-inv.bag_bonus,0),greatest(private.bag_capacity_max()-private.bag_capacity(p_user),0)) then raise exception 'This gift exceeds the inventory space limit. Contact staff.';end if;
- -- A zero-coin marker also preserves legacy calendar idempotency for Pokémon/candy-only bundles.
- if not flat?'coins' then flat:=flat||'{"coins":0}'::jsonb;end if;
- g:=private.grant_items(p_user,flat,'DAILY_REWARD',p_idem,p_idem,true);
- if coalesce((g->>'duplicate')::boolean,false) then raise exception 'This reward has already been delivered.';end if;
- for e in select value from jsonb_array_elements(p_bundle->'rewards') loop
-  ordinal:=ordinal+1;select * into r from private.hub_reward_catalog where id=e->>'catalogId';v_qty:=(e->>'quantity')::int;
-  if r.kind='candy' then perform private.grant_family_candy(p_user,r.target_number,v_qty,'PASS_REWARD','Starlight Pass reward',jsonb_build_object('idempotency',p_idem||':candy:'||ordinal));
-  elsif r.kind='pokemon' then for i in 1..v_qty loop
-   mon:=private.persist_pass_reward(p_user,r.target_number,(e->>'level')::int,'grant','grant:pass:'||p_idem||':'||ordinal||':'||i,'poke',null,(e->>'shiny')::boolean,'sl-ref-20261013-227b573',null,case when (e->>'shiny')::boolean then 'shiny' else 'normal' end,null,null);
-   if mon->>'ok' is distinct from 'true' then raise exception 'A Pokémon could not be generated. Nothing was delivered.';end if;
-   delivered:=delivered||jsonb_build_array(jsonb_build_object('catchId',mon->'catchId','publicId',mon->'publicId','name',r.name));
-  end loop;end if;
- end loop;
- g:=jsonb_build_object('ok',true,'grants',flat-'coins','coins',flat->'coins','rewardEntries',p_bundle->'rewards','pokemon',delivered,'revealedRewards',private.hub_player_reward_preview(jsonb_build_object('version',2,'rewards',(select jsonb_agg(value||'{"secret":false}'::jsonb order by ord) from jsonb_array_elements(p_bundle->'rewards') with ordinality e(value,ord))),'pass'),'duplicate',false);
- update private.hub_reward_deliveries set status='delivered',result=g where idempotency=p_idem;
- return g;
-end $$;
-revoke all on function private.hub_deliver_pass(uuid,jsonb,text) from public,anon,authenticated;
-
-create function private.hub_pass_preview() returns jsonb language plpgsql stable set search_path='' as $$
-begin return (select jsonb_build_object('daily',private.hub_player_reward_preview(daily,'pass'),'weekly',private.hub_player_reward_preview(weekly,'pass')) from private.hub_pass_settings where id);
-exception when others then return jsonb_build_object('daily','[]'::jsonb,'weekly','[]'::jsonb,'unavailable',true);end;
-$$;
-revoke all on function private.hub_pass_preview() from public,anon,authenticated;
-
-create or replace function public.play_claim_pass(p_kind text) returns jsonb language plpgsql security definer set search_path='' as $$
-declare uid uuid:=auth.uid();inv public.inventories;bundle jsonb;result jsonb;idem text;begin
- if uid is null then raise exception 'Sign in first.' using errcode='42501';end if;
- perform 1 from public.profiles where id=uid and starlight_pass is true for update;if not found then raise exception 'Starlight Pass is required. Check your subscription first.';end if;
- perform private.ensure_inventory(uid);select * into inv from public.inventories where user_id=uid for update;
- if p_kind='daily' then
-  if inv.pass_daily_at is not null and inv.pass_daily_at>now()-interval '20 hours' then raise exception 'Daily Pass gift is not ready yet.';end if;
-  select daily into bundle from private.hub_pass_settings where id;
-  idem:='pass-daily:'||uid::text||':'||to_char(private.app_today(),'YYYY-MM-DD');
- elsif p_kind='weekly' then
-  if inv.pass_weekly_at is not null and inv.pass_weekly_at>now()-interval '6 days' then raise exception 'Weekly Pass crate is not ready yet.';end if;
-  select weekly into bundle from private.hub_pass_settings where id;
-  idem:='pass-weekly:'||uid::text||':'||to_char(now(),'IYYY-IW');
- else raise exception 'Choose daily or weekly rewards.';end if;
- result:=private.hub_deliver_pass(uid,bundle,idem);
- if (result->>'duplicate')::boolean then raise exception 'This Pass reward has already been delivered.';end if;
- update public.inventories set pass_daily_at=case when p_kind='daily' then now() else pass_daily_at end,pass_weekly_at=case when p_kind='weekly' then now() else pass_weekly_at end,updated_at=now() where user_id=uid;
- return private.play_snapshot(uid)||result||jsonb_build_object('message',case when p_kind='daily' then 'Daily Pass rewards received!' else 'Weekly Pass rewards received!' end);
-end $$;
-revoke all on function public.play_claim_pass(text) from public,anon;
-grant execute on function public.play_claim_pass(text) to authenticated;
-
-CREATE OR REPLACE FUNCTION public.play_store()
- RETURNS jsonb
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO 'public'
-AS $function$
-declare
-  uid uuid := auth.uid();
-  inv public.inventories;
-  pass boolean := false;
-  daily jsonb := '{}'::jsonb;
-begin
-  if uid is not null then
-    inv := private.ensure_inventory(uid);
-    select starlight_pass into pass from public.profiles where id = uid;
-    daily := private.daily_wallet_json(uid);
-  end if;
-  return private.play_snapshot(uid) || jsonb_build_object(
-    'ok', true,
-    'catalog', private.store_catalog() || jsonb_build_object('avatars', private.premium_avatar_catalog()),
-    'passRewards', private.hub_pass_preview(),
-    'wallet', case when inv.user_id is null then null else jsonb_build_object(
-      'coins', inv.coins,
-      'capacity', private.bag_capacity(uid),
-      'used', private.item_total(inv),
-      'dailyReady', pass and (inv.pass_daily_at is null or inv.pass_daily_at < now() - interval '20 hours'),
-      'weeklyReady', pass and (inv.pass_weekly_at is null or inv.pass_weekly_at < now() - interval '6 days'),
-      'dailySupplyReady', coalesce((daily->>'dailySupplyReady')::boolean, true),
-      'dailySupplyAt', inv.daily_supply_at,
-      'dailyStreakDay', (daily->>'dailyStreakDay')::int,
-      'dailyClaimed', coalesce((daily->>'dailyClaimed')::boolean, false),
-      'dailyNextDate', daily->>'dailyNextDate',
-      'dailyTimezone', daily->>'dailyTimezone',
-      'dailyPreview', daily->'dailyPreview',
-      'pendingChoices', daily->'pendingChoices'
-    ) end
-  );
-end;
-$function$
-;
-CREATE OR REPLACE FUNCTION public.admin_trainer_reward_action(p_user uuid, p_request uuid, p_action text, p_payload jsonb, p_reason text)
- RETURNS jsonb
- LANGUAGE plpgsql
- SECURITY DEFINER
- SET search_path TO 'pg_catalog'
-AS $function$
-DECLARE
-  v_actor uuid := auth.uid(); v_prior private.staff_reward_actions;
-  v_profile public.profiles; v_override private.staff_pass_overrides;
-  v_payload jsonb := coalesce(p_payload,'{}'::jsonb); v_result jsonb;
-  v_grants jsonb; v_key text; v_qty integer; v_kind text; v_error text; v_space_before integer;
-  v_index integer; v_generated jsonb; v_ids jsonb; v_public_ids jsonb;
-BEGIN
-  PERFORM private.require_staff_edit();
-  IF v_actor IS NULL OR p_user IS NULL OR p_request IS NULL OR length(btrim(coalesce(p_reason,''))) NOT BETWEEN 3 AND 500 THEN
-    RAISE EXCEPTION 'A target, request id and staff reason are required.' USING ERRCODE='22023';
-  END IF;
-  IF p_action IS NULL OR jsonb_typeof(v_payload)<>'object' OR p_action NOT IN ('pass_on','pass_off','pass_sync','pass_daily','pass_weekly','item','candy','pokemon','pokemon_batch','title','cosmetic','badge') THEN
-    RAISE EXCEPTION 'Unknown reward action.' USING ERRCODE='22023';
-  END IF;
-  -- Profile row serializes concurrent grants and automation against one trainer.
-  SELECT * INTO v_profile FROM public.profiles WHERE id=p_user FOR UPDATE;
-  IF NOT FOUND THEN RAISE EXCEPTION 'Trainer not found.' USING ERRCODE='22023'; END IF;
-  IF private.streamlink_protected_trainer(p_user) THEN
-    RAISE EXCEPTION 'This protected trainer needs a separately scoped authorization.' USING ERRCODE='42501';
-  END IF;
-  INSERT INTO private.staff_reward_actions(request_id,actor_id,target_id,action,payload,reason,status)
-  VALUES(p_request,v_actor,p_user,p_action,v_payload,btrim(p_reason),'pending') ON CONFLICT DO NOTHING;
-  IF NOT FOUND THEN
-    SELECT * INTO v_prior FROM private.staff_reward_actions WHERE request_id=p_request;
-    IF v_prior.actor_id<>v_actor OR v_prior.target_id<>p_user OR v_prior.action<>p_action OR v_prior.payload<>v_payload OR v_prior.reason<>btrim(p_reason) THEN
-      RAISE EXCEPTION 'Request id is already bound to another action.' USING ERRCODE='22023';
-    END IF;
-    RETURN v_prior.result || jsonb_build_object('requestId',p_request,'replayed',true);
-  END IF;
-  BEGIN
-    IF p_action IN ('pass_on','pass_off') THEN
-      INSERT INTO private.staff_pass_overrides(target_id,active,source_before,subscription_active,subscription_source,subscription_checked_at,actor_id,reason)
-      VALUES(p_user,p_action='pass_on',v_profile.pass_source,
-        coalesce(v_profile.starlight_pass,false) AND coalesce(v_profile.pass_source,'') IN ('twitch-sub','broadcaster'),
-        CASE WHEN v_profile.pass_source IN ('twitch-sub','broadcaster') THEN v_profile.pass_source END,
-        v_profile.pass_checked_at,v_actor,btrim(p_reason))
-      ON CONFLICT(target_id) DO UPDATE SET active=excluded.active,actor_id=excluded.actor_id,reason=excluded.reason,updated_at=now();
-      UPDATE public.profiles SET starlight_pass=p_action='pass_on',updated_at=now() WHERE id=p_user;
-      v_result:=jsonb_build_object('ok',true,'message','Staff Pass override saved. It remains until cleared.',
-        'sourceBefore',v_profile.pass_source,'activeBefore',v_profile.starlight_pass);
-    ELSIF p_action='pass_sync' THEN
-      DELETE FROM private.staff_pass_overrides WHERE target_id=p_user RETURNING * INTO v_override;
-      IF NOT FOUND THEN RAISE EXCEPTION 'There is no staff override to clear.'; END IF;
-      UPDATE public.profiles SET starlight_pass=v_override.subscription_active,
-        pass_source=v_override.subscription_source,pass_checked_at=v_override.subscription_checked_at,updated_at=now() WHERE id=p_user;
-      v_result:=jsonb_build_object('ok',true,'message','Override cleared. Last recorded subscription state restored; a fresh Twitch check may still be needed.');
-    ELSIF p_action IN ('pass_daily','pass_weekly') THEN
- SELECT CASE WHEN p_action='pass_daily' THEN daily ELSE weekly END INTO v_grants FROM private.hub_pass_settings WHERE id;
- v_result:=private.hub_deliver_pass(p_user,v_grants,'staff-pass:'||p_request::text);
- ELSIF p_action='item' THEN
-      IF p_action='item' THEN
-        v_key:=v_payload->>'key'; v_qty:=(v_payload->>'qty')::integer;
-        IF coalesce(v_qty,0) NOT BETWEEN 1 AND 10000 THEN RAISE EXCEPTION 'Quantity must be 1 to 10000.'; END IF;
-        IF v_key IS NULL OR NOT (v_key=ANY(ARRAY['coins','berry','bait','pokeball','greatball','ultraball','lure','bag_bonus']
-          ||private.extra_ball_keys()||private.capture_berry_keys()||private.evo_item_keys()||private.valuable_item_keys())) THEN
-          RAISE EXCEPTION 'Item is not enabled for grants.';
-        END IF;
-        v_grants:=jsonb_build_object(v_key,v_qty);
-      ELSE
-        v_kind:=CASE WHEN p_action='pass_daily' THEN 'daily' ELSE 'weekly' END;
-        v_grants:=private.pass_reward_grants(v_kind);
-        IF v_grants IS NULL OR v_grants='{}'::jsonb THEN RAISE EXCEPTION 'Pass reward bundle is unavailable.'; END IF;
-      END IF;
-      IF EXISTS(SELECT 1 FROM jsonb_each_text(v_grants) e WHERE e.key<>ALL(ARRAY['coins','berry','bait','pokeball','greatball','ultraball','lure','bag_bonus']
-        ||private.extra_ball_keys()||private.capture_berry_keys()||private.evo_item_keys()||private.valuable_item_keys())
-        OR e.value !~ '^[0-9]+$' OR length(e.value)>5 OR e.value::numeric>10000) THEN RAISE EXCEPTION 'Reward bundle is not valid for full audited delivery.'; END IF;
-      SELECT coalesce((SELECT bag_bonus FROM public.inventories WHERE user_id=p_user),0) INTO v_space_before;
-      v_result:=private.grant_items(p_user,v_grants,'ADMIN_GRANT','staff-reward:'||p_request::text,'staff-reward:'||p_request::text,true);
-      IF coalesce((v_grants->>'bag_bonus')::integer,0)>0 AND
-        coalesce((SELECT bag_bonus FROM public.inventories WHERE user_id=p_user),0)-v_space_before<>(v_grants->>'bag_bonus')::integer THEN
-        RAISE EXCEPTION 'The inventory-space grant would be capped; nothing was granted.';
-      END IF;
-      IF NOT coalesce((v_result->>'ok')::boolean,false) OR coalesce((v_result->>'full')::boolean,false) OR coalesce((v_result->>'duplicate')::boolean,false) THEN
-        RAISE EXCEPTION 'The complete bundle was not delivered.';
-      END IF;
-      v_result:=v_result||jsonb_build_object('ok',true,'message','Rewards delivered. Player claim cooldowns were not changed.','requested',v_grants);
-    ELSIF p_action='candy' THEN
-      v_qty:=(v_payload->>'qty')::integer;
-      IF coalesce(v_qty,0) NOT BETWEEN 1 AND 10000 THEN RAISE EXCEPTION 'Quantity must be 1 to 10000.'; END IF;
-      PERFORM public.admin_grant_candy(p_user,(v_payload->>'dex')::integer,v_qty);
-      v_result:=jsonb_build_object('ok',true,'message','Evolution Candy delivered.');
-    ELSIF p_action='pokemon_batch' THEN
-      IF jsonb_typeof(v_payload->'qty') IS DISTINCT FROM 'number'
-        OR coalesce(v_payload->>'qty','') !~ '^[0-9]+$'
-        OR length(v_payload->>'qty')>3 THEN
-        RAISE EXCEPTION 'Choose a whole quantity from 2 to 100.';
-      END IF;
-      v_qty:=(v_payload->>'qty')::integer;
-      IF v_qty NOT BETWEEN 2 AND 100 OR coalesce((v_payload->>'dex')::integer,0) NOT BETWEEN 1 AND 151
-        OR coalesce((v_payload->>'level')::integer,0) NOT BETWEEN 1 AND 100 THEN
-        RAISE EXCEPTION 'Choose 2–100 Pokémon, Kanto species 1–151 and level 1–100.';
-      END IF;
-      v_ids:='[]'::jsonb; v_public_ids:='[]'::jsonb;
-      FOR v_index IN 1..v_qty LOOP
-        v_generated:=private.persist_staff_gift(p_user,(v_payload->>'dex')::integer,(v_payload->>'level')::integer,
-          'grant','grant:staff-reward:'||p_request::text||':'||v_index::text,'poke',NULL,
-          coalesce((v_payload->>'shiny')::boolean,false),'sl-ref-20261013-227b573',NULL,
-          CASE WHEN coalesce((v_payload->>'shiny')::boolean,false) THEN 'shiny' ELSE 'normal' END,NULL,NULL);
-        IF NOT coalesce((v_generated->>'ok')::boolean,false) THEN RAISE EXCEPTION 'Canonical generation rejected the batch.'; END IF;
-        v_ids:=v_ids||jsonb_build_array(v_generated->'catchId');
-        v_public_ids:=v_public_ids||jsonb_build_array(v_generated->'publicId');
-      END LOOP;
-      v_result:=jsonb_build_object('ok',true,'quantity',v_qty,'catchIds',v_ids,'publicIds',v_public_ids,'path','wire',
-        'message',v_qty::text||' Pokémon delivered through canonical generation.');
-    ELSIF p_action='pokemon' THEN
-      IF coalesce((v_payload->>'dex')::integer,0) NOT BETWEEN 1 AND 151 OR coalesce((v_payload->>'level')::integer,0) NOT BETWEEN 1 AND 100 THEN
-        RAISE EXCEPTION 'Choose Kanto species 1–151 and level 1–100.';
-      END IF;
-      -- Explicit grant context: canonical generator/validator/persistence, no legacy raw INSERT, no WIRE activation.
-      v_result:=private.persist_staff_gift(p_user,(v_payload->>'dex')::integer,(v_payload->>'level')::integer,
-        'grant','grant:staff-reward:'||p_request::text,'poke',NULL,coalesce((v_payload->>'shiny')::boolean,false),
-        'sl-ref-20261013-227b573',NULL,CASE WHEN coalesce((v_payload->>'shiny')::boolean,false) THEN 'shiny' ELSE 'normal' END,NULL,NULL);
-      IF NOT coalesce((v_result->>'ok')::boolean,false) THEN RAISE EXCEPTION 'Canonical generation rejected the gift.'; END IF;
-      v_result:=v_result||jsonb_build_object('message','Pokémon delivered through canonical generation.');
-    ELSE
-      v_key:=v_payload->>'id';
-      IF p_action='title' THEN PERFORM public.admin_grant_title(p_user,v_key,btrim(p_reason));
-      ELSIF p_action='cosmetic' THEN PERFORM public.admin_grant_cosmetic(p_user,v_key,btrim(p_reason));
-      ELSIF p_action='badge' THEN PERFORM public.admin_grant_badge(p_user,v_key,btrim(p_reason)); END IF;
-      v_result:=jsonb_build_object('ok',true,'message','Unlockable granted.');
-    END IF;
-    UPDATE private.staff_reward_actions SET status='succeeded',result=v_result,finished_at=now() WHERE request_id=p_request;
-  EXCEPTION WHEN OTHERS THEN
-    -- Inner transaction rollback preserves the outer receipt, with no partial gift.
-    GET STACKED DIAGNOSTICS v_error=RETURNED_SQLSTATE;
-    v_result:=jsonb_build_object('ok',false,'message','The action failed; nothing from this request was granted. Check eligibility, inventory limits and enabled catalog entries before a new attempt.');
-    UPDATE private.staff_reward_actions SET status='failed',result=v_result,error_code=v_error,finished_at=now() WHERE request_id=p_request;
-  END;
-  RETURN v_result||jsonb_build_object('requestId',p_request,'replayed',false);
-END $function$
-;
-create or replace function public.admin_save_pass_rewards(p_daily jsonb,p_weekly jsonb) returns jsonb language plpgsql security definer set search_path='' as $$begin perform private.require_staff_edit();raise exception 'Open Game Configuration / Pass rewards to edit daily and weekly gifts.';end $$;
+-- Exact reviewed SQL payload; encoding preserves original function line endings.
+-- Decoded SHA256: c734ca70cb4ec72339a8ecc600304172cc9ad659ea1e2705d4908b10fa7f3110
+DO $pass_packet$ BEGIN
+ EXECUTE convert_from(decode($payload$
+ZG8gJGd1YXJkJCBiZWdpbg0KaWYgbWQ1KHBnX2dldF9mdW5jdGlvbmRlZigncHJpdmF0ZS5wZXJz
+aXN0X3N0YWZmX2dpZnQodXVpZCxpbnRlZ2VyLGludGVnZXIsdGV4dCx0ZXh0LHRleHQsdXVpZCxi
+b29sZWFuLHRleHQsdGV4dCx0ZXh0LHRleHQsdGV4dCknOjpyZWdwcm9jZWR1cmUpKSBpcyBkaXN0
+aW5jdCBmcm9tICc5MjY2ZjRiMDgwZmY5ZTY2MWQ1MzA1YzA5NDNhZjI1NycgdGhlbiByYWlzZSBl
+eGNlcHRpb24gJ1NvdXJjZSBkcmlmdDogY2Fub25pY2FsIGdlbmVyYXRvcic7ZW5kIGlmOw0KaWYg
+bWQ1KHBnX2dldF9mdW5jdGlvbmRlZigncHVibGljLmFkbWluX3NhdmVfcGFzc19yZXdhcmRzKGpz
+b25iLGpzb25iKSc6OnJlZ3Byb2NlZHVyZSkpIGlzIGRpc3RpbmN0IGZyb20gJ2VmZWRkZTBjYjQ5
+MDk1MWZmYWQ5MTE1YzAyMTFmMDNkJyB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnU291cmNlIGRyaWZ0
+OiBhZG1pbl9zYXZlX3Bhc3NfcmV3YXJkcyc7ZW5kIGlmOw0KaWYgbWQ1KHBnX2dldF9mdW5jdGlv
+bmRlZigncHVibGljLnBsYXlfY2xhaW1fcGFzcyh0ZXh0KSc6OnJlZ3Byb2NlZHVyZSkpIGlzIGRp
+c3RpbmN0IGZyb20gJ2JlNjY1ZGUzNDQzOGIzMDU1NDQxZjVlYWQyNTk0ZGM0JyB0aGVuIHJhaXNl
+IGV4Y2VwdGlvbiAnU291cmNlIGRyaWZ0OiBwbGF5X2NsYWltX3Bhc3MnO2VuZCBpZjsNCmlmIG1k
+NShwZ19nZXRfZnVuY3Rpb25kZWYoJ3B1YmxpYy5wbGF5X3N0b3JlKCknOjpyZWdwcm9jZWR1cmUp
+KSBpcyBkaXN0aW5jdCBmcm9tICdmMGY0MzU3NDNiMDc2ZTgzNTZhNjdmNThjMDFmMGU1NicgdGhl
+biByYWlzZSBleGNlcHRpb24gJ1NvdXJjZSBkcmlmdDogcGxheV9zdG9yZSc7ZW5kIGlmOw0KaWYg
+bWQ1KHBnX2dldF9mdW5jdGlvbmRlZigncHVibGljLmFkbWluX3RyYWluZXJfcmV3YXJkX2FjdGlv
+bih1dWlkLHV1aWQsdGV4dCxqc29uYix0ZXh0KSc6OnJlZ3Byb2NlZHVyZSkpIGlzIGRpc3RpbmN0
+IGZyb20gJzdlNThiNmQ1ZjdjYjY0N2U1ZjQxNGQ1M2NjYjI3ZDg3JyB0aGVuIHJhaXNlIGV4Y2Vw
+dGlvbiAnU291cmNlIGRyaWZ0OiBhZG1pbl90cmFpbmVyX3Jld2FyZF9hY3Rpb24nO2VuZCBpZjsN
+CmlmIHRvX3JlZ2NsYXNzKCdwcml2YXRlLmh1Yl9wYXNzX3NldHRpbmdzJykgaXMgbm90IG51bGwg
+dGhlbiByYWlzZSBleGNlcHRpb24gJ1Bhc3MgbWlncmF0aW9uIGNvbmZsaWN0cy4nO2VuZCBpZjtl
+bmQgJGd1YXJkJDsNCi0tIEV4cGFuZGVkIFBhc3MgYnVuZGxlcy4gUHJpdmF0ZSBkZWZpbml0aW9u
+cywgYXRvbWljIHJlY2VpcHRzLCBleGFjdCBsZWdhY3kgY29udmVyc2lvbi4NCmNyZWF0ZSB2aWV3
+IHByaXZhdGUuaHViX3Jld2FyZF9jYXRhbG9nIHdpdGggKHNlY3VyaXR5X2ludm9rZXI9dHJ1ZSkg
+YXMNCndpdGggY29yZShpZCxraW5kLG5hbWUsc3ByaXRlLGNhdGVnb3J5LHRhcmdldF9rZXkpIGFz
+ICh2YWx1ZXMNCiAoJ2l0ZW06YmVycnknLCdpdGVtJywnQmVycnknLCdpbWFnZXMvaXRlbXMvb3Jh
+bi1iZXJyeS5wbmcnLCdCZXJyaWVzJywnYmVycnknKSwNCiAoJ2l0ZW06YmFpdCcsJ2l0ZW0nLCdI
+b25leScsJ2ltYWdlcy9pdGVtcy9ob25leS5wbmcnLCdDYXB0dXJlIHRvb2xzJywnYmFpdCcpLA0K
+ICgnaXRlbTpwb2tlYmFsbCcsJ2l0ZW0nLCdQb2vDqSBCYWxsJywnaW1hZ2VzL2l0ZW1zL3Bva2Ut
+YmFsbC5wbmcnLCdQb2vDqSBCYWxscycsJ3Bva2ViYWxsJyksDQogKCdpdGVtOmdyZWF0YmFsbCcs
+J2l0ZW0nLCdHcmVhdCBCYWxsJywnaW1hZ2VzL2l0ZW1zL2dyZWF0LWJhbGwucG5nJywnUG9rw6kg
+QmFsbHMnLCdncmVhdGJhbGwnKSwNCiAoJ2l0ZW06dWx0cmFiYWxsJywnaXRlbScsJ1VsdHJhIEJh
+bGwnLCdpbWFnZXMvaXRlbXMvdWx0cmEtYmFsbC5wbmcnLCdQb2vDqSBCYWxscycsJ3VsdHJhYmFs
+bCcpLA0KICgnaXRlbTpsdXJlJywnaXRlbScsJ1Bva8OpIFJhZGFyJywnaW1hZ2VzL2l0ZW1zL3Bv
+a2UtcmFkYXIucG5nJywnQ2FwdHVyZSB0b29scycsJ2x1cmUnKSwNCiAoJ2NvaW5zJywnY29pbnMn
+LCdQb2vDqUNvaW5zJywnaW1hZ2VzL2l0ZW1zL3Bva2Vjb2luLnBuZycsJ0N1cnJlbmN5JywnY29p
+bnMnKSwNCiAoJ3NwYWNlJywnc3BhY2UnLCdJbnZlbnRvcnkgU3BhY2UnLCdpbWFnZXMvaXRlbXMv
+aW52ZW50b3J5LWJhZy5wbmcnLCdDYXBhY2l0eScsJ2JhZ19ib251cycpLA0KICgnaXRlbTpmaXJl
+c3RvbmUnLCdpdGVtJywnRmlyZSBTdG9uZScsJ2ltYWdlcy9pdGVtcy9maXJlLXN0b25lLnBuZycs
+J0V2b2x1dGlvbiBpdGVtcycsJ2ZpcmVzdG9uZScpLA0KICgnaXRlbTp3YXRlcnN0b25lJywnaXRl
+bScsJ1dhdGVyIFN0b25lJywnaW1hZ2VzL2l0ZW1zL3dhdGVyLXN0b25lLnBuZycsJ0V2b2x1dGlv
+biBpdGVtcycsJ3dhdGVyc3RvbmUnKSwNCiAoJ2l0ZW06dGh1bmRlcnN0b25lJywnaXRlbScsJ1Ro
+dW5kZXIgU3RvbmUnLCdpbWFnZXMvaXRlbXMvdGh1bmRlci1zdG9uZS5wbmcnLCdFdm9sdXRpb24g
+aXRlbXMnLCd0aHVuZGVyc3RvbmUnKSwNCiAoJ2l0ZW06bGVhZnN0b25lJywnaXRlbScsJ0xlYWYg
+U3RvbmUnLCdpbWFnZXMvaXRlbXMvbGVhZi1zdG9uZS5wbmcnLCdFdm9sdXRpb24gaXRlbXMnLCds
+ZWFmc3RvbmUnKSwNCiAoJ2l0ZW06bW9vbnN0b25lJywnaXRlbScsJ01vb24gU3RvbmUnLCdpbWFn
+ZXMvaXRlbXMvbW9vbi1zdG9uZS5wbmcnLCdFdm9sdXRpb24gaXRlbXMnLCdtb29uc3RvbmUnKSwN
+CiAoJ2l0ZW06bGlua2luZ2NvcmQnLCdpdGVtJywnTGlua2luZyBDb3JkJywnaW1hZ2VzL2l0ZW1z
+L2xpbmtpbmctY29yZC5wbmcnLCdFdm9sdXRpb24gaXRlbXMnLCdsaW5raW5nY29yZCcpLA0KICgn
+aXRlbTpyYXJlY2FuZHknLCdpdGVtJywnUmFyZSBDYW5keScsJ2ltYWdlcy9pdGVtcy9yYXJlLWNh
+bmR5LnBuZycsJ0V2b2x1dGlvbiBpdGVtcycsJ3JhcmVjYW5keScpDQopLCBhbGxfcm93cyBhcyAo
+DQogc2VsZWN0ICosbnVsbDo6aW50IHRhcmdldF9udW1iZXIsdHJ1ZSBlbmFibGVkIGZyb20gY29y
+ZQ0KIHVuaW9uIGFsbCBzZWxlY3QgJ2l0ZW06J3x8Yi5rZXksJ2l0ZW0nLGIubmFtZSxjYXNlIHdo
+ZW4gYi5pbWFnZSBsaWtlICdpbWFnZXMvJScgdGhlbiBiLmltYWdlIGVsc2UgJ2ltYWdlcy9pdGVt
+cy8nfHxiLmltYWdlIGVuZCwnUG9rw6kgQmFsbHMnLGIua2V5LG51bGwsYi5lbmFibGVkIGZyb20g
+cHVibGljLmNhcHR1cmVfYmFsbHMgYiB3aGVyZSBub3QgZXhpc3RzKHNlbGVjdCAxIGZyb20gY29y
+ZSB3aGVyZSB0YXJnZXRfa2V5PWIua2V5KQ0KIHVuaW9uIGFsbCBzZWxlY3QgJ2l0ZW06J3x8Yi5r
+ZXksJ2l0ZW0nLGIubmFtZSxjYXNlIHdoZW4gYi5zcHJpdGUgbGlrZSAnaW1hZ2VzLyUnIHRoZW4g
+Yi5zcHJpdGUgZWxzZSAnaW1hZ2VzL2l0ZW1zLyd8fGIuc3ByaXRlIGVuZCwnQmVycmllcycsYi5r
+ZXksbnVsbCxiLmVuYWJsZWQgZnJvbSBwdWJsaWMuY2FwdHVyZV9iZXJyaWVzIGIgd2hlcmUgbm90
+IGV4aXN0cyhzZWxlY3QgMSBmcm9tIGNvcmUgd2hlcmUgdGFyZ2V0X2tleT1iLmtleSkNCiB1bmlv
+biBhbGwgc2VsZWN0ICdpdGVtOid8fHAuaXRlbV9zbHVnLCdpdGVtJyxjLmRpc3BsYXlfbmFtZSxj
+LnNwcml0ZV9wYXRoLCdPdGhlciBpdGVtcycscC5pdGVtX3NsdWcsbnVsbCxwLmludmVudG9yeV9l
+bmFibGVkIGFuZCAocC5hZG1pbl9ncmFudF9lbmFibGVkIG9yIHAubWFydF9idXlfZW5hYmxlZCkg
+ZnJvbSBwdWJsaWMuaXRlbV9wb2xpY3kgcCBqb2luIHB1YmxpYy5pdGVtX2NhdGFsb2cgYyBvbiBj
+LnNsdWc9cC5pdGVtX3NsdWcgd2hlcmUgcC5pbnZlbnRvcnlfZW5hYmxlZCBhbmQgbm90IGV4aXN0
+cyhzZWxlY3QgMSBmcm9tIGNvcmUgd2hlcmUgdGFyZ2V0X2tleT1wLml0ZW1fc2x1ZykgYW5kIG5v
+dCBleGlzdHMoc2VsZWN0IDEgZnJvbSBwdWJsaWMuY2FwdHVyZV9iYWxscyBiIHdoZXJlIGIua2V5
+PXAuaXRlbV9zbHVnKSBhbmQgbm90IGV4aXN0cyhzZWxlY3QgMSBmcm9tIHB1YmxpYy5jYXB0dXJl
+X2JlcnJpZXMgYiB3aGVyZSBiLmtleT1wLml0ZW1fc2x1ZykNCiB1bmlvbiBhbGwgc2VsZWN0ICdj
+YW5keTonfHxmLmlkLCdjYW5keScsZi5uYW1lfHwnIEV2b2x1dGlvbiBDYW5keScsJ2ltYWdlcy9p
+dGVtcy9ldm9sdXRpb24tY2FuZHkvJ3x8Zi5pZHx8Jy5wbmcnLCdFdm9sdXRpb24gQ2FuZHknLG51
+bGwsZi5pZCx0cnVlIGZyb20gcHVibGljLmV2b2x1dGlvbl9mYW1pbGllcyBmIHdoZXJlIGYuaWQg
+aW4gKHNlbGVjdCBkaXN0aW5jdCBjb2FsZXNjZShudWxsaWYocy5mYW1pbHlfY2FuZHlfc3BlY2ll
+c19pZCwwKSxzLmZhbWlseV9pZCxzLmRleCkgZnJvbSBwdWJsaWMuc3BlY2llcyBzIHdoZXJlIHMu
+ZGV4IGJldHdlZW4gMSBhbmQgMTUxKQ0KIHVuaW9uIGFsbCBzZWxlY3QgJ3Bva2Vtb246J3x8cy5k
+ZXgsJ3Bva2Vtb24nLHMubmFtZSwnaW1hZ2VzL3Bva2Vtb24vaG9tZS8nfHxzLmRleHx8Jy5wbmcn
+LCdQb2vDqW1vbicsbnVsbCxzLmRleCx0cnVlIGZyb20gcHVibGljLnNwZWNpZXMgcyB3aGVyZSBz
+LmRleCBiZXR3ZWVuIDEgYW5kIDE1MQ0KKQ0Kc2VsZWN0IGlkLGtpbmQsY29hbGVzY2UobmFtZSxp
+bml0Y2FwKGlkKSkgbmFtZSxjYXNlIHdoZW4gc3ByaXRlIH4gJ15pbWFnZXMvW2EtekEtWjAtOV8u
+Ly1dK1suXShwbmd8d2VicHxzdmcpJCcgYW5kIHNwcml0ZSBub3QgbGlrZSAnJS4uJScgdGhlbiBz
+cHJpdGUgZWxzZSAnaW1hZ2VzL2l0ZW1zL3NlY3JldC1naWZ0LnN2ZycgZW5kIHNwcml0ZSxjYXRl
+Z29yeSx0YXJnZXRfa2V5LHRhcmdldF9udW1iZXIsY29hbGVzY2UoZW5hYmxlZCxmYWxzZSkgZW5h
+YmxlZCxjYXNlIHdoZW4ga2luZD0ncG9rZW1vbicgdGhlbiAxMDAgZWxzZSAxMDAwMCBlbmQgbWF4
+X3F1YW50aXR5LGlkPD4naXRlbTptYXN0ZXJiYWxsJyBzaG9wX2FsbG93ZWQsdHJ1ZSBwYXNzX2Fs
+bG93ZWQsdHJ1ZSBzdGFmZl9hbGxvd2VkIGZyb20gYWxsX3Jvd3M7DQpyZXZva2UgYWxsIG9uIHBy
+aXZhdGUuaHViX3Jld2FyZF9jYXRhbG9nIGZyb20gcHVibGljLGFub24sYXV0aGVudGljYXRlZDsN
+CmNyZWF0ZSBmdW5jdGlvbiBwcml2YXRlLmh1Yl92YWxpZGF0ZV9yZXdhcmRzKHBfYnVuZGxlIGpz
+b25iLHBfY29udGV4dCB0ZXh0KSByZXR1cm5zIGpzb25iDQpsYW5ndWFnZSBwbHBnc3FsIHN0YWJs
+ZSBzZXQgc2VhcmNoX3BhdGg9JycgYXMgJCQNCmRlY2xhcmUgZW50cnkganNvbmI7IGl0ZW0gcHJp
+dmF0ZS5odWJfcmV3YXJkX2NhdGFsb2c7IHF0eSBudW1lcmljOyBsdmwgbnVtZXJpYzsNCmJlZ2lu
+DQogaWYgcF9jb250ZXh0IGlzIG51bGwgb3IgcF9jb250ZXh0IG5vdCBpbiAoJ3Nob3AnLCdwYXNz
+Jywnc3RhZmYnKSB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnVW5rbm93biByZXdhcmQgdXNlLic7IGVu
+ZCBpZjsNCiBpZiBwX2J1bmRsZSBpcyBudWxsIG9yIGpzb25iX3R5cGVvZihwX2J1bmRsZSk8Pidv
+YmplY3QnIG9yIHBfYnVuZGxlLT4ndmVyc2lvbicgaXMgZGlzdGluY3QgZnJvbSAnMic6Ompzb25i
+IG9yDQogKHNlbGVjdCBjb3VudCgqKSBmcm9tIGpzb25iX29iamVjdF9rZXlzKHBfYnVuZGxlKSk8
+PjIgb3IganNvbmJfdHlwZW9mKHBfYnVuZGxlLT4ncmV3YXJkcycpIGlzIGRpc3RpbmN0IGZyb20g
+J2FycmF5JyB0aGVuDQogcmFpc2UgZXhjZXB0aW9uICdJbnZhbGlkIHJld2FyZCBidW5kbGUuJzsg
+ZW5kIGlmOw0KIGlmIGpzb25iX2FycmF5X2xlbmd0aChwX2J1bmRsZS0+J3Jld2FyZHMnKSBub3Qg
+YmV0d2VlbiAxIGFuZCAxMDAgdGhlbiByYWlzZSBleGNlcHRpb24gJ0Nob29zZSBiZXR3ZWVuIDEg
+YW5kIDEwMCByZXdhcmRzLic7IGVuZCBpZjsNCiBmb3IgZW50cnkgaW4gc2VsZWN0IHZhbHVlIGZy
+b20ganNvbmJfYXJyYXlfZWxlbWVudHMocF9idW5kbGUtPidyZXdhcmRzJykgbG9vcA0KICBpZiBq
+c29uYl90eXBlb2YoZW50cnkpPD4nb2JqZWN0JyB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnSW52YWxp
+ZCByZXdhcmQuJzsgZW5kIGlmOw0KICBpZiBleGlzdHMoc2VsZWN0IDEgZnJvbSBqc29uYl9vYmpl
+Y3Rfa2V5cyhlbnRyeSkgayB3aGVyZSBrIG5vdCBpbiAoJ2NhdGFsb2dJZCcsJ3F1YW50aXR5Jywn
+c2VjcmV0JywnbGV2ZWwnLCdzaGlueScpKSB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnVW5rbm93biBy
+ZXdhcmQgb3B0aW9uLic7IGVuZCBpZjsNCiAgaWYganNvbmJfdHlwZW9mKGVudHJ5LT4nY2F0YWxv
+Z0lkJykgaXMgZGlzdGluY3QgZnJvbSAnc3RyaW5nJyBvciBqc29uYl90eXBlb2YoZW50cnktPidx
+dWFudGl0eScpIGlzIGRpc3RpbmN0IGZyb20gJ251bWJlcicgb3IganNvbmJfdHlwZW9mKGVudHJ5
+LT4nc2VjcmV0JykgaXMgZGlzdGluY3QgZnJvbSAnYm9vbGVhbicgdGhlbiByYWlzZSBleGNlcHRp
+b24gJ0ludmFsaWQgcmV3YXJkIGRldGFpbHMuJzsgZW5kIGlmOw0KICBzZWxlY3QgKiBpbnRvIGl0
+ZW0gZnJvbSBwcml2YXRlLmh1Yl9yZXdhcmRfY2F0YWxvZyB3aGVyZSBpZD1lbnRyeS0+PidjYXRh
+bG9nSWQnOw0KICBpZiBub3QgZm91bmQgb3IgaXRlbS5lbmFibGVkIGlzIG5vdCB0cnVlIHRoZW4g
+cmFpc2UgZXhjZXB0aW9uICdSZXdhcmQgdW5hdmFpbGFibGUuJzsgZW5kIGlmOw0KICBpZiAocF9j
+b250ZXh0PSdzaG9wJyBhbmQgKGl0ZW0uc2hvcF9hbGxvd2VkIGlzIG5vdCB0cnVlIG9yIGl0ZW0u
+aWQ9J2l0ZW06bWFzdGVyYmFsbCcpKSBvcg0KICAgICAocF9jb250ZXh0PSdwYXNzJyBhbmQgaXRl
+bS5wYXNzX2FsbG93ZWQgaXMgbm90IHRydWUpIG9yDQogICAgIChwX2NvbnRleHQ9J3N0YWZmJyBh
+bmQgaXRlbS5zdGFmZl9hbGxvd2VkIGlzIG5vdCB0cnVlKSB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAn
+UmV3YXJkIHVuYXZhaWxhYmxlIGZvciB0aGlzIHVzZS4nOyBlbmQgaWY7DQogIHF0eTo9KGVudHJ5
+LT4+J3F1YW50aXR5Jyk6Om51bWVyaWM7DQogIGlmIHF0eTw+dHJ1bmMocXR5KSBvciBxdHk8MSBv
+ciBxdHk+aXRlbS5tYXhfcXVhbnRpdHkgdGhlbiByYWlzZSBleGNlcHRpb24gJ0ludmFsaWQgcmV3
+YXJkIHF1YW50aXR5Lic7IGVuZCBpZjsNCiAgaWYgaXRlbS5raW5kPSdwb2tlbW9uJyB0aGVuDQog
+ICBpZiBqc29uYl90eXBlb2YoZW50cnktPidsZXZlbCcpIGlzIGRpc3RpbmN0IGZyb20gJ251bWJl
+cicgb3IganNvbmJfdHlwZW9mKGVudHJ5LT4nc2hpbnknKSBpcyBkaXN0aW5jdCBmcm9tICdib29s
+ZWFuJyB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnSW52YWxpZCBQb2tlbW9uIG9wdGlvbnMuJzsgZW5k
+IGlmOw0KICAgbHZsOj0oZW50cnktPj4nbGV2ZWwnKTo6bnVtZXJpYzsNCiAgIGlmIGx2bDw+dHJ1
+bmMobHZsKSBvciBsdmw8MSBvciBsdmw+MTAwIHRoZW4gcmFpc2UgZXhjZXB0aW9uICdJbnZhbGlk
+IFBva2Vtb24gbGV2ZWwuJzsgZW5kIGlmOw0KICBlbHNpZiBlbnRyeSA/ICdsZXZlbCcgb3IgZW50
+cnkgPyAnc2hpbnknIHRoZW4gcmFpc2UgZXhjZXB0aW9uICdPbmx5IFBva2Vtb24gaGF2ZSBsZXZl
+bCBhbmQgYXBwZWFyYW5jZSBvcHRpb25zLic7DQogIGVuZCBpZjsNCiBlbmQgbG9vcDsNCiBpZiBl
+eGlzdHMoc2VsZWN0IDEgZnJvbSBqc29uYl9hcnJheV9lbGVtZW50cyhwX2J1bmRsZS0+J3Jld2Fy
+ZHMnKSBlIGpvaW4gcHJpdmF0ZS5odWJfcmV3YXJkX2NhdGFsb2cgYyBvbiBjLmlkPWUtPj4nY2F0
+YWxvZ0lkJyBncm91cCBieSBjLmlkLGMubWF4X3F1YW50aXR5IGhhdmluZyBzdW0oKGUtPj4ncXVh
+bnRpdHknKTo6bnVtZXJpYyk+Yy5tYXhfcXVhbnRpdHkpIHRoZW4gcmFpc2UgZXhjZXB0aW9uICdD
+b21iaW5lZCBxdWFudGl0eSBleGNlZWRzIHRoaXMgcmV3YXJkIGxpbWl0Lic7IGVuZCBpZjsNCiBp
+ZiAoc2VsZWN0IGNvYWxlc2NlKHN1bSgoZS0+PidxdWFudGl0eScpOjpudW1lcmljKSwwKSBmcm9t
+IGpzb25iX2FycmF5X2VsZW1lbnRzKHBfYnVuZGxlLT4ncmV3YXJkcycpIGUgam9pbiBwcml2YXRl
+Lmh1Yl9yZXdhcmRfY2F0YWxvZyBjIG9uIGMuaWQ9ZS0+PidjYXRhbG9nSWQnIHdoZXJlIGMua2lu
+ZD0ncG9rZW1vbicpPjEwMCB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnQSBidW5kbGUgY2FuIGNvbnRh
+aW4gYXQgbW9zdCAxMDAgUG9rZW1vbi4nOyBlbmQgaWY7DQogcmV0dXJuIHBfYnVuZGxlOw0KZW5k
+Ow0KJCQ7DQpyZXZva2UgYWxsIG9uIGZ1bmN0aW9uIHByaXZhdGUuaHViX3ZhbGlkYXRlX3Jld2Fy
+ZHMoanNvbmIsdGV4dCkgZnJvbSBwdWJsaWM7DQpjcmVhdGUgZnVuY3Rpb24gcHJpdmF0ZS5odWJf
+cGxheWVyX3Jld2FyZF9wcmV2aWV3KHBfYnVuZGxlIGpzb25iLHBfY29udGV4dCB0ZXh0KSByZXR1
+cm5zIGpzb25iDQpsYW5ndWFnZSBwbHBnc3FsIHN0YWJsZSBzZXQgc2VhcmNoX3BhdGg9JycgYXMg
+JCQNCmRlY2xhcmUgZW50cnkganNvbmI7IGl0ZW0gcHJpdmF0ZS5odWJfcmV3YXJkX2NhdGFsb2c7
+IHJlc3VsdCBqc29uYjo9J1tdJzsNCmJlZ2luDQogcGVyZm9ybSBwcml2YXRlLmh1Yl92YWxpZGF0
+ZV9yZXdhcmRzKHBfYnVuZGxlLHBfY29udGV4dCk7DQogZm9yIGVudHJ5IGluIHNlbGVjdCB2YWx1
+ZSBmcm9tIGpzb25iX2FycmF5X2VsZW1lbnRzKHBfYnVuZGxlLT4ncmV3YXJkcycpIGxvb3ANCiAg
+aWYgKGVudHJ5LT4+J3NlY3JldCcpOjpib29sZWFuIHRoZW4NCiAgIHJlc3VsdDo9cmVzdWx0fHxq
+c29uYl9idWlsZF9hcnJheShqc29uYl9idWlsZF9vYmplY3QoJ25hbWUnLCdTZWNyZXQgR2lmdCcs
+J3Nwcml0ZScsJ2ltYWdlcy9pdGVtcy9zZWNyZXQtZ2lmdC5zdmcnLCdzZWNyZXQnLHRydWUpKTsN
+CiAgZWxzZQ0KICAgc2VsZWN0ICogaW50byBpdGVtIGZyb20gcHJpdmF0ZS5odWJfcmV3YXJkX2Nh
+dGFsb2cgd2hlcmUgaWQ9ZW50cnktPj4nY2F0YWxvZ0lkJzsNCiAgIHJlc3VsdDo9cmVzdWx0fHxq
+c29uYl9idWlsZF9hcnJheShqc29uYl9idWlsZF9vYmplY3QoJ25hbWUnLGl0ZW0ubmFtZSwnc3By
+aXRlJyxpdGVtLnNwcml0ZSwncXVhbnRpdHknLGVudHJ5LT4ncXVhbnRpdHknLCdzZWNyZXQnLGZh
+bHNlKXx8Y2FzZSB3aGVuIGl0ZW0ua2luZD0ncG9rZW1vbicgdGhlbiBqc29uYl9idWlsZF9vYmpl
+Y3QoJ2xldmVsJyxlbnRyeS0+J2xldmVsJywnc2hpbnknLGVudHJ5LT4nc2hpbnknKSBlbHNlICd7
+fSc6Ompzb25iIGVuZCk7DQogIGVuZCBpZjsNCiBlbmQgbG9vcDsNCiByZXR1cm4gcmVzdWx0Ow0K
+ZW5kOw0KJCQ7DQpyZXZva2UgYWxsIG9uIGZ1bmN0aW9uIHByaXZhdGUuaHViX3BsYXllcl9yZXdh
+cmRfcHJldmlldyhqc29uYix0ZXh0KSBmcm9tIHB1YmxpYzsNCg0KY3JlYXRlIHRhYmxlIHByaXZh
+dGUuaHViX3Bhc3Nfc2V0dGluZ3MoaWQgYm9vbGVhbiBwcmltYXJ5IGtleSBkZWZhdWx0IHRydWUg
+Y2hlY2soaWQpLGRhaWx5IGpzb25iIG5vdCBudWxsLHdlZWtseSBqc29uYiBub3QgbnVsbCxyZXZp
+c2lvbiBiaWdpbnQgbm90IG51bGwgZGVmYXVsdCAxLHVwZGF0ZWRfYnkgdXVpZCx1cGRhdGVkX2F0
+IHRpbWVzdGFtcHR6IG5vdCBudWxsIGRlZmF1bHQgbm93KCkpOw0KY3JlYXRlIHRhYmxlIHByaXZh
+dGUuaHViX3Bhc3Nfc2V0dGluZ3NfaGlzdG9yeShpZCBiaWdpbnQgZ2VuZXJhdGVkIGFsd2F5cyBh
+cyBpZGVudGl0eSBwcmltYXJ5IGtleSxhY3Rvcl9pZCB1dWlkLHJlcXVlc3RfaWQgdXVpZCB1bmlx
+dWUsYmVmb3JlX3ZhbHVlIGpzb25iIG5vdCBudWxsLGFmdGVyX3ZhbHVlIGpzb25iIG5vdCBudWxs
+LGFmdGVyX3JldmlzaW9uIGJpZ2ludCBub3QgbnVsbCxjcmVhdGVkX2F0IHRpbWVzdGFtcHR6IG5v
+dCBudWxsIGRlZmF1bHQgbm93KCkpOw0KY3JlYXRlIHRhYmxlIHByaXZhdGUuaHViX3Jld2FyZF9k
+ZWxpdmVyaWVzKGlkZW1wb3RlbmN5IHRleHQgcHJpbWFyeSBrZXksYWN0b3JfaWQgdXVpZCBub3Qg
+bnVsbCx0YXJnZXRfaWQgdXVpZCBub3QgbnVsbCxidW5kbGUganNvbmIgbm90IG51bGwsc3RhdHVz
+IHRleHQgbm90IG51bGwgY2hlY2soc3RhdHVzIGluICgncGVuZGluZycsJ2RlbGl2ZXJlZCcpKSxy
+ZXN1bHQganNvbmIsY3JlYXRlZF9hdCB0aW1lc3RhbXB0eiBub3QgbnVsbCBkZWZhdWx0IG5vdygp
+KTsNCmFsdGVyIHRhYmxlIHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3MgZW5hYmxlIHJvdyBsZXZl
+bCBzZWN1cml0eTsNCmFsdGVyIHRhYmxlIHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3NfaGlzdG9y
+eSBlbmFibGUgcm93IGxldmVsIHNlY3VyaXR5Ow0KYWx0ZXIgdGFibGUgcHJpdmF0ZS5odWJfcmV3
+YXJkX2RlbGl2ZXJpZXMgZW5hYmxlIHJvdyBsZXZlbCBzZWN1cml0eTsNCnJldm9rZSBhbGwgb24g
+cHJpdmF0ZS5odWJfcGFzc19zZXR0aW5ncyxwcml2YXRlLmh1Yl9wYXNzX3NldHRpbmdzX2hpc3Rv
+cnkscHJpdmF0ZS5odWJfcmV3YXJkX2RlbGl2ZXJpZXMgZnJvbSBwdWJsaWMsYW5vbixhdXRoZW50
+aWNhdGVkOw0KDQpjcmVhdGUgZnVuY3Rpb24gcHJpdmF0ZS5odWJfY29udmVydF9wYXNzKHBfb2xk
+IGpzb25iKSByZXR1cm5zIGpzb25iIGxhbmd1YWdlIHBscGdzcWwgc3RhYmxlIHNldCBzZWFyY2hf
+cGF0aD0nJyBhcyAkJA0KZGVjbGFyZSByZXN1bHQganNvbmI7YmVnaW4NCiBzZWxlY3QganNvbmJf
+YnVpbGRfb2JqZWN0KCd2ZXJzaW9uJywyLCdyZXdhcmRzJyxqc29uYl9hZ2coanNvbmJfYnVpbGRf
+b2JqZWN0KCdjYXRhbG9nSWQnLGNhc2UgZS5rZXkgd2hlbiAnY29pbnMnIHRoZW4gJ2NvaW5zJyB3
+aGVuICdiYWdfYm9udXMnIHRoZW4gJ3NwYWNlJyBlbHNlICdpdGVtOid8fGUua2V5IGVuZCwncXVh
+bnRpdHknLGUudmFsdWUsJ3NlY3JldCcsZmFsc2UpIG9yZGVyIGJ5IGUua2V5KSkgaW50byByZXN1
+bHQgZnJvbSBqc29uYl9lYWNoKHBfb2xkKSBlOw0KIHJldHVybiBwcml2YXRlLmh1Yl92YWxpZGF0
+ZV9yZXdhcmRzKHJlc3VsdCwncGFzcycpO2VuZCAkJDsNCnJldm9rZSBhbGwgb24gZnVuY3Rpb24g
+cHJpdmF0ZS5odWJfY29udmVydF9wYXNzKGpzb25iKSBmcm9tIHB1YmxpYzsNCmluc2VydCBpbnRv
+IHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3MoaWQsZGFpbHksd2Vla2x5KSB2YWx1ZXModHJ1ZSxw
+cml2YXRlLmh1Yl9jb252ZXJ0X3Bhc3MocHJpdmF0ZS5wYXNzX3Jld2FyZF9ncmFudHMoJ2RhaWx5
+JykpLHByaXZhdGUuaHViX2NvbnZlcnRfcGFzcyhwcml2YXRlLnBhc3NfcmV3YXJkX2dyYW50cygn
+d2Vla2x5JykpKTsNCmluc2VydCBpbnRvIHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3NfaGlzdG9y
+eShhY3Rvcl9pZCxiZWZvcmVfdmFsdWUsYWZ0ZXJfdmFsdWUsYWZ0ZXJfcmV2aXNpb24pIHNlbGVj
+dCBudWxsLGpzb25iX2J1aWxkX29iamVjdCgnZGFpbHknLHByaXZhdGUucGFzc19yZXdhcmRfZ3Jh
+bnRzKCdkYWlseScpLCd3ZWVrbHknLHByaXZhdGUucGFzc19yZXdhcmRfZ3JhbnRzKCd3ZWVrbHkn
+KSksanNvbmJfYnVpbGRfb2JqZWN0KCdkYWlseScsZGFpbHksJ3dlZWtseScsd2Vla2x5KSxyZXZp
+c2lvbiBmcm9tIHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3M7DQoNCmNyZWF0ZSBmdW5jdGlvbiBw
+dWJsaWMuYWRtaW5fcGFzc19yZXdhcmRzX3JlYWQoKSByZXR1cm5zIGpzb25iIGxhbmd1YWdlIHBs
+cGdzcWwgc2VjdXJpdHkgZGVmaW5lciBzZXQgc2VhcmNoX3BhdGg9JycgYXMgJCQNCmJlZ2luIHBl
+cmZvcm0gcHJpdmF0ZS5yZXF1aXJlX3N0YWZmX2VkaXQoKTtyZXR1cm4gKHNlbGVjdCBqc29uYl9i
+dWlsZF9vYmplY3QoJ3JldmlzaW9uJyxyZXZpc2lvbjo6dGV4dCwnZGFpbHknLGRhaWx5LT4ncmV3
+YXJkcycsJ3dlZWtseScsd2Vla2x5LT4ncmV3YXJkcycsJ2NhdGFsb2cnLChzZWxlY3QganNvbmJf
+YWdnKGpzb25iX2J1aWxkX29iamVjdCgnaWQnLGlkLCdraW5kJyxraW5kLCduYW1lJyxuYW1lLCdz
+cHJpdGUnLHNwcml0ZSwnY2F0ZWdvcnknLGNhdGVnb3J5LCdlbmFibGVkJyxlbmFibGVkLCdtYXhR
+dWFudGl0eScsbWF4X3F1YW50aXR5KSBvcmRlciBieSBjYXRlZ29yeSxuYW1lKSBmcm9tIHByaXZh
+dGUuaHViX3Jld2FyZF9jYXRhbG9nKSkgZnJvbSBwcml2YXRlLmh1Yl9wYXNzX3NldHRpbmdzIHdo
+ZXJlIGlkKTtlbmQgJCQ7DQpyZXZva2UgYWxsIG9uIGZ1bmN0aW9uIHB1YmxpYy5hZG1pbl9wYXNz
+X3Jld2FyZHNfcmVhZCgpIGZyb20gcHVibGljLGFub247DQpncmFudCBleGVjdXRlIG9uIGZ1bmN0
+aW9uIHB1YmxpYy5hZG1pbl9wYXNzX3Jld2FyZHNfcmVhZCgpIHRvIGF1dGhlbnRpY2F0ZWQ7DQoN
+CmNyZWF0ZSBmdW5jdGlvbiBwdWJsaWMuYWRtaW5fcGFzc19yZXdhcmRzX3NhdmUocF9yZXF1ZXN0
+IHV1aWQscF9yZXZpc2lvbiB0ZXh0LHBfZGFpbHkganNvbmIscF93ZWVrbHkganNvbmIpIHJldHVy
+bnMganNvbmIgbGFuZ3VhZ2UgcGxwZ3NxbCBzZWN1cml0eSBkZWZpbmVyIHNldCBzZWFyY2hfcGF0
+aD0nJyBhcyAkJA0KZGVjbGFyZSBvbGQgcHJpdmF0ZS5odWJfcGFzc19zZXR0aW5ncztwcmlvciBw
+cml2YXRlLmh1Yl9wYXNzX3NldHRpbmdzX2hpc3Rvcnk7dl9hZnRlciBqc29uYjtiZWdpbg0KIHBl
+cmZvcm0gcHJpdmF0ZS5yZXF1aXJlX3N0YWZmX2VkaXQoKTtpZiBhdXRoLnVpZCgpIGlzIG51bGwg
+b3IgcF9yZXF1ZXN0IGlzIG51bGwgdGhlbiByYWlzZSBleGNlcHRpb24gJ1NpZ24gaW4gYW5kIHJl
+bG9hZCByZXdhcmRzLicgdXNpbmcgZXJyY29kZT0nNDI1MDEnO2VuZCBpZjsNCiBzZWxlY3QgKiBp
+bnRvIG9sZCBmcm9tIHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3Mgd2hlcmUgaWQgZm9yIHVwZGF0
+ZTsNCiBzZWxlY3QgKiBpbnRvIHByaW9yIGZyb20gcHJpdmF0ZS5odWJfcGFzc19zZXR0aW5nc19o
+aXN0b3J5IHdoZXJlIHJlcXVlc3RfaWQ9cF9yZXF1ZXN0Ow0KIHZfYWZ0ZXI6PWpzb25iX2J1aWxk
+X29iamVjdCgnZGFpbHknLHByaXZhdGUuaHViX3ZhbGlkYXRlX3Jld2FyZHMocF9kYWlseSwncGFz
+cycpLCd3ZWVrbHknLHByaXZhdGUuaHViX3ZhbGlkYXRlX3Jld2FyZHMocF93ZWVrbHksJ3Bhc3Mn
+KSk7DQogaWYgZm91bmQgdGhlbiBpZiBwcmlvci5hY3Rvcl9pZCBpcyBkaXN0aW5jdCBmcm9tIGF1
+dGgudWlkKCkgb3IgcHJpb3IuYWZ0ZXJfdmFsdWUgaXMgZGlzdGluY3QgZnJvbSB2X2FmdGVyIHRo
+ZW4gcmFpc2UgZXhjZXB0aW9uICdSZXF1ZXN0IGRvZXMgbm90IG1hdGNoIHRoZSBzYXZlZCBjaGFu
+Z2VzLic7ZW5kIGlmO3JldHVybiBqc29uYl9idWlsZF9vYmplY3QoJ3N0YXR1cycsJ3NhdmVkJywn
+cmVxdWVzdElkJyxwX3JlcXVlc3QsJ3JldmlzaW9uJyxwcmlvci5hZnRlcl9yZXZpc2lvbjo6dGV4
+dCwncmVwbGF5ZWQnLHRydWUpO2VuZCBpZjsNCiBpZiBwX3JldmlzaW9uIGlzIGRpc3RpbmN0IGZy
+b20gb2xkLnJldmlzaW9uOjp0ZXh0IHRoZW4gcmFpc2UgZXhjZXB0aW9uICdSZXdhcmRzIGNoYW5n
+ZWQuIFJlbG9hZCBiZWZvcmUgc2F2aW5nLicgdXNpbmcgZXJyY29kZT0nNDAwMDEnO2VuZCBpZjsN
+CiBpbnNlcnQgaW50byBwcml2YXRlLmh1Yl9wYXNzX3NldHRpbmdzX2hpc3RvcnkoYWN0b3JfaWQs
+cmVxdWVzdF9pZCxiZWZvcmVfdmFsdWUsYWZ0ZXJfdmFsdWUsYWZ0ZXJfcmV2aXNpb24pIHZhbHVl
+cyhhdXRoLnVpZCgpLHBfcmVxdWVzdCxqc29uYl9idWlsZF9vYmplY3QoJ2RhaWx5JyxvbGQuZGFp
+bHksJ3dlZWtseScsb2xkLndlZWtseSksdl9hZnRlcixvbGQucmV2aXNpb24rMSk7DQogdXBkYXRl
+IHByaXZhdGUuaHViX3Bhc3Nfc2V0dGluZ3Mgc2V0IGRhaWx5PXBfZGFpbHksd2Vla2x5PXBfd2Vl
+a2x5LHJldmlzaW9uPXJldmlzaW9uKzEsdXBkYXRlZF9ieT1hdXRoLnVpZCgpLHVwZGF0ZWRfYXQ9
+bm93KCkgd2hlcmUgaWQ7DQogcmV0dXJuIGpzb25iX2J1aWxkX29iamVjdCgnc3RhdHVzJywnc2F2
+ZWQnLCdyZXF1ZXN0SWQnLHBfcmVxdWVzdCwncmV2aXNpb24nLChvbGQucmV2aXNpb24rMSk6OnRl
+eHQpO2VuZCAkJDsNCnJldm9rZSBhbGwgb24gZnVuY3Rpb24gcHVibGljLmFkbWluX3Bhc3NfcmV3
+YXJkc19zYXZlKHV1aWQsdGV4dCxqc29uYixqc29uYikgZnJvbSBwdWJsaWMsYW5vbjsNCmdyYW50
+IGV4ZWN1dGUgb24gZnVuY3Rpb24gcHVibGljLmFkbWluX3Bhc3NfcmV3YXJkc19zYXZlKHV1aWQs
+dGV4dCxqc29uYixqc29uYikgdG8gYXV0aGVudGljYXRlZDsNCg0KQ1JFQVRFIE9SIFJFUExBQ0Ug
+RlVOQ1RJT04gcHJpdmF0ZS5wZXJzaXN0X3Bhc3NfcmV3YXJkKHBfdXNlcl9pZCB1dWlkLCBwX2Zv
+cm1faWQgaW50ZWdlciwgcF9sZXZlbCBpbnRlZ2VyLCBwX2N0eCB0ZXh0LCBwX3NvdXJjZV9rZXkg
+dGV4dCwgcF9iYWxsIHRleHQgREVGQVVMVCAncG9rZSc6OnRleHQsIHBfcm91bmRfaWQgdXVpZCBE
+RUZBVUxUIE5VTEw6OnV1aWQsIHBfc2hpbnkgYm9vbGVhbiBERUZBVUxUIGZhbHNlLCBwX2NvbnRl
+bnRfYnVpbGQgdGV4dCBERUZBVUxUICdzbC1yZWYtMjAyNjEwMTMtMjI3YjU3Myc6OnRleHQsIHBf
+aGlkZGVuX3RpY2tldCB0ZXh0IERFRkFVTFQgTlVMTDo6dGV4dCwgcF92YXJpYW50IHRleHQgREVG
+QVVMVCAnbm9ybWFsJzo6dGV4dCwgcF9uYW1lIHRleHQgREVGQVVMVCBOVUxMOjp0ZXh0LCBwX2dl
+bmRlciB0ZXh0IERFRkFVTFQgTlVMTDo6dGV4dCkNCiBSRVRVUk5TIGpzb25iDQogTEFOR1VBR0Ug
+cGxwZ3NxbA0KIFNFQ1VSSVRZIERFRklORVINCiBTRVQgc2VhcmNoX3BhdGggVE8gJ3BnX2NhdGFs
+b2cnDQpBUyAkZnVuY3Rpb24kDQoNCkRFQ0xBUkUNCg0KICBjYXRjaF9pZCB1dWlkOw0KDQogIHBy
+ZXAganNvbmI7DQoNCiAgbW9uIGpzb25iOw0KDQogIGxlZ2FsIGpzb25iOw0KDQogIHRpY2tldF91
+dWlkIHV1aWQ7DQoNCiAgdl9uYW1lIHRleHQ7DQoNCiAgdl92YXJpYW50IHRleHQ7DQoNCiAgdl9w
+dWJsaWMgdGV4dDsNCg0KICBsZWdhY3kgdGV4dFtdOw0KDQogIGluc2VydGVkIHV1aWQ7DQoNCkJF
+R0lODQoNCiAgSUYgcF9jdHggSVMgRElTVElOQ1QgRlJPTSAnZ3JhbnQnIE9SIE5PVCBFWElTVFMo
+DQogICAgU0VMRUNUIDEgRlJPTSBwcml2YXRlLmh1Yl9yZXdhcmRfZGVsaXZlcmllcyBkIFdIRVJF
+IGQudGFyZ2V0X2lkPXBfdXNlcl9pZCBBTkQgZC5hY3Rvcl9pZD1hdXRoLnVpZCgpDQogICAgICBB
+TkQgZC5zdGF0dXM9J3BlbmRpbmcnIEFORCBwX3NvdXJjZV9rZXkgTElLRSAnZ3JhbnQ6cGFzczon
+fHxkLmlkZW1wb3RlbmN5fHwnOiUnDQogICkgVEhFTiBSQUlTRSBFWENFUFRJT04gJ0FuIGF1dGhv
+cml6ZWQgcGVuZGluZyBQYXNzIGRlbGl2ZXJ5IGlzIHJlcXVpcmVkLicgVVNJTkcgRVJSQ09ERT0n
+NDI1MDEnOyBFTkQgSUY7DQogIElGIHBfdXNlcl9pZCBJUyBOVUxMIFRIRU4NCg0KICAgIFJFVFVS
+TiBqc29uYl9idWlsZF9vYmplY3QoJ29rJywgZmFsc2UsICdlcnJvcnMnLCBqc29uYl9idWlsZF9h
+cnJheSgnbWlzc2luZy11c2VyJykpOw0KDQogIEVORCBJRjsNCg0KICBJRiBwX2N0eCBJUyBOVUxM
+IE9SIHBfY3R4IE5PVCBJTiAoJ2NhdGNoJywgJ2dyYW50JywgJ2V2ZW50JykgVEhFTg0KDQogICAg
+UkVUVVJOIGpzb25iX2J1aWxkX29iamVjdCgnb2snLCBmYWxzZSwgJ2Vycm9ycycsIGpzb25iX2J1
+aWxkX2FycmF5KCdiYWQtY3R4JykpOw0KDQogIEVORCBJRjsNCg0KICBJRiBwX3NvdXJjZV9rZXkg
+SVMgTlVMTCBPUiBidHJpbShwX3NvdXJjZV9rZXkpID0gJycgVEhFTg0KDQogICAgUkVUVVJOIGpz
+b25iX2J1aWxkX29iamVjdCgnb2snLCBmYWxzZSwgJ2Vycm9ycycsIGpzb25iX2J1aWxkX2FycmF5
+KCdtaXNzaW5nLXNvdXJjZS1rZXknKSk7DQoNCiAgRU5EIElGOw0KDQogIElGIHBfY3R4ID0gJ2Nh
+dGNoJyBBTkQgcF9zb3VyY2Vfa2V5IE5PVCBMSUtFICdwbGF5OiUnIFRIRU4NCg0KICAgIFJFVFVS
+TiBqc29uYl9idWlsZF9vYmplY3QoJ29rJywgZmFsc2UsICdlcnJvcnMnLCBqc29uYl9idWlsZF9h
+cnJheSgnYmFkLXNvdXJjZS1rZXknKSk7DQoNCiAgRU5EIElGOw0KDQogIElGIHBfY3R4ID0gJ2dy
+YW50JyBBTkQgcF9zb3VyY2Vfa2V5IE5PVCBMSUtFICdncmFudDolJyBUSEVODQoNCiAgICBSRVRV
+Uk4ganNvbmJfYnVpbGRfb2JqZWN0KCdvaycsIGZhbHNlLCAnZXJyb3JzJywganNvbmJfYnVpbGRf
+YXJyYXkoJ2JhZC1zb3VyY2Uta2V5JykpOw0KDQogIEVORCBJRjsNCg0KICBJRiBwX2N0eCA9ICdl
+dmVudCcgQU5EIHBfc291cmNlX2tleSBOT1QgTElLRSAnZXZlbnQ6JScgVEhFTg0KDQogICAgUkVU
+VVJOIGpzb25iX2J1aWxkX29iamVjdCgnb2snLCBmYWxzZSwgJ2Vycm9ycycsIGpzb25iX2J1aWxk
+X2FycmF5KCdiYWQtc291cmNlLWtleScpKTsNCg0KICBFTkQgSUY7DQoNCiAgSUYgYXV0aC51aWQo
+KSBJUyBESVNUSU5DVCBGUk9NIHBfdXNlcl9pZCBBTkQgcHJpdmF0ZS5zdHJlYW1saW5rX3Byb3Rl
+Y3RlZF90cmFpbmVyKHBfdXNlcl9pZCkgVEhFTg0KDQogICAgUkVUVVJOIGpzb25iX2J1aWxkX29i
+amVjdCgnb2snLCBmYWxzZSwgJ2Vycm9ycycsIGpzb25iX2J1aWxkX2FycmF5KCdwcm90ZWN0ZWQt
+dHJhaW5lcicpKTsNCg0KICBFTkQgSUY7DQoNCg0KDQogIGNhdGNoX2lkIDo9IGdlbl9yYW5kb21f
+dXVpZCgpOw0KDQogIHByZXAgOj0gcHJpdmF0ZS5zdHJlYW1saW5rX2dlbmVyYXRlX3ByZXBhcmUo
+DQoNCiAgICBwX2Zvcm1faWQsIHBfbGV2ZWwsIHBfY3R4LCBjb2FsZXNjZShwX2NvbnRlbnRfYnVp
+bGQsICdzbC1yZWYtMjAyNjEwMTMtMjI3YjU3MycpLCBwX2hpZGRlbl90aWNrZXQNCg0KICApOw0K
+DQogIElGIChwcmVwLT4+J29rJykgSVMgRElTVElOQ1QgRlJPTSAndHJ1ZScgVEhFTg0KDQogICAg
+UkVUVVJOIHByZXA7DQoNCiAgRU5EIElGOw0KDQoNCg0KICBtb24gOj0gcHJpdmF0ZS5zdHJlYW1s
+aW5rX2NvbXBsZXRlX2FuZF9iaW5kKA0KDQogICAgcHJlcCwNCg0KICAgIGNvYWxlc2NlKHBfc2hp
+bnksIGZhbHNlKSwNCg0KICAgIChwcml2YXRlLnN0cmVhbWxpbmtfc2VjdXJlX3UzMigpICUgMjUp
+OjppbnQgKyAxLA0KDQogICAgKHByaXZhdGUuc3RyZWFtbGlua19zZWN1cmVfdTMyKCkgJSAyMTQ3
+NDgzNjQ3KTo6aW50LA0KDQogICAgKHByaXZhdGUuc3RyZWFtbGlua19zZWN1cmVfdTMyKCkgJSAz
+Mik6OmludCwNCg0KICAgIChwcml2YXRlLnN0cmVhbWxpbmtfc2VjdXJlX3UzMigpICUgMzIpOjpp
+bnQsDQoNCiAgICAocHJpdmF0ZS5zdHJlYW1saW5rX3NlY3VyZV91MzIoKSAlIDMyKTo6aW50LA0K
+DQogICAgKHByaXZhdGUuc3RyZWFtbGlua19zZWN1cmVfdTMyKCkgJSAzMik6OmludCwNCg0KICAg
+IChwcml2YXRlLnN0cmVhbWxpbmtfc2VjdXJlX3UzMigpICUgMzIpOjppbnQsDQoNCiAgICAocHJp
+dmF0ZS5zdHJlYW1saW5rX3NlY3VyZV91MzIoKSAlIDMyKTo6aW50LA0KDQogICAgcHJpdmF0ZS5z
+dHJlYW1saW5rX3NlY3VyZV91MzIoKSwNCg0KICAgIGNhdGNoX2lkDQoNCiAgKTsNCg0KICBJRiAo
+bW9uLT4+J29rJykgSVMgRElTVElOQ1QgRlJPTSAndHJ1ZScgVEhFTg0KDQogICAgUkVUVVJOIG1v
+bjsNCg0KICBFTkQgSUY7DQoNCg0KDQogIElGIChwcmVwLT4+J3RpY2tldFV1aWQnKSBJUyBOT1Qg
+TlVMTCBBTkQgYnRyaW0ocHJlcC0+Pid0aWNrZXRVdWlkJykgPD4gJycgVEhFTg0KDQogICAgdGlj
+a2V0X3V1aWQgOj0gKHByZXAtPj4ndGlja2V0VXVpZCcpOjp1dWlkOw0KDQogIEVORCBJRjsNCg0K
+ICBsZWdhbCA6PSBwcml2YXRlLmFzc2VydF9zdHJlYW1saW5rX2xlZ2FsKG1vbiwgcF9jdHgsIHRp
+Y2tldF91dWlkKTsNCg0KICBJRiAobGVnYWwtPj4nb2snKSBJUyBESVNUSU5DVCBGUk9NICd0cnVl
+JyBUSEVODQoNCiAgICBSRVRVUk4gbGVnYWw7DQoNCiAgRU5EIElGOw0KDQoNCg0KICBTRUxFQ1Qg
+aW5pdGNhcChyZXBsYWNlKHMuc2x1ZywgJy0nLCAnICcpKQ0KDQogICAgSU5UTyB2X25hbWUNCg0K
+ICBGUk9NIHByaXZhdGUucmVmX3NwZWNpZXMgcw0KDQogIFdIRVJFIHMuY29udGVudF9idWlsZCA9
+IHByZXAtPj4nYnVpbGQnDQoNCiAgICBBTkQgcy5kZXggPSBwcml2YXRlLnN0cmVhbWxpbmtfanNv
+bl9pbnQocHJlcC0+J2RleCcpOw0KDQogIHZfbmFtZSA6PSBjb2FsZXNjZShudWxsaWYoYnRyaW0o
+cF9uYW1lKSwgJycpLCB2X25hbWUsICdQb2tlbW9uJyk7DQoNCiAgdl92YXJpYW50IDo9IENBU0UN
+Cg0KICAgIFdIRU4gY29hbGVzY2UocF9zaGlueSwgZmFsc2UpIFRIRU4gJ3NoaW55Jw0KDQogICAg
+RUxTRSBjb2FsZXNjZShudWxsaWYoYnRyaW0ocF92YXJpYW50KSwgJycpLCAnbm9ybWFsJykNCg0K
+ICBFTkQ7DQoNCiAgdl9wdWJsaWMgOj0gcHJpdmF0ZS5zdHJlYW1saW5rX25leHRfcHVibGljX2lk
+KCdTTCcpOw0KDQogIFNFTEVDVCBjb2FsZXNjZShhcnJheV9hZ2coeCksIEFSUkFZW106OnRleHRb
+XSkNCg0KICAgIElOVE8gbGVnYWN5DQoNCiAgRlJPTSBqc29uYl9hcnJheV9lbGVtZW50c190ZXh0
+KG1vbi0+J2xlZ2FjeU1vdmVzJykgeDsNCg0KDQoNCiAgQkVHSU4NCg0KICAgIElOU0VSVCBJTlRP
+IHB1YmxpYy5jYXRjaGVzICgNCg0KICAgICAgaWQsIHVzZXJfaWQsIGRleCwgbmFtZSwgdmFyaWFu
+dCwgZ2VuZGVyLCBiYWxsLCByb3VuZF9pZCwgc291cmNlX2tleSwNCg0KICAgICAgcHVibGljX2lk
+LCBsZXZlbCwgcG9rZW1vbl9mb3JtX2lkLA0KDQogICAgICBpdl9ocCwgaXZfYXRrLCBpdl9kZWYs
+IGl2X3NwYSwgaXZfc3BkLCBpdl9zcGUsDQoNCiAgICAgIG1vdmVzLCBmcmllbmRzaGlwLCBoZWln
+aHRfbSwgd2VpZ2h0X2tnLA0KDQogICAgICBuYXR1cmVfaWQsIGFiaWxpdHlfaWQsIGFiaWxpdHlf
+c2xvdCwNCg0KICAgICAgZXZfaHAsIGV2X2F0aywgZXZfZGVmLCBldl9zcGEsIGV2X3NwZCwgZXZf
+c3BlLA0KDQogICAgICBtb3ZlX3Nsb3RzLCBydWxlc2V0X2lkLCBjb250ZW50X2J1aWxkLA0KDQog
+ICAgICBocF9jdXJyZW50LCBocF9tYXgsIHN0YXR1cywgaGVsZF9pdGVtLCBnaWdhbnRhbWF4X2Zh
+Y3Rvcg0KDQogICAgKSBWQUxVRVMgKA0KDQogICAgICBjYXRjaF9pZCwNCg0KICAgICAgcF91c2Vy
+X2lkLA0KDQogICAgICBwcml2YXRlLnN0cmVhbWxpbmtfanNvbl9pbnQobW9uLT4nZGV4JyksDQoN
+CiAgICAgIHZfbmFtZSwNCg0KICAgICAgdl92YXJpYW50LA0KDQogICAgICBjb2FsZXNjZShudWxs
+aWYoYnRyaW0ocF9nZW5kZXIpLCAnJyksIG1vbi0+PidnZW5kZXInKSwNCg0KICAgICAgY29hbGVz
+Y2UobnVsbGlmKGJ0cmltKHBfYmFsbCksICcnKSwgJ3Bva2UnKSwNCg0KICAgICAgcF9yb3VuZF9p
+ZCwNCg0KICAgICAgcF9zb3VyY2Vfa2V5LA0KDQogICAgICB2X3B1YmxpYywNCg0KICAgICAgcHJp
+dmF0ZS5zdHJlYW1saW5rX2pzb25faW50KG1vbi0+J2xldmVsJyksDQoNCiAgICAgIHByaXZhdGUu
+c3RyZWFtbGlua19qc29uX2ludChtb24tPidmb3JtSWQnKSwNCg0KICAgICAgcHJpdmF0ZS5zdHJl
+YW1saW5rX2pzb25faW50KG1vbiM+J3tpdnMsaHB9JyksDQoNCiAgICAgIHByaXZhdGUuc3RyZWFt
+bGlua19qc29uX2ludChtb24jPid7aXZzLGF0a30nKSwNCg0KICAgICAgcHJpdmF0ZS5zdHJlYW1s
+aW5rX2pzb25faW50KG1vbiM+J3tpdnMsZGVmfScpLA0KDQogICAgICBwcml2YXRlLnN0cmVhbWxp
+bmtfanNvbl9pbnQobW9uIz4ne2l2cyxzcGF9JyksDQoNCiAgICAgIHByaXZhdGUuc3RyZWFtbGlu
+a19qc29uX2ludChtb24jPid7aXZzLHNwZH0nKSwNCg0KICAgICAgcHJpdmF0ZS5zdHJlYW1saW5r
+X2pzb25faW50KG1vbiM+J3tpdnMsc3BlfScpLA0KDQogICAgICBsZWdhY3ksDQoNCiAgICAgIHBy
+aXZhdGUuc3RyZWFtbGlua19qc29uX2ludChtb24tPidmcmllbmRzaGlwJyksDQoNCiAgICAgICht
+b24tPj4naGVpZ2h0TScpOjpudW1lcmljLA0KDQogICAgICAobW9uLT4+J3dlaWdodEtnJyk6Om51
+bWVyaWMsDQoNCiAgICAgIHByaXZhdGUuc3RyZWFtbGlua19qc29uX2ludChtb24tPiduYXR1cmVJ
+ZCcpLA0KDQogICAgICBwcml2YXRlLnN0cmVhbWxpbmtfanNvbl9pbnQobW9uLT4nYWJpbGl0eUlk
+JyksDQoNCiAgICAgIG1vbi0+PidhYmlsaXR5U2xvdCcsDQoNCiAgICAgIDAsIDAsIDAsIDAsIDAs
+IDAsDQoNCiAgICAgIG1vbi0+J21vdmVTbG90cycsDQoNCiAgICAgIG1vbi0+PidydWxlc2V0SWQn
+LA0KDQogICAgICBtb24tPj4nY29udGVudEJ1aWxkJywNCg0KICAgICAgcHJpdmF0ZS5zdHJlYW1s
+aW5rX2pzb25faW50KG1vbi0+J2hwQ3VycmVudCcpLA0KDQogICAgICBwcml2YXRlLnN0cmVhbWxp
+bmtfanNvbl9pbnQobW9uLT4naHBNYXgnKSwNCg0KICAgICAgTlVMTCwNCg0KICAgICAgTlVMTCwN
+Cg0KICAgICAgZmFsc2UNCg0KICAgICkNCg0KICAgIFJFVFVSTklORyBpZCBJTlRPIGluc2VydGVk
+Ow0KDQogIEVYQ0VQVElPTiBXSEVOIHVuaXF1ZV92aW9sYXRpb24gVEhFTg0KDQogICAgUkVUVVJO
+IGpzb25iX2J1aWxkX29iamVjdCgNCg0KICAgICAgJ29rJywgZmFsc2UsDQoNCiAgICAgICdlcnJv
+cnMnLCBqc29uYl9idWlsZF9hcnJheSgnYWxyZWFkeS1zZXR0bGVkJyksDQoNCiAgICAgICdyZXBs
+YXknLCB0cnVlLA0KDQogICAgICAncGF0aCcsICd3aXJlJw0KDQogICAgKTsNCg0KICBFTkQ7DQoN
+Cg0KDQogIFJFVFVSTiBqc29uYl9idWlsZF9vYmplY3QoDQoNCiAgICAnb2snLCB0cnVlLA0KDQog
+ICAgJ2NhdGNoSWQnLCBpbnNlcnRlZCwNCg0KICAgICdwdWJsaWNJZCcsIHZfcHVibGljLA0KDQog
+ICAgJ3BhdGgnLCAnd2lyZScsDQoNCiAgICAnbW9uJywgbW9uDQoNCiAgKTsNCg0KRU5EDQoNCiRm
+dW5jdGlvbiQNCjsNCnJldm9rZSBhbGwgb24gZnVuY3Rpb24gcHJpdmF0ZS5wZXJzaXN0X3Bhc3Nf
+cmV3YXJkKHV1aWQsaW50ZWdlcixpbnRlZ2VyLHRleHQsdGV4dCx0ZXh0LHV1aWQsYm9vbGVhbix0
+ZXh0LHRleHQsdGV4dCx0ZXh0LHRleHQpIGZyb20gcHVibGljLGFub24sYXV0aGVudGljYXRlZDsN
+Cg0KY3JlYXRlIGZ1bmN0aW9uIHByaXZhdGUuaHViX2RlbGl2ZXJfcGFzcyhwX3VzZXIgdXVpZCxw
+X2J1bmRsZSBqc29uYixwX2lkZW0gdGV4dCkgcmV0dXJucyBqc29uYg0KbGFuZ3VhZ2UgcGxwZ3Nx
+bCBzZWN1cml0eSBkZWZpbmVyIHNldCBzZWFyY2hfcGF0aD0nJyBhcyAkJA0KZGVjbGFyZSBleGlz
+dGluZyBwcml2YXRlLmh1Yl9yZXdhcmRfZGVsaXZlcmllcztlIGpzb25iO3IgcHJpdmF0ZS5odWJf
+cmV3YXJkX2NhdGFsb2c7ZmxhdCBqc29uYjo9J3t9JztnIGpzb25iO21vbiBqc29uYjtkZWxpdmVy
+ZWQganNvbmI6PSdbXSc7aSBpbnQ7b3JkaW5hbCBpbnQ6PTA7dl9xdHkgaW50O2ludiBwdWJsaWMu
+aW52ZW50b3JpZXM7DQpiZWdpbg0KIGlmIGF1dGgudWlkKCkgaXMgbnVsbCBvciBwX3VzZXIgaXMg
+bnVsbCBvciBwX2lkZW0gaXMgbnVsbCBvciBsZW5ndGgocF9pZGVtKT4yMDAgdGhlbiByYWlzZSBl
+eGNlcHRpb24gJ0ludmFsaWQgZGVsaXZlcnkgcmVxdWVzdC4nIHVzaW5nIGVycmNvZGU9JzQyNTAx
+JztlbmQgaWY7DQogaWYgcF91c2VyIGlzIGRpc3RpbmN0IGZyb20gYXV0aC51aWQoKSB0aGVuIHBl
+cmZvcm0gcHJpdmF0ZS5yZXF1aXJlX3N0YWZmX2VkaXQoKTtpZiBwcml2YXRlLnN0cmVhbWxpbmtf
+cHJvdGVjdGVkX3RyYWluZXIocF91c2VyKSB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnVGhpcyB0cmFp
+bmVyIGlzIHByb3RlY3RlZC4nIHVzaW5nIGVycmNvZGU9JzQyNTAxJztlbmQgaWY7ZW5kIGlmOw0K
+IHBlcmZvcm0gcHJpdmF0ZS5odWJfdmFsaWRhdGVfcmV3YXJkcyhwX2J1bmRsZSwncGFzcycpOw0K
+IC0tIFNhbWUgbG9jayBvcmRlciBhcyBub3JtYWwgY2xhaW1zOiBwcm9maWxlLCBpbnZlbnRvcnks
+IHRoZW4gY2FuZHkvc3BlY2ltZW5zLg0KIHBlcmZvcm0gMSBmcm9tIHB1YmxpYy5wcm9maWxlcyB3
+aGVyZSBpZD1wX3VzZXIgZm9yIHVwZGF0ZTtpZiBub3QgZm91bmQgdGhlbiByYWlzZSBleGNlcHRp
+b24gJ1RyYWluZXIgbm90IGZvdW5kLic7ZW5kIGlmOw0KIHBlcmZvcm0gcHJpdmF0ZS5lbnN1cmVf
+aW52ZW50b3J5KHBfdXNlcik7c2VsZWN0ICogaW50byBpbnYgZnJvbSBwdWJsaWMuaW52ZW50b3Jp
+ZXMgd2hlcmUgdXNlcl9pZD1wX3VzZXIgZm9yIHVwZGF0ZTsNCiBpbnNlcnQgaW50byBwcml2YXRl
+Lmh1Yl9yZXdhcmRfZGVsaXZlcmllcyhpZGVtcG90ZW5jeSxhY3Rvcl9pZCx0YXJnZXRfaWQsYnVu
+ZGxlLHN0YXR1cykgdmFsdWVzKHBfaWRlbSxhdXRoLnVpZCgpLHBfdXNlcixwX2J1bmRsZSwncGVu
+ZGluZycpIG9uIGNvbmZsaWN0IGRvIG5vdGhpbmc7DQogaWYgbm90IGZvdW5kIHRoZW4gc2VsZWN0
+ICogaW50byBleGlzdGluZyBmcm9tIHByaXZhdGUuaHViX3Jld2FyZF9kZWxpdmVyaWVzIHdoZXJl
+IGlkZW1wb3RlbmN5PXBfaWRlbTsNCiAgaWYgZXhpc3RpbmcuYWN0b3JfaWQgaXMgZGlzdGluY3Qg
+ZnJvbSBhdXRoLnVpZCgpIG9yIGV4aXN0aW5nLnRhcmdldF9pZCBpcyBkaXN0aW5jdCBmcm9tIHBf
+dXNlciBvciBleGlzdGluZy5idW5kbGUgaXMgZGlzdGluY3QgZnJvbSBwX2J1bmRsZSBvciBleGlz
+dGluZy5zdGF0dXM8PidkZWxpdmVyZWQnIHRoZW4gcmFpc2UgZXhjZXB0aW9uICdEZWxpdmVyeSBy
+ZXF1ZXN0IGRvZXMgbm90IG1hdGNoLic7ZW5kIGlmOw0KICByZXR1cm4gZXhpc3RpbmcucmVzdWx0
+fHxqc29uYl9idWlsZF9vYmplY3QoJ2R1cGxpY2F0ZScsdHJ1ZSk7DQogZW5kIGlmOw0KIGZvciBl
+IGluIHNlbGVjdCB2YWx1ZSBmcm9tIGpzb25iX2FycmF5X2VsZW1lbnRzKHBfYnVuZGxlLT4ncmV3
+YXJkcycpIGxvb3ANCiAgc2VsZWN0ICogaW50byByIGZyb20gcHJpdmF0ZS5odWJfcmV3YXJkX2Nh
+dGFsb2cgd2hlcmUgaWQ9ZS0+PidjYXRhbG9nSWQnOw0KICBpZiByLmtpbmQgaW4gKCdpdGVtJywn
+Y29pbnMnLCdzcGFjZScpIHRoZW4gZmxhdDo9anNvbmJfc2V0KGZsYXQsYXJyYXlbci50YXJnZXRf
+a2V5XSx0b19qc29uYihjb2FsZXNjZSgoZmxhdC0+PnIudGFyZ2V0X2tleSk6OmludCwwKSsoZS0+
+PidxdWFudGl0eScpOjppbnQpKTtlbmQgaWY7DQogZW5kIGxvb3A7DQogaWYgY29hbGVzY2UoKGZs
+YXQtPj4nYmFnX2JvbnVzJyk6OmludCwwKT5sZWFzdChncmVhdGVzdChwcml2YXRlLmJhZ19ib251
+c19jYXAoKS1pbnYuYmFnX2JvbnVzLDApLGdyZWF0ZXN0KHByaXZhdGUuYmFnX2NhcGFjaXR5X21h
+eCgpLXByaXZhdGUuYmFnX2NhcGFjaXR5KHBfdXNlciksMCkpIHRoZW4gcmFpc2UgZXhjZXB0aW9u
+ICdUaGlzIGdpZnQgZXhjZWVkcyB0aGUgaW52ZW50b3J5IHNwYWNlIGxpbWl0LiBDb250YWN0IHN0
+YWZmLic7ZW5kIGlmOw0KIC0tIEEgemVyby1jb2luIG1hcmtlciBhbHNvIHByZXNlcnZlcyBsZWdh
+Y3kgY2FsZW5kYXIgaWRlbXBvdGVuY3kgZm9yIFBva8OpbW9uL2NhbmR5LW9ubHkgYnVuZGxlcy4N
+CiBpZiBub3QgZmxhdD8nY29pbnMnIHRoZW4gZmxhdDo9ZmxhdHx8J3siY29pbnMiOjB9Jzo6anNv
+bmI7ZW5kIGlmOw0KIGc6PXByaXZhdGUuZ3JhbnRfaXRlbXMocF91c2VyLGZsYXQsJ0RBSUxZX1JF
+V0FSRCcscF9pZGVtLHBfaWRlbSx0cnVlKTsNCiBpZiBjb2FsZXNjZSgoZy0+PidkdXBsaWNhdGUn
+KTo6Ym9vbGVhbixmYWxzZSkgdGhlbiByYWlzZSBleGNlcHRpb24gJ1RoaXMgcmV3YXJkIGhhcyBh
+bHJlYWR5IGJlZW4gZGVsaXZlcmVkLic7ZW5kIGlmOw0KIGZvciBlIGluIHNlbGVjdCB2YWx1ZSBm
+cm9tIGpzb25iX2FycmF5X2VsZW1lbnRzKHBfYnVuZGxlLT4ncmV3YXJkcycpIGxvb3ANCiAgb3Jk
+aW5hbDo9b3JkaW5hbCsxO3NlbGVjdCAqIGludG8gciBmcm9tIHByaXZhdGUuaHViX3Jld2FyZF9j
+YXRhbG9nIHdoZXJlIGlkPWUtPj4nY2F0YWxvZ0lkJzt2X3F0eTo9KGUtPj4ncXVhbnRpdHknKTo6
+aW50Ow0KICBpZiByLmtpbmQ9J2NhbmR5JyB0aGVuIHBlcmZvcm0gcHJpdmF0ZS5ncmFudF9mYW1p
+bHlfY2FuZHkocF91c2VyLHIudGFyZ2V0X251bWJlcix2X3F0eSwnUEFTU19SRVdBUkQnLCdTdGFy
+bGlnaHQgUGFzcyByZXdhcmQnLGpzb25iX2J1aWxkX29iamVjdCgnaWRlbXBvdGVuY3knLHBfaWRl
+bXx8JzpjYW5keTonfHxvcmRpbmFsKSk7DQogIGVsc2lmIHIua2luZD0ncG9rZW1vbicgdGhlbiBm
+b3IgaSBpbiAxLi52X3F0eSBsb29wDQogICBtb246PXByaXZhdGUucGVyc2lzdF9wYXNzX3Jld2Fy
+ZChwX3VzZXIsci50YXJnZXRfbnVtYmVyLChlLT4+J2xldmVsJyk6OmludCwnZ3JhbnQnLCdncmFu
+dDpwYXNzOid8fHBfaWRlbXx8JzonfHxvcmRpbmFsfHwnOid8fGksJ3Bva2UnLG51bGwsKGUtPj4n
+c2hpbnknKTo6Ym9vbGVhbiwnc2wtcmVmLTIwMjYxMDEzLTIyN2I1NzMnLG51bGwsY2FzZSB3aGVu
+IChlLT4+J3NoaW55Jyk6OmJvb2xlYW4gdGhlbiAnc2hpbnknIGVsc2UgJ25vcm1hbCcgZW5kLG51
+bGwsbnVsbCk7DQogICBpZiBtb24tPj4nb2snIGlzIGRpc3RpbmN0IGZyb20gJ3RydWUnIHRoZW4g
+cmFpc2UgZXhjZXB0aW9uICdBIFBva8OpbW9uIGNvdWxkIG5vdCBiZSBnZW5lcmF0ZWQuIE5vdGhp
+bmcgd2FzIGRlbGl2ZXJlZC4nO2VuZCBpZjsNCiAgIGRlbGl2ZXJlZDo9ZGVsaXZlcmVkfHxqc29u
+Yl9idWlsZF9hcnJheShqc29uYl9idWlsZF9vYmplY3QoJ2NhdGNoSWQnLG1vbi0+J2NhdGNoSWQn
+LCdwdWJsaWNJZCcsbW9uLT4ncHVibGljSWQnLCduYW1lJyxyLm5hbWUpKTsNCiAgZW5kIGxvb3A7
+ZW5kIGlmOw0KIGVuZCBsb29wOw0KIGc6PWpzb25iX2J1aWxkX29iamVjdCgnb2snLHRydWUsJ2dy
+YW50cycsZmxhdC0nY29pbnMnLCdjb2lucycsZmxhdC0+J2NvaW5zJywncmV3YXJkRW50cmllcycs
+cF9idW5kbGUtPidyZXdhcmRzJywncG9rZW1vbicsZGVsaXZlcmVkLCdyZXZlYWxlZFJld2FyZHMn
+LHByaXZhdGUuaHViX3BsYXllcl9yZXdhcmRfcHJldmlldyhqc29uYl9idWlsZF9vYmplY3QoJ3Zl
+cnNpb24nLDIsJ3Jld2FyZHMnLChzZWxlY3QganNvbmJfYWdnKHZhbHVlfHwneyJzZWNyZXQiOmZh
+bHNlfSc6Ompzb25iIG9yZGVyIGJ5IG9yZCkgZnJvbSBqc29uYl9hcnJheV9lbGVtZW50cyhwX2J1
+bmRsZS0+J3Jld2FyZHMnKSB3aXRoIG9yZGluYWxpdHkgZSh2YWx1ZSxvcmQpKSksJ3Bhc3MnKSwn
+ZHVwbGljYXRlJyxmYWxzZSk7DQogdXBkYXRlIHByaXZhdGUuaHViX3Jld2FyZF9kZWxpdmVyaWVz
+IHNldCBzdGF0dXM9J2RlbGl2ZXJlZCcscmVzdWx0PWcgd2hlcmUgaWRlbXBvdGVuY3k9cF9pZGVt
+Ow0KIHJldHVybiBnOw0KZW5kICQkOw0KcmV2b2tlIGFsbCBvbiBmdW5jdGlvbiBwcml2YXRlLmh1
+Yl9kZWxpdmVyX3Bhc3ModXVpZCxqc29uYix0ZXh0KSBmcm9tIHB1YmxpYyxhbm9uLGF1dGhlbnRp
+Y2F0ZWQ7DQoNCmNyZWF0ZSBmdW5jdGlvbiBwcml2YXRlLmh1Yl9wYXNzX3ByZXZpZXcoKSByZXR1
+cm5zIGpzb25iIGxhbmd1YWdlIHBscGdzcWwgc3RhYmxlIHNldCBzZWFyY2hfcGF0aD0nJyBhcyAk
+JA0KYmVnaW4gcmV0dXJuIChzZWxlY3QganNvbmJfYnVpbGRfb2JqZWN0KCdkYWlseScscHJpdmF0
+ZS5odWJfcGxheWVyX3Jld2FyZF9wcmV2aWV3KGRhaWx5LCdwYXNzJyksJ3dlZWtseScscHJpdmF0
+ZS5odWJfcGxheWVyX3Jld2FyZF9wcmV2aWV3KHdlZWtseSwncGFzcycpKSBmcm9tIHByaXZhdGUu
+aHViX3Bhc3Nfc2V0dGluZ3Mgd2hlcmUgaWQpOw0KZXhjZXB0aW9uIHdoZW4gb3RoZXJzIHRoZW4g
+cmV0dXJuIGpzb25iX2J1aWxkX29iamVjdCgnZGFpbHknLCdbXSc6Ompzb25iLCd3ZWVrbHknLCdb
+XSc6Ompzb25iLCd1bmF2YWlsYWJsZScsdHJ1ZSk7ZW5kOw0KJCQ7DQpyZXZva2UgYWxsIG9uIGZ1
+bmN0aW9uIHByaXZhdGUuaHViX3Bhc3NfcHJldmlldygpIGZyb20gcHVibGljLGFub24sYXV0aGVu
+dGljYXRlZDsNCg0KY3JlYXRlIG9yIHJlcGxhY2UgZnVuY3Rpb24gcHVibGljLnBsYXlfY2xhaW1f
+cGFzcyhwX2tpbmQgdGV4dCkgcmV0dXJucyBqc29uYiBsYW5ndWFnZSBwbHBnc3FsIHNlY3VyaXR5
+IGRlZmluZXIgc2V0IHNlYXJjaF9wYXRoPScnIGFzICQkDQpkZWNsYXJlIHVpZCB1dWlkOj1hdXRo
+LnVpZCgpO2ludiBwdWJsaWMuaW52ZW50b3JpZXM7YnVuZGxlIGpzb25iO3Jlc3VsdCBqc29uYjtp
+ZGVtIHRleHQ7YmVnaW4NCiBpZiB1aWQgaXMgbnVsbCB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnU2ln
+biBpbiBmaXJzdC4nIHVzaW5nIGVycmNvZGU9JzQyNTAxJztlbmQgaWY7DQogcGVyZm9ybSAxIGZy
+b20gcHVibGljLnByb2ZpbGVzIHdoZXJlIGlkPXVpZCBhbmQgc3RhcmxpZ2h0X3Bhc3MgaXMgdHJ1
+ZSBmb3IgdXBkYXRlO2lmIG5vdCBmb3VuZCB0aGVuIHJhaXNlIGV4Y2VwdGlvbiAnU3RhcmxpZ2h0
+IFBhc3MgaXMgcmVxdWlyZWQuIENoZWNrIHlvdXIgc3Vic2NyaXB0aW9uIGZpcnN0Lic7ZW5kIGlm
+Ow0KIHBlcmZvcm0gcHJpdmF0ZS5lbnN1cmVfaW52ZW50b3J5KHVpZCk7c2VsZWN0ICogaW50byBp
+bnYgZnJvbSBwdWJsaWMuaW52ZW50b3JpZXMgd2hlcmUgdXNlcl9pZD11aWQgZm9yIHVwZGF0ZTsN
+CiBpZiBwX2tpbmQ9J2RhaWx5JyB0aGVuDQogIGlmIGludi5wYXNzX2RhaWx5X2F0IGlzIG5vdCBu
+dWxsIGFuZCBpbnYucGFzc19kYWlseV9hdD5ub3coKS1pbnRlcnZhbCAnMjAgaG91cnMnIHRoZW4g
+cmFpc2UgZXhjZXB0aW9uICdEYWlseSBQYXNzIGdpZnQgaXMgbm90IHJlYWR5IHlldC4nO2VuZCBp
+ZjsNCiAgc2VsZWN0IGRhaWx5IGludG8gYnVuZGxlIGZyb20gcHJpdmF0ZS5odWJfcGFzc19zZXR0
+aW5ncyB3aGVyZSBpZDsNCiAgaWRlbTo9J3Bhc3MtZGFpbHk6J3x8dWlkOjp0ZXh0fHwnOid8fHRv
+X2NoYXIocHJpdmF0ZS5hcHBfdG9kYXkoKSwnWVlZWS1NTS1ERCcpOw0KIGVsc2lmIHBfa2luZD0n
+d2Vla2x5JyB0aGVuDQogIGlmIGludi5wYXNzX3dlZWtseV9hdCBpcyBub3QgbnVsbCBhbmQgaW52
+LnBhc3Nfd2Vla2x5X2F0Pm5vdygpLWludGVydmFsICc2IGRheXMnIHRoZW4gcmFpc2UgZXhjZXB0
+aW9uICdXZWVrbHkgUGFzcyBjcmF0ZSBpcyBub3QgcmVhZHkgeWV0Lic7ZW5kIGlmOw0KICBzZWxl
+Y3Qgd2Vla2x5IGludG8gYnVuZGxlIGZyb20gcHJpdmF0ZS5odWJfcGFzc19zZXR0aW5ncyB3aGVy
+ZSBpZDsNCiAgaWRlbTo9J3Bhc3Mtd2Vla2x5Oid8fHVpZDo6dGV4dHx8JzonfHx0b19jaGFyKG5v
+dygpLCdJWVlZLUlXJyk7DQogZWxzZSByYWlzZSBleGNlcHRpb24gJ0Nob29zZSBkYWlseSBvciB3
+ZWVrbHkgcmV3YXJkcy4nO2VuZCBpZjsNCiByZXN1bHQ6PXByaXZhdGUuaHViX2RlbGl2ZXJfcGFz
+cyh1aWQsYnVuZGxlLGlkZW0pOw0KIGlmIChyZXN1bHQtPj4nZHVwbGljYXRlJyk6OmJvb2xlYW4g
+dGhlbiByYWlzZSBleGNlcHRpb24gJ1RoaXMgUGFzcyByZXdhcmQgaGFzIGFscmVhZHkgYmVlbiBk
+ZWxpdmVyZWQuJztlbmQgaWY7DQogdXBkYXRlIHB1YmxpYy5pbnZlbnRvcmllcyBzZXQgcGFzc19k
+YWlseV9hdD1jYXNlIHdoZW4gcF9raW5kPSdkYWlseScgdGhlbiBub3coKSBlbHNlIHBhc3NfZGFp
+bHlfYXQgZW5kLHBhc3Nfd2Vla2x5X2F0PWNhc2Ugd2hlbiBwX2tpbmQ9J3dlZWtseScgdGhlbiBu
+b3coKSBlbHNlIHBhc3Nfd2Vla2x5X2F0IGVuZCx1cGRhdGVkX2F0PW5vdygpIHdoZXJlIHVzZXJf
+aWQ9dWlkOw0KIHJldHVybiBwcml2YXRlLnBsYXlfc25hcHNob3QodWlkKXx8cmVzdWx0fHxqc29u
+Yl9idWlsZF9vYmplY3QoJ21lc3NhZ2UnLGNhc2Ugd2hlbiBwX2tpbmQ9J2RhaWx5JyB0aGVuICdE
+YWlseSBQYXNzIHJld2FyZHMgcmVjZWl2ZWQhJyBlbHNlICdXZWVrbHkgUGFzcyByZXdhcmRzIHJl
+Y2VpdmVkIScgZW5kKTsNCmVuZCAkJDsNCnJldm9rZSBhbGwgb24gZnVuY3Rpb24gcHVibGljLnBs
+YXlfY2xhaW1fcGFzcyh0ZXh0KSBmcm9tIHB1YmxpYyxhbm9uOw0KZ3JhbnQgZXhlY3V0ZSBvbiBm
+dW5jdGlvbiBwdWJsaWMucGxheV9jbGFpbV9wYXNzKHRleHQpIHRvIGF1dGhlbnRpY2F0ZWQ7DQoN
+CkNSRUFURSBPUiBSRVBMQUNFIEZVTkNUSU9OIHB1YmxpYy5wbGF5X3N0b3JlKCkNCiBSRVRVUk5T
+IGpzb25iDQogTEFOR1VBR0UgcGxwZ3NxbA0KIFNFQ1VSSVRZIERFRklORVINCiBTRVQgc2VhcmNo
+X3BhdGggVE8gJ3B1YmxpYycNCkFTICRmdW5jdGlvbiQNCmRlY2xhcmUNCiAgdWlkIHV1aWQgOj0g
+YXV0aC51aWQoKTsNCiAgaW52IHB1YmxpYy5pbnZlbnRvcmllczsNCiAgcGFzcyBib29sZWFuIDo9
+IGZhbHNlOw0KICBkYWlseSBqc29uYiA6PSAne30nOjpqc29uYjsNCmJlZ2luDQogIGlmIHVpZCBp
+cyBub3QgbnVsbCB0aGVuDQogICAgaW52IDo9IHByaXZhdGUuZW5zdXJlX2ludmVudG9yeSh1aWQp
+Ow0KICAgIHNlbGVjdCBzdGFybGlnaHRfcGFzcyBpbnRvIHBhc3MgZnJvbSBwdWJsaWMucHJvZmls
+ZXMgd2hlcmUgaWQgPSB1aWQ7DQogICAgZGFpbHkgOj0gcHJpdmF0ZS5kYWlseV93YWxsZXRfanNv
+bih1aWQpOw0KICBlbmQgaWY7DQogIHJldHVybiBwcml2YXRlLnBsYXlfc25hcHNob3QodWlkKSB8
+fCBqc29uYl9idWlsZF9vYmplY3QoDQogICAgJ29rJywgdHJ1ZSwNCiAgICAnY2F0YWxvZycsIHBy
+aXZhdGUuc3RvcmVfY2F0YWxvZygpIHx8IGpzb25iX2J1aWxkX29iamVjdCgnYXZhdGFycycsIHBy
+aXZhdGUucHJlbWl1bV9hdmF0YXJfY2F0YWxvZygpKSwNCiAgICAncGFzc1Jld2FyZHMnLCBwcml2
+YXRlLmh1Yl9wYXNzX3ByZXZpZXcoKSwNCiAgICAnd2FsbGV0JywgY2FzZSB3aGVuIGludi51c2Vy
+X2lkIGlzIG51bGwgdGhlbiBudWxsIGVsc2UganNvbmJfYnVpbGRfb2JqZWN0KA0KICAgICAgJ2Nv
+aW5zJywgaW52LmNvaW5zLA0KICAgICAgJ2NhcGFjaXR5JywgcHJpdmF0ZS5iYWdfY2FwYWNpdHko
+dWlkKSwNCiAgICAgICd1c2VkJywgcHJpdmF0ZS5pdGVtX3RvdGFsKGludiksDQogICAgICAnZGFp
+bHlSZWFkeScsIHBhc3MgYW5kIChpbnYucGFzc19kYWlseV9hdCBpcyBudWxsIG9yIGludi5wYXNz
+X2RhaWx5X2F0IDwgbm93KCkgLSBpbnRlcnZhbCAnMjAgaG91cnMnKSwNCiAgICAgICd3ZWVrbHlS
+ZWFkeScsIHBhc3MgYW5kIChpbnYucGFzc193ZWVrbHlfYXQgaXMgbnVsbCBvciBpbnYucGFzc193
+ZWVrbHlfYXQgPCBub3coKSAtIGludGVydmFsICc2IGRheXMnKSwNCiAgICAgICdkYWlseVN1cHBs
+eVJlYWR5JywgY29hbGVzY2UoKGRhaWx5LT4+J2RhaWx5U3VwcGx5UmVhZHknKTo6Ym9vbGVhbiwg
+dHJ1ZSksDQogICAgICAnZGFpbHlTdXBwbHlBdCcsIGludi5kYWlseV9zdXBwbHlfYXQsDQogICAg
+ICAnZGFpbHlTdHJlYWtEYXknLCAoZGFpbHktPj4nZGFpbHlTdHJlYWtEYXknKTo6aW50LA0KICAg
+ICAgJ2RhaWx5Q2xhaW1lZCcsIGNvYWxlc2NlKChkYWlseS0+PidkYWlseUNsYWltZWQnKTo6Ym9v
+bGVhbiwgZmFsc2UpLA0KICAgICAgJ2RhaWx5TmV4dERhdGUnLCBkYWlseS0+PidkYWlseU5leHRE
+YXRlJywNCiAgICAgICdkYWlseVRpbWV6b25lJywgZGFpbHktPj4nZGFpbHlUaW1lem9uZScsDQog
+ICAgICAnZGFpbHlQcmV2aWV3JywgZGFpbHktPidkYWlseVByZXZpZXcnLA0KICAgICAgJ3BlbmRp
+bmdDaG9pY2VzJywgZGFpbHktPidwZW5kaW5nQ2hvaWNlcycNCiAgICApIGVuZA0KICApOw0KZW5k
+Ow0KJGZ1bmN0aW9uJA0KOw0KQ1JFQVRFIE9SIFJFUExBQ0UgRlVOQ1RJT04gcHVibGljLmFkbWlu
+X3RyYWluZXJfcmV3YXJkX2FjdGlvbihwX3VzZXIgdXVpZCwgcF9yZXF1ZXN0IHV1aWQsIHBfYWN0
+aW9uIHRleHQsIHBfcGF5bG9hZCBqc29uYiwgcF9yZWFzb24gdGV4dCkNCiBSRVRVUk5TIGpzb25i
+DQogTEFOR1VBR0UgcGxwZ3NxbA0KIFNFQ1VSSVRZIERFRklORVINCiBTRVQgc2VhcmNoX3BhdGgg
+VE8gJ3BnX2NhdGFsb2cnDQpBUyAkZnVuY3Rpb24kDQpERUNMQVJFDQogIHZfYWN0b3IgdXVpZCA6
+PSBhdXRoLnVpZCgpOyB2X3ByaW9yIHByaXZhdGUuc3RhZmZfcmV3YXJkX2FjdGlvbnM7DQogIHZf
+cHJvZmlsZSBwdWJsaWMucHJvZmlsZXM7IHZfb3ZlcnJpZGUgcHJpdmF0ZS5zdGFmZl9wYXNzX292
+ZXJyaWRlczsNCiAgdl9wYXlsb2FkIGpzb25iIDo9IGNvYWxlc2NlKHBfcGF5bG9hZCwne30nOjpq
+c29uYik7IHZfcmVzdWx0IGpzb25iOw0KICB2X2dyYW50cyBqc29uYjsgdl9rZXkgdGV4dDsgdl9x
+dHkgaW50ZWdlcjsgdl9raW5kIHRleHQ7IHZfZXJyb3IgdGV4dDsgdl9zcGFjZV9iZWZvcmUgaW50
+ZWdlcjsNCiAgdl9pbmRleCBpbnRlZ2VyOyB2X2dlbmVyYXRlZCBqc29uYjsgdl9pZHMganNvbmI7
+IHZfcHVibGljX2lkcyBqc29uYjsNCkJFR0lODQogIFBFUkZPUk0gcHJpdmF0ZS5yZXF1aXJlX3N0
+YWZmX2VkaXQoKTsNCiAgSUYgdl9hY3RvciBJUyBOVUxMIE9SIHBfdXNlciBJUyBOVUxMIE9SIHBf
+cmVxdWVzdCBJUyBOVUxMIE9SIGxlbmd0aChidHJpbShjb2FsZXNjZShwX3JlYXNvbiwnJykpKSBO
+T1QgQkVUV0VFTiAzIEFORCA1MDAgVEhFTg0KICAgIFJBSVNFIEVYQ0VQVElPTiAnQSB0YXJnZXQs
+IHJlcXVlc3QgaWQgYW5kIHN0YWZmIHJlYXNvbiBhcmUgcmVxdWlyZWQuJyBVU0lORyBFUlJDT0RF
+PScyMjAyMyc7DQogIEVORCBJRjsNCiAgSUYgcF9hY3Rpb24gSVMgTlVMTCBPUiBqc29uYl90eXBl
+b2Yodl9wYXlsb2FkKTw+J29iamVjdCcgT1IgcF9hY3Rpb24gTk9UIElOICgncGFzc19vbicsJ3Bh
+c3Nfb2ZmJywncGFzc19zeW5jJywncGFzc19kYWlseScsJ3Bhc3Nfd2Vla2x5JywnaXRlbScsJ2Nh
+bmR5JywncG9rZW1vbicsJ3Bva2Vtb25fYmF0Y2gnLCd0aXRsZScsJ2Nvc21ldGljJywnYmFkZ2Un
+KSBUSEVODQogICAgUkFJU0UgRVhDRVBUSU9OICdVbmtub3duIHJld2FyZCBhY3Rpb24uJyBVU0lO
+RyBFUlJDT0RFPScyMjAyMyc7DQogIEVORCBJRjsNCiAgLS0gUHJvZmlsZSByb3cgc2VyaWFsaXpl
+cyBjb25jdXJyZW50IGdyYW50cyBhbmQgYXV0b21hdGlvbiBhZ2FpbnN0IG9uZSB0cmFpbmVyLg0K
+ICBTRUxFQ1QgKiBJTlRPIHZfcHJvZmlsZSBGUk9NIHB1YmxpYy5wcm9maWxlcyBXSEVSRSBpZD1w
+X3VzZXIgRk9SIFVQREFURTsNCiAgSUYgTk9UIEZPVU5EIFRIRU4gUkFJU0UgRVhDRVBUSU9OICdU
+cmFpbmVyIG5vdCBmb3VuZC4nIFVTSU5HIEVSUkNPREU9JzIyMDIzJzsgRU5EIElGOw0KICBJRiBw
+cml2YXRlLnN0cmVhbWxpbmtfcHJvdGVjdGVkX3RyYWluZXIocF91c2VyKSBUSEVODQogICAgUkFJ
+U0UgRVhDRVBUSU9OICdUaGlzIHByb3RlY3RlZCB0cmFpbmVyIG5lZWRzIGEgc2VwYXJhdGVseSBz
+Y29wZWQgYXV0aG9yaXphdGlvbi4nIFVTSU5HIEVSUkNPREU9JzQyNTAxJzsNCiAgRU5EIElGOw0K
+ICBJTlNFUlQgSU5UTyBwcml2YXRlLnN0YWZmX3Jld2FyZF9hY3Rpb25zKHJlcXVlc3RfaWQsYWN0
+b3JfaWQsdGFyZ2V0X2lkLGFjdGlvbixwYXlsb2FkLHJlYXNvbixzdGF0dXMpDQogIFZBTFVFUyhw
+X3JlcXVlc3Qsdl9hY3RvcixwX3VzZXIscF9hY3Rpb24sdl9wYXlsb2FkLGJ0cmltKHBfcmVhc29u
+KSwncGVuZGluZycpIE9OIENPTkZMSUNUIERPIE5PVEhJTkc7DQogIElGIE5PVCBGT1VORCBUSEVO
+DQogICAgU0VMRUNUICogSU5UTyB2X3ByaW9yIEZST00gcHJpdmF0ZS5zdGFmZl9yZXdhcmRfYWN0
+aW9ucyBXSEVSRSByZXF1ZXN0X2lkPXBfcmVxdWVzdDsNCiAgICBJRiB2X3ByaW9yLmFjdG9yX2lk
+PD52X2FjdG9yIE9SIHZfcHJpb3IudGFyZ2V0X2lkPD5wX3VzZXIgT1Igdl9wcmlvci5hY3Rpb248
+PnBfYWN0aW9uIE9SIHZfcHJpb3IucGF5bG9hZDw+dl9wYXlsb2FkIE9SIHZfcHJpb3IucmVhc29u
+PD5idHJpbShwX3JlYXNvbikgVEhFTg0KICAgICAgUkFJU0UgRVhDRVBUSU9OICdSZXF1ZXN0IGlk
+IGlzIGFscmVhZHkgYm91bmQgdG8gYW5vdGhlciBhY3Rpb24uJyBVU0lORyBFUlJDT0RFPScyMjAy
+Myc7DQogICAgRU5EIElGOw0KICAgIFJFVFVSTiB2X3ByaW9yLnJlc3VsdCB8fCBqc29uYl9idWls
+ZF9vYmplY3QoJ3JlcXVlc3RJZCcscF9yZXF1ZXN0LCdyZXBsYXllZCcsdHJ1ZSk7DQogIEVORCBJ
+RjsNCiAgQkVHSU4NCiAgICBJRiBwX2FjdGlvbiBJTiAoJ3Bhc3Nfb24nLCdwYXNzX29mZicpIFRI
+RU4NCiAgICAgIElOU0VSVCBJTlRPIHByaXZhdGUuc3RhZmZfcGFzc19vdmVycmlkZXModGFyZ2V0
+X2lkLGFjdGl2ZSxzb3VyY2VfYmVmb3JlLHN1YnNjcmlwdGlvbl9hY3RpdmUsc3Vic2NyaXB0aW9u
+X3NvdXJjZSxzdWJzY3JpcHRpb25fY2hlY2tlZF9hdCxhY3Rvcl9pZCxyZWFzb24pDQogICAgICBW
+QUxVRVMocF91c2VyLHBfYWN0aW9uPSdwYXNzX29uJyx2X3Byb2ZpbGUucGFzc19zb3VyY2UsDQog
+ICAgICAgIGNvYWxlc2NlKHZfcHJvZmlsZS5zdGFybGlnaHRfcGFzcyxmYWxzZSkgQU5EIGNvYWxl
+c2NlKHZfcHJvZmlsZS5wYXNzX3NvdXJjZSwnJykgSU4gKCd0d2l0Y2gtc3ViJywnYnJvYWRjYXN0
+ZXInKSwNCiAgICAgICAgQ0FTRSBXSEVOIHZfcHJvZmlsZS5wYXNzX3NvdXJjZSBJTiAoJ3R3aXRj
+aC1zdWInLCdicm9hZGNhc3RlcicpIFRIRU4gdl9wcm9maWxlLnBhc3Nfc291cmNlIEVORCwNCiAg
+ICAgICAgdl9wcm9maWxlLnBhc3NfY2hlY2tlZF9hdCx2X2FjdG9yLGJ0cmltKHBfcmVhc29uKSkN
+CiAgICAgIE9OIENPTkZMSUNUKHRhcmdldF9pZCkgRE8gVVBEQVRFIFNFVCBhY3RpdmU9ZXhjbHVk
+ZWQuYWN0aXZlLGFjdG9yX2lkPWV4Y2x1ZGVkLmFjdG9yX2lkLHJlYXNvbj1leGNsdWRlZC5yZWFz
+b24sdXBkYXRlZF9hdD1ub3coKTsNCiAgICAgIFVQREFURSBwdWJsaWMucHJvZmlsZXMgU0VUIHN0
+YXJsaWdodF9wYXNzPXBfYWN0aW9uPSdwYXNzX29uJyx1cGRhdGVkX2F0PW5vdygpIFdIRVJFIGlk
+PXBfdXNlcjsNCiAgICAgIHZfcmVzdWx0Oj1qc29uYl9idWlsZF9vYmplY3QoJ29rJyx0cnVlLCdt
+ZXNzYWdlJywnU3RhZmYgUGFzcyBvdmVycmlkZSBzYXZlZC4gSXQgcmVtYWlucyB1bnRpbCBjbGVh
+cmVkLicsDQogICAgICAgICdzb3VyY2VCZWZvcmUnLHZfcHJvZmlsZS5wYXNzX3NvdXJjZSwnYWN0
+aXZlQmVmb3JlJyx2X3Byb2ZpbGUuc3RhcmxpZ2h0X3Bhc3MpOw0KICAgIEVMU0lGIHBfYWN0aW9u
+PSdwYXNzX3N5bmMnIFRIRU4NCiAgICAgIERFTEVURSBGUk9NIHByaXZhdGUuc3RhZmZfcGFzc19v
+dmVycmlkZXMgV0hFUkUgdGFyZ2V0X2lkPXBfdXNlciBSRVRVUk5JTkcgKiBJTlRPIHZfb3ZlcnJp
+ZGU7DQogICAgICBJRiBOT1QgRk9VTkQgVEhFTiBSQUlTRSBFWENFUFRJT04gJ1RoZXJlIGlzIG5v
+IHN0YWZmIG92ZXJyaWRlIHRvIGNsZWFyLic7IEVORCBJRjsNCiAgICAgIFVQREFURSBwdWJsaWMu
+cHJvZmlsZXMgU0VUIHN0YXJsaWdodF9wYXNzPXZfb3ZlcnJpZGUuc3Vic2NyaXB0aW9uX2FjdGl2
+ZSwNCiAgICAgICAgcGFzc19zb3VyY2U9dl9vdmVycmlkZS5zdWJzY3JpcHRpb25fc291cmNlLHBh
+c3NfY2hlY2tlZF9hdD12X292ZXJyaWRlLnN1YnNjcmlwdGlvbl9jaGVja2VkX2F0LHVwZGF0ZWRf
+YXQ9bm93KCkgV0hFUkUgaWQ9cF91c2VyOw0KICAgICAgdl9yZXN1bHQ6PWpzb25iX2J1aWxkX29i
+amVjdCgnb2snLHRydWUsJ21lc3NhZ2UnLCdPdmVycmlkZSBjbGVhcmVkLiBMYXN0IHJlY29yZGVk
+IHN1YnNjcmlwdGlvbiBzdGF0ZSByZXN0b3JlZDsgYSBmcmVzaCBUd2l0Y2ggY2hlY2sgbWF5IHN0
+aWxsIGJlIG5lZWRlZC4nKTsNCiAgICBFTFNJRiBwX2FjdGlvbiBJTiAoJ3Bhc3NfZGFpbHknLCdw
+YXNzX3dlZWtseScpIFRIRU4NCiBTRUxFQ1QgQ0FTRSBXSEVOIHBfYWN0aW9uPSdwYXNzX2RhaWx5
+JyBUSEVOIGRhaWx5IEVMU0Ugd2Vla2x5IEVORCBJTlRPIHZfZ3JhbnRzIEZST00gcHJpdmF0ZS5o
+dWJfcGFzc19zZXR0aW5ncyBXSEVSRSBpZDsNCiB2X3Jlc3VsdDo9cHJpdmF0ZS5odWJfZGVsaXZl
+cl9wYXNzKHBfdXNlcix2X2dyYW50cywnc3RhZmYtcGFzczonfHxwX3JlcXVlc3Q6OnRleHQpOw0K
+IEVMU0lGIHBfYWN0aW9uPSdpdGVtJyBUSEVODQogICAgICBJRiBwX2FjdGlvbj0naXRlbScgVEhF
+Tg0KICAgICAgICB2X2tleTo9dl9wYXlsb2FkLT4+J2tleSc7IHZfcXR5Oj0odl9wYXlsb2FkLT4+
+J3F0eScpOjppbnRlZ2VyOw0KICAgICAgICBJRiBjb2FsZXNjZSh2X3F0eSwwKSBOT1QgQkVUV0VF
+TiAxIEFORCAxMDAwMCBUSEVOIFJBSVNFIEVYQ0VQVElPTiAnUXVhbnRpdHkgbXVzdCBiZSAxIHRv
+IDEwMDAwLic7IEVORCBJRjsNCiAgICAgICAgSUYgdl9rZXkgSVMgTlVMTCBPUiBOT1QgKHZfa2V5
+PUFOWShBUlJBWVsnY29pbnMnLCdiZXJyeScsJ2JhaXQnLCdwb2tlYmFsbCcsJ2dyZWF0YmFsbCcs
+J3VsdHJhYmFsbCcsJ2x1cmUnLCdiYWdfYm9udXMnXQ0KICAgICAgICAgIHx8cHJpdmF0ZS5leHRy
+YV9iYWxsX2tleXMoKXx8cHJpdmF0ZS5jYXB0dXJlX2JlcnJ5X2tleXMoKXx8cHJpdmF0ZS5ldm9f
+aXRlbV9rZXlzKCl8fHByaXZhdGUudmFsdWFibGVfaXRlbV9rZXlzKCkpKSBUSEVODQogICAgICAg
+ICAgUkFJU0UgRVhDRVBUSU9OICdJdGVtIGlzIG5vdCBlbmFibGVkIGZvciBncmFudHMuJzsNCiAg
+ICAgICAgRU5EIElGOw0KICAgICAgICB2X2dyYW50czo9anNvbmJfYnVpbGRfb2JqZWN0KHZfa2V5
+LHZfcXR5KTsNCiAgICAgIEVMU0UNCiAgICAgICAgdl9raW5kOj1DQVNFIFdIRU4gcF9hY3Rpb249
+J3Bhc3NfZGFpbHknIFRIRU4gJ2RhaWx5JyBFTFNFICd3ZWVrbHknIEVORDsNCiAgICAgICAgdl9n
+cmFudHM6PXByaXZhdGUucGFzc19yZXdhcmRfZ3JhbnRzKHZfa2luZCk7DQogICAgICAgIElGIHZf
+Z3JhbnRzIElTIE5VTEwgT1Igdl9ncmFudHM9J3t9Jzo6anNvbmIgVEhFTiBSQUlTRSBFWENFUFRJ
+T04gJ1Bhc3MgcmV3YXJkIGJ1bmRsZSBpcyB1bmF2YWlsYWJsZS4nOyBFTkQgSUY7DQogICAgICBF
+TkQgSUY7DQogICAgICBJRiBFWElTVFMoU0VMRUNUIDEgRlJPTSBqc29uYl9lYWNoX3RleHQodl9n
+cmFudHMpIGUgV0hFUkUgZS5rZXk8PkFMTChBUlJBWVsnY29pbnMnLCdiZXJyeScsJ2JhaXQnLCdw
+b2tlYmFsbCcsJ2dyZWF0YmFsbCcsJ3VsdHJhYmFsbCcsJ2x1cmUnLCdiYWdfYm9udXMnXQ0KICAg
+ICAgICB8fHByaXZhdGUuZXh0cmFfYmFsbF9rZXlzKCl8fHByaXZhdGUuY2FwdHVyZV9iZXJyeV9r
+ZXlzKCl8fHByaXZhdGUuZXZvX2l0ZW1fa2V5cygpfHxwcml2YXRlLnZhbHVhYmxlX2l0ZW1fa2V5
+cygpKQ0KICAgICAgICBPUiBlLnZhbHVlICF+ICdeWzAtOV0rJCcgT1IgbGVuZ3RoKGUudmFsdWUp
+PjUgT1IgZS52YWx1ZTo6bnVtZXJpYz4xMDAwMCkgVEhFTiBSQUlTRSBFWENFUFRJT04gJ1Jld2Fy
+ZCBidW5kbGUgaXMgbm90IHZhbGlkIGZvciBmdWxsIGF1ZGl0ZWQgZGVsaXZlcnkuJzsgRU5EIElG
+Ow0KICAgICAgU0VMRUNUIGNvYWxlc2NlKChTRUxFQ1QgYmFnX2JvbnVzIEZST00gcHVibGljLmlu
+dmVudG9yaWVzIFdIRVJFIHVzZXJfaWQ9cF91c2VyKSwwKSBJTlRPIHZfc3BhY2VfYmVmb3JlOw0K
+ICAgICAgdl9yZXN1bHQ6PXByaXZhdGUuZ3JhbnRfaXRlbXMocF91c2VyLHZfZ3JhbnRzLCdBRE1J
+Tl9HUkFOVCcsJ3N0YWZmLXJld2FyZDonfHxwX3JlcXVlc3Q6OnRleHQsJ3N0YWZmLXJld2FyZDon
+fHxwX3JlcXVlc3Q6OnRleHQsdHJ1ZSk7DQogICAgICBJRiBjb2FsZXNjZSgodl9ncmFudHMtPj4n
+YmFnX2JvbnVzJyk6OmludGVnZXIsMCk+MCBBTkQNCiAgICAgICAgY29hbGVzY2UoKFNFTEVDVCBi
+YWdfYm9udXMgRlJPTSBwdWJsaWMuaW52ZW50b3JpZXMgV0hFUkUgdXNlcl9pZD1wX3VzZXIpLDAp
+LXZfc3BhY2VfYmVmb3JlPD4odl9ncmFudHMtPj4nYmFnX2JvbnVzJyk6OmludGVnZXIgVEhFTg0K
+ICAgICAgICBSQUlTRSBFWENFUFRJT04gJ1RoZSBpbnZlbnRvcnktc3BhY2UgZ3JhbnQgd291bGQg
+YmUgY2FwcGVkOyBub3RoaW5nIHdhcyBncmFudGVkLic7DQogICAgICBFTkQgSUY7DQogICAgICBJ
+RiBOT1QgY29hbGVzY2UoKHZfcmVzdWx0LT4+J29rJyk6OmJvb2xlYW4sZmFsc2UpIE9SIGNvYWxl
+c2NlKCh2X3Jlc3VsdC0+PidmdWxsJyk6OmJvb2xlYW4sZmFsc2UpIE9SIGNvYWxlc2NlKCh2X3Jl
+c3VsdC0+PidkdXBsaWNhdGUnKTo6Ym9vbGVhbixmYWxzZSkgVEhFTg0KICAgICAgICBSQUlTRSBF
+WENFUFRJT04gJ1RoZSBjb21wbGV0ZSBidW5kbGUgd2FzIG5vdCBkZWxpdmVyZWQuJzsNCiAgICAg
+IEVORCBJRjsNCiAgICAgIHZfcmVzdWx0Oj12X3Jlc3VsdHx8anNvbmJfYnVpbGRfb2JqZWN0KCdv
+aycsdHJ1ZSwnbWVzc2FnZScsJ1Jld2FyZHMgZGVsaXZlcmVkLiBQbGF5ZXIgY2xhaW0gY29vbGRv
+d25zIHdlcmUgbm90IGNoYW5nZWQuJywncmVxdWVzdGVkJyx2X2dyYW50cyk7DQogICAgRUxTSUYg
+cF9hY3Rpb249J2NhbmR5JyBUSEVODQogICAgICB2X3F0eTo9KHZfcGF5bG9hZC0+PidxdHknKTo6
+aW50ZWdlcjsNCiAgICAgIElGIGNvYWxlc2NlKHZfcXR5LDApIE5PVCBCRVRXRUVOIDEgQU5EIDEw
+MDAwIFRIRU4gUkFJU0UgRVhDRVBUSU9OICdRdWFudGl0eSBtdXN0IGJlIDEgdG8gMTAwMDAuJzsg
+RU5EIElGOw0KICAgICAgUEVSRk9STSBwdWJsaWMuYWRtaW5fZ3JhbnRfY2FuZHkocF91c2VyLCh2
+X3BheWxvYWQtPj4nZGV4Jyk6OmludGVnZXIsdl9xdHkpOw0KICAgICAgdl9yZXN1bHQ6PWpzb25i
+X2J1aWxkX29iamVjdCgnb2snLHRydWUsJ21lc3NhZ2UnLCdFdm9sdXRpb24gQ2FuZHkgZGVsaXZl
+cmVkLicpOw0KICAgIEVMU0lGIHBfYWN0aW9uPSdwb2tlbW9uX2JhdGNoJyBUSEVODQogICAgICBJ
+RiBqc29uYl90eXBlb2Yodl9wYXlsb2FkLT4ncXR5JykgSVMgRElTVElOQ1QgRlJPTSAnbnVtYmVy
+Jw0KICAgICAgICBPUiBjb2FsZXNjZSh2X3BheWxvYWQtPj4ncXR5JywnJykgIX4gJ15bMC05XSsk
+Jw0KICAgICAgICBPUiBsZW5ndGgodl9wYXlsb2FkLT4+J3F0eScpPjMgVEhFTg0KICAgICAgICBS
+QUlTRSBFWENFUFRJT04gJ0Nob29zZSBhIHdob2xlIHF1YW50aXR5IGZyb20gMiB0byAxMDAuJzsN
+CiAgICAgIEVORCBJRjsNCiAgICAgIHZfcXR5Oj0odl9wYXlsb2FkLT4+J3F0eScpOjppbnRlZ2Vy
+Ow0KICAgICAgSUYgdl9xdHkgTk9UIEJFVFdFRU4gMiBBTkQgMTAwIE9SIGNvYWxlc2NlKCh2X3Bh
+eWxvYWQtPj4nZGV4Jyk6OmludGVnZXIsMCkgTk9UIEJFVFdFRU4gMSBBTkQgMTUxDQogICAgICAg
+IE9SIGNvYWxlc2NlKCh2X3BheWxvYWQtPj4nbGV2ZWwnKTo6aW50ZWdlciwwKSBOT1QgQkVUV0VF
+TiAxIEFORCAxMDAgVEhFTg0KICAgICAgICBSQUlTRSBFWENFUFRJT04gJ0Nob29zZSAy4oCTMTAw
+IFBva8OpbW9uLCBLYW50byBzcGVjaWVzIDHigJMxNTEgYW5kIGxldmVsIDHigJMxMDAuJzsNCiAg
+ICAgIEVORCBJRjsNCiAgICAgIHZfaWRzOj0nW10nOjpqc29uYjsgdl9wdWJsaWNfaWRzOj0nW10n
+Ojpqc29uYjsNCiAgICAgIEZPUiB2X2luZGV4IElOIDEuLnZfcXR5IExPT1ANCiAgICAgICAgdl9n
+ZW5lcmF0ZWQ6PXByaXZhdGUucGVyc2lzdF9zdGFmZl9naWZ0KHBfdXNlciwodl9wYXlsb2FkLT4+
+J2RleCcpOjppbnRlZ2VyLCh2X3BheWxvYWQtPj4nbGV2ZWwnKTo6aW50ZWdlciwNCiAgICAgICAg
+ICAnZ3JhbnQnLCdncmFudDpzdGFmZi1yZXdhcmQ6J3x8cF9yZXF1ZXN0Ojp0ZXh0fHwnOid8fHZf
+aW5kZXg6OnRleHQsJ3Bva2UnLE5VTEwsDQogICAgICAgICAgY29hbGVzY2UoKHZfcGF5bG9hZC0+
+PidzaGlueScpOjpib29sZWFuLGZhbHNlKSwnc2wtcmVmLTIwMjYxMDEzLTIyN2I1NzMnLE5VTEws
+DQogICAgICAgICAgQ0FTRSBXSEVOIGNvYWxlc2NlKCh2X3BheWxvYWQtPj4nc2hpbnknKTo6Ym9v
+bGVhbixmYWxzZSkgVEhFTiAnc2hpbnknIEVMU0UgJ25vcm1hbCcgRU5ELE5VTEwsTlVMTCk7DQog
+ICAgICAgIElGIE5PVCBjb2FsZXNjZSgodl9nZW5lcmF0ZWQtPj4nb2snKTo6Ym9vbGVhbixmYWxz
+ZSkgVEhFTiBSQUlTRSBFWENFUFRJT04gJ0Nhbm9uaWNhbCBnZW5lcmF0aW9uIHJlamVjdGVkIHRo
+ZSBiYXRjaC4nOyBFTkQgSUY7DQogICAgICAgIHZfaWRzOj12X2lkc3x8anNvbmJfYnVpbGRfYXJy
+YXkodl9nZW5lcmF0ZWQtPidjYXRjaElkJyk7DQogICAgICAgIHZfcHVibGljX2lkczo9dl9wdWJs
+aWNfaWRzfHxqc29uYl9idWlsZF9hcnJheSh2X2dlbmVyYXRlZC0+J3B1YmxpY0lkJyk7DQogICAg
+ICBFTkQgTE9PUDsNCiAgICAgIHZfcmVzdWx0Oj1qc29uYl9idWlsZF9vYmplY3QoJ29rJyx0cnVl
+LCdxdWFudGl0eScsdl9xdHksJ2NhdGNoSWRzJyx2X2lkcywncHVibGljSWRzJyx2X3B1YmxpY19p
+ZHMsJ3BhdGgnLCd3aXJlJywNCiAgICAgICAgJ21lc3NhZ2UnLHZfcXR5Ojp0ZXh0fHwnIFBva8Op
+bW9uIGRlbGl2ZXJlZCB0aHJvdWdoIGNhbm9uaWNhbCBnZW5lcmF0aW9uLicpOw0KICAgIEVMU0lG
+IHBfYWN0aW9uPSdwb2tlbW9uJyBUSEVODQogICAgICBJRiBjb2FsZXNjZSgodl9wYXlsb2FkLT4+
+J2RleCcpOjppbnRlZ2VyLDApIE5PVCBCRVRXRUVOIDEgQU5EIDE1MSBPUiBjb2FsZXNjZSgodl9w
+YXlsb2FkLT4+J2xldmVsJyk6OmludGVnZXIsMCkgTk9UIEJFVFdFRU4gMSBBTkQgMTAwIFRIRU4N
+CiAgICAgICAgUkFJU0UgRVhDRVBUSU9OICdDaG9vc2UgS2FudG8gc3BlY2llcyAx4oCTMTUxIGFu
+ZCBsZXZlbCAx4oCTMTAwLic7DQogICAgICBFTkQgSUY7DQogICAgICAtLSBFeHBsaWNpdCBncmFu
+dCBjb250ZXh0OiBjYW5vbmljYWwgZ2VuZXJhdG9yL3ZhbGlkYXRvci9wZXJzaXN0ZW5jZSwgbm8g
+bGVnYWN5IHJhdyBJTlNFUlQsIG5vIFdJUkUgYWN0aXZhdGlvbi4NCiAgICAgIHZfcmVzdWx0Oj1w
+cml2YXRlLnBlcnNpc3Rfc3RhZmZfZ2lmdChwX3VzZXIsKHZfcGF5bG9hZC0+PidkZXgnKTo6aW50
+ZWdlciwodl9wYXlsb2FkLT4+J2xldmVsJyk6OmludGVnZXIsDQogICAgICAgICdncmFudCcsJ2dy
+YW50OnN0YWZmLXJld2FyZDonfHxwX3JlcXVlc3Q6OnRleHQsJ3Bva2UnLE5VTEwsY29hbGVzY2Uo
+KHZfcGF5bG9hZC0+PidzaGlueScpOjpib29sZWFuLGZhbHNlKSwNCiAgICAgICAgJ3NsLXJlZi0y
+MDI2MTAxMy0yMjdiNTczJyxOVUxMLENBU0UgV0hFTiBjb2FsZXNjZSgodl9wYXlsb2FkLT4+J3No
+aW55Jyk6OmJvb2xlYW4sZmFsc2UpIFRIRU4gJ3NoaW55JyBFTFNFICdub3JtYWwnIEVORCxOVUxM
+LE5VTEwpOw0KICAgICAgSUYgTk9UIGNvYWxlc2NlKCh2X3Jlc3VsdC0+PidvaycpOjpib29sZWFu
+LGZhbHNlKSBUSEVOIFJBSVNFIEVYQ0VQVElPTiAnQ2Fub25pY2FsIGdlbmVyYXRpb24gcmVqZWN0
+ZWQgdGhlIGdpZnQuJzsgRU5EIElGOw0KICAgICAgdl9yZXN1bHQ6PXZfcmVzdWx0fHxqc29uYl9i
+dWlsZF9vYmplY3QoJ21lc3NhZ2UnLCdQb2vDqW1vbiBkZWxpdmVyZWQgdGhyb3VnaCBjYW5vbmlj
+YWwgZ2VuZXJhdGlvbi4nKTsNCiAgICBFTFNFDQogICAgICB2X2tleTo9dl9wYXlsb2FkLT4+J2lk
+JzsNCiAgICAgIElGIHBfYWN0aW9uPSd0aXRsZScgVEhFTiBQRVJGT1JNIHB1YmxpYy5hZG1pbl9n
+cmFudF90aXRsZShwX3VzZXIsdl9rZXksYnRyaW0ocF9yZWFzb24pKTsNCiAgICAgIEVMU0lGIHBf
+YWN0aW9uPSdjb3NtZXRpYycgVEhFTiBQRVJGT1JNIHB1YmxpYy5hZG1pbl9ncmFudF9jb3NtZXRp
+YyhwX3VzZXIsdl9rZXksYnRyaW0ocF9yZWFzb24pKTsNCiAgICAgIEVMU0lGIHBfYWN0aW9uPSdi
+YWRnZScgVEhFTiBQRVJGT1JNIHB1YmxpYy5hZG1pbl9ncmFudF9iYWRnZShwX3VzZXIsdl9rZXks
+YnRyaW0ocF9yZWFzb24pKTsgRU5EIElGOw0KICAgICAgdl9yZXN1bHQ6PWpzb25iX2J1aWxkX29i
+amVjdCgnb2snLHRydWUsJ21lc3NhZ2UnLCdVbmxvY2thYmxlIGdyYW50ZWQuJyk7DQogICAgRU5E
+IElGOw0KICAgIFVQREFURSBwcml2YXRlLnN0YWZmX3Jld2FyZF9hY3Rpb25zIFNFVCBzdGF0dXM9
+J3N1Y2NlZWRlZCcscmVzdWx0PXZfcmVzdWx0LGZpbmlzaGVkX2F0PW5vdygpIFdIRVJFIHJlcXVl
+c3RfaWQ9cF9yZXF1ZXN0Ow0KICBFWENFUFRJT04gV0hFTiBPVEhFUlMgVEhFTg0KICAgIC0tIElu
+bmVyIHRyYW5zYWN0aW9uIHJvbGxiYWNrIHByZXNlcnZlcyB0aGUgb3V0ZXIgcmVjZWlwdCwgd2l0
+aCBubyBwYXJ0aWFsIGdpZnQuDQogICAgR0VUIFNUQUNLRUQgRElBR05PU1RJQ1Mgdl9lcnJvcj1S
+RVRVUk5FRF9TUUxTVEFURTsNCiAgICB2X3Jlc3VsdDo9anNvbmJfYnVpbGRfb2JqZWN0KCdvaycs
+ZmFsc2UsJ21lc3NhZ2UnLCdUaGUgYWN0aW9uIGZhaWxlZDsgbm90aGluZyBmcm9tIHRoaXMgcmVx
+dWVzdCB3YXMgZ3JhbnRlZC4gQ2hlY2sgZWxpZ2liaWxpdHksIGludmVudG9yeSBsaW1pdHMgYW5k
+IGVuYWJsZWQgY2F0YWxvZyBlbnRyaWVzIGJlZm9yZSBhIG5ldyBhdHRlbXB0LicpOw0KICAgIFVQ
+REFURSBwcml2YXRlLnN0YWZmX3Jld2FyZF9hY3Rpb25zIFNFVCBzdGF0dXM9J2ZhaWxlZCcscmVz
+dWx0PXZfcmVzdWx0LGVycm9yX2NvZGU9dl9lcnJvcixmaW5pc2hlZF9hdD1ub3coKSBXSEVSRSBy
+ZXF1ZXN0X2lkPXBfcmVxdWVzdDsNCiAgRU5EOw0KICBSRVRVUk4gdl9yZXN1bHR8fGpzb25iX2J1
+aWxkX29iamVjdCgncmVxdWVzdElkJyxwX3JlcXVlc3QsJ3JlcGxheWVkJyxmYWxzZSk7DQpFTkQg
+JGZ1bmN0aW9uJA0KOw0KY3JlYXRlIG9yIHJlcGxhY2UgZnVuY3Rpb24gcHVibGljLmFkbWluX3Nh
+dmVfcGFzc19yZXdhcmRzKHBfZGFpbHkganNvbmIscF93ZWVrbHkganNvbmIpIHJldHVybnMganNv
+bmIgbGFuZ3VhZ2UgcGxwZ3NxbCBzZWN1cml0eSBkZWZpbmVyIHNldCBzZWFyY2hfcGF0aD0nJyBh
+cyAkJGJlZ2luIHBlcmZvcm0gcHJpdmF0ZS5yZXF1aXJlX3N0YWZmX2VkaXQoKTtyYWlzZSBleGNl
+cHRpb24gJ09wZW4gR2FtZSBDb25maWd1cmF0aW9uIC8gUGFzcyByZXdhcmRzIHRvIGVkaXQgZGFp
+bHkgYW5kIHdlZWtseSBnaWZ0cy4nO2VuZCAkJDsNCg==
+$payload$,'base64'),'UTF8');
+END $pass_packet$;

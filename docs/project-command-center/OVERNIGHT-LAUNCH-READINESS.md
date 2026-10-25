@@ -334,3 +334,5 @@ Main799b8043 / Pages40229491912 succeeds with100+10source matches. New names and
 CODEX-243: owner requested primary Hub and replacement of legacy handoffs. Six-file native ticket/product slice tested;130suites,4ticketwidths,guarded rollback. Full migration still in progress;no production data changed. See LAUNCH-CODEX243-TICKET-AND-PRODUCT-WORKSPACES.md.
 
 CODEX243 complete: mainfaf17b8c / Pages40231206566 success;100+8source matches.76stored products locally round-trip unchanged. Ticket disclosures removed;staff menu targets newHub. No catalog save,SQLmigration,notices,grants,cleanup or APPstamp. Full CODEX242 remains in progress for typedPass/directcorrections and remaining workspaces.
+
+CODEX244 LIVE: migration20261025211631;main6e97544f/Pages40234735264success;100+12source matches.311catalog entries,79canonicalCandyfamilies,151Pokémon.132suites;15SQLgroups+rollback/drift;4pickerwidths. Exact baselinebundlesconverted;0deliveries. No hosted grant/claim/save/notices or protectedaccount mutation. NewPassusesprivatestorage;directcorrectionsnextCODEX245. Automation stays paused;currenthumaninstructionauthorizescontinuedwork.

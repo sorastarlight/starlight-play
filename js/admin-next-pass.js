@@ -70,7 +70,17 @@
       if(t.dataset.add){const kind=t.dataset.add;const d=modal(`Add a ${kind} reward`,`<label>Find a reward<input type="search" data-pass-search></label><div class="pass-picker"></div>`);const update=()=>{const query=d.querySelector('input').value.normalize('NFKC').toLocaleLowerCase();const available=Object.keys(items).filter(k=>!Object.hasOwn(model.state.draft[kind],k)&&items[k][0].toLocaleLowerCase().includes(query));d.querySelector('.pass-picker').innerHTML=available.length?available.map(k=>`<button type="button" data-pick="${k}">${icon(k)}${esc(items[k][0])}</button>`).join(''):'<p>No matching rewards available.</p>';};d.querySelector('input').oninput=update;d.querySelector('.pass-picker').onclick=event=>{const pick=event.target.closest('[data-pick]');if(!pick)return;d.close();model.add(kind,pick.dataset.pick);root.querySelector(`[data-kind="${kind}"][data-key="${pick.dataset.pick}"]`)?.focus();};update();d.querySelector('input').focus();}
     }catch(error){root.querySelector('[data-pass-error]').textContent=error.message;}});
     root.addEventListener('submit',e=>{if(!e.target.matches('[data-pass-form]'))return;e.preventDefault();try{if(model.state.locked||model.state.phase!=='ready')return;const p=payload(model.state.draft);if(!model.dirty())throw Error('No changes to review.');modal('Review Pass bundles',`<p>These site-wide bundles apply to future eligible claims. This does not grant rewards or change eligibility, cooldowns or claim clocks. A claim already in progress may use the previous bundle.</p><div class="pass-bundles">${kinds.map(k=>`<section><h4>${k==='daily'?'Daily gift':'Weekly crate'}</h4><h5>Current</h5>${list(model.state.current[k])}<h5>Proposed</h5>${list(p['p_'+k])}</section>`).join('')}</div><p>Concurrent staff edits are not locked. This replaces both bundles. Save once, then reload to verify.</p>`,()=>model.save(),'Save Pass bundles');}catch(error){root.querySelector('[data-pass-error]').textContent=error.message;const bad=[...root.querySelectorAll('[data-key]')].find(input=>{try{quantity(input.value);return false;}catch(_){return true;}});if(bad){bad.setAttribute('aria-invalid','true');bad.focus();}}});
-    doc.addEventListener('click',e=>{const link=e.target.closest('a[href],[data-next-tab]');if(!link||link.dataset.nextTab==='config'||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||root.contains(link)||!model.dirty()||root.closest('[hidden]')||e.defaultPrevented)return;e.preventDefault();e.stopImmediatePropagation();confirmDiscard(()=>{model.discard();if(model.state.locked){model.reset();}link.click();});},true);
+    doc.addEventListener('click',e=>{
+      const link=e.target.closest('a[href],[data-next-tab]');
+      if(!link||link.dataset.nextTab==='config'||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||root.contains(link)||!model.dirty()||root.closest('[hidden]')||e.defaultPrevented)return;
+      e.preventDefault();e.stopImmediatePropagation();
+      if(model.state.phase==='saving'){
+        const d=modal('Save in progress','<p>The request has already been sent. Wait for its result before leaving this workspace. Closing this message does not cancel or repeat the save.</p>');
+        if(d)d.querySelector('[data-back]').textContent='Return to pending save';
+        return;
+      }
+      confirmDiscard(()=>{model.discard();if(model.state.locked)model.reset();link.click();});
+    },true);
     doc.defaultView.addEventListener('beforeunload',e=>{if(model.dirty()){e.preventDefault();e.returnValue='';}});
     render();return model;
   }

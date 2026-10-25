@@ -135,3 +135,9 @@ supabase/unapplied/admin-mart-create-draft/INSTALL.sql SHA256 289013bf77bf071a9f
 supabase/unapplied/admin-mart-create-draft/ROLLBACK.sql SHA256 f2a8718930ccc1c034777759bff3c35153388fd7c803c9b638fea63fa5ba9870
 
 All14deltas replay/reverse on separate empty PG17 schema fixture;585function/143relation/56policy baseline metadata restored;142tables empty throughout. Original schema archive unchanged,runtime stopped.3newSQLfiles preserve exactLFbytes after Git checkout;operational pair pinned in recovery-packets.json. Latest observed Oct24 07:44:07UTC physical backup predates this migration;next completed post-change backup remains unobserved until due. No production restore/export,Auth/player data import,job activation or full physical/Auth/Storage certification. Evidence:evidence/codex215-recovery-replay.json and evidence/codex215-recovery-files.json.
+
+## CODEX-229 current post-create physical availability
+
+CODEX-229 post-SQL215 backup availability verified:completed PHYSICAL recovery point **October25 07:44:36UTC /03:44:36Eastern**,after latest migration20261025042627. [Report](LAUNCH-CODEX229-POST-CREATE-BACKUP.md). No restore/export;backup-content/physical restore/Auth/Storage certification remains outside evidence. Pending newer-backup observation is complete;do not poll it again unchanged.
+
+Latest migration remains20261025042627. Retained logical archive/delta packets stay unchanged;no new export or restore. Older pending-backup observations above are historical.

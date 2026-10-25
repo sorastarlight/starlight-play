@@ -1,4 +1,6 @@
-# Current launch readiness handoff — through CODEX-228
+# Current launch readiness handoff — through CODEX-229
+
+CODEX-229 post-SQL215 backup availability verified:completed PHYSICAL recovery point **October25 07:44:36UTC /03:44:36Eastern**,after latest migration20261025042627. [Report](LAUNCH-CODEX229-POST-CREATE-BACKUP.md). No restore/export;backup-content/physical restore/Auth/Storage certification remains outside evidence. Pending newer-backup observation is complete;do not poll it again unchanged.
 
 CODEX-228 full-shell local Mart transition review passed56completed cases and four targeted suites. Product/floor/create/order reviews clear before a new access check;late reads stay discarded and new staff sees only its fresh catalog. No runtime or hosted action. [Report](LAUNCH-CODEX228-MART-SHELL-TRANSITIONS.md). Backup check remains due after07:44UTC;overnight hard stop14:22UTC unchanged.
 

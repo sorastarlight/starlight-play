@@ -1,0 +1,27 @@
+{
+  "classification": "READ ONLY hosted Supabase dashboard and migration metadata;no application invocation",
+  "project": "dtflmlbjhttoewqgkujf",
+  "branch": "main production",
+  "observedAt": "2026-10-25T07:53:02.775Z",
+  "recoveryPoint": {
+    "type": "PHYSICAL",
+    "timestamp": "2026-10-25T07:44:36Z",
+    "restoreControlPresent": true,
+    "inProgressLabel": false
+  },
+  "latestMigration": {
+    "version": "20261025042627",
+    "name": "codex215_admin_mart_create_draft"
+  },
+  "postdatesLatestMigration": true,
+  "restoreClicked": false,
+  "exports": 0,
+  "changes": 0,
+  "limits": [
+    "Availability only;not backup-content verification",
+    "No physical restore or recovery-time guarantee",
+    "No full Auth-service certification",
+    "Storage objects excluded per dashboard notice"
+  ],
+  "privateScreenshot": "security/codex229/post-create-backup.png"
+}

@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+CODEX-229 post-SQL215 backup availability verified:completed PHYSICAL recovery point **October25 07:44:36UTC /03:44:36Eastern**,after latest migration20261025042627. [Report](LAUNCH-CODEX229-POST-CREATE-BACKUP.md). No restore/export;backup-content/physical restore/Auth/Storage certification remains outside evidence. Pending newer-backup observation is complete;do not poll it again unchanged.
+
 CODEX-228 full-shell local Mart transition review passed56completed cases and four targeted suites. Product/floor/create/order reviews clear before a new access check;late reads stay discarded and new staff sees only its fresh catalog. No runtime or hosted action. [Report](LAUNCH-CODEX228-MART-SHELL-TRANSITIONS.md). Backup check remains due after07:44UTC;overnight hard stop14:22UTC unchanged.
 
 CODEX-227 full-shell local Configuration transition review passed40staff-to-ordinary/staff-to-new-staff cases and four targeted suites. Old workspace/dialogs clear before access verification;late reads stay discarded and new staff gets fresh fields only. No runtime change or hosted call. [Report](LAUNCH-CODEX227-FULL-SHELL-TRANSITIONS.md). Overnight window remains14:22UTC/10:22Eastern;backup observation not due before07:44UTC.
@@ -41,6 +43,6 @@ Android S25Ultra Help/Register and Chrome ordinary-subscriber link/active Pass a
 
 Hosted Operations commands,Mart draft creation/product/floor/order/reward/capture saves,multi-page roster and batch gifts remain untested. Exact mutation decisions remain separate. Completing all remaining legacy-tool migration is not automatically a launch blocker;final scope/go-no-go/APP stamp remain owner decisions.
 
-Recovery:logical drill plus14empty-schema delta replays/reversals. Latest observed Oct24 07:44:07UTC physical backup predates new SQL215;observe a subsequent completed backup when due. No physical restore/full Auth or Storage certification. Daily-backup loss window accepted;no unchanged polls,exports or restores repeated.
+Recovery:logical drill plus14empty-schema delta replays/reversals. CODEX229 observes completed Oct25 07:44:36UTC physical recovery point after SQL215;availability check complete. No physical restore/full Auth or Storage certification. Daily-backup loss window accepted;no unchanged polls,exports or restores repeated.
 
 See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md),[owner review](OWNER-RETURN-REVIEW-OCT24.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md),[current handoff](OVERNIGHT-LAUNCH-READINESS.md),[CODEX211](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md),[CODEX212](LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md),[hosted inspection](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md) and [backup evidence](LAUNCH-CODEX188-POST-REPORT-BACKUP.md). Reports/Git and [earlier snapshots](CURRENT-ADMIN-HUB-STATUS-HISTORY-THROUGH209.md) preserve historical approvals.

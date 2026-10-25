@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-229",
+      "status": "done",
+      "scope": "Post-SQL215 completed physical backup availability",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX229-POST-CREATE-BACKUP.md;evidence/codex229-post-create-backup.json",
+      "testResults": "Dashboard PHYSICAL07:44:36UTC available;latest migration04:26:27UTC confirmed via metadata",
+      "nextAction": "Availability check complete;continue other readiness work without unchanged backup polling",
+      "approvalRequirement": "Read-only;no restore/export/settings change"
+    },
+    {
       "id": "CODEX-228",
       "status": "done",
       "scope": "Full-shell Mart review and delayed-read account transitions",

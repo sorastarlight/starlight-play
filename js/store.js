@@ -13,6 +13,7 @@
   let lastCatalog = null;
   let lastWallet = null;
   let lastPass = null;
+  let lastPassRewards = null;
   let lastOwned = [];
   let lastBag = null;
   let lastTab = "";
@@ -140,10 +141,12 @@
   function presentClaim(title, data, source) {
     if (typeof window.playPresentEnqueue !== "function") return;
     const grants = data?.grants || {};
-    const rewards = Object.entries(grants)
+    const revealed = window.PLAY_PASS_REWARDS?.rows(data?.revealedRewards) || [];
+    const rewards = revealed.length ? revealed.map(r=>({type:r.name,amount:r.quantity||1,label:window.PLAY_PASS_REWARDS.text(r)})) : Object.entries(grants)
       .filter(([, amount]) => Number(amount) > 0)
       .map(([type, amount]) => ({ type, amount: Number(amount) || 0 }));
     const lines = rewards.map((row) => {
+      if (row.label) return row.label;
       if (row.type === "coins") return `PokéCoins ×${row.amount}`;
       const label = typeof window.playItemLabel === "function" ? window.playItemLabel(row.type) : row.type;
       return `${label} ×${row.amount}`;
@@ -548,9 +551,7 @@
 
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
-    const perks = Array.isArray(floor.extra?.perks) && floor.extra.perks.length
-      ? floor.extra.perks
-      : ["+25 bag space while active", "Daily gift: 2 Berries, 1 Honey, 20 PokéCoins", "Weekly crate: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"];
+    const perks = ["25 extra inventory spaces while your Pass is active", "A daily gift and a weekly crate"];
     const title = floor.name || "Starlight Pass";
     const day = Math.max(1, Math.min(7, Number(wallet?.dailyStreakDay || 1)));
     const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
@@ -598,7 +599,7 @@
                 <p class="eyebrow">Pass Daily Gift</p>
                 <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.dailyReady ? "Ready" : "Cooldown"}</span>
               </header>
-              <p class="pass-reward-body">Subscriber daily gift (about every 20 hours).</p>
+              <p class="pass-reward-body">Subscriber daily gift (about every 20 hours).</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ""}
               <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
               <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "On cooldown" : "Claim Daily Gift"}</button>
             </article>
@@ -607,7 +608,7 @@
                 <p class="eyebrow">Pass Weekly Crate</p>
                 <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.weeklyReady ? "Ready" : "Cooldown"}</span>
               </header>
-              <p class="pass-reward-body">Subscriber weekly crate (about every 6 days).</p>
+              <p class="pass-reward-body">Subscriber weekly crate (about every 6 days).</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ""}
               <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
               <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "On cooldown" : "Claim Weekly Crate"}</button>
             </article>
@@ -1317,6 +1318,7 @@
       lastCatalog = data.catalog;
       lastWallet = wallet;
       lastPass = data.pass;
+      lastPassRewards = data.passRewards || null;
       lastOwned = data.ownedAvatarPacks || [];
       lastBag = data.bag || null;
       window._playOwnedAvatarPacks = lastOwned;

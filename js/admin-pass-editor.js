@@ -1,0 +1,37 @@
+/* Full visual Pass editor. Server owns eligibility, revisions and delivery. */
+(function(root){
+'use strict';const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+function adapter({session,identity,allowed,call}){return async(kind,payload)=>{
+ const actor=identity();const check=async()=>{const s=await session();if(s.error||!actor||!allowed()||identity()!==actor||s.data?.session?.user?.id!==actor)throw Error('Staff session changed. Reload the Hub.');};await check();
+ let result;if(kind==='read')result=await call('admin_pass_rewards_read');else if(kind==='save')result=await call('admin_pass_rewards_save',{p_request:payload.requestId,p_revision:payload.expectedRevision,p_daily:payload.daily,p_weekly:payload.weekly});else throw Error('Unsupported reward operation.');
+ await check();return result;
+};}
+function mount(host,transport){
+ let baseline=null,picker=null,lastPhase='closed';const model=root.PLAY_REWARD_BUNDLES.create(transport,render);
+ const catalog=root.PLAY_REWARD_CATALOG;
+ function info(entry,state){const r=state.catalog.find(r=>r.id===entry.catalogId);return {name:r?.name||'Unavailable reward',sprite:r?.sprite||'images/items/secret-gift.svg'};}
+ function lines(entries,s){return entries.map(e=>{const r=info(e,s);return `${r.name} ×${e.quantity}${e.level?' · Level '+e.level:''}${e.shiny?' · Shiny':''}${e.secret?' · Secret Gift':''}`;});}
+ function dirty(s){return baseline&&JSON.stringify({daily:s.daily,weekly:s.weekly})!==JSON.stringify(baseline);}
+ function render(s){
+  picker?.clear();picker=null;if(s.phase==='closed'||s.phase==='loading')baseline=null;
+  if((s.phase==='ready'&&lastPhase==='loading')||s.phase==='saved')baseline=structuredClone({daily:s.daily,weekly:s.weekly});lastPhase=s.phase;
+  const active=host.contains(document.activeElement)?document.activeElement?.getAttribute('data-focus'):null;
+  host.querySelectorAll('dialog').forEach(d=>d.close());
+  host.innerHTML=`<p role="status">${esc(s.message||'Choose the daily gift and weekly crate contents.')}</p><div class="reward-editor-toolbar"><button type="button" data-load ${s.phase==='saving'?'disabled':''}>${s.phase==='closed'?'Load Pass rewards':'Reload rewards'}</button><button type="button" data-review ${s.phase!=='ready'||!dirty(s)?'disabled':''}>Review and save</button></div>${s.catalog.length?`<div class="pass-bundles">${['daily','weekly'].map(period=>`<section><h3>${period==='daily'?'Daily gift':'Weekly crate'}</h3><p>${period==='daily'?'Available every 20 hours.':'Available every 6 days.'}</p><ul class="pass-rows">${s[period].map((entry,index)=>{const r=info(entry,s);return `<li><img src="${esc(r.sprite)}" alt="" width="48" height="48"><div><strong>${esc(r.name)}</strong>${entry.level?`<small>Level ${entry.level}${entry.shiny?' · Shiny':''}</small>`:''}<label>Quantity<input data-period="${period}" data-index="${index}" data-quantity data-focus="${period}-${index}-qty" type="number" min="1" max="${s.catalog.find(r=>r.id===entry.catalogId)?.maxQuantity||1}" value="${entry.quantity}" ${s.phase!=='ready'||s.review?'disabled':''}></label><label><input data-period="${period}" data-index="${index}" data-secret data-focus="${period}-${index}-secret" type="checkbox" ${entry.secret?'checked':''} ${s.phase!=='ready'||s.review?'disabled':''}>Secret Gift</label></div><button type="button" data-remove="${index}" data-period="${period}" ${s.phase!=='ready'||s.review?'disabled':''}>Remove</button></li>`}).join('')||'<li>No rewards selected. Add at least one before saving.</li>'}</ul><button type="button" data-add="${period}" ${s.phase!=='ready'||s.review?'disabled':''}>Add reward</button></section>`).join('')}</div>`:''}<p role="alert" data-editor-error></p>`;
+  if(active)host.querySelector(`[data-focus="${active}"]`)?.focus();
+  if(s.review&&s.phase==='ready'){const dialog=document.createElement('dialog');dialog.className='mart-dialog';dialog.setAttribute('aria-label','Review Pass rewards');dialog.innerHTML=`<h3>Review Pass rewards</h3><p>These contents apply to future claims. Previous claims and cooldowns are unchanged.</p>${['daily','weekly'].map(k=>`<section><h4>${k==='daily'?'Daily gift':'Weekly crate'}</h4><p>Current: ${esc(lines(baseline[k],s).join(', '))}</p><p><strong>New: ${esc(lines(s[k],s).join(', '))}</strong></p></section>`).join('')}<div class="mart-actions"><button type="button" data-back>Back to editing</button><button type="button" data-save>Save rewards</button></div>`;host.append(dialog);dialog.addEventListener('cancel',e=>{e.preventDefault();model.cancel();});dialog.showModal();}
+ }
+ host.addEventListener('click',e=>{try{
+  if(e.target.closest('[data-load]')){model.load();return;}
+  if(e.target.closest('[data-review]')){model.review(crypto.randomUUID());return;}
+  if(e.target.closest('[data-back]')){model.cancel();return;}
+  if(e.target.closest('[data-save]')){model.save();return;}
+  const remove=e.target.closest('[data-remove]');if(remove){model.remove(remove.dataset.period,Number(remove.dataset.remove));return;}
+  const add=e.target.closest('[data-add]');if(add){const s=model.getState(),period=add.dataset.add;if(s.phase!=='ready'||s.review)return;const d=document.createElement('dialog');d.className='reward-picker-dialog';d.setAttribute('aria-label','Add Pass reward');d.innerHTML='<header><h3>Add a reward</h3><button type="button" data-close-picker>Close</button></header><div data-picker></div>';host.append(d);picker=root.PLAY_REWARD_PICKER.mount(d.querySelector('[data-picker]'),s.catalog,entry=>model.add(period,entry),'pass');d.querySelector('[data-close-picker]').onclick=()=>d.close();d.onclose=()=>{picker?.clear();picker=null;d.remove();host.querySelector(`[data-add="${period}"]`)?.focus();};d.showModal();}
+ }catch(error){host.querySelector('[data-editor-error]').textContent=error.message;}});
+ host.addEventListener('change',e=>{if(!e.target.matches('[data-quantity],[data-secret]'))return;const s=model.getState(),period=e.target.dataset.period,index=Number(e.target.dataset.index);try{model.replace(period,index,{...s[period][index],...(e.target.matches('[data-quantity]')?{quantity:Number(e.target.value)}:{secret:e.target.checked})});}catch(error){render(model.getState());host.querySelector('[data-editor-error]').textContent=error.message;}});
+ host.ownerDocument.defaultView.addEventListener('beforeunload',e=>{if(dirty(model.getState())){e.preventDefault();e.returnValue='';}});
+ render(model.getState());return {reset(){baseline=null;model.reset();},getState:model.getState};
+}
+root.PLAY_ADMIN_PASS_EDITOR={adapter,mount};
+})(window);

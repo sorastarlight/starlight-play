@@ -1,8 +1,8 @@
 # Launch acceptance matrix
 
-Current through CODEX-221,October25. CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
+Current through CODEX-222,October25. CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
 
-CODEX219Pass bundles published;CODEX220integrated controls/headings corrected. Real device/provider and hosted mutation gaps below remain.
+Actual device/provider and hosted mutation evidence remain separate. [Latest local review](LAUNCH-CODEX222-MART-INTEGRATED-REVIEW.md).
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |
@@ -13,7 +13,7 @@ CODEX219Pass bundles published;CODEX220integrated controls/headings corrected. R
 | Devices/assistive | Human-reported S25Ultra Help/Register portrait/landscape,touch and keyboard checks;local responsive fixtures. | Real iOS Safari and desktop zoom/screen-reader evidence unrecorded;fixtures cannot replace required real acceptance. |
 | Twitch/providers | Human-reported ordinary subscriber ShinoTheWolf link/active Pass in Chrome;Firefox navigation correction source verified. | Firefox retry and broader consent/refresh/provider branches unverified;one-link restriction stays disabled. |
 | Admin Hub | Trainer/roster,Gifts/Pass,Helpdesk,existing Mart products/floors,ordering,six rewards,capture bounds,five reports and Operations controls published. Approved owner read inspection covered catalog/fields/reports/one roster record. | Hosted commands,product/floor/order/reward/capture saves,multi-page roster and quantity-batch gifts remain untested. Exact mutation scope required. Remaining creation/uploads/Bits/avatar/System migration is not automatically a launch blocker. |
-| Visual/keyboard maintenance | Routine copy/loading/focus fixes published with scoped source evidence;new empty/fixed/long-review and independent-draft checks complete. | Local fixtures are not blanket hosted/device/assistive certification. |
+| Visual/keyboard maintenance | CODEX222integrated Mart populated/empty/error/review and draft isolation checked;seven confirmations use consistent emphasis.126suites;16+28local layout states. | Local fixtures are not blanket hosted/device/assistive certification. |
 | Latest optional migration | CODEX215create-only hidden Mart draft installed/published/source verified;123suites,22SQL groups,8responsive states,100+4source matches and14delta recovery. | Hosted creation/application acceptance remains untested and needs exact scope. |
 | Final release | Requirements,accepted constraints and limits recorded. | Owner scope/go-no-go and APP stamp still separate;no final launch declaration. |
 | Latest Pass migration | CODEX219bundle editor published/source verified;CODEX220integrated style maintenance published. | Hosted Pass settings reads/saves and claims remain outside completed scope. |

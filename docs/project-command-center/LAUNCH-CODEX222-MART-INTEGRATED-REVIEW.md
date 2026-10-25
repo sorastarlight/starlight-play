@@ -27,3 +27,7 @@ Build31HTML481refs;APP20261008-rc133 unchanged. Five-file guarded rollback check
 This is CODEX-78routine presentation maintenance. Publication is limited to those five CSS files through the existing Pages workflow,followed by static-source verification. No hosted application read/save,SQL,provider action,notice acknowledgement,claim,grant,protected-account mutation,spending,schedule,APP stamp or final launch. Sora NO;Twinkle NO;PlayTester role unchanged.
 
 The next post-SQL215physical backup was not yet due during this work window;no unchanged dashboard polling or new scheduler was added.
+
+## Publication complete
+
+CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation. [Hosted source evidence](evidence/codex222-publication.json). Temporary fixture tabs and server were closed/stopped.

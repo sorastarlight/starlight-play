@@ -1,3 +1,7 @@
+## CODEX-222 — scoped CSS publication/source verification complete
+
+CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation. Sora NO;Twinkle NO;PlayTester unchanged;heartbeat paused.
+
 ## CODEX-222 — integrated Mart and confirmation presentation
 
 16baseline integrated states,28candidate dialog states and native draft/focus checks;126suites and five-CSS guarded rollback pass. Existing create confirmation accent reused consistently;no JS/HTML/transport/permission change. Routine publication/source verification next. No hosted application actions or SQL. Sora NO;Twinkle NO;PlayTester unchanged.

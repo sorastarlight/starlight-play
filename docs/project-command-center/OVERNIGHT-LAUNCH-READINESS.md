@@ -1,10 +1,6 @@
-# Current launch readiness handoff — through CODEX-221
+# Current launch readiness handoff — through CODEX-222
 
-Runtime maincbafe131 / Pages40165825515success;100+1sources match. CODEX217existing Studio local draft/bundle-isolation maintenance only.125local suites;APP20261008-rc133 unchanged. Latest SQL remains215;14delta recovery and3checkoutfiles unchanged.
-
-CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
-
-CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action.
+CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
 
 Current user authorizes autonomous in-session readiness/visual work. Existing heartbeat remains PAUSED;no renewed schedule or extra background systems. No delegation. Preserve SQL/Auth/provider/credential/gameplay/grant/notice/protected-account/spending/APP/final-launch boundaries.
 

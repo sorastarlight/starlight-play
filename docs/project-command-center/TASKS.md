@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-222 | done | Integrated Mart/draft inspection and confirmation styling | CODEX-221 | CODEX-78 | 126suites;16+28states;five-CSS rollback |
+| CODEX-222 | done | Integrated Mart/draft inspection and confirmation styling | CODEX-221 | CODEX-78 | Mainffc57bcd;Pages40166688718;100+5sources;126suites |
 | CODEX-221 | done | Pending-save navigation presentation | CODEX-219/220 | CODEX-78 | Maincbafe131;Pages40165825515;100+1sources;126suites |
 | CODEX-220 | done | Integrated Configuration visual consistency | CODEX-219 | CODEX-78routine maintenance | Mainb6daf681;Pages40165498737;100+2sources |
 | CODEX-219 | done | Local Pass bundle editor | CODEX-218 | Exact publication approved/spent | Main361ba124;Pages40164012374;15contracts;100+4sources |

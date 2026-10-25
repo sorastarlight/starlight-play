@@ -1,8 +1,8 @@
 # Current Admin Hub status
 
-Current through CODEX-221,October25. CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
+Current through CODEX-222,October25. CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
 
-CODEX-220 corrected Pass input/search sizing and Configuration headings using actual repository styles:15 fields and12 responsive combined states passed. New Pass bundles remain published;live settings read/save and claims are untested. Feature build31HTML481refs;isolated production build30HTML479refs. Preview:[Admin Hub](../../admin-next.html). This remains a partial migration,not a final-launch declaration.
+[Latest integrated review](LAUNCH-CODEX222-MART-INTEGRATED-REVIEW.md). Feature build31HTML481refs;isolated main build30HTML479refs. Preview:[Admin Hub](../../admin-next.html). This remains a partial migration,not a final-launch declaration.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |

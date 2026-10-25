@@ -1,8 +1,8 @@
 # Owner return review — updated October25
 
-CODEX-221 pending-save presentation maintenance is published at main **cbafe131**,Pages **40165825515 succeeded**. All100 monitored files and the one versioned changed file match.126 local suites,actual-handler baseline/candidate regression and guarded rollback pass. APP **20261008-rc133** unchanged. No hosted application action or SQL.
+CODEX-222 integrated Mart inspection and confirmation styling are complete. Routine five-stylesheet publication is live at main **ffc57bcd**,Pages **40166688718 succeeded**;100monitored+5versioned deployed files match.126local suites,16baseline Mart states,28candidate dialog states,native draft/keyboard checks and guarded rollback pass. APP **20261008-rc133** unchanged. No JavaScript,HTML,SQL or hosted application operation.
 
-Also completed CODEX220routine Configuration field/search/heading consistency,12 integrated states and39 current documentation links. No new decision requested in these two maintenance batches.
+No new decision was needed for this routine styling/inspection batch.
 
 ## Current decision state
 

@@ -1,3 +1,7 @@
+## CODEX-235 — Helpdesk accessibility publication verified
+
+CODEX-235 Helpdesk visible-focus correction is published at main **9356623f**, Pages **40186781359 succeeded**;100monitored+one versioned source match. One focus expression now brings the existing conversation heading into view after loading older messages.24populated layouts,126suites,11support race/loading cases,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No request/permission/message behavior or hosted application action changed. Local fixture tabs closed/server stopped;private rollback retained. Sora NO;Twinkle NO;PlayTester unchanged.
+
 ## CODEX-235 — Local Helpdesk visible focus
 
 Populated24state review passed;native paging revealed offscreen focus. One-expression routine correction makes existing focus target visible.126suites,11support cases/build and rollback pass. No hosted calls;exact publication next.

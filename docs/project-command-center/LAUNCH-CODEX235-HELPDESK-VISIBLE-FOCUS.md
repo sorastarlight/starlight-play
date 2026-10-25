@@ -13,3 +13,7 @@ Loading older messages focused the conversation heading while explicitly prevent
 [Rendered/scope evidence](evidence/codex235-helpdesk.json) · [126 suites](evidence/codex235-regressions.json). Private fixture/security/codex235 stays outside Git. An initial fixture auto-mounted player mode before remounting staff;the final run uses a separate host and asserts exactly one fictional list call per state.
 
 No hosted app navigation/notices,calls,tickets/replies,transitions,triage,recovery mail or protected-account mutation. Source review confirms the browser renders only messages returned by the backend;the fictional player data intentionally excludes internal notes,so this does not repeat hosted privacy acceptance. Sora NO;Twinkle NO;PlayTester unchanged. Real device/assistive/provider requirements remain open. Exact one-file publication and deployed static source verification follow.
+
+## Publication verified
+
+CODEX-235 Helpdesk visible-focus correction is published at main **9356623f**, Pages **40186781359 succeeded**;100monitored+one versioned source match. One focus expression now brings the existing conversation heading into view after loading older messages.24populated layouts,126suites,11support race/loading cases,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No request/permission/message behavior or hosted application action changed. [Static source evidence](evidence/codex235-publication.json). Feature implementation8782cf90;only js/support.js fast-forwarded to main.

@@ -1,8 +1,8 @@
-# Owner return review — current October25,through CODEX-234
+# Owner return review — current October25,through CODEX-235
 
 ## Completed this overnight window
 
-Production is **main 5aa6b86c / APP20261008-rc133**. CODEX233recovery and234gift confirmation wrapping are routine CSS-only fixes. Latest126suites and36gift layout/reset states pass with100+1deployed source matches. CODEX225–232 made no runtime change. Critical production decisions remain held.
+Production is **main 9356623f / APP20261008-rc133**. Routine fixes cover recovery/gift confirmation wrapping and Helpdesk visible keyboard focus. Latest126suites,24populated Helpdesk states and native paging checks pass;100+1deployed source matches. Critical production decisions remain held.
 
 - [Configuration hosted loading](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md):six PokéCoin fields,Pass bundles and capture bounds loaded;no saves. Bounded owner notice exception completed/spent.
 - [Operations local review](LAUNCH-CODEX225-OPERATIONS-INTEGRATED-REVIEW.md):40layouts,native focus/pending/reset;no live commands.
@@ -16,6 +16,8 @@ Production is **main 5aa6b86c / APP20261008-rc133**. CODEX233recovery and234gift
 - [Recovery confirmation wrapping](LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md):valid20character names now fit narrow dialogs;one CSS file published,no email/flow change.
 
 - [Gift confirmation wrapping](LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md):maximum-length recipients fit narrow reviews;one CSS file published,no grants or behavior change.
+
+- [Helpdesk populated review and visible focus](LAUNCH-CODEX235-HELPDESK-VISIBLE-FOCUS.md):older-message paging now exposes the focused heading;one JS expression published,no ticket action or request logic change.
 
 ## What genuinely remains
 

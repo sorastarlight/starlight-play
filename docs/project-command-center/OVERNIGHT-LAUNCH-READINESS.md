@@ -1,4 +1,6 @@
-# Current launch readiness handoff — through CODEX-234
+# Current launch readiness handoff — through CODEX-235
+
+CODEX-235 Helpdesk visible-focus correction is published at main **9356623f**, Pages **40186781359 succeeded**;100monitored+one versioned source match. One focus expression now brings the existing conversation heading into view after loading older messages.24populated layouts,126suites,11support race/loading cases,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No request/permission/message behavior or hosted application action changed. [Report](LAUNCH-CODEX235-HELPDESK-VISIBLE-FOCUS.md).
 
 CODEX-234 gift confirmation wrapping is published at main **5aa6b86c**, Pages **40184787606 succeeded**;100monitored+one versioned source match. Two scoped CSS rules fix six long-name overflow cases. All36local states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. Gift quantities,payloads,permissions and behavior stay unchanged;no hosted gift/application call. [Report](LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md).
 

@@ -222,6 +222,19 @@
           "sha256": "e369005da0d819033cb8927366c1e9d00da8eba1489c0304ddce9f58052f1f33"
         }
       ]
+    },
+    {
+      "version": "20261025231537",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-system-connections/INSTALL.sql",
+          "sha256": "9f93d12f9f1aa6cf725cf2f6c0015b9464cc00f8c962400d78adf5b56b0f9a29"
+        },
+        {
+          "file": "supabase/unapplied/hub-system-connections/ROLLBACK.sql",
+          "sha256": "2d91b3cd2661b2fe8674eaf64c735b907439838b3034109d022bb502ee82c60e"
+        }
+      ]
     }
   ]
 }

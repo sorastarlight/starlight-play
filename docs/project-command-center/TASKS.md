@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-250 | in_progress | Native System connections and Bits activity | Owner full migration | Install/completed go-live authorized;no live credential action | Finish local UI and guarded release |
+| CODEX-250 | done | Native System connections and Bits activity | Owner full migration | Install/completed go-live authorized;no live credential action | Migration20261025231537;Pages40243972531success;100+6sources |
 | CODEX-251 | done | Retired client ad-token route and retry review | System source review | Safe legacy replacement authorized | Migration20261025225608;4controls unchanged;retry already safe |
 | CODEX-249 | done | Audited encounter timing | Owner full migration | Install/completed go-live authorized;Bits activation held | Live;100+4sources;remaining System/Director next |
 | CODEX-248 | done | Native item supplies and reward entries | Owner full migration | Completed go-live authorized | Live;100+5sources;encounter timing next |

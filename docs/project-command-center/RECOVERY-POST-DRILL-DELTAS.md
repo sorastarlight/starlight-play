@@ -178,3 +178,12 @@ Migration20261025225608 retires one unused client credential-storage branch whil
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025225608 retire_unvalidated_ads_token_route|supabase/unapplied/retired-ads-token-route/INSTALL.sql|4d3c946872b91728cda5def55b299712909a8d18f2885ac295a90ac20c221bb2|
+
+
+## CODEX-250 — System connections
+
+Source-guarded connection migration; all five installed definitions match locally tested candidates. Audit has RLS, no browser read and zero rows. Rollback preserves current credentials/settings/audit and disables new APIs. No hosted key/channel/token action invoked.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025231537 hub_system_connections|supabase/unapplied/hub-system-connections/INSTALL.sql|9f93d12f9f1aa6cf725cf2f6c0015b9464cc00f8c962400d78adf5b56b0f9a29|

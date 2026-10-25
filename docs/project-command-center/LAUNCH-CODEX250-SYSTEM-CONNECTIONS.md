@@ -1,6 +1,6 @@
 # CODEX-250 — Native System connections and Bits activity
 
-Status: tested locally; installation and exact scoped publication pending.
+Status: LIVE. Migration20261025231537;mainbcab3a6ef033f134ee4c1091e929f687d85a71c6;Pages40243972531success. All five installed definitions and ACLs match the local candidate; audit RLS enabled, browser read denied, zero rows.100 monitored and all six changed versioned sources match. No actual connection/credential/Bits action was invoked.
 
 System now has connection status, Twitch channel, owner app keys and stream PC setup, plus a native Bits event list/detail workspace. It removes the old editor handoff. Saved secrets are never returned. Entered keys clear on leaving; tokens are masked, shown once and cleared on close/account change. Channel edits review exact before/after values and reject stale settings. Owner permission is checked again after waiting for the settings row. Credentials preserve unrelated bridge settings and record an audit action without a secret value.
 

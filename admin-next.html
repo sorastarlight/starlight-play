@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="css/admin-pass.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/admin-session.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/support.css?v=20261008-rc133">
+<link rel="stylesheet" href="css/admin-workspaces.css?v=20261008-rc133">
 <body data-page="admin-next">
 <nav class="topnav">
   <div class="topnav-inner">
@@ -64,7 +65,7 @@
 <div class="wrap">
   <div class="page-kicker">
     <h1>Admin Hub (preview)</h1>
-    <p class="muted">Trainer records, Starlight Pass and audited gifts. Live encounter controls stay on the current Admin Hub.</p>
+    <p class="muted">Manage trainers, support tickets, shop products and game settings.</p>
     <p><a href="./admin.html">Open current Admin Hub</a></p>
   </div>
   <p id="gate" class="notice">Sign in to open the Admin Hub preview.</p>
@@ -77,8 +78,8 @@
         <div class="hub-nav-list" id="next-hub-tabs" role="tablist" aria-label="Next Admin Hub" aria-orientation="vertical" aria-describedby="next-hub-tabs-help">
           <button type="button" role="tab" id="next-tab-operations" aria-controls="next-panel-operations" tabindex="0" data-next-tab="operations" aria-selected="true">Operations</button>
           <button type="button" role="tab" id="next-tab-trainers" aria-controls="next-panel-trainers" tabindex="-1" data-next-tab="trainers">Trainers</button>
-          <button type="button" role="tab" id="next-tab-support" aria-controls="next-panel-support" tabindex="-1" data-next-tab="support">Support &amp; Recovery</button>
-          <button type="button" role="tab" id="next-tab-mart" aria-controls="next-panel-mart" tabindex="-1" data-next-tab="mart">Mart &amp; Content</button>
+          <button type="button" role="tab" id="next-tab-support" aria-controls="next-panel-support" tabindex="-1" data-next-tab="support">Service Desk</button>
+          <button type="button" role="tab" id="next-tab-mart" aria-controls="next-panel-mart" tabindex="-1" data-next-tab="mart">Items &amp; Economy</button>
           <button type="button" role="tab" id="next-tab-config" aria-controls="next-panel-config" tabindex="-1" data-next-tab="config">Game Configuration</button>
           <button type="button" role="tab" id="next-tab-analytics" aria-controls="next-panel-analytics" tabindex="-1" data-next-tab="analytics">Analytics &amp; Health</button>
           <button type="button" role="tab" id="next-tab-system" aria-controls="next-panel-system" tabindex="-1" data-next-tab="system">System &amp; Access</button>
@@ -130,13 +131,13 @@
               <div id="next-trainer-detail"></div>
             </div>
           </div>
-          <p class="admin-next-unavailable">Full PC boxes, Bits, achievement journals, Oak research and email addresses are not available here. Account recovery and identity changes remain in Support &amp; Recovery.</p>
-          <p><a class="admin-next-legacy" href="./admin-next.html?section=support">Open Support &amp; Recovery</a></p>
+          <p class="admin-next-unavailable">Full PC boxes, Bits, achievement journals, Oak research and email addresses are not available here. Account recovery and identity changes remain in Service Desk.</p>
+          <p><a class="admin-next-legacy" href="./admin-next.html?section=support">Open Service Desk</a></p>
         </section>
         <section id="next-panel-support" role="tabpanel" aria-labelledby="next-tab-support" tabindex="0" class="hub-card admin-next-panel" data-next-panel="support" hidden>
-          <p class="eyebrow">Support &amp; Recovery</p>
-          <h2>Support &amp; Recovery</h2>
-          <p>Review tickets, reply to trainers and keep internal notes. Helpdesk access is owner-only.</p>
+
+          <h2>Service Desk</h2>
+          <p>Review tickets, reply to trainers and keep internal notes. Only the owner can access the Service Desk.</p>
           <div id="owner-support" class="support-workspace"></div>
           <p id="next-support-context" class="record-note" hidden></p>
           <p>Starlight Pass controls and audited gifts are available in Trainer Management. Recovery emails use the owner-only confirmation in account connections or ticket details.</p>
@@ -145,14 +146,16 @@
           <p><a class="admin-next-legacy" href="./admin.html?section=content&amp;view=oakqa">Open legacy Oak QA</a></p>
         </section>
         <section id="next-panel-mart" role="tabpanel" aria-labelledby="next-tab-mart" tabindex="0" class="hub-card admin-next-panel" data-next-panel="mart" hidden>
-          <p class="eyebrow">Mart &amp; Content</p>
-          <h2>Catalog and studio</h2>
-            <p>Edit existing single-reward PokéCoin products or prepare a hidden inventory draft. Other product types and uploads remain in the current editor.</p>
-            <div id="next-mart"></div>
-            <section class="mart-floor-section" aria-labelledby="create-draft-heading"><h3 id="create-draft-heading">Create a hidden draft</h3><p>Prepare one inventory product in an existing PokéCoin floor. Publication is a separate step in the product editor.</p><div id="next-mart-create"></div></section>
-            <section class="mart-floor-section" aria-labelledby="floor-presentation-heading"><h3 id="floor-presentation-heading">Floor presentation</h3><p>Edit the name, description and visibility of an existing non-system PokéCoin floor. Other floor tools remain in the current editor.</p><div id="next-mart-floors"></div></section>
-          <section class="bounded-editor" id="next-floor-order-section"><h3>Floor ordering</h3><p>Reorder existing PokéCoin floors while retaining fixed floor positions.</p><div id="next-floor-order"></div></section>
-          <p><a class="admin-next-legacy" href="./admin.html?section=economy&amp;view=catalog">Open current Mart editor</a></p>
+
+          <h2>Items &amp; Economy</h2>
+            <p>Manage shop products and organize the categories trainers browse.</p>
+            <div class="hub-workspaces" data-workspaces aria-label="Shop tools">
+            <section data-workspace="Products"><div id="next-mart"></div></section>
+            <section data-workspace="Add product" class="mart-floor-section" aria-labelledby="create-draft-heading"><h3 id="create-draft-heading">Add a product</h3><p>Add an item to a shop category. New products stay hidden until you publish them.</p><div id="next-mart-create"></div></section>
+            <section data-workspace="Categories" class="mart-floor-section" aria-labelledby="floor-presentation-heading"><h3 id="floor-presentation-heading">Shop categories</h3><p>Choose a shop category to update its name, description and visibility.</p><div id="next-mart-floors"></div></section>
+          <section data-workspace="Category order" class="bounded-editor" id="next-floor-order-section"><h3>Category order</h3><p>Choose the order in which shop categories appear. Reserved categories stay in place.</p><div id="next-floor-order"></div></section>
+            </div>
+          <details class="hub-secondary"><summary>Additional product tools</summary><p>Some product types are still being moved into this workspace.</p><a href="./admin.html?section=economy&amp;view=catalog">Open additional product tools</a></details>
         </section>
         <section id="next-panel-config" role="tabpanel" aria-labelledby="next-tab-config" tabindex="0" class="hub-card admin-next-panel" data-next-panel="config" hidden>
           <p class="eyebrow">Game Configuration</p>
@@ -222,5 +225,6 @@
 <script src="js/admin-next-limits-order.js?v=20261008-rc133"></script>
 <script src="js/admin-next-roster.js?v=20261008-rc133"></script>
 <script src="js/admin-next-session.js?v=20261008-rc133"></script>
+<script src="js/admin-workspaces.js?v=20261008-rc133"></script>
 <script src="js/admin-next.js?v=20261008-rc133"></script>
 </body>

@@ -58,7 +58,7 @@
         if (!Array.isArray(data?.items) || !Array.isArray(data?.categories)) throw Error("Invalid catalog response.");
         const skus = data.items.map(row => row.sku);
         if (new Set(skus).size !== skus.length) throw Error("Ambiguous product identities.");
-        Object.assign(state, { phase: "ready", catalog: copy(data), message: "Choose a product. Server permissions apply to every save." }); emit();
+        Object.assign(state, { phase: "ready", catalog: copy(data), message: "Choose a product to view or edit." }); emit();
       } catch (_) { if (active && token === epoch) { state.phase = "error"; state.message = "Catalog unavailable or access denied. No product data is retained. Try loading again."; emit(); } }
     }
     function select(sku) {
@@ -76,7 +76,7 @@
         const receipt = await transport("admin_store_save_item", args);
         if (!active || token !== epoch) return;
         if (!receipt || receipt.ok === false || receipt.error || receipt.sku !== args.p_row.sku) throw Error("Unconfirmed receipt.");
-        state.phase = "ready"; state.uncertain = true; state.message = "Save acknowledged. Reload the catalog to verify the stored product before editing again."; emit();
+        state.phase = "ready"; state.uncertain = true; state.message = "Changes saved. Reload the catalog to verify the stored product before editing again."; emit();
       } catch (error) {
         if (!active || token !== epoch) return;
         if (["42501", "401", "403"].includes(String(error?.code || error?.status))) {
@@ -105,7 +105,7 @@
       root.querySelector("dialog")?.close();
       root.innerHTML = `<p role="status" tabindex="-1" class="mart-status">${esc(s.message)}</p><button type="button" data-mart-load ${["loading", "saving", "closed"].includes(s.phase) ? "disabled" : ""}>Reload catalog</button><div data-mart-body></div>`;
       if (s.catalog) {
-        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="admin-mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, SKU or description" value="${esc(query)}"></label><label>Floor<select data-mart-floor><option value="">All floors</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="admin-mart-card" data-mart-editor></section></div>`;
+        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="admin-mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, product code or description" value="${esc(query)}"></label><label>Category<select data-mart-floor><option value="">All categories</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="admin-mart-card" data-mart-editor></section></div>`;
         list(); editor();
       }
       if (restoreFocus) {
@@ -122,10 +122,10 @@
     }
     function editor() {
       const s = controller.state, host = root.querySelector("[data-mart-editor]");
-      if (!s.row) { host.innerHTML = "<h3>Product editor</h3><p>Select an existing product to inspect it.</p>"; return; }
+      if (!s.row) { host.innerHTML = "<h3>Product editor</h3><p>Select a product from the list.</p>"; return; }
       if (!s.draft) { host.innerHTML = `<h3>${esc(s.row.name || s.row.sku)}</h3><p>This product has a different reward or payment structure. Use the current editor to preserve it.</p><a href="./admin.html?section=economy&amp;view=catalog">Open current Mart editor</a>`; return; }
       const d = s.draft, key = Object.keys(s.row.grants)[0];
-      host.innerHTML = `<p class="eyebrow">Existing product</p><h3>${esc(s.row.name)}</h3><p class="muted">SKU: ${esc(s.row.sku)} · Reward: ${esc(reward(key))}</p><form data-mart-form><fieldset ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><div class="mart-fields">${["name", "blurb", "detail", "cost", "quantity"].map(key => `<label class="${["blurb", "detail"].includes(key) ? "mart-wide" : ""}">${labels[key]}${["blurb", "detail"].includes(key) ? `<textarea name="${key}" rows="${key === "detail" ? 3 : 2}">${esc(d[key])}</textarea>` : `<input name="${key}" value="${esc(d[key])}" required ${["cost", "quantity"].includes(key) ? `type="number" step="1" min="${key === "cost" ? 0 : 1}"` : ""}>`}</label>`).join("")}<label>Publication<select name="status"><option value="draft" ${d.status === "draft" ? "selected" : ""}>Draft</option><option value="published" ${d.status === "published" ? "selected" : ""}>Published</option></select></label><label class="mart-check"><input type="checkbox" name="visible" ${d.visible ? "checked" : ""}>Visible in Mart</label><label class="mart-check"><input type="checkbox" name="featured" ${d.featured ? "checked" : ""}>Featured on floor</label></div><div class="mart-preview"><p class="eyebrow">Player preview</p><h4 data-preview-name></h4><p data-preview-blurb></p><p data-preview-price></p><p data-preview-status></p></div><p data-mart-validation role="alert"></p><div class="mart-actions"><button type="button" data-mart-discard>Discard local edits</button><button type="submit">Review changes</button></div></fieldset></form>`;
+      host.innerHTML = `<p class="eyebrow">Existing product</p><h3>${esc(s.row.name)}</h3><p class="muted">Product code: ${esc(s.row.sku)} · Reward: ${esc(reward(key))}</p><form data-mart-form><fieldset ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><div class="mart-fields">${["name", "blurb", "detail", "cost", "quantity"].map(key => `<label class="${["blurb", "detail"].includes(key) ? "mart-wide" : ""}">${labels[key]}${["blurb", "detail"].includes(key) ? `<textarea name="${key}" rows="${key === "detail" ? 3 : 2}">${esc(d[key])}</textarea>` : `<input name="${key}" value="${esc(d[key])}" required ${["cost", "quantity"].includes(key) ? `type="number" step="1" min="${key === "cost" ? 0 : 1}"` : ""}>`}</label>`).join("")}<label>Publication<select name="status"><option value="draft" ${d.status === "draft" ? "selected" : ""}>Draft</option><option value="published" ${d.status === "published" ? "selected" : ""}>Published</option></select></label><label class="mart-check"><input type="checkbox" name="visible" ${d.visible ? "checked" : ""}>Visible in Mart</label><label class="mart-check"><input type="checkbox" name="featured" ${d.featured ? "checked" : ""}>Featured in category</label></div><div class="mart-preview"><p class="eyebrow">Player preview</p><h4 data-preview-name></h4><p data-preview-blurb></p><p data-preview-price></p><p data-preview-status></p></div><p data-mart-validation role="alert"></p><div class="mart-actions"><button type="button" data-mart-discard>Discard changes</button><button type="submit">Review changes</button></div></fieldset></form>`;
       preview();
     }
     function preview() {

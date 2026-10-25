@@ -1,0 +1,560 @@
+{
+  "classification": "PRODUCTION static source verification only;CODEX78 compact Hub layout and wording;no Auth/application navigation/save or claim",
+  "main": "799b804393c9c7c48ad0a57d63c4d36845d686bb",
+  "pagesRun": 40229491912,
+  "checkedAt": "2026-10-25T20:11:40.083Z",
+  "monitored": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "signin.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "register.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "reset-password.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "support.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "help.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "storage.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "pokedex.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "inventory.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "settings.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "trainer.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "rankings.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "evolve.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "store.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "trade.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "events.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "achievements.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "admin-next.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "css/play.css",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "css/rankings-reflow.css",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/build.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/game.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/nav.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/settings.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/storage.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/team.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/content-picker.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/remaining-dialog-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play-ribbons.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/dialog-acceptance-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/nav-focus-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play-present.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/milestone-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/support-loading-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/auth.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/register.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/signin.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/signin-pending-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-tools.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-studio.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/staff-error-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "css/support.css",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/device-acceptance-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/registration-feedback-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/help.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/support.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-rewards.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/trade.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/inventory.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/achievements.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/events.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/trainer.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "admin-store.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "admin-tools.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "bits-connect.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "vendor-lock.json",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "tools/sdk-integrity-review.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/config.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play-perf.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/build-client.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/variants.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/forms.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/evolution-candy-png.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/ribbon-catalog.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/achievement-ribbon-map.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play-encounter-state.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play-ux.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/location-visuals-data.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/location-visuals.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/hud.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/special-events.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/onboarding.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/recovery-flow.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/reset-password.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/species.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/types.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/pokedex-presentation.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/pokedex-presentation-resolve.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/pc-presentation.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/trainers.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/oak-transfer.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/species-familiarity.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/pokedex-reference.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/pokedex.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/gym-badge-catalog.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/rankings.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/evolve-view.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/evolve.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/store.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-ops.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-trainers.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-record.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-recovery-email.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-diagnostics.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/play-portrait.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-store.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/bits-connect.js",
+      "status": 200,
+      "matches": true
+    }
+  ],
+  "changedVersioned": [
+    {
+      "file": "admin-next.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "css/admin-workspaces.css",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-workspaces.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-create.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-floors.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-limits-order.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-mart.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-pass.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/admin-next-record.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "file": "js/support.js",
+      "status": 200,
+      "matches": true
+    }
+  ]
+}

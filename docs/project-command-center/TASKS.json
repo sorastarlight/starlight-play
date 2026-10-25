@@ -9,8 +9,8 @@
       "scope": "Coordinated Admin Hub redesign, shared rewards and direct corrections",
       "branch": "admin-hub-overhaul",
       "evidence": "ADMIN-HUB-REDESIGN-OCT25.md;LAUNCH-CODEX242-ADMIN-REDESIGN.md;evidence/codex242-regressions.json",
-      "testResults": "128 suites;27 local SQL cases;4 picker widths;draft/keyboard browser checks;10-file rollback",
-      "nextAction": "Publish scoped compact layout;complete typed delivery and direct correction server integration",
+      "testResults": "130 suites;27 local SQL cases;4 picker widths;draft/keyboard browser checks;10-file rollback;Pages40229491912 success;100+10 source matches",
+      "nextAction": "Complete typed delivery, server concealment and direct correction integration; exact destructive cleanup scope held",
       "approvalRequirement": "Owner requested implementation; exact destructive production migration remains held"
     },
     {

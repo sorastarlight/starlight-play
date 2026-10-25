@@ -2742,3 +2742,5 @@ Recorded owner intent for routine additions across Mart kinds,Starlight Pass bun
 
 ## CODEX-242 — October 25 redesign started
 Owner requested compact layouts, Service Desk, Items & Economy, Shop Categories, complete reward picker/Secret Gifts, legacy migration and direct trainer corrections. Exact Pokémon removal selection confirmed. Initial shell/link wording changed locally; broader implementation ongoing. No production call, publication, grant or data deletion. Sora NO; Twinkle NO; PlayTester role unchanged. See ADMIN-HUB-REDESIGN-OCT25.md.
+
+CODEX-242 checkpoint: first ten-file compact Hub layout/copy slice published at main799b8043 / Pages40229491912; 100+10 static source matches. LOCAL130 suites and27 SQL prototype checks pass. Expanded models remain local; production delivery/correction endpoints and cleanup remain outstanding. No hosted RPC/grant/account edit/SQL or APP stamp.

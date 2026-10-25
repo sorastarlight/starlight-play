@@ -296,7 +296,7 @@
           <img src="${esc(art(row.thumb || row.sprite))}" alt="">
           <span><strong>${esc(row.name)}</strong><br><em class="muted">${esc(row.sku)}${row.featured ? " · featured" : ""}${row.visible ? "" : " · hidden"} · ${(row.status || row.extra?.status) === "draft" ? "draft · " : ""}${formatMoney((selectedCat()?.kind === "bits" ? row.bits : row.cost) || 0)}${selectedCat()?.kind === "bits" ? " Bits" : ""}</em></span>
         </button>`).join("")
-      : `<p class="muted">No items on this floor yet.</p>`;
+      : `<p class="muted">No items in this category yet.</p>`;
   }
 
   function fillCatForm() {
@@ -396,11 +396,11 @@
       },
       ...extra
     };
-    note("Saving floor…");
+    note("Saving category…");
     const data = await window.playCall("admin_store_save_category", { p_row: row });
     if (data.categoryId) selectedCatId = data.categoryId;
     await reload(data);
-    note(data.message || "Floor saved.");
+    note(data.message || "Category saved.");
   }
 
   async function saveItem() {
@@ -579,7 +579,7 @@
     els.staff.hidden = false;
     try {
       await reload();
-      note("Edit floors and items, then check the public mart.");
+      note("Edit categories and products, then check the shop.");
     } catch (err) {
       note(window.playRpcError(err, "Could not load the store catalog."));
     }
@@ -617,7 +617,7 @@
   });
 
   document.getElementById("cat-add").addEventListener("click", async () => {
-    const name = window.prompt("New floor name?", "New floor");
+    const name = window.prompt("New category name?", "New category");
     if (!name) return;
     selectedCatId = "";
     els.catName.value = name;
@@ -641,11 +641,11 @@
     if (!cat || cat.system) return;
     if (!window.confirm(`Remove ${cat.name}?`)) return;
     try {
-      note("Removing floor…");
+      note("Removing category…");
       const data = await window.playCall("admin_store_delete_category", { p_id: cat.id });
       selectedCatId = "";
       await reload(data);
-      note(data.message || "Floor removed.");
+      note(data.message || "Category removed.");
     } catch (error) {
       note(window.playRpcError(error));
     }

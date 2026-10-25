@@ -327,3 +327,6 @@ CODEX-201 explicit owner four-file publication approval received. All6catalog so
 
 
 CODEX-201 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css published at main4b54fb99d3a8fea8e84538373aa60ed5c945c51f;Pages40113221997success. All6server definition/permission contracts and4runtime baseline/candidate hashes matched before publication;100monitored plus4changed versioned hosted sources match exact published commit. Local121suites/build31HTML475refs,8responsivecases and guarded frontend rollback remain the validation basis. No authenticated navigation,notices,live catalog read/save,SQLchange,Auth/provider/gameplay/grant/spending or APP action. APP20261008-rc133 unchanged;this narrow publication approval is spent.
+
+### CODEX-242 redesign checkpoint
+Main799b8043 / Pages40229491912 succeeds with100+10source matches. New names and compact views live. Local130suite pass;27fictionalSQLchecks. Expanded reward and correction workflows not live. Master Ball choice recorded. Legacy admin-store category wording local only. No scheduling renewal; previous automation remains paused. Continue typed delivery, public concealment, eligibility catalog, correction endpoints and exact cleanup proposal; destructive production cleanup held.

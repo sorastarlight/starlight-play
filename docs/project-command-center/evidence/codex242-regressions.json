@@ -512,6 +512,14 @@
     {
       "file": "admin-trainer-corrections-tests.js",
       "exitCode": 0
+    },
+    {
+      "file": "admin-reward-picker-tests.js",
+      "exitCode": 0
+    },
+    {
+      "file": "admin-reward-bundles-tests.js",
+      "exitCode": 0
     }
   ]
 }

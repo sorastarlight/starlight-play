@@ -23,3 +23,9 @@ Read-only pg_proc/schema/catalog inspection only. Current Pass save uses validat
 ## Next
 
 Complete typed delivery and every public preview caller; catalog eligibility and legacy-product mapping; direct correction endpoints with atomic audit and stale-state rejection; actual new UI integration. Prepare exact install/rollback and cleanup scope. No production SQL, account edits, grants, claims, protected-account changes or cleanup occurred in this batch. Sora NO; Twinkle NO; PlayTester unchanged.
+
+## Published first slice
+
+PRODUCTION static source verification: main 799b804393c9c7c48ad0a57d63c4d36845d686bb, Pages 40229491912 succeeded; 100 monitored and 10 changed versioned sources match. No authenticated navigation or application calls. Only the ten-file compact layout/copy slice is live. The typed reward catalog, picker, Pass draft controller and trainer correction model remain local and are not production workflows.
+
+Follow-up LOCAL: 130/130 suites pass. Picker context carries the Master Ball restriction to shop selection, while staff/Pass remain eligible; teardown removes listeners before remount. Typed daily/weekly draft controller checks aggregate limits, keeps separate lists, freezes the reviewed request by copying, prevents parallel saves, validates receipts, locks uncertain outcomes and ignores stale account reads. Complete delivery integration remains outstanding. Additional category wording in the legacy admin-store surface is locally corrected, not yet published.

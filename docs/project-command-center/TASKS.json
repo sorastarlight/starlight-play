@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-239",
+      "status": "done",
+      "scope": "Mounted Pass draft-navigation and pending-save departure checks",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX239-PASS-DRAFT-NAVIGATION.md;evidence/codex239-pass-navigation.json",
+      "testResults": "16local cases;native Enter/Escape;2targeted suites",
+      "nextAction": "Continue independent work;real acceptance/hosted save decisions held",
+      "approvalRequirement": "Local fictional transport only;no production action"
+    },
+    {
       "id": "CODEX-238",
       "status": "done",
       "scope": "Combined local rollback/reapply of recent frontend maintenance",

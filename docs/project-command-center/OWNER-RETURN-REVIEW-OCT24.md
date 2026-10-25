@@ -1,4 +1,4 @@
-# Owner return review — current October25,through CODEX-238
+# Owner return review — current October25,through CODEX-239
 
 ## Completed this overnight window
 
@@ -24,6 +24,8 @@ Production is **main 9356623f / APP20261008-rc133**. Routine fixes cover recover
 - [Published asset integrity](LAUNCH-CODEX237-PUBLISHED-ASSETS.md):525static references and449existing Kanto/candy/Ribbon PNG browser decodes pass;no content or release change.
 
 - [Combined frontend recovery](LAUNCH-CODEX238-FRONTEND-RECOVERY-CHAIN.md):three actual private-file rollbacks/reapplications restore and reproduce exact source;publication scopes remain separate and exact.
+
+- [Pass draft departure](LAUNCH-CODEX239-PASS-DRAFT-NAVIGATION.md):16mounted local cancel/discard/pending/uncertain cases and native warning focus pass;no hosted save or correction.
 
 ## What genuinely remains
 

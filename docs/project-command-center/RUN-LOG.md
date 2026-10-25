@@ -1,3 +1,7 @@
+## CODEX-239 — Mounted Pass departure review
+
+CODEX-239 mounted Pass draft-navigation review passed16local cases and native Enter/Escape focus checks,plus two targeted suites. Cancel preserves edits,discard clears them,pending saves block departure,and uncertain saves leave without retry. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. Local fixtures closed/stopped;no hosted action or change to launch requirements.
+
 ## CODEX-238 — Combined frontend recovery rehearsal
 
 CODEX-238 combined frontend recovery rehearsal passed:three guarded rollback scripts restore the two affected files exactly to pre-233 production,and three reapplications reproduce current main9356623f. All three main commits have exact reviewed one-file scopes and sequential parents. Local private copies only;production and APP20261008-rc133 unchanged. Existing local regression evidence retained;no new changes or hosted calls.

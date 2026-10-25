@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-239 | done | Mounted Pass draft departure | CODEX-219/227 | LOCAL only | 16cases;native keys;2suites;no runtime change |
 | CODEX-238 | done | Recent frontend recovery chain | CODEX-233/234/235 | LOCAL only | 3reversals/reapplications;2files exact;no runtime change |
 | CODEX-237 | done | Published asset integrity | CODEX-236 | STATIC/LOCAL only | 525refs;449PNG browser decodes;no runtime change |
 | CODEX-236 | done | Published internal navigation review | CODEX-235 | STATIC/LOCAL only | 30pages;123links;6route aliases;4suites;no runtime change |

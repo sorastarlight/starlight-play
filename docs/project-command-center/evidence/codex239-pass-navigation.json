@@ -1,0 +1,411 @@
+{
+  "classification": "REAL LOCAL DOM actual mounted Pass module;fictional transport/destination",
+  "results": [
+    {
+      "mode": "cancel",
+      "width": 320,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "discard",
+      "width": 320,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 1,
+        "phase": "ready",
+        "dirty": false,
+        "locked": false,
+        "value": "2",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "pending",
+      "width": 320,
+      "before": {
+        "title": "Save in progress",
+        "overflow": false,
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "writes": 1
+      },
+      "after": {
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "cancel",
+      "width": 390,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "discard",
+      "width": 390,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 1,
+        "phase": "ready",
+        "dirty": false,
+        "locked": false,
+        "value": "2",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "pending",
+      "width": 390,
+      "before": {
+        "title": "Save in progress",
+        "overflow": false,
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "writes": 1
+      },
+      "after": {
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "cancel",
+      "width": 768,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "discard",
+      "width": 768,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 1,
+        "phase": "ready",
+        "dirty": false,
+        "locked": false,
+        "value": "2",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "pending",
+      "width": 768,
+      "before": {
+        "title": "Save in progress",
+        "overflow": false,
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "writes": 1
+      },
+      "after": {
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "cancel",
+      "width": 1024,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "discard",
+      "width": 1024,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": false,
+        "writes": 0
+      },
+      "after": {
+        "navs": 1,
+        "phase": "ready",
+        "dirty": false,
+        "locked": false,
+        "value": "2",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 0
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "pending",
+      "width": 1024,
+      "before": {
+        "title": "Save in progress",
+        "overflow": false,
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "writes": 1
+      },
+      "after": {
+        "navs": 0,
+        "phase": "saving",
+        "dirty": true,
+        "locked": false,
+        "value": "3",
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "uncertain",
+      "width": 320,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": true,
+        "writes": 1
+      },
+      "after": {
+        "navs": 1,
+        "phase": "closed",
+        "dirty": false,
+        "locked": false,
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "uncertain",
+      "width": 390,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": true,
+        "writes": 1
+      },
+      "after": {
+        "navs": 1,
+        "phase": "closed",
+        "dirty": false,
+        "locked": false,
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "uncertain",
+      "width": 768,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": true,
+        "writes": 1
+      },
+      "after": {
+        "navs": 1,
+        "phase": "closed",
+        "dirty": false,
+        "locked": false,
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    },
+    {
+      "mode": "uncertain",
+      "width": 1024,
+      "before": {
+        "title": "Discard this local draft?",
+        "overflow": false,
+        "navs": 0,
+        "phase": "ready",
+        "dirty": true,
+        "locked": true,
+        "writes": 1
+      },
+      "after": {
+        "navs": 1,
+        "phase": "closed",
+        "dirty": false,
+        "locked": false,
+        "dialogs": 0,
+        "reads": 1,
+        "writes": 1
+      },
+      "pageOverflow": false
+    }
+  ],
+  "keyboard": {
+    "dialogs": 0,
+    "focus": "nav",
+    "status": "Sending the reviewed bundles once…",
+    "reviewOwnDisabledProperty": false,
+    "effectiveDisabledObservedInAX": true,
+    "explanation": "The review button inherits disabled from its fieldset;its own disabled property is false. Native AX reports it disabled."
+  },
+  "suites": [
+    {
+      "file": "admin-pass-navigation-tests.js",
+      "exitCode": 0,
+      "output": "Actual navigation handler: pending save has no discard/retry, ready/uncertain paths and modifier/current-tab behavior pass.\n"
+    },
+    {
+      "file": "admin-next-pass-tests.js",
+      "exitCode": 0,
+      "output": "Pass bundles: strict projection, scope, session races, isolated drafts, single-flight, receipts, denial and stale completions passed.\n"
+    }
+  ],
+  "limitations": [
+    "Dummy destination records navigation rather than loading the full Hub",
+    "Fictional pending/failed saves only;no hosted save or claim",
+    "Iframe layout checks are not physical-device or assistive-technology evidence",
+    "Native browser-close/beforeunload prompt was not exercised"
+  ]
+}

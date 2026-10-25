@@ -1,0 +1,9 @@
+# CODEX-239 — Mounted Pass draft departure checks
+
+The existing extracted-handler harness was supplemented with real browser interaction through the actual mounted Pass module and its controller.16local cases cover320/390/768/1024px × cancel,discard,pending save and uncertain save. A dummy external tab button counts departures;no full Hub destination or backend is loaded.
+
+Cancel keeps the edited daily quantity3 and does not navigate. Confirming discard restores quantity2 and navigates once. A pending fictional save opens Save in progress,blocks departure,and returning leaves its one request pending. An uncertain fictional save stays locked until confirmed departure clears the local module;it never retries. All cases use one fictional read;pending/uncertain use one fictional save each,and other cases use none. Dialogs and page fit each width.
+
+Native Enter reopens the pending-save warning;Escape closes it and returns focus to the departure button while status remains pending. The editor's controls remain effectively disabled via a disabled fieldset,as observed in AX;the review button's own disabled property is false because disability is inherited. This is not a defect. Two targeted existing suites pass. [Evidence](evidence/codex239-pass-navigation.json).
+
+No code correction was needed. The full-shell account transitions from CODEX227 remain separate evidence;this batch checks the actual mounted module's departure flow. It does not certify native beforeunload/browser-close prompts,physical devices,screen readers or hosted settings saves. No SDK/credentials/backend loaded;CSP blocks connections. All data/actions are fictional. Tabs closed/server stopped;private fixtures outside Git. Sora NO;Twinkle NO;PlayTester unchanged. No SQL,Auth/provider,email,claim/grant,protected-account mutation,APPstamp or production publication.

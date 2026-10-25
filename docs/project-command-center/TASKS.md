@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-248 | in_progress | Native item supplies and reward entries | Owner full migration | Completed go-live authorized | Scoped publication/source checks |
+| CODEX-248 | done | Native item supplies and reward entries | Owner full migration | Completed go-live authorized | Live;100+5sources;encounter timing next |
 | CODEX-247 | done | Native capture rules | Owner full migration | Completed go-live authorized | Live;100+4sources;item supplies next |
 | CODEX-246 | done | Compact Configuration and Trainer XP | Owner full migration | Completed go-live authorized | Live;100+4sources;capture rules next |
 | CODEX-245 | done | Audited direct trainer corrections | Owner expanded Hub | Implementation/install/go-live authorized | Live;100+5sources;remaining tools next |

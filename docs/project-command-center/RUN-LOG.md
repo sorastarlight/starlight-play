@@ -2759,3 +2759,6 @@ CODEX246 LIVE: compact Configuration and Trainer XP editor;main7dafeb87;Pages402
 
 
 CODEX247 LIVE: native capture multipliers, percentage chance tiers and Honey tiers;main55c99a2a;Pages40238769852success;100+4sources;135suites;12layouts. Stored tiers inspected read-only;no settings write/SQL/encounter. Pinap old capture control is a fallback to economy configuration,so remaining Economy extension must use effective authority. CODEX248 supply UI locally in progress.
+
+
+CODEX248 LIVE: native item supply settings and single reward-entry editor;main1236f514;Pages40239365290success;100+5sources;136suites;8layouts. MasterBall drop entry count0;no live save/grant. CODEX249 timing migration local:oldsaveexplicitlysetsBitsoff and separatekeep_bits_offpolicyalsoexists;policywillremain. Newsavepreparesrevision/atomicbridge/audit;no production timing action.

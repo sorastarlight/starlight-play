@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-248",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Native item supply settings and individual reward-table entries",
       "evidence": "LAUNCH-CODEX248-ITEM-SUPPLIES.md",
-      "testResults": "136 suites;8 responsive cases;one-entry disabled preservation;strict patches/session/retry guards;5-file rollback",
-      "nextAction": "Scoped publication/source verification",
+      "testResults": "136 suites;8 responsive cases;one-entry disabled preservation;strict patches/session/retry guards;5-file rollback;Pages40239365290success;100+5sources",
+      "nextAction": "Continue encounter timing and remaining Hub migration",
       "approvalRequirement": "Owner full migration and completed go-live authorized"
     },
     {

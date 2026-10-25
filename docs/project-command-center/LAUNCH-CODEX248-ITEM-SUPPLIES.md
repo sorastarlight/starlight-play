@@ -1,6 +1,6 @@
 # CODEX-248 — Item supplies migration
 
-Status: locally complete; scoped publication next under the owner's full Hub migration/go-live direction.
+Status: LIVE at main1236f5145a3b6e707c8a6f4ac718851291c29fc3;Pages40239365290 succeeded;100 monitored and all five versioned changed sources match. All three supply read/save source contracts are unchanged.
 
 Configuration gains native Item supplies: searchable reward entries beside one focused editor. Staff edits participation/capture drop chances (percentages), the event multiplier, or one existing entry's selection weight, quantity range and enabled state. Reviews identify the exact item and table. Each save targets one configuration patch or one entry; it does not combine independent writes into a misleading bulk success. Disabled entries remain disabled unless explicitly changed; paused tables stay paused.
 

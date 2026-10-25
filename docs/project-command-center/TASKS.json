@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-254",
+      "status": "done",
+      "scope": "Direct resulting Pokemon species quantities separate from gifts",
+      "evidence": "LAUNCH-CODEX254-POKEMON-CORRECTIONS.md",
+      "testResults": "140 suites;10SQLgroups;12layouts;3source/ACLmatches;giftgeneratorunchanged;audit0;Pages40245719723success;100+2sources",
+      "nextAction": "Complete remaining maintenance,provider,content tools and primary entry switch",
+      "approvalRequirement": "Owner full migration/go-live authorized;no actual correction/grant"
+    },
+    {
       "id": "CODEX-252",
       "status": "done",
       "scope": "Native Operations and effective Pinap bonus",

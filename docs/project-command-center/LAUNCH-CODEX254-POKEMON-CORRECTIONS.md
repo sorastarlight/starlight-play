@@ -1,6 +1,6 @@
 # CODEX-254 — Direct Pokemon quantity corrections
 
-Status: tested locally; guarded install and two-file frontend publication pending.
+Status: LIVE. Migration20261025233857;main5b2c60bbe2f7e3e93da598fc3988dcbaa9bfc62e;Pages40245719723success. All three installed source/ACL contracts match locally tested candidates; original gift generator unchanged, correction audit0.100 monitored and both changed versioned sources match. No hosted correction/grant was invoked.
 
 Trainer Corrections now sets a higher species total directly. Staff choose the species, resulting total, level and optional Shiny state for the new specimens, plus a staff reason. Current totals include all forms and variants; existing specimens keep their stats/history. Up to100 new specimens may be added in one correction. Reductions keep the separate exact-specimen selection and lock/favorite/trade protections. Additions use a distinct private correction generator, audit and source, without a Gift action or gift announcement.
 

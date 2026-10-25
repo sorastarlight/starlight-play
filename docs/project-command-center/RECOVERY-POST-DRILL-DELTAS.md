@@ -196,3 +196,12 @@ Three new guarded definitions/ACLs match tested candidates; existing Director/sn
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025232700 hub_operations_controls|supabase/unapplied/hub-operations-controls/INSTALL.sql|b098ad72d7b88a71587e7caf3f8e16dac359730262d074ee815f775e52c64a1a|
+
+
+## CODEX-254 — Pokemon quantity corrections
+
+Three installed definitions/ACLs match local candidates. Canonical gift generator unchanged; no hosted correction and audit rows0. Rollback restores original public APIs while retaining all specimens/audit,not deleting generated Pokemon.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025233857 trainer_pokemon_quantity|supabase/unapplied/trainer-pokemon-quantity/INSTALL.sql|d1e586bd93b319fb73bd7450347344e88850cc26271a0a948cc0538c0ca505d5|

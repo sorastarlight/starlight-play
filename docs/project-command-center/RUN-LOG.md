@@ -2774,3 +2774,6 @@ CODEX250 LIVE: migration20261025231537;mainbcab3a6e;Pages40243972531success;100+
 
 
 CODEX252 LIVE: migration20261025232700;main145f4778;Pages40244825944success;100+6sources;140suites;12SQLgroups including observed lock and rollback;24layouts;3installedsource/ACLmatches;3controls unchanged;38recoveryfiles. No hosted operation,queue,ad action,claim,notice or setting save. Continue correction additions,provider controls and entry-point parity.
+
+
+CODEX254 LIVE: migration20261025233857;main5b2c60bb;Pages40245719723success;100+2sources;140suites;10SQLgroups;12layouts;3source/ACLmatches;giftgenerator unchanged;correctionaudit0;40recoveryfiles. Correction provenanceADMIN_CORRECTION/admin:correction skips real XP/presentation triggers. No hosted correction/grant/notice. Continue maintenance/provider/content/parity and primary Hub entry switch.

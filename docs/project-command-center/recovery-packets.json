@@ -248,6 +248,19 @@
           "sha256": "9829e67856305e79bd6ca945342c596e13ec24df6b2d6e92025a48ec994a753a"
         }
       ]
+    },
+    {
+      "version": "20261025233857",
+      "files": [
+        {
+          "file": "supabase/unapplied/trainer-pokemon-quantity/INSTALL.sql",
+          "sha256": "d1e586bd93b319fb73bd7450347344e88850cc26271a0a948cc0538c0ca505d5"
+        },
+        {
+          "file": "supabase/unapplied/trainer-pokemon-quantity/ROLLBACK.sql",
+          "sha256": "82fe17324c6907527796e8eff59adfd49249e1e7230ff14a0653c1bbdaac225a"
+        }
+      ]
     }
   ]
 }

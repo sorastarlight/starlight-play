@@ -1,0 +1,57 @@
+{
+  "reportArrows": [
+    {
+      "key": "End",
+      "calls": "Fictional reads: admin_build_health admin_game_health admin_capture_report",
+      "focus": "report-tab-economy",
+      "selected": "report-tab-captures"
+    },
+    {
+      "key": "Home",
+      "calls": "Fictional reads: admin_build_health admin_game_health admin_capture_report",
+      "focus": "report-tab-health",
+      "selected": "report-tab-captures"
+    },
+    {
+      "key": "Left",
+      "calls": "Fictional reads: admin_build_health admin_game_health admin_capture_report",
+      "focus": "report-tab-economy",
+      "selected": "report-tab-captures"
+    },
+    {
+      "key": "Right",
+      "calls": "Fictional reads: admin_build_health admin_game_health admin_capture_report",
+      "focus": "report-tab-health",
+      "selected": "report-tab-captures"
+    }
+  ],
+  "final": {
+    "calls": "Fictional reads: admin_build_health admin_game_health admin_capture_report admin_economy_overview admin_capture_report",
+    "captions": [
+      "By Pokémon",
+      "By Poké Ball",
+      "By Berry",
+      "By catch-rate tier"
+    ],
+    "hubTabStops": 1,
+    "metrics": [
+      "0",
+      "0",
+      "—"
+    ],
+    "overflow": false,
+    "range": "7",
+    "reportTabStops": 1,
+    "status": "Retrieved 2026-10-25T08:24:23.439Z (browser clock). Requested range: 7 days. Server window starts 2026-10-01T00:00:00.000Z."
+  },
+  "invalidRangeBlocked": true,
+  "mainArrowNoActivation": true,
+  "enterExplicitActivation": true,
+  "classification": "REAL LOCAL native keyboard/DOM;actual Hub shell and Analytics;fictional six allowed report responses;connect-src none",
+  "targetedSuites": [
+    "admin-next-keyboard-tests.js",
+    "admin-next-analytics-tests.js"
+  ],
+  "runtimeChanges": 0,
+  "hostedCalls": 0
+}

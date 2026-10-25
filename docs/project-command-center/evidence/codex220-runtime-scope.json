@@ -1,0 +1,23 @@
+{
+  "classification": "Routine presentation maintenance only;no JS or transport change",
+  "featureBefore": "6d27d89ed5365c7180a05603527cecbefc0e9d46",
+  "files": [
+    {
+      "file": "admin-next.html",
+      "candidateHash": "e1c595ad084840a0596daae3f24b0ca028f2c304ad4558cfc12a2656e3754e64"
+    },
+    {
+      "file": "css/admin-pass.css",
+      "candidateHash": "9efeadb9f84b918b68d6ee4b02cf049b2f2e3c01ff830eebe3bda28f31aabacd"
+    }
+  ],
+  "commandsChanged": false,
+  "automaticMountReads": 0,
+  "productionChanges": 0,
+  "rollback": {
+    "allCandidatesCheckedBeforeWrites": true,
+    "driftRefused": true,
+    "exactBaselineRestored": true,
+    "newFilesRemovedOnlyAtExplicitPaths": false
+  }
+}

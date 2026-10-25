@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-220 | done | Integrated Configuration visual consistency | CODEX-219 | CODEX-78routine maintenance | 125suites;15controls;12states;two-file rollback |
 | CODEX-219 | done | Local Pass bundle editor | CODEX-218 | Exact publication approved/spent | Main361ba124;Pages40164012374;15contracts;100+4sources |
 | CODEX-218 | done | Pass bundle editor source/design proposal | CODEX-216/217 | Design/local approved;implemented219 | 9disconnected cases;8width states;5selected contracts |
 | CODEX-217 | done | Existing Studio Pass draft correction published | CODEX-216 | CODEX-78 maintenance | Main10eeb1d6;Pages40162962338;100+1sources;124suites |

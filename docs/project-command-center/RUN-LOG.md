@@ -1,3 +1,7 @@
+## CODEX-220 — integrated Configuration visual maintenance (October25)
+
+Actual repository CSS reproduced21px Pass controls against44px siblings;scoped CSS fixes quantities/search/focus and page/subheading hierarchy.125suites,15measured fields,12responsive combined states and guarded two-file rollback pass. No JS/transport/server behavior changes. Routine publication/source verification next under CODEX78. Sora NO;Twinkle NO;PlayTester role unchanged.
+
 ## CODEX-219 — scoped publication/source verification complete (October25)
 
 Owner-approved four-file publication completed at main361ba124 / Pages40164012374success.15source/ACL/owner contracts matched reviewed snapshots;100monitored+4versioned sources match deployed bytes. No authenticated navigation,notices,live configuration read/save,claims,SQL or APP stamp. Feature125suites/build31HTML481refs;isolated production build30HTML479refs. Approval spent. Sora NO;Twinkle NO;PlayTester role unchanged. No new schedule.

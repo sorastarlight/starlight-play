@@ -1,0 +1,308 @@
+{
+  "classification": "REAL DOM with actual repository styles and three mounted editors;fictional transport only",
+  "before": [
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "participationReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "captureReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "newDexReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "shinyReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "legendaryReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "streamAttendanceReward"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Daily Berry quantity"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Daily Honey quantity"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Daily PokéCoins quantity"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Weekly Berry quantity"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Weekly Poké Ball quantity"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Weekly Poké Radar quantity"
+    },
+    {
+      "border": "0px",
+      "font": "13.3333px",
+      "height": 21.200000762939453,
+      "name": "Weekly PokéCoins quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Minimum chance"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Maximum chance"
+    }
+  ],
+  "after": [
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "participationReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "captureReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "newDexReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "shinyReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "legendaryReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "streamAttendanceReward"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Daily Berry quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Daily Honey quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Daily PokéCoins quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Weekly Berry quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Weekly Poké Ball quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Weekly Poké Radar quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Weekly PokéCoins quantity"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Minimum chance"
+    },
+    {
+      "border": "12px",
+      "font": "16px",
+      "height": 44,
+      "name": "Maximum chance"
+    }
+  ],
+  "layouts": [
+    {
+      "width": 320,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "state": "editor",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "state": "picker",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 320,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "state": "picker",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 390,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "state": "picker",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 768,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "state": "picker",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    },
+    {
+      "width": 1024,
+      "state": "review",
+      "overflow": false,
+      "dialogOverflow": false,
+      "minimumInputHeight": 44,
+      "broken": 0
+    }
+  ],
+  "search": {
+    "height": 44,
+    "font": "16px",
+    "visibleFocus": true
+  },
+  "headingOrder": [
+    "h2 Reward and capture settings",
+    "h3 PokéCoin rewards",
+    "h3 Starlight Pass rewards",
+    "h3 Capture chance limits"
+  ],
+  "observed": [
+    "small browser-default baseline reproduced",
+    "all fifteen populated quantity/reward/capture inputs measured at44px",
+    "search field44px with16px text and visible focus",
+    "picker and editor screenshots inspected",
+    "Escape closes picker",
+    "no JS or transport diff"
+  ],
+  "notTested": [
+    "authenticated hosted navigation or saves",
+    "physical devices or real assistive technology"
+  ]
+}

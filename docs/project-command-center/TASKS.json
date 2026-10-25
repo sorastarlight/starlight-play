@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-220",
+      "status": "done",
+      "scope": "Integrated Configuration controls and heading consistency",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX220-CONFIGURATION-CONSISTENCY.md;evidence/codex220-browser.json;evidence/codex220-regressions.json;evidence/codex220-runtime-scope.json",
+      "testResults": "125suites;15matched controls;12integrated responsive states;exact two-file rollback",
+      "nextAction": "Routine two-file publication and hosted static source verification",
+      "approvalRequirement": "CODEX78routine presentation/copy only;no JS or application action"
+    },
+    {
       "id": "CODEX-219",
       "status": "done",
       "scope": "Approved local daily/weekly Starlight Pass bundle editor",

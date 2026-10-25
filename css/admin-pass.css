@@ -8,5 +8,9 @@
 .pass-summary li{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap}.pass-summary strong{margin-left:auto}
 .pass-actions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:1rem}.pass-actions button{min-height:44px}
 .pass-dialog{box-sizing:border-box;width:min(850px,calc(100vw - 24px));max-height:calc(100dvh - 32px);overflow:auto;border:1px solid #dcd7ec;border-radius:22px;padding:1.5rem;color:#484662;background:#fff;overflow-wrap:anywhere}
-.pass-dialog::backdrop{background:#252840a8}.pass-dialog input{box-sizing:border-box;max-width:100%;width:100%}.pass-picker{display:grid;gap:.5rem;margin:1rem 0}.pass-picker button{display:flex;align-items:center;gap:.7rem;text-align:left;min-height:48px}.pass-dialog img,.pass-bundles img{object-fit:contain;flex-shrink:0;image-rendering:auto}
+.pass-dialog::backdrop{background:#252840a8}.pass-dialog input{box-sizing:border-box;max-width:100%;width:100%}.pass-picker{display:grid;gap:.5rem;margin:1rem 0}.pass-picker button{display:flex;justify-content:flex-start;align-items:center;gap:.7rem;text-align:left;min-height:48px}.pass-dialog img,.pass-bundles img{object-fit:contain;flex-shrink:0;image-rendering:auto}
+#next-pass-bundles input{box-sizing:border-box;min-height:44px;padding:10px 12px;border:2px solid #d2dced;border-radius:12px;background:white;color:inherit;font:inherit;max-width:100%}
+#next-pass-bundles label{font-weight:800}.pass-dialog>label{display:grid;gap:8px}
+#next-pass-bundles :is(input,button):focus-visible{outline:3px solid #725cc6;outline-offset:3px}
+.pass-dialog h3{font-family:Fredoka,Nunito,sans-serif;font-size:24px;margin-top:0}
 @media(max-width:650px){#next-pass-bundles .pass-bundles,.pass-dialog .pass-bundles{grid-template-columns:1fr}.pass-dialog{padding:1rem}.pass-actions button{flex:1 1 180px}}

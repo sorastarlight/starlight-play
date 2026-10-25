@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-241",
+      "status": "done",
+      "scope": "Changed tracked text credential-pattern/artifact review",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX241-TRACKED-DELTA-CREDENTIALS.md;evidence/codex241-credential-review.json",
+      "testResults": "598changed paths;596recognized texts scanned;2skipped;0selected flags/artifacts",
+      "nextAction": "Honor14:22UTCexpiry;remaining real acceptance/critical actions need owner scope",
+      "approvalRequirement": "STATIC metadata-only output;no credential use or production action"
+    },
+    {
       "id": "CODEX-240",
       "status": "done",
       "scope": "Real acceptance prerequisite and owner return handoff reconciliation",

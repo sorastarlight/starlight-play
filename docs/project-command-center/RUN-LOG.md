@@ -1,3 +1,7 @@
+## CODEX-241 — Tracked delta credential review
+
+CODEX-241 tracked delta credential-format review scanned596recognized text files among598changed paths since CODEX106;two unrecognized/binary paths skipped. No selected credential-pattern flags or credential-artifact candidates. No values emitted,private store read or hosted action;production unchanged. No new critical finding or request for approval;hard stop remains14:22UTC.
+
 ## CODEX-240 — Acceptance prerequisite reconciliation
 
 CODEX-240 reconciled real-acceptance/provider/recovery prerequisites and shortened the owner return review. Completed Chrome/Android evidence and published OAuth correction are retained;post-change backup availability no longer reads as pending.17local document links pass. No requirement closed or new authority inferred;production unchanged. No runtime tests repeated for documentation-only work;critical boundaries and14:22UTCdeadline retained.

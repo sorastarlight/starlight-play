@@ -1,4 +1,4 @@
-# Owner return review — October25,through CODEX-240
+# Owner return review — October25,through CODEX-241
 
 Production remains **main9356623f / APP20261008-rc133**. No final-launch declaration or new critical production defect. Latest runtime validation:126suites,with deployed-source matches. The overnight authorization ends **14:22UTC /10:22Eastern October25**.
 
@@ -7,6 +7,8 @@ Production remains **main9356623f / APP20261008-rc133**. No final-launch declara
 - Published routine fixes:long-name recovery and gift confirmations fit narrow screens;Helpdesk older-message paging exposes the focused heading. [Recovery](LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md),[gifts](LAUNCH-CODEX234-GIFT-CONFIRMATION-WRAPPING.md),[Helpdesk](LAUNCH-CODEX235-HELPDESK-VISIBLE-FOCUS.md). No email,gift,ticket or permission logic changed.
 - New Hub evidence:approved Configuration hosted reads succeeded without saves;local Operations,Helpdesk,Configuration/Mart/Trainer account transitions,composed keyboard and Pass draft-departure checks passed. Details and counts are in the [consolidated handoff](OVERNIGHT-LAUNCH-READINESS.md);hosted notice allowance is spent.
 - Integrity/recovery:123internal links,525asset references and449local PNG decodes passed. Three recent frontend rollback/reapply packets compose exactly. Logical recovery plus14delta replay/reversals remain recorded. Completed Oct25 07:44:36UTC physical backup availability postdates SQL215;do not repoll it unchanged. [Assets](LAUNCH-CODEX237-PUBLISHED-ASSETS.md),[frontend recovery](LAUNCH-CODEX238-FRONTEND-RECOVERY-CHAIN.md),[backup](LAUNCH-CODEX229-POST-CREATE-BACKUP.md).
+
+- Changed-file credential review:596recognized tracked text files checked since the prior scan;no selected flags or credential-artifact paths. Two unrecognized/binary paths skipped;history/private artifacts excluded. [Scope](LAUNCH-CODEX241-TRACKED-DELTA-CREDENTIALS.md).
 
 ## What needs real evidence
 

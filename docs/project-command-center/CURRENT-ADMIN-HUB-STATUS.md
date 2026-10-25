@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+CODEX-241 tracked delta credential-format review scanned596recognized text files among598changed paths since CODEX106;two unrecognized/binary paths skipped. No selected credential-pattern flags or credential-artifact candidates. No values emitted,private store read or hosted action;production unchanged. [Report](LAUNCH-CODEX241-TRACKED-DELTA-CREDENTIALS.md).
+
 CODEX-240 reconciled real-acceptance/provider/recovery prerequisites and shortened the owner return review. Completed Chrome/Android evidence and published OAuth correction are retained;post-change backup availability no longer reads as pending.17local document links pass. No requirement closed or new authority inferred;production unchanged. [Report](LAUNCH-CODEX240-RETURN-HANDOFF.md).
 
 CODEX-239 mounted Pass draft-navigation review passed16local cases and native Enter/Escape focus checks,plus two targeted suites. Cancel preserves edits,discard clears them,pending saves block departure,and uncertain saves leave without retry. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX239-PASS-DRAFT-NAVIGATION.md).

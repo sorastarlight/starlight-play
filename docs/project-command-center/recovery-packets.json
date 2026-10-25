@@ -235,6 +235,19 @@
           "sha256": "2d91b3cd2661b2fe8674eaf64c735b907439838b3034109d022bb502ee82c60e"
         }
       ]
+    },
+    {
+      "version": "20261025232700",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-operations-controls/INSTALL.sql",
+          "sha256": "b098ad72d7b88a71587e7caf3f8e16dac359730262d074ee815f775e52c64a1a"
+        },
+        {
+          "file": "supabase/unapplied/hub-operations-controls/ROLLBACK.sql",
+          "sha256": "9829e67856305e79bd6ca945342c596e13ec24df6b2d6e92025a48ec994a753a"
+        }
+      ]
     }
   ]
 }

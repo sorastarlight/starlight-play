@@ -360,3 +360,6 @@ CODEX251 LIVE: migration20261025225608 retires only unused client ad-token branc
 
 
 CODEX250 LIVE: migration20261025231537;mainbcab3a6e;Pages40243972531success;100+6sources;139suites;13SQL+2races+4rollback;28layouts;5source/ACLmatches;privateaudit0;36recoveryfiles. No hosted connection/key/token/provider/Bits action. CODEX252 native Operations locally tested;publication pending.
+
+
+CODEX252 LIVE: migration20261025232700;main145f4778;Pages40244825944success;100+6sources;140suites;12SQLgroups including observed lock and rollback;24layouts;3installedsource/ACLmatches;3controls unchanged;38recoveryfiles. No hosted operation,queue,ad action,claim,notice or setting save. Continue correction additions,provider controls and entry-point parity.

@@ -1,6 +1,6 @@
 # CODEX-252 — Native Operations and effective Pinap reward
 
-Status: tested locally; guarded installation and scoped publication pending.
+Status: LIVE. Migration20261025232700;main145f477827e1163637fee1eef902401131504717;Pages40244825944success. All three installed definitions/ACLs match local candidates and three existing Director/snapshot/start controls are unchanged.100 monitored and six changed versioned sources match. No hosted operation was invoked.
 
 Operations adds automatic encounter pause/resume and stream modes, a searchable Pokémon/form chooser, manual/random/queued encounters, pause/resume/cancel, explicit test/force reviews, and cached/manual ad-protection controls. The primary overview has three useful status cards instead of seven technical cards. No disclosure arrows or legacy editor handoffs are needed for these controls. Existing session Start/End stays separate. All commands open a review and are sent once; an acknowledged/uncertain command requires a reload before another action.
 

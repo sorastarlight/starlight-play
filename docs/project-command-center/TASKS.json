@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-252",
+      "status": "done",
+      "scope": "Native Operations and effective Pinap bonus",
+      "evidence": "LAUNCH-CODEX252-NATIVE-OPERATIONS.md",
+      "testResults": "140 suites;12 SQL groups including observed lock/rollback;24layouts;3source/ACLmatches;3controlsunchanged;Pages40244825944success;100+6sources",
+      "nextAction": "Direct correction additions and remaining provider/entry-point parity",
+      "approvalRequirement": "Owner full migration/go-live authorized;no actual gameplay/provider action"
+    },
+    {
       "id": "CODEX-250",
       "status": "done",
       "scope": "Native System connections and Bits activity",

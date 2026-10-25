@@ -187,3 +187,12 @@ Source-guarded connection migration; all five installed definitions match locall
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025231537 hub_system_connections|supabase/unapplied/hub-system-connections/INSTALL.sql|9f93d12f9f1aa6cf725cf2f6c0015b9464cc00f8c962400d78adf5b56b0f9a29|
+
+
+## CODEX-252 — Native Operations controls
+
+Three new guarded definitions/ACLs match tested candidates; existing Director/snapshot/start helpers are unchanged. No hosted operation invoked. Rollback disables new APIs and retains operational state.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025232700 hub_operations_controls|supabase/unapplied/hub-operations-controls/INSTALL.sql|b098ad72d7b88a71587e7caf3f8e16dac359730262d074ee815f775e52c64a1a|

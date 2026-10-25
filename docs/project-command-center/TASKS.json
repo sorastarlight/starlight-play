@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-246",
+      "status": "in_progress",
+      "scope": "Compact Configuration and native Trainer XP editor",
+      "evidence": "LAUNCH-CODEX246-CONFIGURATION-WORKSPACES.md",
+      "testResults": "134 suites;4 responsive widths;keyboard/uncertain/session cases;4-file rollback",
+      "nextAction": "Scoped publication/source verification",
+      "approvalRequirement": "Owner full Admin Hub migration and completed go-live authorized"
+    },
+    {
       "id": "CODEX-245",
       "status": "done",
       "scope": "Audited direct trainer corrections and exact specimen removal",

@@ -10,3 +10,5 @@
 @media(max-width:600px){.config-fields{grid-template-columns:minmax(0,1fr)}.config-dialog{padding:18px}}
 .config-dialog [data-config-confirm]{background:linear-gradient(110deg,#f9d7ef,#e9ddff);border-color:#deb4d3;color:#604666}
 .config-dialog [data-config-cancel]{background:#f4f8ff;border-color:#d2dced;color:#604666}
+
+#next-progression fieldset{border:0;padding:0;margin:0;min-width:0}#next-progression :is(button,input):focus-visible{outline:3px solid #725cc6;outline-offset:3px}

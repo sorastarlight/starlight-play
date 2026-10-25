@@ -102,9 +102,9 @@ test("Lifecycle copy matches permission-only contract", () => {
   assert(liveJs.includes("Live RPG stays IDLE until you Start"));
 });
 
-test("Preview mutation deep links stay on the current hub", () => {
-  assert(nextHtml.includes('href="./admin.html?section=trainers"'));
-  assert(nextHtml.includes("section=content") && nextHtml.includes("view=oakqa"));
+test("Migrated trainer tools remain in the primary Hub", () => {
+  assert(!nextHtml.includes('href="./admin.html?section=trainers"'));
+  assert(nextHtml.includes('href="./admin-next.html?section=trainers"'));
   assert(!nextHtml.includes("view=catalog"), "Mart editing stays in the new Hub");
   assert(!nextHtml.includes('href="./admin-tools.html"'), "bare admin-tools.html redirects to System Twitch");
   assert(!nextHtml.includes('href="./admin-store.html"'), "bare admin-store.html redirects away from embed");

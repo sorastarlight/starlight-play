@@ -191,12 +191,12 @@ test("Fixture stays local, blocks live RPCs, and exposes QA states", () => {
   assert(!fixtureHtml.includes("admin_overview"));
 });
 
-test("Legacy recovery stays routed to Support while Trainer gifts are available", () => {
+test("Recovery stays in Service Desk while corrections use Trainer records", () => {
   const trainersPanel = nextHtml.split('data-next-panel="trainers"')[1].split('data-next-panel="support"')[0];
   assert(!trainersPanel.includes('href="./admin.html?section=trainers"'));
   assert(trainersPanel.includes("section=support"));
-  assert(nextHtml.includes("Open legacy account tools"));
-  assert(nextHtml.includes("Open legacy Oak QA"));
+  assert(!nextHtml.includes("Open legacy account tools"));
+  assert(nextHtml.includes("Open Trainer records"));
 });
 
 test("Dossier uses cards and container-based layout instead of overlapping columns", () => {

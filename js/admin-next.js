@@ -77,6 +77,10 @@
   const supplies=suppliesApi?.mount(document.getElementById("next-supplies"),suppliesApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const timingsApi=window.PLAY_ADMIN_TIMINGS;
   const timings=timingsApi?.mount(document.getElementById("next-timings"),timingsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
+  const systemApi=window.PLAY_ADMIN_SYSTEM;
+  const systemConnections=systemApi?.mount(document.getElementById("next-system-connections"),systemApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
+  const bitsApi=window.PLAY_ADMIN_BITS;
+  const bitsActivity=bitsApi?.mount(document.getElementById("next-system-bits"),bitsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const passApi = window.PLAY_ADMIN_PASS_EDITOR;
   const passBundles = passApi?.mount(document.getElementById("next-pass-bundles"), passApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
@@ -482,6 +486,7 @@
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
+    if(next!=="system")systemConnections?.hideSensitive();
     sessionControls?.repaint();
     if (next === "operations") startOpsPoll();
     else stopOpsPoll();
@@ -497,6 +502,8 @@
     captureRules?.reset();
     supplies?.reset();
     timings?.reset();
+    systemConnections?.reset();
+    bitsActivity?.reset();
     captureLimits?.reset();
     passBundles?.reset();
     analyticsIdentity = "";

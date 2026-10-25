@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-226",
+      "status": "done",
+      "scope": "Local Helpdesk create failure,draft and account-reset acceptance",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX226-SUPPORT-FAILURE-REVIEW.md;evidence/codex226-support-failures.json",
+      "testResults": "20rendered states;native pending Enter/focus;11actual-source harness checks",
+      "nextAction": "Continue local account/visual review;post-SQL215 backup after07:44UTC",
+      "approvalRequirement": "No runtime or hosted write;critical decisions remain held"
+    },
+    {
       "id": "CODEX-225",
       "status": "done",
       "scope": "Integrated Operations local presentation and session transition review",

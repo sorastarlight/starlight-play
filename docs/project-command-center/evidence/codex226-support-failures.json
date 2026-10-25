@@ -1,0 +1,236 @@
+{
+  "classification": "REAL LOCAL DOM;actual support.js and repository CSS;fictional auth/RPC only;connect-src none",
+  "layouts": [
+    {
+      "state": "limited",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Please wait before creating another ticket.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "unknown",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not confirm ticket creation. Check your list before retrying.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "reset",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": null,
+      "status": "Account changed. Reload Support to continue.",
+      "dialogs": 0,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "limited",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Please wait before creating another ticket.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "unknown",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not confirm ticket creation. Check your list before retrying.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "pending",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Pending",
+      "pendingButton": true,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "reset",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": null,
+      "status": "Account changed. Reload Support to continue.",
+      "dialogs": 0,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "limited",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Please wait before creating another ticket.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "network",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not complete that request. Your draft has been kept; check the case before submitting again.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "unknown",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not confirm ticket creation. Check your list before retrying.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "pending",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Pending",
+      "pendingButton": true,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "reset",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": null,
+      "status": "Account changed. Reload Support to continue.",
+      "dialogs": 0,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "limited",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Please wait before creating another ticket.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "network",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not complete that request. Your draft has been kept; check the case before submitting again.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "unknown",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not confirm ticket creation. Check your list before retrying.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "pending",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Pending",
+      "pendingButton": true,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "reset",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": null,
+      "status": "Account changed. Reload Support to continue.",
+      "dialogs": 0,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "network",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not complete that request. Your draft has been kept; check the case before submitting again.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "pending",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Pending",
+      "pendingButton": true,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    },
+    {
+      "state": "network",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "draftPreserved": true,
+      "status": "Could not complete that request. Your draft has been kept; check the case before submitting again.",
+      "pendingButton": false,
+      "dialogs": 1,
+      "calls": "Fictional creates: 1"
+    }
+  ],
+  "native": {
+    "cancelledAfterFailure": true,
+    "nativeReopenEscapeReturnsFocus": true,
+    "pendingEnterDoesNotDuplicate": true,
+    "pendingCalls": 1
+  },
+  "targetedChecks": 11,
+  "runtimeChanges": 0,
+  "hostedRequests": 0,
+  "limitations": [
+    "No real ticket submission",
+    "No network/server privacy evidence",
+    "No physical device or screen reader certification",
+    "Initial reset orchestration ran before request began;discarded and corrected to wait for one fictional request before reset"
+  ]
+}

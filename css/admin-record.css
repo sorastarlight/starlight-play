@@ -144,3 +144,5 @@
 .reward-dialog[aria-label="Confirm recovery email"] .reward-review-form{grid-template-columns:minmax(0,1fr)}
 .reward-dialog[aria-label="Confirm recovery email"] .reward-review-hero{min-width:0;overflow-wrap:anywhere}
 .reward-dialog[aria-label="Confirm recovery email"] header>div{min-width:0;overflow-wrap:anywhere}
+.reward-dialog[aria-label="Review staff action"] .reward-review-form{grid-template-columns:minmax(0,1fr)}
+.reward-dialog[aria-label="Review staff action"] .reward-review-hero{min-width:0;overflow-wrap:anywhere}

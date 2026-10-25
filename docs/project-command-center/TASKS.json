@@ -5,12 +5,13 @@
   "tasks": [
     {
       "id": "CODEX-224",
-      "status": "blocked",
+      "status": "done",
       "scope": "Bounded hosted Configuration read acceptance proposal",
       "branch": "admin-hub-overhaul",
-      "evidence": "BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md",
-      "nextAction": "Await owner decision; continue independent local work",
-      "approvalRequirement": "New bounded reads and automatic protected-owner notice acknowledgement; no saves"
+      "evidence": "LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md;evidence/codex224-contract-recheck.json;evidence/codex224-hosted-read.json",
+      "nextAction": "Read acceptance complete; approval spent; hosted saves/device/provider boundaries retained",
+      "approvalRequirement": "Owner approved bounded reads and normal notice acknowledgement; completed/spent",
+      "testResults": "19catalog contracts;7deployed sources;single owner page load;three successful settings reads;picker search/dismiss;no edits/saves"
     },
     {
       "id": "CODEX-223",

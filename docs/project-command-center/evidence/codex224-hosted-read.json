@@ -1,0 +1,39 @@
+{
+  "classification": "REAL HOSTED UI / authenticated owner; approved CODEX224 bounded reads and ordinary automatic notice acknowledgement",
+  "checkedAt": "2026-10-25T06:21:31.938Z",
+  "pageLoads": 1,
+  "readActions": {
+    "automaticPokeCoinSettings": 1,
+    "passBundles": 1,
+    "captureLimits": 1
+  },
+  "result": {
+    "sixCoinFieldsLoaded": true,
+    "dailyAndWeeklyBundlesLoaded": true,
+    "captureBoundsAndPercentagesLoaded": true,
+    "pickerSearchAndDismissWithoutSelection": true,
+    "focusReturnedToAddDailyReward": true,
+    "brokenConfigurationImages": 0,
+    "horizontalOverflow": false,
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    }
+  },
+  "edits": 0,
+  "saves": 0,
+  "claims": 0,
+  "otherTabs": 0,
+  "sqlChanges": 0,
+  "noticeAcknowledgement": "Only normal automatic first-paint call permitted; not manually invoked/replayed or independently audited",
+  "privateScreenshots": [
+    "security/codex224/pass-bundles-hosted.png",
+    "security/codex224/capture-limits-hosted.png"
+  ],
+  "limitations": [
+    "No save or claim acceptance",
+    "No physical device or screen reader certification",
+    "No network trace or direct notice audit",
+    "No wider application/provider test"
+  ]
+}

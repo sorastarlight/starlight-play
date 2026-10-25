@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+CODEX-224 hosted Configuration read acceptance passed. One approved owner page load successfully loaded the six PokéCoin fields, daily/weekly Pass bundles and capture limits. Picker search/dismiss and sprite/overflow/focus checks passed. No edits or saves. The bounded notice exception is spent. [Report](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md). Production remains maind93e90c2 / Pages40167468786; APP20261008-rc133 unchanged.
+
 CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
 
 [Latest roster review](LAUNCH-CODEX223-ROSTER-VISUAL-REVIEW.md). Feature build31HTML481refs;isolated main build30HTML479refs. Preview:[Admin Hub](../../admin-next.html). This remains a partial migration,not a final-launch declaration.
@@ -11,7 +13,7 @@ CODEX-223 roster presentation and inventory naming are complete. Routine two-fil
 | Support/Recovery | Owner Helpdesk,player Support,ticket history,masked diagnostics,recovery email confirmation | Prior hosted QA plus local populated/read/reset/error checks;attachments,notifications and guided identity recovery deferred. |
 | Operations | Observation cards and reviewed Start/End controls | Source/local evidence complete;hosted commands untested and require bounded scope because Start can enable Auto/scheduling. |
 | Mart | Existing single-reward PokéCoin product editing,create-only hidden core inventory drafts,existing non-system floor presentation,and floor ordering with complete-ID/fixed-slot review | Approved catalog/search/selection inspection exists;live product/floor/order saves untested. Other new product types/new floors,uploads,deletion,Bits/avatar products and product ordering remain in current tools. |
-| Configuration | Six PokéCoin reward amounts,daily/weekly Starlight Pass bundles and minimum/maximum capture chance bounds | Six-field hosted loading recorded;capture loading and all new saves untested. Other capture settings,timing,XP and rarity rules remain in current tools. |
+| Configuration | Six PokéCoin reward amounts,daily/weekly Starlight Pass bundles and minimum/maximum capture chance bounds | Six-field hosted loading recorded;Pass/capture loading verified in CODEX224; all new saves untested. Other capture settings,timing,XP and rarity rules remain in current tools. |
 | Analytics | Health,Captures,Progression,Evolution & Trading,Economy | All five loaded in approved CODEX178 inspection;local transitions/layout evidence does not prove broader hosted/device behavior. |
 | System/Access | Current-tool handoff | Credentials,integrations,roles and identity authority remain unmigrated. |
 
@@ -34,7 +36,3 @@ Hosted Operations commands,Mart draft creation/product/floor/order/reward/captur
 Recovery:logical drill plus14empty-schema delta replays/reversals. Latest observed Oct24 07:44:07UTC physical backup predates new SQL215;observe a subsequent completed backup when due. No physical restore/full Auth or Storage certification. Daily-backup loss window accepted;no unchanged polls,exports or restores repeated.
 
 See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md),[owner review](OWNER-RETURN-REVIEW-OCT24.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md),[current handoff](OVERNIGHT-LAUNCH-READINESS.md),[CODEX211](LAUNCH-CODEX211-LOCAL-ORDER-LIMITS.md),[CODEX212](LAUNCH-CODEX212-ORDER-EMPTY-LONG-REVIEW.md),[hosted inspection](LAUNCH-CODEX178-HOSTED-HUB-REVIEW.md) and [backup evidence](LAUNCH-CODEX188-POST-REPORT-BACKUP.md). Reports/Git and [earlier snapshots](CURRENT-ADMIN-HUB-STATUS-HISTORY-THROUGH209.md) preserve historical approvals.
-
-## Next bounded acceptance proposal
-
-[CODEX-224 Configuration read packet](BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md) is prepared but not authorized. It proposes one owner page load, one Pass bundle read and one capture-limit read, including automatic PokéCoin settings loading and a single ordinary automatic notice acknowledgement. No edits/saves/claims. Prior notice permission is spent; new protected-owner acknowledgement requires a decision. Independent local work remains permitted.

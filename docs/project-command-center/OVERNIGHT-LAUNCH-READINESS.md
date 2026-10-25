@@ -1,4 +1,6 @@
-# Current launch readiness handoff — through CODEX-223
+# Current launch readiness handoff — through CODEX-224
+
+CODEX-224 hosted Configuration read acceptance passed. One approved owner page load successfully loaded the six PokéCoin fields, daily/weekly Pass bundles and capture limits. Picker search/dismiss and sprite/overflow/focus checks passed. No edits or saves. The bounded notice exception is spent. [Report](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md). Production remains maind93e90c2 / Pages40167468786; APP20261008-rc133 unchanged.
 
 CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
 
@@ -291,7 +293,3 @@ CODEX-201 explicit owner four-file publication approval received. All6catalog so
 
 
 CODEX-201 publication completed under explicit owner approval:only admin-next.html,js/admin-next.js,js/admin-next-floors.js,css/admin-floors.css published at main4b54fb99d3a8fea8e84538373aa60ed5c945c51f;Pages40113221997success. All6server definition/permission contracts and4runtime baseline/candidate hashes matched before publication;100monitored plus4changed versioned hosted sources match exact published commit. Local121suites/build31HTML475refs,8responsivecases and guarded frontend rollback remain the validation basis. No authenticated navigation,notices,live catalog read/save,SQLchange,Auth/provider/gameplay/grant/spending or APP action. APP20261008-rc133 unchanged;this narrow publication approval is spent.
-
-## Next bounded acceptance proposal
-
-[CODEX-224 Configuration read packet](BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md) is prepared but not authorized. It proposes one owner page load, one Pass bundle read and one capture-limit read, including automatic PokéCoin settings loading and a single ordinary automatic notice acknowledgement. No edits/saves/claims. Prior notice permission is spent; new protected-owner acknowledgement requires a decision. Independent local work remains permitted.

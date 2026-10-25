@@ -1,12 +1,14 @@
 # Owner return review — updated October25
 
+CODEX-224 hosted Configuration read acceptance passed. One approved owner page load successfully loaded the six PokéCoin fields, daily/weekly Pass bundles and capture limits. Picker search/dismiss and sprite/overflow/focus checks passed. No edits or saves. The bounded notice exception is spent. [Report](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md). Production remains maind93e90c2 / Pages40167468786; APP20261008-rc133 unchanged.
+
 CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.
 
 No new decision was needed for this routine styling/inspection batch.
 
 ## Current decision state
 
-CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. CODEX219publication/source-only decision is complete and spent. Live configuration stays held. Actual draft creation and other hosted mutations remain separate bounded decisions.
+CODEX215exact installation/publication decision is complete and spent. No repeated approval requested for215. CODEX219publication/source-only decision is complete and spent. CODEX224 bounded configuration loading is complete; live saves stay held. Actual draft creation and other hosted mutations remain separate bounded decisions.
 
 ## Remaining launch evidence
 
@@ -17,7 +19,3 @@ Hosted Operations commands,product/floor/order/reward/capture saves,multi-page r
 Daily-backup RPO accepted;logical drill/14delta replay-reversal recorded. Latest observed Oct24 07:44:07UTC backup predates SQL215;observe the next completed recovery point when due. No new export/restore or physical/full Auth/Storage certification.
 
 Existing automation remains paused without a renewed schedule. Work follows direct human instructions in this chat. See [current status](CURRENT-ADMIN-HUB-STATUS.md),[matrix](LAUNCH-ACCEPTANCE-MATRIX.md),[real checklist](REAL-ACCEPTANCE-CHECKLIST.md) and [handoff](OVERNIGHT-LAUNCH-READINESS.md). Historical snapshots are retained in Git/reports and [earlier review](OWNER-RETURN-REVIEW-OCT24-HISTORY-THROUGH209.md).
-
-## Next bounded acceptance proposal
-
-[CODEX-224 Configuration read packet](BOUNDED-CONFIGURATION-READ-ACCEPTANCE.md) is prepared but not authorized. It proposes one owner page load, one Pass bundle read and one capture-limit read, including automatic PokéCoin settings loading and a single ordinary automatic notice acknowledgement. No edits/saves/claims. Prior notice permission is spent; new protected-owner acknowledgement requires a decision. Independent local work remains permitted.

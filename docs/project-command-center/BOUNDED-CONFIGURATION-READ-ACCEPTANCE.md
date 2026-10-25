@@ -1,6 +1,6 @@
 # CODEX-224 — Bounded hosted Configuration read acceptance
 
-**Prepared request only. No hosted navigation or application calls are authorized by this document.** CODEX-178's earlier owner inspection/notice exception is complete and spent. CODEX-219 authorized publication/source verification of Pass bundles,not live loading.
+**Historical reviewed packet: subsequently approved and completed in CODEX-224. The one bounded allowance is spent; this document grants no repeat authority.** CODEX-178's earlier owner inspection/notice exception is complete and spent. CODEX-219 authorized publication/source verification of Pass bundles,not live loading.
 
 ## Purpose
 

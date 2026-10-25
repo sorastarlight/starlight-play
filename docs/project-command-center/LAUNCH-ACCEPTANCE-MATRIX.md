@@ -1,5 +1,7 @@
 # Launch acceptance matrix
 
+CODEX-233 recovery confirmation wrapping is published at main **ec93d129**, Pages **40182783398 succeeded**;100monitored+one versioned source match. Three CSS rules fix valid20character-name overflow at320/390px. Twelve local review/reset states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No Auth JS/transport/permissions,real mail or hosted application action. [Report](LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md).
+
 CODEX-224 hosted Configuration read acceptance passed. One approved owner page load successfully loaded the six PokéCoin fields, daily/weekly Pass bundles and capture limits. Picker search/dismiss and sprite/overflow/focus checks passed. No edits or saves. The bounded notice exception is spent. [Report](LAUNCH-CODEX224-HOSTED-CONFIGURATION-READ.md). Production remains maind93e90c2 / Pages40167468786; APP20261008-rc133 unchanged.
 
 CODEX-223 roster presentation and inventory naming are complete. Routine two-file publication is live at main **d93e90c2**, Pages **40167468786 succeeded**; 100 monitored and two versioned deployed files match. All 126 local suites, 24 roster layouts, four inventory layouts, native paging/reset/focus checks and guarded rollback pass. APP **20261008-rc133** unchanged. No SQL or hosted application operation.

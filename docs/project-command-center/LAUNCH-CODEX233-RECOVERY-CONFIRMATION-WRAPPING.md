@@ -9,3 +9,7 @@ Twelve REAL LOCAL DOM cases at320/390/768/1024px cover prepared review,clear and
 126LOCAL HARNESS suites and build31HTML481refs pass;APP20261008-rc133 unchanged. Actual isolated file rollback refuses drift without writing and restores the exact baseline. Recovery/diagnostics JS and Admin HTML hashes unchanged. [Browser evidence](evidence/codex233-browser.json) · [regressions](evidence/codex233-regressions.json) · [scope/rollback](evidence/codex233-scope.json).
 
 Publication scope is one CSS file only,followed by static-source verification. No hosted signed-in navigation,notices,email,SQL,Auth/provider setting,protected-account mutation,grant/gameplay,spending,schedule,APPstamp or final launch. Sora NO;Twinkle NO;PlayTester unchanged. Private packet/screenshot/fixture retained outsideGit under security/codex233.
+
+## Publication verified
+
+CODEX-233 recovery confirmation wrapping is published at main **ec93d129**, Pages **40182783398 succeeded**;100monitored+one versioned source match. Three CSS rules fix valid20character-name overflow at320/390px. Twelve local review/reset states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No Auth JS/transport/permissions,real mail or hosted application action. [Static source evidence](evidence/codex233-publication.json). Publication validation initially requested feature-only recovery docs absent from main;the export was corrected to available main paths without adding any publication files.

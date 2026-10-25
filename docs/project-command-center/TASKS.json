@@ -5,13 +5,15 @@
   "tasks": [
     {
       "id": "CODEX-233",
-      "status": "doing",
+      "status": "done",
       "scope": "Recovery confirmation CSS-only narrow wrapping",
       "branch": "admin-hub-overhaul",
-      "evidence": "LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md;evidence/codex233-browser.json;evidence/codex233-regressions.json;evidence/codex233-scope.json",
+      "evidence": "LAUNCH-CODEX233-RECOVERY-CONFIRMATION-WRAPPING.md;evidence/codex233-browser.json;evidence/codex233-regressions.json;evidence/codex233-scope.json;evidence/codex233-publication.json",
       "testResults": "2baseline internal overflows fixed;12local states;126suites/build;actual file rollback",
-      "nextAction": "Exact one-CSS CODEX78publication and static-source verification",
-      "approvalRequirement": "Routine presentation only;no Auth behavior or live mail"
+      "nextAction": "Published/source verified;continue independent work;critical decisions held",
+      "approvalRequirement": "Routine presentation only;no Auth behavior or live mail",
+      "publicationCommit": "ec93d12977d5c368916300f869a7bdd5b53ffeb5",
+      "pagesRun": 40182783398
     },
     {
       "id": "CODEX-232",

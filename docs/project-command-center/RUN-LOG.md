@@ -1,3 +1,7 @@
+## CODEX-233 — CSS-only recovery wrapping publication verified
+
+CODEX-233 recovery confirmation wrapping is published at main **ec93d129**, Pages **40182783398 succeeded**;100monitored+one versioned source match. Three CSS rules fix valid20character-name overflow at320/390px. Twelve local review/reset states,126suites,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No Auth JS/transport/permissions,real mail or hosted application action. Temporary fixtures closed/server stopped;private rollback retained. Sora NO;Twinkle NO;PlayTester unchanged.
+
 ## CODEX-233 — confirmed narrow recovery-dialog overflow corrected locally
 
 Valid20character name reproduces two internal overflows;three scoped CSS rules fix12local states.126suites/build pass;actual file rollback tested;Auth JS/HTML unchanged. One-file routine publication/static verification next;no real email or hosted application action.

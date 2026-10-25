@@ -29,3 +29,6 @@ Status: implementation in progress. Owner requested a coordinated redesign, comp
 Local shell headings and trainer links renamed. No runtime capability expanded yet. Module-level category wording, public Mart wording, layout work and all new editing functionality remain outstanding. Nothing from this redesign has been published.
 
 Progress: compact shop views and Service Desk first slice published; expanded reward picker and correction models local only. Master Balls are staff-gift/Pass-only, never shop purchases. Daily/weekly typed draft controller now tested; complete server delivery and cleanup proposal still required.
+
+
+Current progress: Service Desk and native product editing, expanded Pass rewards/Secret Gifts and direct trainer Corrections are LIVE (CODEX243–245). Earlier local-only statements above are historical. Remaining migration includes full configuration, Director/encounter tools and System/integrations; protected account edits and destructive cleanup have not run.

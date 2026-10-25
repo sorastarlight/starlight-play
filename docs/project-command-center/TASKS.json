@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-245",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Audited direct trainer corrections and exact specimen removal",
       "evidence": "LAUNCH-CODEX245-DIRECT-CORRECTIONS.md",
-      "testResults": "133 suites;17 correction groups;5 trade race/create groups;5 rollback checks;4 responsive widths",
-      "nextAction": "Guarded installation and five-file publication",
+      "testResults": "133 suites;17 correction groups;5 trade race/create groups;5 rollback checks;4 responsive widths;migration20261025215533;Pages40237781681success;100+5sources",
+      "nextAction": "Continue remaining Hub migration",
       "approvalRequirement": "Owner expanded functionality and completed go-live explicitly authorized"
     },
     {

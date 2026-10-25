@@ -1,6 +1,6 @@
 # CODEX-245 — Direct trainer corrections
 
-Status: tested locally; production installation/publication next under the owner's explicit expanded-Hub and go-live direction.
+Status: LIVE. Migration20261025215533;production main36de40723fa035582382355ea7cf13b3eb0e1d7c;Pages40237781681 succeeded. 100 monitored and all five versioned changed sources match. All eight installed function definitions match the local candidate; private helpers deny browser execution, audit RLS is enabled, and correction history remains empty. No hosted correction or trainer mutation was invoked.
 
 The Trainers workspace gains Corrections beside Gifts. Staff can set resulting PokéCoins, existing item and Evolution Candy quantities, and total inventory capacity. The Pokémon tool selects exact specimens, shows their stats, blocks locked/favorite/trading specimens and retains private originals and pointers when removing them. No normal release reward or progression credit is granted. Protected trainer accounts stay blocked.
 

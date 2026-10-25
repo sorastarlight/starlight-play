@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-245 | in_progress | Audited direct trainer corrections | Owner expanded Hub | Implementation/install/go-live authorized | Tests pass; scoped installation/publication next |
+| CODEX-245 | done | Audited direct trainer corrections | Owner expanded Hub | Implementation/install/go-live authorized | Live;100+5sources;remaining tools next |
 | CODEX-244 | done | Expanded Pass rewards and atomic delivery | Owner Oct25 continuation | Implementation/migration/go-live authorized | Live;direct corrections next |
 | CODEX-243 | done | Ticket workspace and native product editing | Owner Oct25 direction | Implementation/go-live authorized | Live;76products compatible;remaining integration CODEX242 |
 | CODEX-242 | in_progress | Hub redesign, shared rewards and direct corrections | Owner Oct25 request | Destructive production scope held | Compact layout live; typed delivery and direct corrections local |

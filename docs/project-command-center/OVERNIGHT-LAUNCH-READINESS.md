@@ -339,3 +339,6 @@ CODEX244 LIVE: migration20261025211631;main6e97544f/Pages40234735264success;100+
 
 
 CODEX-245: direct correction endpoint/UI prepared and locally tested (133 suites;17 correction +5 trade-race/create +5 rollback groups). Scope: resulting inventory/Candy/coins/capacity and exact protected specimen selection, private audit/recovery, stale/busy/retry safety. Install/publication pending; no live correction calls. Expanded Pass CODEX244 is already live. Continue remaining System/Encounter migration after this slice.
+
+
+CODEX245 LIVE: migration20261025215533;main36de4072;Pages40237781681success;100+5sources match.133suites;17correction+5trade-create/race+5rollbackgroups;all8installedsourcehashesmatch;0hostedcorrections.30recoveryfilesverified. Continue remaining Hub migration under current owner direction; no scheduling/APPstamp/finallaunch.

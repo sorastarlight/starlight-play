@@ -151,3 +151,12 @@ Latest migration remains20261025042627. Retained logical archive/delta packets s
 |20261025211631 hub_pass_rewards_v2|supabase/unapplied/hub-pass-rewards-v2/INSTALL.sql|185bd89466b3113d2538c90f3e936a243b3ff80a3a72b518c0775393d0493403|
 
 Rollback: supabase/unapplied/hub-pass-rewards-v2/ROLLBACK.sql SHA256 cb0c9acc8327da4023b0a9435535f73b51cdb5b492da3475c1449b70aaaef5e9. Exact SQL payload encoding preserves pre-existing function line endings and their source guards. Private records retained; rewards already received are not undone. Physical recovery point after this migration not yet observed.
+
+
+## CODEX-245 — Direct trainer corrections
+
+Migration 20261025215533 adds the staff read/write correction pair, private audit/archive helpers, and trade-creation ownership serialization; it retires the two unaudited coin/removal routes. Recovery pair: `supabase/unapplied/hub-trainer-corrections/INSTALL.sql` and `ROLLBACK.sql`. Schema-only replay, candidate drift refusal and rollback pass. The rollback retains correction history and original soft-removed specimens; selective account recovery must review intervening changes rather than blindly replaying state. No hosted correction was performed.
+
+| Migration | Install packet | SHA256 |
+|---|---|---|
+|20261025215533 hub_trainer_corrections|supabase/unapplied/hub-trainer-corrections/INSTALL.sql|ee452a1876b6e103e879c9c883790fa80a2c159a1b6ec0dd4c5fff46c06a4244|

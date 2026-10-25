@@ -29,3 +29,5 @@ supabase/unapplied/admin-report-query-corrections/*.sql text eol=lf
 supabase/unapplied/admin-mart-create-draft/*.sql text eol=lf
 
 supabase/unapplied/hub-pass-rewards-v2/*.sql text eol=lf
+
+supabase/unapplied/hub-trainer-corrections/*.sql text eol=lf

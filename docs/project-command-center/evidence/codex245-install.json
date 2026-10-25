@@ -1,0 +1,140 @@
+{
+  "classification": "Source/ACL metadata only; no hosted correction invocation",
+  "installed": {
+    "rls": true,
+    "functions": [
+      {
+        "anon": false,
+        "hash": "ba70caf795670a7fc3d4332fcb5c1b61",
+        "name": "admin_remove_pokemon",
+        "schema": "public",
+        "authenticated": true
+      },
+      {
+        "anon": false,
+        "hash": "4639bc72fbcd0e10edf5df462480e920",
+        "name": "admin_set_coins",
+        "schema": "public",
+        "authenticated": true
+      },
+      {
+        "anon": false,
+        "hash": "1b91e7b207147c08838c25b64ec66179",
+        "name": "admin_trainer_correction_write",
+        "schema": "public",
+        "authenticated": true
+      },
+      {
+        "anon": false,
+        "hash": "8f45a03d340829d0d428140b2ac48da8",
+        "name": "admin_trainer_corrections_read",
+        "schema": "public",
+        "authenticated": true
+      },
+      {
+        "anon": true,
+        "hash": "4710df6bb03ff5ae30e732718bcebb45",
+        "name": "assert_catch_tradable",
+        "schema": "private",
+        "authenticated": true
+      },
+      {
+        "anon": false,
+        "hash": "a28593ede96c2a340eead67c84107f5e",
+        "name": "hub_correction_strip_refs",
+        "schema": "private",
+        "authenticated": false
+      },
+      {
+        "anon": false,
+        "hash": "0cb8579b807432496e1aa207e052db8c",
+        "name": "hub_trainer_correction_snapshot",
+        "schema": "private",
+        "authenticated": false
+      },
+      {
+        "anon": false,
+        "hash": "c06c082bd4aa51356d20f76d97912545",
+        "name": "hub_validate_direct_trade_hold",
+        "schema": "private",
+        "authenticated": false
+      }
+    ],
+    "migration": [
+      {
+        "name": "hub_trainer_corrections",
+        "version": "20261025215533"
+      }
+    ],
+    "auditCount": 0
+  },
+  "localChecks": {
+    "classification": "LOCAL schema-only replay from existing reviewed archive;no application/Auth data import,new export,production connection or original retained DB mutation",
+    "startedAt": "2026-10-25T21:56:05.018Z",
+    "completedPackets": [
+      "20261022014528",
+      "20261022084110",
+      "20261022084115",
+      "20261022162826",
+      "20261022171505",
+      "20261022185226",
+      "20261023012959",
+      "20261023013015",
+      "20261023020246",
+      "20261023025714",
+      "20261023173738",
+      "20261023190339",
+      "20261024044601",
+      "20261025042627",
+      "20261025211631"
+    ],
+    "newExport": false,
+    "dataImported": false,
+    "productionConnected": false,
+    "emptyApplicationTables": 142,
+    "isolationVerified": true,
+    "attemptedPacket": "20261023025714",
+    "giftSourceHashesMatch": true,
+    "proposedRosterSourceMatches": true,
+    "installedReportSourcesMatch": true,
+    "createDraftSourceAndDenialMatch": true,
+    "allEightInstalledSourcesMatch": true,
+    "correctionChecks": [
+      "Ordinary trainer denied before account read",
+      "Exact resulting coins, one audit and stable replay receipt",
+      "Changed retry and stale snapshot refused",
+      "Whole non-negative quantities only",
+      "Protected account mutation denied",
+      "Existing item quantity corrected without gifting",
+      "Extra balls, Berries, evolution items and existing unlisted items adjust in their actual storage layers",
+      "Unlisted stock can be reduced but not newly granted",
+      "Base/Pass capacity floor enforced",
+      "Capacity cannot discard occupied inventory; failed write preserves paid spaces",
+      "Candy correction records a ledger without earned/spent progression",
+      "Favorite specimen cannot be removed",
+      "Concurrent lock/favorite changes invalidate the reviewed specimen state",
+      "Exact specimen soft removal, complete archive, pointer cleanup and no reward",
+      "Recoverable original specimen and profile pointers retained privately",
+      "Unaudited legacy coin/removal routes retired",
+      "Private records and helper deny direct browser access"
+    ],
+    "raceChecks": [
+      "Normal GTS listing succeeds and blocks staff removal",
+      "Normal direct request succeeds and blocks staff removal",
+      "Observed direct-request race; removal commits and stale request is rejected",
+      "Observed GTS-create race; no stale listing survives removal",
+      "Competing listing wins safely; correction refuses busy specimen without deadlock"
+    ],
+    "rollbackChecks": [
+      "Candidate drift refusal",
+      "Three exact original definitions restored",
+      "New direct-trade trigger removed",
+      "Public correction APIs disabled",
+      "Private recovery records retained"
+    ],
+    "status": "PASS",
+    "runtimeStopped": true,
+    "originalSchemaArchiveUnchanged": true,
+    "endedAt": "2026-10-25T21:56:12.243Z"
+  }
+}

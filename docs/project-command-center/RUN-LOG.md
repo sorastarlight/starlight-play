@@ -2750,3 +2750,6 @@ CODEX-243: owner requested primary Hub and replacement of legacy handoffs. Six-f
 CODEX243 complete: mainfaf17b8c / Pages40231206566 success;100+8source matches.76stored products locally round-trip unchanged. Ticket disclosures removed;staff menu targets newHub. No catalog save,SQLmigration,notices,grants,cleanup or APPstamp. Full CODEX242 remains in progress for typedPass/directcorrections and remaining workspaces.
 
 CODEX244 LIVE: migration20261025211631;main6e97544f/Pages40234735264success;100+12source matches.311catalog entries,79canonicalCandyfamilies,151Pokémon.132suites;15SQLgroups+rollback/drift;4pickerwidths. Exact baselinebundlesconverted;0deliveries. No hosted grant/claim/save/notices or protectedaccount mutation. NewPassusesprivatestorage;directcorrectionsnextCODEX245. Automation stays paused;currenthumaninstructionauthorizescontinuedwork.
+
+
+CODEX245 LIVE: migration20261025215533;main36de4072;Pages40237781681success;100+5sources match.133suites;17correction+5trade-create/race+5rollbackgroups;all8installedsourcehashesmatch;0hostedcorrections.30recoveryfilesverified. Continue remaining Hub migration under current owner direction; no scheduling/APPstamp/finallaunch.

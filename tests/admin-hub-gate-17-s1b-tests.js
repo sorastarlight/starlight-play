@@ -97,7 +97,7 @@ test("Preview HTML loads the presenter before the shell", () => {
   const shellAt = nextHtml.indexOf("js/admin-next.js");
   assert(opsAt >= 0 && shellAt > opsAt);
   assert(opsJs.includes("presentLiveOperations"));
-  assert(nextHtml.includes("Twitch LIVE permits the Live RPG"));
+  assert(nextHtml.includes("Start the RPG session when the stream is live"));
 });
 
 const failed = results.filter((row) => !row.passed);

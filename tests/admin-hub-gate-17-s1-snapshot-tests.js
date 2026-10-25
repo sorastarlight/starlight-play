@@ -47,7 +47,7 @@ test("Preview allowlist includes only the snapshot plus the two health RPCs", ()
 
 test("Preview HTML keeps the UNAVAILABLE fallback and lifecycle copy", () => {
   assert(nextHtml.includes("Live status is unavailable"));
-  assert(nextHtml.includes("Twitch LIVE permits the Live RPG"));
+  assert(nextHtml.includes("Start the RPG session when the stream is live"));
   assert(nextHtml.includes("does not start"));
   assert(nextHtml.includes("data-state=\"unavailable\""));
 });

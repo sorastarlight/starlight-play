@@ -63,7 +63,9 @@
     session: () => supabase.auth.getSession(), identity: () => opsIdentity,
     allowed: () => staffOpen && currentTab() === "operations" && !document.hidden, call: (name, args) => window.playCall(name, args)
   }), () => staffOpen && currentTab() === "operations" && !document.hidden, raw => renderOperationsView(presentOps(raw ? { payload: raw } : { error: "missing" })));
-  function resetOperations() { opsIdentity = ""; opsSequence++; sessionControls?.reset(); }
+  const operationsApi=window.PLAY_ADMIN_OPERATIONS;
+  const operationsControls=operationsApi?.mount(document.getElementById("next-operations-controls"),operationsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>opsIdentity,allowed:()=>staffOpen&&currentTab()==="operations"&&!document.hidden,call:(name,args)=>window.playCall(name,args)}));
+  function resetOperations() { opsIdentity = ""; opsSequence++; sessionControls?.reset(); operationsControls?.reset(); }
   const configApi = window.PLAY_ADMIN_NEXT_CONFIG;
   const config = configApi?.mount(document.getElementById("next-config"), configApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
@@ -156,7 +158,7 @@
   function renderCard(card) {
     const tone = card.state ? ` is-${card.state}` : "";
     const stateAttr = card.state ? ` data-state="${esc(card.state)}"` : "";
-    const meta = (card.meta || []).map((row) => (
+    const meta = (card.meta || []).filter(row => !["Session", "Session row", "Note", "Pokédex"].includes(row.label)).map((row) => (
       `<div><dt>${esc(row.label)}</dt><dd>${esc(row.value)}</dd></div>`
     )).join("");
     return `<article class="admin-next-ops-card hub-metric admin-next-metric${tone}"${stateAttr}>
@@ -201,7 +203,7 @@
         : "No confirmed observation yet.";
     }
     if (els.opsMetrics) {
-      els.opsMetrics.innerHTML = (view.cards || []).map(renderCard).join("");
+      els.opsMetrics.innerHTML = (view.cards || []).filter(card => ["Twitch", "Live RPG session", "Current encounter"].includes(card.label)).map(renderCard).join("");
     }
   }
 

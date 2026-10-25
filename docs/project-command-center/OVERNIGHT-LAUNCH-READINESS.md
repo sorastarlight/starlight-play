@@ -357,3 +357,6 @@ CODEX249 LIVE: migration20261025222511;main379523f0;Pages40240143996success;100+
 
 
 CODEX251 LIVE: migration20261025225608 retires only unused client ad-token branch;exact candidate match;4controls unchanged;validatedEdgewriter remains service-only. Concurrent Bits retry is already safe(one reward/notice/support credit),so no retry SQL change.34recoveryfiles. No production credential/provider/Director/Bits/gameplay call. CODEX250 native System/keys/Bits locally in progress;do not claim published.
+
+
+CODEX250 LIVE: migration20261025231537;mainbcab3a6e;Pages40243972531success;100+6sources;139suites;13SQL+2races+4rollback;28layouts;5source/ACLmatches;privateaudit0;36recoveryfiles. No hosted connection/key/token/provider/Bits action. CODEX252 native Operations locally tested;publication pending.

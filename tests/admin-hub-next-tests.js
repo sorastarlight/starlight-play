@@ -71,8 +71,8 @@ test("Operations preview keeps the unavailable fallback and polls only the snaps
   assert(nextHtml.includes("Live status is unavailable"));
   assert(nextHtml.includes("Reload Operations to try again"));
   assert(nextHtml.includes("UNAVAILABLE"));
-  assert(nextHtml.includes("Last recorded encounter"));
-  assert(nextHtml.includes("Settlement"));
+  assert(nextHtml.includes("Current encounter"));
+  assert(!nextHtml.includes("<p class=\"eyebrow\">Settlement</p>"),"Unavailable settlement internals are not primary staff cards");
   assert(nextHtml.includes("data-state=\"unavailable\"") || nextHtml.includes("is-unavailable"));
   assert(nextJs.includes("renderOperationsFallback"));
   assert(nextJs.includes("OPS_POLL_MS"));
@@ -95,7 +95,7 @@ test("Legacy Admin Hub and live controls remain the default", () => {
 });
 
 test("Lifecycle copy matches permission-only contract", () => {
-  assert(nextHtml.includes("Twitch LIVE permits the Live RPG"));
+  assert(nextHtml.includes("Start the RPG session when the stream is live"));
   assert(nextHtml.includes("does not start"));
   assert(adminHtml.includes("Twitch LIVE permits the Live RPG") || adminHtml.includes("does not start it"));
   assert(!adminHtml.includes("Twitch will activate the Live RPG when the stream is detected"));

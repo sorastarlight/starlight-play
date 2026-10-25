@@ -1,5 +1,5 @@
 const assert=require("node:assert/strict"),api=require("../js/admin-next-config.js");
-const values={participationReward:25,captureReward:25,newDexReward:100,shinyReward:250,legendaryReward:350,streamAttendanceReward:50};
+const values={participationReward:25,captureReward:25,newDexReward:100,shinyReward:250,legendaryReward:350,streamAttendanceReward:50,rewardBonusCoins:10};
 const response={ok:true,config:{...values,dailySupply:{coins:99},firstFemaleReward:88,unknownFutureField:{keep:true}},circulation:123};
 const deferred=()=>{let resolve;return {promise:new Promise(done=>resolve=done),resolve};};
 (async()=>{
@@ -7,7 +7,7 @@ const deferred=()=>{let resolve;return {promise:new Promise(done=>resolve=done),
   for(const value of [-1,1.5,NaN,Infinity,"25",null,2147483648])assert.throws(()=>api.amount(value));assert.equal(api.amount(0),0);
   for(const raw of [null,{ok:false,config:values},{ok:true,config:{}},{ok:true,config:{...values,shinyReward:null}}])assert.throws(()=>api.project(raw));
   const draft=Object.fromEntries(Object.entries(values).map(([key,value])=>[key,String(value)]));draft.participationReward="0";
-  assert.deepEqual(api.patch(values,draft),{participationReward:0});assert.equal(response.config.unknownFutureField.keep,true);
+  assert.deepEqual(api.patch(values,draft),{participationReward:0});assert.equal(response.config.unknownFutureField.keep,true);assert.deepEqual(api.patch(values,{...draft,participationReward:"25",rewardBonusCoins:"15"}),{rewardBonusCoins:15});
   assert.throws(()=>api.patch(values,{...draft,unknownFutureField:1}));for(const bad of ["","-1","1.5","1e2","Infinity","2147483648"])assert.throws(()=>api.patch(values,{...draft,captureReward:bad}));
   let id="staff",actual="staff",allowed=true;const calls=[];
   const read=api.adapter({identity:()=>id,allowed:()=>allowed,session:async()=>({data:{session:{user:{id:actual}}}}),call:async(...args)=>{calls.push(args);return response;}});

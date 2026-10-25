@@ -1,0 +1,7 @@
+# Native Operations controls recovery
+
+New APIs read the current Director, current encounter, cached ad state and existing Kanto targetable forms without ticking or executing a Director command. A command requires the reviewed revision, strict action/payload allowlists, staff access and immediate Director/ad/round row locks. Permission and state are checked again before calling the existing dispatcher. The receipt excludes its broad dashboard response. Existing encounter rules, species generation, rewards, provider functions and session Start/End are not replaced.
+
+Local validation:12 PostgreSQL groups including an observed competing Director lock, stale round/ad refusal, payload denial, helper ACLs, pure reads and guarded rollback. Commands use a fictional recording dispatcher while the real dispatcher definition remains unchanged/restored; this is a wrapper test, not a production gameplay rehearsal.140 regression suites and24 rendered responsive/error/active/reward states pass. All local schemas contain fictional state only and no imported application/Auth records.
+
+Rollback refuses source drift and disables the two new public APIs. It preserves all encounters, queue/session/ad state and Director history. Frontend rollback is separate and cannot undo an operation. No live command, encounter, test, queue, provider action or setting save is part of installation/source verification.

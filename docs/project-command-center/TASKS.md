@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-228 | done | Full-shell Mart account transitions | CODEX-215/227 | Local only | 56cases;four targeted suites;no runtime change |
 | CODEX-227 | done | Full-shell Configuration account transitions | CODEX-219/224 | Local only | 40switches;four targeted suites;no runtime change |
 | CODEX-226 | done | Helpdesk failure/draft/reset review | CODEX-153 | Local only | 20layouts;11harness checks;native pending/focus |
 | CODEX-225 | done | Integrated Operations visual/session review | CODEX-196 | Local only | 40layouts;native focus/pending/reset;no runtime change |

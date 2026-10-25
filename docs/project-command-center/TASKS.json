@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-228",
+      "status": "done",
+      "scope": "Full-shell Mart review and delayed-read account transitions",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX228-MART-SHELL-TRANSITIONS.md;evidence/codex228-mart-transitions.json",
+      "testResults": "56rendered transitions;four targeted suites;old inputs/reviews cleared and fresh catalog only",
+      "nextAction": "Observe post-SQL215 backup after07:44UTC;continue independent checks",
+      "approvalRequirement": "Local only;live saves/production authority held"
+    },
+    {
       "id": "CODEX-227",
       "status": "done",
       "scope": "Full shell Configuration editor account-transition acceptance",

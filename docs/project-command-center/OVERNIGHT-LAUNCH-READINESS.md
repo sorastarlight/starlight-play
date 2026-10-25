@@ -1,4 +1,6 @@
-# Current launch readiness handoff — through CODEX-227
+# Current launch readiness handoff — through CODEX-228
+
+CODEX-228 full-shell local Mart transition review passed56completed cases and four targeted suites. Product/floor/create/order reviews clear before a new access check;late reads stay discarded and new staff sees only its fresh catalog. No runtime or hosted action. [Report](LAUNCH-CODEX228-MART-SHELL-TRANSITIONS.md). Backup check remains due after07:44UTC;overnight hard stop14:22UTC unchanged.
 
 CODEX-227 full-shell local Configuration transition review passed40staff-to-ordinary/staff-to-new-staff cases and four targeted suites. Old workspace/dialogs clear before access verification;late reads stay discarded and new staff gets fresh fields only. No runtime change or hosted call. [Report](LAUNCH-CODEX227-FULL-SHELL-TRANSITIONS.md). Overnight window remains14:22UTC/10:22Eastern;backup observation not due before07:44UTC.
 

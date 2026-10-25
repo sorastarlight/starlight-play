@@ -1,0 +1,1415 @@
+{
+  "classification": "REAL LOCAL DOM;actual full shell and Mart modules/styles;fictional profile/auth/gate/catalog;connect-src none",
+  "rows": [
+    {
+      "mode": "productReview",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "ordinary",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "staff",
+      "width": 320,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "ordinary",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "staff",
+      "width": 390,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "ordinary",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "staff",
+      "width": 768,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "productReview",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 10,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "ordinary",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorReview",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 6,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "floorRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderRead",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 0,
+        "held": true
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "createReview",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 9,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    },
+    {
+      "mode": "orderReview",
+      "destination": "staff",
+      "width": 1024,
+      "before": {
+        "inputs": 2,
+        "dialogs": 1,
+        "held": false
+      },
+      "immediate": {
+        "staffHidden": true,
+        "dialogs": 0,
+        "inputs": 0
+      },
+      "after": {
+        "staffHidden": false,
+        "dialogs": 0,
+        "detailForms": 0,
+        "secondaryInputs": 0,
+        "products": [
+          "Fresh new staff product80 PokéCoins"
+        ],
+        "overflow": false
+      },
+      "calls": "Fictional reads: admin_store_get admin_store_get admin_store_get"
+    }
+  ],
+  "targetedSuites": [
+    "admin-next-mart-tests.js",
+    "admin-next-floors-tests.js",
+    "admin-next-create-tests.js",
+    "admin-next-limits-order-tests.js"
+  ],
+  "runtimeChanges": 0,
+  "hostedCalls": 0,
+  "limitation": "No real Auth transition,server authorization,save,physical-device or assistive certification",
+  "orchestration": "Initial56-frame combined page exceeded fixture initialization limit for8cases;discarded. Final four independent14-case width batches all completed."
+}

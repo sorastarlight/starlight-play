@@ -44,3 +44,6 @@ supabase/migrations/*_hub_system_connections.sql text eol=lf
 
 supabase/unapplied/hub-operations-controls/*.sql text eol=lf
 supabase/migrations/*_hub_operations_controls.sql text eol=lf
+
+supabase/unapplied/trainer-pokemon-quantity/*.sql text eol=lf
+supabase/migrations/*_trainer_pokemon_quantity.sql text eol=lf

@@ -110,10 +110,10 @@ test("Migrated trainer tools remain in the primary Hub", () => {
   assert(!nextHtml.includes('href="./admin-store.html"'), "bare admin-store.html redirects away from embed");
 });
 
-test("Staff gate and preview link stay additive", () => {
+test("Staff gate keeps the primary Hub and player navigation separate", () => {
   assert(nextJs.includes('supabase.rpc("is_play_admin")'));
   assert(adminHtml.includes("admin-next.html"), "legacy hub should link the preview");
-  assert(nextHtml.includes("./admin.html"), "preview must link back to current hub");
+  assert(!nextHtml.includes("./admin.html"), "primary Hub must not send staff to old editors");
   const nav = read("js/nav.js");
   assert(nav.includes('page === "admin-next"'), "preview page must stay off primary player nav");
   assert(nav.includes('id: "help"') && nav.includes('id: "store"'));

@@ -116,7 +116,7 @@
       try {
         const changes = patch(ui.state.current, ui.state.draft);
         if (!Object.keys(changes).length) throw Error("No changes to review.");
-        dialog("Review encounter timings", `<p>Applies to future encounters. If a stream PC connection exists, a settings update will be queued. This action does not start an encounter.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} seconds</span><strong>Proposed: ${value.toLocaleString("en-US")} seconds</strong></dd></div>`).join("")}</dl><p>The server checks the loaded revision before saving. Changed settings require a reload. Save once, then verify.</p>`, () => ui.save(), "Save encounter timings");
+        dialog("Review encounter timings", `<p>Applies to future encounters. If a stream PC connection exists, a settings update will be queued. This action does not start an encounter.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} seconds</span><strong>Proposed: ${value.toLocaleString("en-US")} seconds</strong></dd></div>`).join("")}</dl><p>Saving checks for changes made by other staff. Reload if the settings have changed.</p>`, () => ui.save(), "Save encounter timings");
       } catch (error) { root.querySelector("[data-timings-validation]").textContent = error.message; }
     });
     root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty()) { event.preventDefault(); event.returnValue = ""; } });

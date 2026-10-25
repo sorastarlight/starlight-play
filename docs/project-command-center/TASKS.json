@@ -12,9 +12,12 @@
       ],
       "branch": "admin-hub-overhaul",
       "evidence": "LAUNCH-CODEX215-LOCAL-MART-CREATE.md;evidence/codex215-regressions.json;evidence/codex215-sql-checks.json;evidence/codex215-browser-checks.json;evidence/codex215-runtime-scope.json",
-      "testResults": "123suites;22REAL LOCAL SQL groups;8responsive DOM states;10interaction cases;keyboard/reset and guarded rollback",
-      "nextAction": "Separate exact endpoint install/four-file publication and source-verification decision;no live creation authorized",
-      "approvalRequirement": "Design/local scope approved;production SQL/publication/live reads and writes held"
+      "testResults": "123local suites;22SQL groups;8responsive states;100+4hosted source matches;14delta local forward/reverse recovery",
+      "nextAction": "Installed/published/source verified;live catalog reads/creation remain separately untested;observe next completed post-change backup when due",
+      "approvalRequirement": "Exact install/publication decision spent;no further mutation or authenticated navigation authority",
+      "publicationCommit": "7d9d01047e73d646cdb3a8905d7932f5e2ae7f78",
+      "pagesRun": 40161937835,
+      "migration": "20261025042627"
     },
     {
       "id": "CODEX-214",

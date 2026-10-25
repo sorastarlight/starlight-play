@@ -1,6 +1,6 @@
 # CODEX-215 — local create-only Mart draft implementation
 
-Owner-approved CODEX-213 design and local implementation completed October25. **Production SQL and publication remain held.** Existing production main ae110601 / Pages40145088416 and APP20261008-rc133 are unchanged.
+Owner-approved CODEX-213 design and local implementation completed October25. **Subsequently installed and published under separate explicit approval:**main7d9d0104 / Pages40161937835success;APP20261008-rc133 unchanged. The local-stage details below precede that approval;the final section records production verification.
 
 The new Mart section explicitly loads current draft options, then prepares one core inventory product in an existing non-system PokéCoin floor. It displays friendly item names and canonical sprites, normalized item search, quantity and whole PokéCoin price, including explicit free pricing. The complete confirmation shows the product, floor, price, code and description. Creation always means hidden draft/unfeatured; later publication is a separate existing-editor action.
 
@@ -17,8 +17,14 @@ The new endpoint uses the existing owner/admin guard and validation trigger. Ful
 
 Evidence:[regressions](evidence/codex215-regressions.json),[SQL](evidence/codex215-sql-checks.json),[DOM](evidence/codex215-browser-checks.json),[runtime scope](evidence/codex215-runtime-scope.json),[source closure](evidence/codex215-source-contracts.json). Private screenshots/harness/source/rollback are in `C:\Users\FET\AppData\Local\PokemonStreamLink\security\codex215\`. Temporary fixture tabs/server and isolated PostgreSQL stop after checks.
 
-## Important next decision
+## Reviewed production proposal — subsequently approved
 
 Approve installing only the new function with its guarded explicit EXECUTE grants, and publishing only the four runtime files listed in the scope evidence, followed by deployed-source verification. The local approval explicitly excluded these operations; `.cursor/rules/streamlink-project.mdc` says “No SQL migrations, grants, RLS, staff-role changes, or trainer/economy/encounter/director mutations without a new owner authorization.” CODEX-78 does not cover a new privileged workflow. No live catalog read/create, authenticated navigation/notices, product publication, upload/deletion, Bits/provider test or APP stamp is proposed.
 
 Sora NO · Twinkle NO · PlayTester role unchanged. No live SQL mutation, application endpoint, protected account, email, provider, spending, scheduler or launch action. Other real device/provider/hosted mutation acceptance remains indexed in the matrix. This optional migration slice is not automatically a launch blocker.
+
+## Subsequent approved installation and publication
+
+Owner separately approved installation and exact four-file publication/source-only verification. Migration20261025042627 installed;new full body/hash/attributes/ACL match,10dependencies and existing edit unchanged. Main7d9d01047e73d646cdb3a8905d7932f5e2ae7f78 / Pages40161937835 succeeded;100monitored+4changed versioned sources match. APP20261008-rc133 unchanged. Feature123suites/build31HTML479refs;isolated main build30HTML477refs. No live catalog/application read/create,authenticated navigation/notice,provider,grant/gameplay or protected-account mutation. Approval spent.
+
+Production evidence:[installed source/permissions](evidence/codex215-installed.json),[published source](evidence/codex215-publication.json). Local recovery extension applies/reverses all14post-drill packets,restoring585function/143relation-permission/56policy metadata records;142application tables remain empty,original schema archive unchanged,runtime stopped. New SQL packet files are pinned LF and exact Windows checkout bytes verified3/3. [Recovery replay](evidence/codex215-recovery-replay.json),[file hashes](evidence/codex215-recovery-files.json). This does not certify physical/full Auth/Storage restore. Latest observed Oct24 07:44:07UTC backup predates this new migration;a subsequent completed backup remains to be observed when due. No new schedule or restore.

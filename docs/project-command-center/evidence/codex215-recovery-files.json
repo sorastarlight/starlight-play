@@ -1,0 +1,20 @@
+{
+  "classification": "LOCAL Git checkout byte verification;no production recovery",
+  "results": [
+    {
+      "file": "supabase/unapplied/admin-mart-create-draft/INSTALL.sql",
+      "sha256": "289013bf77bf071a9fa6ff6903ca669122d255d92c3c674efbb7f219e07e13b3",
+      "checkoutBytesMatch": true
+    },
+    {
+      "file": "supabase/unapplied/admin-mart-create-draft/ROLLBACK.sql",
+      "sha256": "f2a8718930ccc1c034777759bff3c35153388fd7c803c9b638fea63fa5ba9870",
+      "checkoutBytesMatch": true
+    },
+    {
+      "file": "supabase/unapplied/admin-mart-create-draft/FUNCTION.sql",
+      "sha256": "6e78c91df967a4d5e181b109c7824b2b8093d37554edc976d33a6bb73df242e8",
+      "checkoutBytesMatch": true
+    }
+  ]
+}

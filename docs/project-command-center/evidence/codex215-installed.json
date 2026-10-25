@@ -1,0 +1,25 @@
+{
+  "classification": "PRODUCTION catalog-only verification;no application invocation",
+  "migration": {
+    "name": "codex215_admin_mart_create_draft",
+    "version": "20261025042627"
+  },
+  "newEndpoint": {
+    "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+    "hash": "999ea1f6d8366e0bbfc40eb2e7fb9e25",
+    "owner": "postgres",
+    "config": [
+      "search_path=pg_catalog"
+    ],
+    "signature": "admin_store_create_draft(jsonb)",
+    "volatility": "v",
+    "anonExecute": false,
+    "serviceExecute": true,
+    "securityDefiner": true,
+    "authenticatedExecute": true,
+    "fullBodyMatches": true
+  },
+  "unchangedDependencies": 10,
+  "existingEditUnchanged": true,
+  "checkedAt": "2026-10-25T04:27:05.739Z"
+}

@@ -26,3 +26,4 @@ supabase/unapplied/team-active-ownership/ROLLBACK.sql text eol=lf
 supabase/unapplied/admin-trainer-roster/*.sql text eol=lf
 
 supabase/unapplied/admin-report-query-corrections/*.sql text eol=lf
+supabase/unapplied/admin-mart-create-draft/*.sql text eol=lf

@@ -1,6 +1,6 @@
 # Create-only hidden Mart drafts — CODEX-215
 
-**Prepared and tested locally. Not installed or published.** The owner approved CODEX-213's design and isolated implementation/testing on October25. A separate production SQL/publication decision is required.
+**Installed and source-verified after separate owner approval:**migration20261025042627. Four frontend files published at main7d9d0104 / Pages40161937835success. The owner first approved CODEX-213's design/local testing,then separately approved this exact install/publication. No live creation test was authorized or run.
 
 `INSTALL.sql` creates only `public.admin_store_create_draft(jsonb)`. It refuses an existing name/overload and checks ten dependency definitions, owners and ACLs plus the inspected table columns, constraints, triggers and absence of rules. The new function retains the existing owner/admin guard, requires an authenticated subject, uses a fixed `pg_catalog` search path, fully qualified application objects, and explicit authenticated/service-role EXECUTE. PUBLIC/anonymous access is revoked. No existing function, table, role or RLS policy is changed.
 

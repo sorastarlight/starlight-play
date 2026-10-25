@@ -157,6 +157,19 @@
           "sha256": "ef59de0c89024bd39228bef0cd99adacd83afcf706a080ee11ef14f77a157eaa"
         }
       ]
+    },
+    {
+      "version": "20261025042627",
+      "files": [
+        {
+          "file": "supabase/unapplied/admin-mart-create-draft/INSTALL.sql",
+          "sha256": "289013bf77bf071a9fa6ff6903ca669122d255d92c3c674efbb7f219e07e13b3"
+        },
+        {
+          "file": "supabase/unapplied/admin-mart-create-draft/ROLLBACK.sql",
+          "sha256": "f2a8718930ccc1c034777759bff3c35153388fd7c803c9b638fea63fa5ba9870"
+        }
+      ]
     }
   ]
 }

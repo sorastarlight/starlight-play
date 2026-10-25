@@ -1,12 +1,12 @@
 # Current launch readiness handoff — through CODEX-215
 
-Runtime main ae110601 / Pages40145088416 succeeded;100monitored plus3changed versioned source match. APP20261008-rc133 unchanged;122local suites/build31HTML477refs. CODEX211approved ordering/capture publication complete;CODEX212routine empty/long-review presentation and CODEX214sibling-dialog focus maintenance complete. Separate feature/main histories preserved.
+Runtime main7d9d0104 / Pages40161937835success;100+4sources match. New endpoint migration20261025042627full source/ACL verified. Feature123suites/build31HTML479refs;main isolated build30HTML477refs. APP20261008-rc133 unchanged;separate feature/main histories preserved.
 
 Current user authorizes autonomous in-session readiness/visual work. Existing heartbeat remains PAUSED;no renewed schedule or extra background systems. No delegation. Preserve SQL/Auth/provider/credential/gameplay/grant/notice/protected-account/spending/APP/final-launch boundaries.
 
-CODEX213design/local implementation is now owner-approved and completed in CODEX215.123local suites,22SQL groups,8responsive DOM states,10native interaction cases and guarded install/rollback pass. One new atomic create-only endpoint plus four frontend files are prepared,not installed/published. Separate exact production decision next;no live creation/catalog call or authenticated navigation authority. See LAUNCH-CODEX215-LOCAL-MART-CREATE.md. Do not repeat prior design/publication approvals.
+Owner separately approved installation and exact four-file publication/source-only verification. Migration20261025042627 installed;new full body/hash/attributes/ACL match,10dependencies and existing edit unchanged. Main7d9d01047e73d646cdb3a8905d7932f5e2ae7f78 / Pages40161937835 succeeded;100monitored+4changed versioned sources match. APP20261008-rc133 unchanged. Feature123suites/build31HTML479refs;isolated main build30HTML477refs. No live catalog/application read/create,authenticated navigation/notice,provider,grant/gameplay or protected-account mutation. Approval spent. See LAUNCH-CODEX215-LOCAL-MART-CREATE.md.
 
-Real device/assistive/provider and bounded hosted mutation acceptance remain as indexed in LAUNCH-ACCEPTANCE-MATRIX.md. Recovery evidence unchanged after latest SQL178;do not poll unchanged backups or rerun unchanged suites to simulate progress. CODEX215new endpoint install is held for a separate owner decision.
+Local recovery14delta replay/reverse passes;3SQLcheckoutfiles match LFbytes. Latest observed Oct24 07:44:07UTC backup predates SQL215;observe next completed post-change backup when due,without a new schedule or restore. Real device/provider and bounded hosted mutation gaps remain in the matrix. No repeated application calls or owner notices.
 
 Historical windows below are superseded.
 

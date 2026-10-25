@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-215 | done | Create-only hidden Mart draft locally complete | CODEX-213 | Local approved;production held | 123suites;22SQL groups;8responsive states;exact install/rollback prepared |
+| CODEX-215 | done | Create-only hidden Mart draft installed/published/source verified | CODEX-213 | Exact decision spent | SQL20261025042627;main7d9d0104;Pages40161937835;100+4sources;14delta recovery |
 | CODEX-214 | done | Sibling long-review focus published | CODEX-212 | CODEX-78 | Mainae110601;Pages40145088416;100+3sources;122suites |
 | CODEX-213 | done | Create-only Mart draft proposal | CODEX-212 | Design/local approved | Local implementation completed in CODEX215;production held |
 | CODEX-212 | done | Empty floor and long review published | CODEX-211 | CODEX-78 | Mainde722c21;Pages40144190134;100+1sources;122suites |

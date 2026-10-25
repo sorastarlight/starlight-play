@@ -121,3 +121,17 @@ Thirteenth installed post-drill delta:20261024044601 codex178_report_query_corre
 
 
 CODEX-188 current backup observation:at24Oct08:12:28UTC,dashboardlistsPHYSICAL24Oct07:44:07UTC(03:44:07EDT)withRestoreavailable,noinprogresslabel. Itpostdateslatestcatalogmigration20261024044601/CODEX178. Post-changeavailabilityobservationcomplete;noRestore/export/settings/applicationaction. Physicalrestore/fullAuth/Storagecertificationremainseparate. See LAUNCH-CODEX188-POST-REPORT-BACKUP.md.
+
+## CODEX-215 installed create-only Mart draft endpoint
+
+Fourteenth installed post-drill delta:20261025042627 codex215_admin_mart_create_draft. One new owner/admin-guarded function,explicit authenticated/service-role execute and anonymous/PUBLIC denial;no table/data changes. Full body/hash/attributes/ACL and10unchanged dependencies plus existing edit verified without invocation.
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261025042627 codex215_admin_mart_create_draft|supabase/unapplied/admin-mart-create-draft/INSTALL.sql|289013bf77bf071a9fa6ff6903ca669122d255d92c3c674efbb7f219e07e13b3|
+
+supabase/unapplied/admin-mart-create-draft/INSTALL.sql SHA256 289013bf77bf071a9fa6ff6903ca669122d255d92c3c674efbb7f219e07e13b3
+
+supabase/unapplied/admin-mart-create-draft/ROLLBACK.sql SHA256 f2a8718930ccc1c034777759bff3c35153388fd7c803c9b638fea63fa5ba9870
+
+All14deltas replay/reverse on separate empty PG17 schema fixture;585function/143relation/56policy baseline metadata restored;142tables empty throughout. Original schema archive unchanged,runtime stopped.3newSQLfiles preserve exactLFbytes after Git checkout;operational pair pinned in recovery-packets.json. Latest observed Oct24 07:44:07UTC physical backup predates this migration;next completed post-change backup remains unobserved until due. No production restore/export,Auth/player data import,job activation or full physical/Auth/Storage certification. Evidence:evidence/codex215-recovery-replay.json and evidence/codex215-recovery-files.json.

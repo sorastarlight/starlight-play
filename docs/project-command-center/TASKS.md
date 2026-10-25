@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-225 | done | Integrated Operations visual/session review | CODEX-196 | Local only | 40layouts;native focus/pending/reset;no runtime change |
 | CODEX-224 | done | Bounded Configuration read acceptance | CODEX-219/223 | Approved/spent | 19contracts;7sources;three settings reads;no edits/saves |
 | CODEX-223 | done | Narrow roster dialog and inventory naming | CODEX-222 | CODEX-78 | Maind93e90c2;Pages40167468786;100+2sources;126suites |
 | CODEX-222 | done | Integrated Mart/draft inspection and confirmation styling | CODEX-221 | CODEX-78 | Mainffc57bcd;Pages40166688718;100+5sources;126suites |

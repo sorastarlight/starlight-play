@@ -1,0 +1,924 @@
+{
+  "classification": "REAL LOCAL DOM;actual section/styles/presenter/session module;fictional data;CSP connect-src none",
+  "rows": [
+    {
+      "state": "ready",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "active",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "offline",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "stale",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "missing",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "denied",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "loading",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "encounter",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "start",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "Start RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "end",
+      "width": 320,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "End RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "ready",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "active",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "offline",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "stale",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "missing",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "denied",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "loading",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "encounter",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "start",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "Start RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "end",
+      "width": 390,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "End RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "ready",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "active",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "offline",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "stale",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "missing",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "denied",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "loading",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "encounter",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "start",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "Start RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "end",
+      "width": 768,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "End RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "ready",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "active",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "offline",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "stale",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "missing",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "denied",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "loading",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "start",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": false
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "Start RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "end",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": false
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        },
+        {
+          "text": "Back",
+          "disabled": false
+        },
+        {
+          "text": "End RPG session",
+          "disabled": false
+        }
+      ]
+    },
+    {
+      "state": "encounter",
+      "width": 1024,
+      "overflow": false,
+      "dialogOverflow": false,
+      "smallButtons": 0,
+      "buttons": [
+        {
+          "text": "Review starting RPG",
+          "disabled": true
+        },
+        {
+          "text": "Review ending RPG",
+          "disabled": true
+        },
+        {
+          "text": "Reload session status",
+          "disabled": false
+        }
+      ]
+    }
+  ],
+  "native": {
+    "startDialogEscapeReturnsFocus": true,
+    "pendingObservationDisablesActions": true,
+    "resetThenLateResolutionKeepsActionsDisabled": true,
+    "commandsSent": 0
+  },
+  "tests": [
+    "admin-next-session-tests.js passed",
+    "admin-hub-gate-17-s1-snapshot-tests.js:16 passed"
+  ],
+  "limitations": [
+    "Parent iframe measurements do not certify keyboard focus",
+    "Native focus checked separately in standalone fixture",
+    "No hosted command,physical device or assistive certification"
+  ]
+}

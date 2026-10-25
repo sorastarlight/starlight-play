@@ -1,4 +1,6 @@
-# Current launch readiness handoff — through CODEX-236
+# Current launch readiness handoff — through CODEX-237
+
+CODEX-237 published-asset review passed525local references across30HTML/13CSS files and browser-decoded all449existing Kanto/candy/Ribbon PNGs with matching dimensions. No missing or corrupt image was confirmed. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX237-PUBLISHED-ASSETS.md).
 
 CODEX-236 published-tree navigation review passed123internal links across30pages;all destinations exist and six JS fragment aliases resolve in source. Four targeted navigation/settings suites pass. No runtime or production change;main9356623f and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX236-INTERNAL-NAVIGATION.md).
 

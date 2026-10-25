@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-237",
+      "status": "done",
+      "scope": "Published static asset paths and existing generated PNG integrity",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX237-PUBLISHED-ASSETS.md;evidence/codex237-assets.json",
+      "testResults": "525static references;449exact-main PNG headers/dimensions and browser decodes",
+      "nextAction": "Continue concrete independent checks;real device/provider requirements stay open",
+      "approvalRequirement": "STATIC/REAL LOCAL only;no runtime or production action"
+    },
+    {
       "id": "CODEX-236",
       "status": "done",
       "scope": "Exact published internal navigation and hash-route source review",

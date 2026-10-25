@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+CODEX-237 published-asset review passed525local references across30HTML/13CSS files and browser-decoded all449existing Kanto/candy/Ribbon PNGs with matching dimensions. No missing or corrupt image was confirmed. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX237-PUBLISHED-ASSETS.md).
+
 CODEX-236 published-tree navigation review passed123internal links across30pages;all destinations exist and six JS fragment aliases resolve in source. Four targeted navigation/settings suites pass. No runtime or production change;main9356623f and APP20261008-rc133 unchanged. [Report](LAUNCH-CODEX236-INTERNAL-NAVIGATION.md).
 
 CODEX-235 Helpdesk visible-focus correction is published at main **9356623f**, Pages **40186781359 succeeded**;100monitored+one versioned source match. One focus expression now brings the existing conversation heading into view after loading older messages.24populated layouts,126suites,11support race/loading cases,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No request/permission/message behavior or hosted application action changed. [Report](LAUNCH-CODEX235-HELPDESK-VISIBLE-FOCUS.md).

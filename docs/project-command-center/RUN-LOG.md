@@ -1,3 +1,7 @@
+## CODEX-237 — Published asset integrity
+
+CODEX-237 published-asset review passed525local references across30HTML/13CSS files and browser-decoded all449existing Kanto/candy/Ribbon PNGs with matching dimensions. No missing or corrupt image was confirmed. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. Local public-asset copies/evidence remain outside Git;no new external request or production action.
+
 ## CODEX-236 — Published-tree navigation review
 
 CODEX-236 published-tree navigation review passed123internal links across30pages;all destinations exist and six JS fragment aliases resolve in source. Four targeted navigation/settings suites pass. No runtime or production change;main9356623f and APP20261008-rc133 unchanged. No change to launch requirements,Auth/server authority or user data.

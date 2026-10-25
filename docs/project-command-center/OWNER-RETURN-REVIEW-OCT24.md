@@ -1,4 +1,4 @@
-# Owner return review — current October25,through CODEX-236
+# Owner return review — current October25,through CODEX-237
 
 ## Completed this overnight window
 
@@ -20,6 +20,8 @@ Production is **main 9356623f / APP20261008-rc133**. Routine fixes cover recover
 - [Helpdesk populated review and visible focus](LAUNCH-CODEX235-HELPDESK-VISIBLE-FOCUS.md):older-message paging now exposes the focused heading;one JS expression published,no ticket action or request logic change.
 
 - [Published internal navigation](LAUNCH-CODEX236-INTERNAL-NAVIGATION.md):30pages/123links and six source-backed fragment routes pass;four related suites,no change needed.
+
+- [Published asset integrity](LAUNCH-CODEX237-PUBLISHED-ASSETS.md):525static references and449existing Kanto/candy/Ribbon PNG browser decodes pass;no content or release change.
 
 ## What genuinely remains
 

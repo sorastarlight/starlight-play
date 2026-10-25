@@ -49,4 +49,7 @@ $body$;
 REVOKE ALL ON FUNCTION public.admin_store_create_draft(jsonb) FROM PUBLIC, anon, authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.admin_store_create_draft(jsonb) TO authenticated, service_role;
 
+DO $verify$ BEGIN
+ IF md5(pg_get_functiondef('public.admin_store_create_draft(jsonb)'::regprocedure)) IS DISTINCT FROM '999ea1f6d8366e0bbfc40eb2e7fb9e25' THEN RAISE EXCEPTION 'Mart draft candidate bytes differ; normalize reviewed SQL to LF.'; END IF;
+END $verify$;
 COMMIT;

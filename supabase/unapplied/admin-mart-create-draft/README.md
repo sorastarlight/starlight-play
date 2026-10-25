@@ -8,6 +8,8 @@ The narrow payload is exactly `sku,categoryId,name,blurb,reward,quantity,cost` i
 
 `ROLLBACK.sql` checks the exact installed candidate definition, attributes and ACL before dropping only the new endpoint. It **retains any subsequently created catalog rows**; removing them would need separate review. Restore the four frontend baselines first, then remove the endpoint during a coordinated rollback. The local private frontend rollback checks every candidate hash before writing any baseline or removing either newly added asset.
 
+Normalize reviewed SQL to LF before application, including from a Windows checkout. The install checks the new definition hash before commit and refuses different candidate bytes; rollback expects the same normalized definition. `FUNCTION.sql` is a review aid, not an alternative to the guarded install.
+
 Local evidence: [SQL checks](../../../docs/project-command-center/evidence/codex215-sql-checks.json), [implementation review](../../../docs/project-command-center/LAUNCH-CODEX215-LOCAL-MART-CREATE.md). The isolated harness uses fictional auth/catalog rows and the inspected helper/trigger definitions; it is not a production migration or live creation test. Private repeatable harness, exact source snapshots and frontend rollback are at `C:\Users\FET\AppData\Local\PokemonStreamLink\security\codex215\` outside Git. No database password is used.
 
 Proposed production scope, only if subsequently approved: recheck all contracts; install this new function with its explicit grants; publish only `admin-next.html`, `js/admin-next.js`, `js/admin-next-create.js`, `css/admin-create.css`; verify source only. No authenticated navigation, catalog call/creation, notice acknowledgement, uploads/deletion, Bits/provider action or APP stamp.

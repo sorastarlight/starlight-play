@@ -47,3 +47,6 @@ supabase/migrations/*_hub_operations_controls.sql text eol=lf
 
 supabase/unapplied/trainer-pokemon-quantity/*.sql text eol=lf
 supabase/migrations/*_trainer_pokemon_quantity.sql text eol=lf
+
+supabase/unapplied/audited-trade-hold-repairs/*.sql text eol=lf
+supabase/migrations/*_audited_trade_hold_repairs.sql text eol=lf

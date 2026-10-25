@@ -22,3 +22,19 @@
 #owner-support [data-detail]>h2{margin:8px 0}#owner-support .support-message{margin:10px 0;padding:14px}#owner-support [data-reply]{padding:16px;background:#f8f5fc;border-radius:16px;margin-top:16px}#owner-support [data-reply]>label{margin:8px 0}
 
 #owner-support .support-conversation{max-height:48vh;min-height:100px;overflow:auto;scrollbar-gutter:stable;padding:0 6px}#owner-support .support-assignment{border-top:1px solid #e4ddef;margin-top:16px;padding-top:8px}#owner-support .support-assignment summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:800}
+
+/* Ticket workspace: conversation and reply beside always-visible management tools. */
+#owner-support .support-ticket-workspace{display:grid;grid-template-columns:minmax(0,1fr) minmax(220px,280px);gap:20px;margin-top:16px;align-items:start}
+#owner-support .support-ticket-main,#owner-support .support-ticket-sidebar{min-width:0}
+#owner-support .support-ticket-sidebar{display:flex;flex-direction:column;gap:16px;background:#f8f6fb;border:1px solid #e4ddef;border-radius:16px;padding:16px}
+#owner-support .support-ticket-sidebar h3{font-size:1rem;margin:0 0 12px}
+#owner-support .support-ticket-sidebar .support-assignment{order:-2;border:0;margin:0;padding:0}
+#owner-support .support-ticket-sidebar>.support-row{order:-3;margin:0!important}
+#owner-support .support-ticket-sidebar [data-triage]{display:block}
+#owner-support .support-ticket-sidebar label{margin:8px 0}
+#owner-support .support-activity{max-height:280px;overflow:auto;overflow-wrap:anywhere}
+#owner-support .support-activity p{font-size:.9rem;border-bottom:1px solid #e4ddef;padding-bottom:8px}
+#owner-support .support-conversation{max-height:50vh}
+#owner-support .support-more-filters>div{margin:0}
+@media(max-width:1200px){#owner-support .support-ticket-workspace{grid-template-columns:minmax(0,1fr)}#owner-support .support-ticket-sidebar{display:grid;grid-template-columns:1fr 1fr}#owner-support .support-ticket-sidebar>.support-row{grid-column:1/-1}}
+@media(max-width:600px){#owner-support .support-ticket-sidebar{display:flex}}

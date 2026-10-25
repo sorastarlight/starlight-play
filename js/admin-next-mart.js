@@ -6,25 +6,25 @@
   "use strict";
   const copy = value => JSON.parse(JSON.stringify(value));
   const object = value => value && typeof value === "object" && !Array.isArray(value);
-  const fields = ["name", "blurb", "detail", "cost", "quantity", "status", "visible", "featured"];
-  const labels = { name: "Public name", blurb: "Short description", detail: "Full description", cost: "PokéCoin price", quantity: "Reward quantity", status: "Publication", visible: "Visible in Mart", featured: "Featured" };
+  const fields = ["name", "blurb", "detail", "cost", "quantity", "bits", "quantities", "bitsTitles", "looks", "status", "visible", "featured"];
+  const labels = { name: "Public name", blurb: "Short description", detail: "Full description", cost: "PokéCoin price", quantity: "Reward quantity", bits: "Bits price", quantities: "Bundle contents", bitsTitles: "Twitch Power-Up titles", looks: "Trainer appearances", status: "Publication", visible: "Visible in Mart", featured: "Featured" };
   function eligible(row, categories) {
     const cat = categories.find(c => c.id === row?.categoryId);
-    if (!row?.sku || !cat || !["coins", "balls"].includes(cat.kind)) return false;
-    if (row.bits != null && row.bits !== 0) return false;
+    if (!row?.sku || !cat || !["coins", "balls", "bits", "avatars"].includes(cat.kind)) return false;
+    if (row.bits != null && (!Number.isSafeInteger(row.bits) || row.bits < 0)) return false;
     if (row.extra != null && !object(row.extra)) return false;
     const extra = row.extra || {};
     if ((extra.looks != null && !Array.isArray(extra.looks)) || (extra.bitsTitles != null && !Array.isArray(extra.bitsTitles))) return false;
-    if ((row.productKind || extra.productKind || "item") !== "item" || extra.pack || extra.looks?.length || extra.bitsTitles?.length) return false;
+    if (!["item", "pack", "bits", "avatar"].includes(row.productKind || extra.productKind || "item")) return false;
     if (row.productKind && extra.productKind && row.productKind !== extra.productKind) return false;
-    if (!object(row.grants) || Object.keys(row.grants).length !== 1) return false;
-    if (!Number.isSafeInteger(Object.values(row.grants)[0]) || Object.values(row.grants)[0] < 1) return false;
+    if (!object(row.grants) || Object.keys(row.grants).some(k => !/^[a-z0-9_-]+$/.test(k) || k === "masterball")) return false;
+    if (Object.values(row.grants).some(v => !Number.isSafeInteger(v) || v < 1)) return false;
     if (!Number.isSafeInteger(row.cost) || row.cost < 0 || typeof row.visible !== "boolean" || typeof row.featured !== "boolean") return false;
     const status = row.status || extra.status || "published";
     return ["draft", "published"].includes(status) && !(row.status && extra.status && row.status !== extra.status);
   }
   function draft(row) {
-    return { name: row.name || "", blurb: row.blurb || "", detail: row.detail ?? row.extra?.detail ?? "", cost: String(row.cost), quantity: String(Object.values(row.grants || {})[0] ?? ""), status: row.status || row.extra?.status || "published", visible: row.visible, featured: row.featured };
+    return { name: row.name || "", blurb: row.blurb || "", detail: row.detail ?? row.extra?.detail ?? "", cost: String(row.cost), quantity: String(Object.values(row.grants || {})[0] ?? ""), bits: String(row.bits || 0), quantities: Object.fromEntries(Object.entries(row.grants || {}).map(([k,v])=>[k,String(v)])), bitsTitles: (row.extra?.bitsTitles || []).join("\n"), looks: [...(row.extra?.looks || [])], status: row.status || row.extra?.status || "published", visible: row.visible, featured: row.featured };
   }
   function integer(value, minimum) {
     if (!/^\d+$/.test(String(value))) throw Error("Price and quantity must be whole numbers.");
@@ -33,14 +33,19 @@
     return number;
   }
   function payload(row, edited, categories) {
-    if (!eligible(row, categories)) throw Error("This product must use the current editor.");
+    if (!eligible(row, categories)) throw Error("This product contains invalid catalog data. Reload the catalog before editing.");
     if (!String(edited.name || "").trim()) throw Error("Enter a public product name.");
     if (!["draft", "published"].includes(edited.status) || typeof edited.visible !== "boolean" || typeof edited.featured !== "boolean") throw Error("Invalid publication settings.");
     const next = copy(row), key = Object.keys(row.grants)[0];
     next.name = String(edited.name).trim(); next.blurb = String(edited.blurb ?? ""); next.detail = String(edited.detail ?? "");
-    next.cost = integer(edited.cost, 0); next.grants[key] = integer(edited.quantity, 1);
+    next.cost = integer(edited.cost, 0); next.bits = integer(edited.bits, 0);
+    if (!object(edited.quantities) || Object.keys(edited.quantities).sort().join('|') !== Object.keys(row.grants).sort().join('|')) throw Error('Reload the product before changing its reward list.');
+    next.grants = Object.fromEntries(Object.entries(edited.quantities).map(([k,v])=>[k,integer(Object.keys(row.grants).length===1?edited.quantity:v,1)]));
+    if (!Array.isArray(edited.looks) || edited.looks.some(v=>typeof v!=='string') || new Set(edited.looks).size!==edited.looks.length) throw Error('Choose valid trainer appearances.');
+    const titles=String(edited.bitsTitles||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
+    if(next.bits>0&&edited.status==='published'&&!titles.length)throw Error('Add the Twitch Power-Up title for this Bits product.');
     next.status = edited.status; next.visible = edited.visible; next.featured = edited.featured;
-    next.extra = { ...(next.extra || {}), status: next.status, detail: next.detail };
+    next.extra = { ...(next.extra || {}), status: next.status, detail: next.detail, bitsTitles: titles, looks: [...edited.looks] };
     return { p_row: next };
   }
   function createController(transport, notify = () => {}) {
@@ -118,14 +123,14 @@
     function list() {
       const s = controller.state, host = root.querySelector("[data-mart-list]"); if (!host) return;
       const rows = searchProducts(s.catalog.items, query, floor);
-      host.innerHTML = `<p class="muted">${rows.length} ${rows.length === 1 ? "product" : "products"}</p>` + rows.map(p => `<button type="button" class="mart-product" data-mart-sku="${esc(p.sku)}" aria-pressed="${p.sku === s.row?.sku}" ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><strong>${esc(p.name || p.sku)}</strong><small>${eligible(p, s.catalog.categories) ? esc(p.cost) + " PokéCoins" : "Current editor required"}</small></button>`).join("") + (!rows.length ? "<p>No products match these filters.</p>" : "");
+      host.innerHTML = `<p class="muted">${rows.length} ${rows.length === 1 ? "product" : "products"}</p>` + rows.map(p => `<button type="button" class="mart-product" data-mart-sku="${esc(p.sku)}" aria-pressed="${p.sku === s.row?.sku}" ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><strong>${esc(p.name || p.sku)}</strong><small>${eligible(p, s.catalog.categories) ? esc(p.bits > 0 ? p.bits : p.cost) + (p.bits > 0 ? " Bits" : " PokéCoins") : "Catalog data needs attention"}</small></button>`).join("") + (!rows.length ? "<p>No products match these filters.</p>" : "");
     }
     function editor() {
       const s = controller.state, host = root.querySelector("[data-mart-editor]");
       if (!s.row) { host.innerHTML = "<h3>Product editor</h3><p>Select a product from the list.</p>"; return; }
-      if (!s.draft) { host.innerHTML = `<h3>${esc(s.row.name || s.row.sku)}</h3><p>This product has a different reward or payment structure. Use the current editor to preserve it.</p><a href="./admin.html?section=economy&amp;view=catalog">Open current Mart editor</a>`; return; }
-      const d = s.draft, key = Object.keys(s.row.grants)[0];
-      host.innerHTML = `<p class="eyebrow">Existing product</p><h3>${esc(s.row.name)}</h3><p class="muted">Product code: ${esc(s.row.sku)} · Reward: ${esc(reward(key))}</p><form data-mart-form><fieldset ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><div class="mart-fields">${["name", "blurb", "detail", "cost", "quantity"].map(key => `<label class="${["blurb", "detail"].includes(key) ? "mart-wide" : ""}">${labels[key]}${["blurb", "detail"].includes(key) ? `<textarea name="${key}" rows="${key === "detail" ? 3 : 2}">${esc(d[key])}</textarea>` : `<input name="${key}" value="${esc(d[key])}" required ${["cost", "quantity"].includes(key) ? `type="number" step="1" min="${key === "cost" ? 0 : 1}"` : ""}>`}</label>`).join("")}<label>Publication<select name="status"><option value="draft" ${d.status === "draft" ? "selected" : ""}>Draft</option><option value="published" ${d.status === "published" ? "selected" : ""}>Published</option></select></label><label class="mart-check"><input type="checkbox" name="visible" ${d.visible ? "checked" : ""}>Visible in Mart</label><label class="mart-check"><input type="checkbox" name="featured" ${d.featured ? "checked" : ""}>Featured in category</label></div><div class="mart-preview"><p class="eyebrow">Player preview</p><h4 data-preview-name></h4><p data-preview-blurb></p><p data-preview-price></p><p data-preview-status></p></div><p data-mart-validation role="alert"></p><div class="mart-actions"><button type="button" data-mart-discard>Discard changes</button><button type="submit">Review changes</button></div></fieldset></form>`;
+      if (!s.draft) { host.innerHTML = `<h3>${esc(s.row.name || s.row.sku)}</h3><p>This product has invalid catalog data. Reload the catalog before editing.</p>`; return; }
+      const d = s.draft, keys = Object.keys(s.row.grants), key = keys[0], cat = s.catalog.categories.find(c=>c.id===s.row.categoryId);
+      host.innerHTML = `<p class="eyebrow">Existing product</p><h3>${esc(s.row.name)}</h3><p class="muted">Product code: ${esc(s.row.sku)}${keys.length===1?" · "+esc(reward(key)):keys.length?" · "+keys.length+" rewards":" · Trainer appearances"}</p><form data-mart-form><fieldset ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><div class="mart-fields">${["name", "blurb", "detail", ...(cat.kind==='bits'||Number(d.bits)>0?["bits"]:["cost"]), ...(keys.length===1?["quantity"]:[])].map(key => `<label class="${["blurb", "detail"].includes(key) ? "mart-wide" : ""}">${labels[key]}${["blurb", "detail"].includes(key) ? `<textarea name="${key}" rows="${key === "detail" ? 3 : 2}">${esc(d[key])}</textarea>` : `<input name="${key}" value="${esc(d[key])}" required ${["cost", "bits", "quantity"].includes(key) ? `type="number" step="1" min="${key !== "quantity" ? 0 : 1}"` : ""}>`}</label>`).join("")}${keys.length>1?`<section class="mart-wide"><h4>Bundle contents</h4><div class="mart-fields">${keys.map(k=>`<label>${esc(reward(k))}<input data-reward-quantity="${esc(k)}" type="number" min="1" step="1" required value="${esc(d.quantities[k])}"></label>`).join('')}</div></section>`:''}${cat.kind==='bits'||Number(d.bits)>0?`<label class="mart-wide">Twitch Power-Up titles<textarea name="bitsTitles" rows="3">${esc(d.bitsTitles)}</textarea><small>One exact Twitch title per line.</small></label>`:''}${cat.kind==='avatars'?`<section class="mart-wide"><h4>Trainer appearances</h4><div class="mart-looks">${(s.catalog.looks||[]).map(look=>`<label><input type="checkbox" data-product-look="${esc(look.id)}" ${d.looks.includes(look.id)?'checked':''} ${look.pack&&look.pack!==s.row.extra?.pack&&!d.looks.includes(look.id)?'disabled':''}>${esc(look.name||look.id)}</label>`).join('')||'<p>No appearances available.</p>'}</div></section>`:''}<label>Publication<select name="status"><option value="draft" ${d.status === "draft" ? "selected" : ""}>Draft</option><option value="published" ${d.status === "published" ? "selected" : ""}>Published</option></select></label><label class="mart-check"><input type="checkbox" name="visible" ${d.visible ? "checked" : ""}>Visible in Mart</label><label class="mart-check"><input type="checkbox" name="featured" ${d.featured ? "checked" : ""}>Featured in category</label></div><div class="mart-preview"><p class="eyebrow">Player preview</p><h4 data-preview-name></h4><p data-preview-blurb></p><p data-preview-price></p><p data-preview-status></p></div><p data-mart-validation role="alert"></p><div class="mart-actions"><button type="button" data-mart-discard>Discard changes</button><button type="submit">Review changes</button></div></fieldset></form>`;
       preview();
     }
     function preview() {
@@ -142,7 +147,7 @@
       }
       root.querySelector("[data-preview-name]").textContent = d.name;
       root.querySelector("[data-preview-blurb]").textContent = d.blurb;
-      root.querySelector("[data-preview-price]").textContent = `${d.cost} PokéCoins · ${reward(Object.keys(s.row.grants)[0])} ×${d.quantity}`;
+      root.querySelector("[data-preview-price]").textContent = `${Number(d.bits)>0?d.bits+" Bits":d.cost+" PokéCoins"} · ${Object.keys(s.row.grants).map(k=>reward(k)+" ×"+(Object.keys(s.row.grants).length===1?d.quantity:d.quantities[k])).join(", ") || "Trainer appearances"}`;
       root.querySelector("[data-preview-status]").textContent = d.status === "draft" ? "Draft — not published" : d.visible ? "Published and visible" : "Published, hidden from Mart";
     }
     function dialog(title, content, action, label) {
@@ -164,7 +169,9 @@
     root.addEventListener("input", event => {
       if (event.target.matches("[data-mart-search]")) { query = event.target.value; list(); return; }
       const form = event.target.closest("[data-mart-form]"); if (!form || controller.state.phase !== "ready" || controller.state.uncertain) return;
-      for (const key of fields) controller.state.draft[key] = ["visible", "featured"].includes(key) ? form.elements[key].checked : form.elements[key].value;
+      for (const key of fields) if(form.elements[key]) controller.state.draft[key] = ["visible", "featured"].includes(key) ? form.elements[key].checked : form.elements[key].value;
+      for(const input of form.querySelectorAll('[data-reward-quantity]'))controller.state.draft.quantities[input.dataset.rewardQuantity]=input.value;
+      if(form.querySelector('[data-product-look]'))controller.state.draft.looks=[...controller.state.draft.looks.filter(id=>!controller.state.catalog.looks?.some(l=>l.id===id)),...[...form.querySelectorAll('[data-product-look]:checked')].map(i=>i.dataset.productLook)];
       preview();
     });
     root.addEventListener("change", event => { if (event.target.matches("[data-mart-floor]")) { floor = event.target.value; list(); } });
@@ -183,8 +190,8 @@
       try {
         payload(s.row, s.draft, s.catalog.categories);
         if (!controller.dirty()) throw Error("No changes to review.");
-        const before = draft(s.row), changes = fields.filter(k => String(before[k]) !== String(s.draft[k]));
-        const display = (key, value) => ["visible", "featured"].includes(key) ? value ? "Yes" : "No" : key === "status" ? value === "draft" ? "Draft" : "Published" : String(value || "(empty)");
+        const before = draft(s.row), changes = fields.filter(k => JSON.stringify(before[k]) !== JSON.stringify(s.draft[k]));
+        const display = (key, value) => key === "quantities" ? Object.entries(value).map(([k,v])=>reward(k)+" ×"+v).join(", ") : key === "looks" ? value.map(id=>s.catalog.looks?.find(l=>l.id===id)?.name||id).join(", ") : ["visible", "featured"].includes(key) ? value ? "Yes" : "No" : key === "status" ? value === "draft" ? "Draft" : "Published" : String(value || "(empty)");
         dialog("Review product changes", `<p><strong>${esc(s.row.name)}</strong> · ${esc(s.row.sku)}</p><p>This updates the Mart product for all trainers. Existing purchases are unchanged.</p><dl class="mart-comparison">${changes.map(k => `<div><dt>${labels[k]}</dt><dd><span>Current: ${esc(display(k, before[k]))}</span><strong>Proposed: ${esc(display(k, s.draft[k]))}</strong></dd></div>`).join("")}</dl><p>Another staff edit may have occurred since loading. This editor does not lock the product.</p>`, () => controller.save(), "Save product");
       } catch (error) { root.querySelector("[data-mart-validation]").textContent = error.message; }
     });

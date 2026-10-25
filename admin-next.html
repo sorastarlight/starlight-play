@@ -3,7 +3,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Admin Hub (preview) · Unofficial Pokémon StreamLink RPG</title>
+<title>Admin Hub · Unofficial Pokémon StreamLink RPG</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
@@ -22,7 +22,7 @@
 <body data-page="admin-next">
 <nav class="topnav">
   <div class="topnav-inner">
-    <a class="topnav-brand" href="./admin.html">
+    <a class="topnav-brand" href="./admin-next.html">
       <img src="images/sora-starlight-logo.png" alt="Sora Starlight">
     </a>
     <div class="topnav-end">
@@ -54,7 +54,7 @@
           <div id="account-trainer" class="account-trainer" hidden></div>
           <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
           <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
-          <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
+          <a id="account-staff" href="./admin-next.html" hidden role="menuitem">Admin Hub</a>
           <button id="sign-out" type="button" role="menuitem">Sign out</button>
         </div>
       </div>
@@ -64,11 +64,11 @@
 </nav>
 <div class="wrap">
   <div class="page-kicker">
-    <h1>Admin Hub (preview)</h1>
+    <h1>Admin Hub</h1>
     <p class="muted">Manage trainers, support tickets, shop products and game settings.</p>
-    <p><a href="./admin.html">Open current Admin Hub</a></p>
+
   </div>
-  <p id="gate" class="notice">Sign in to open the Admin Hub preview.</p>
+  <p id="gate" class="notice">Sign in to open the Admin Hub.</p>
   <div id="staff" hidden>
     <div class="hub-app admin-next-app">
       <aside class="hub-nav" id="hub-nav">
@@ -90,7 +90,7 @@
           <p class="eyebrow">Operations · session controls</p>
           <h2>Live Operations overview</h2>
           <p class="admin-next-lifecycle">Twitch LIVE permits the Live RPG. It does not start it. Offline ends an active RPG. Start and End are explicit staff actions; review their effects before confirming.</p>
-          <p id="next-ops-status" class="muted" role="status">Live status unavailable in preview. Use the current Dashboard to view and manage the Live RPG.</p>
+          <p id="next-ops-status" class="muted" role="status">Live status is unavailable. Reload Operations to try again.</p>
           <p id="next-ops-freshness" class="admin-next-freshness">No confirmed observation yet.</p>
           <div id="next-ops-metrics" class="admin-next-ops-grid admin-next-metrics">
             <article class="admin-next-ops-card hub-metric admin-next-metric is-unavailable" data-state="unavailable"><p class="eyebrow">Twitch</p><p class="admin-next-ops-value">UNAVAILABLE</p></article>
@@ -103,7 +103,7 @@
           </div>
           <p class="admin-next-unavailable">Review Start and End below. Additional encounter and Director controls remain on the current Dashboard.</p>
           <div id="next-session-controls"></div>
-          <p><a class="admin-next-legacy" href="./admin.html?section=dashboard">Open live Dashboard</a></p>
+
         </section>
         <section id="next-panel-trainers" role="tabpanel" aria-labelledby="next-tab-trainers" tabindex="0" class="hub-card admin-next-panel admin-next-trainers-panel" data-next-panel="trainers" hidden>
           <p class="eyebrow">Trainers</p>
@@ -155,7 +155,7 @@
             <section data-workspace="Categories" class="mart-floor-section" aria-labelledby="floor-presentation-heading"><h3 id="floor-presentation-heading">Shop categories</h3><p>Choose a shop category to update its name, description and visibility.</p><div id="next-mart-floors"></div></section>
           <section data-workspace="Category order" class="bounded-editor" id="next-floor-order-section"><h3>Category order</h3><p>Choose the order in which shop categories appear. Reserved categories stay in place.</p><div id="next-floor-order"></div></section>
             </div>
-          <details class="hub-secondary"><summary>Additional product tools</summary><p>Some product types are still being moved into this workspace.</p><a href="./admin.html?section=economy&amp;view=catalog">Open additional product tools</a></details>
+
         </section>
         <section id="next-panel-config" role="tabpanel" aria-labelledby="next-tab-config" tabindex="0" class="hub-card admin-next-panel" data-next-panel="config" hidden>
           <p class="eyebrow">Game Configuration</p>
@@ -180,7 +180,7 @@
           <button type="button" id="next-health-refresh">Refresh health</button>
           <div id="next-health" class="admin-next-metrics"></div>
           </section>
-          <p><a class="admin-next-legacy" href="./admin.html?section=analytics">Open current Analytics</a></p>
+
         </section>
         <section id="next-panel-system" role="tabpanel" aria-labelledby="next-tab-system" tabindex="0" class="hub-card admin-next-panel" data-next-panel="system" hidden>
           <p class="eyebrow">System &amp; Access</p>

@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-240",
+      "status": "done",
+      "scope": "Real acceptance prerequisite and owner return handoff reconciliation",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX240-RETURN-HANDOFF.md;evidence/codex240-reconciliation.json",
+      "testResults": "4documents reconciled;17local links;no requirement/authority change",
+      "nextAction": "Continue independent work until deadline;owner real evidence and scope decisions remain",
+      "approvalRequirement": "Documentation only;no production action"
+    },
+    {
       "id": "CODEX-239",
       "status": "done",
       "scope": "Mounted Pass draft-navigation and pending-save departure checks",

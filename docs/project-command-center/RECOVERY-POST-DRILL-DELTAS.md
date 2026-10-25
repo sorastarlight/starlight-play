@@ -122,6 +122,8 @@ Thirteenth installed post-drill delta:20261024044601 codex178_report_query_corre
 
 CODEX-188 current backup observation:at24Oct08:12:28UTC,dashboardlistsPHYSICAL24Oct07:44:07UTC(03:44:07EDT)withRestoreavailable,noinprogresslabel. Itpostdateslatestcatalogmigration20261024044601/CODEX178. Post-changeavailabilityobservationcomplete;noRestore/export/settings/applicationaction. Physicalrestore/fullAuth/Storagecertificationremainseparate. See LAUNCH-CODEX188-POST-REPORT-BACKUP.md.
 
+Current availability clarification — CODEX-240:the complete14-delta local replay/reverse record remains the current logical-recovery evidence. CODEX-229 subsequently observed a completed PHYSICAL recovery point at2026-10-25 07:44:36UTC,after latest migration20261025042627. Statements below that the next post-change point is unobserved are historical and resolved for availability only. Do not repoll unchanged. This does not certify backup contents,physical restore,full Auth or Storage recovery. [Recorded observation](LAUNCH-CODEX229-POST-CREATE-BACKUP.md).
+
 ## CODEX-215 installed create-only Mart draft endpoint
 
 Fourteenth installed post-drill delta:20261025042627 codex215_admin_mart_create_draft. One new owner/admin-guarded function,explicit authenticated/service-role execute and anonymous/PUBLIC denial;no table/data changes. Full body/hash/attributes/ACL and10unchanged dependencies plus existing edit verified without invocation.

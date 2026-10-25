@@ -2,6 +2,18 @@
 
 Owner decision October22,2026: require real mobile/assistive and Twitch-provider acceptance before launch. Desktop-first beta deferral was not selected. No final release, provider mutation, upload, protected-account test, email or restore permission follows from this requirement decision.
 
+## Current evidence — reconciled through CODEX-240
+
+| Required area | Recorded result | Still unverified |
+|---|---|---|
+| Android | Owner-reported Help portrait/landscape,touch navigation and Register keyboard pass on Galaxy S25 Ultra;CODEX-171 | Browser/OS versions and wider site/device coverage |
+| Ordinary Twitch subscriber | Owner reports ShinoTheWolf linked and Starlight Pass active in Chrome;CODEX-164 | Version details,refresh/expiry,non-subscriber denial and other provider branches |
+| iOS Safari | No real result recorded | Required physical-device review |
+| Desktop200%zoom and screen reader | Local DOM/keyboard evidence exists | Actual browser zoom and actual assistive-technology result |
+| Firefox | OAuth navigation correction published/source verified under exact approval;CODEX-164 | Real post-correction retry and original symptom attribution |
+
+Do not repeat the completed Chrome positive-path test or disturb that working connection merely to collect another pass. Do not infer untested branches from it. [Provider report](LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md) and [Android report](REAL-ACCEPTANCE-CHECKLIST.md#recorded-android-result) retain the evidence scope. No new test authority follows from this table.
+
 ## Reviewer evidence to collect
 
 Record actual device/model, OS/browser version, assistive technology/version where applicable, date, page, action and observed result. Mark unavailable or not tested honestly. Owner reports a PC and Samsung Galaxy S25 Ultra are available;the bounded Android visual/touch/keyboard check passed by owner report in CODEX-171. Browser/OS versions remain unrecorded. iOS/reviewer and real screen-reader access remain unconfirmed; no account password, recovery link or token should be shared.
@@ -27,7 +39,7 @@ Exact target identity, intended operation and retained effects must be reviewabl
 
 ## Completion gate
 
-All required real results must be recorded and any material defect fixed/retested before launch recommendation. Remaining physical backup/full Auth restore limits are still separately documented; this decision neither authorizes a restore nor adds an unrequested production restore test. Daily RPO acceptance remains. CODEX-96 deltas must accompany recovery from older snapshots. Final owner go/no-go/APP stamp remain separate.
+All required real results must be recorded and any material defect fixed/retested before launch recommendation. Remaining physical backup/full Auth restore limits are still separately documented; this decision neither authorizes a restore nor adds an unrequested production restore test. Daily RPO acceptance remains. The complete reviewed post-drill delta inventory must accompany recovery from older snapshots; do not limit replay to CODEX-96. See RECOVERY-POST-DRILL-DELTAS.md and recovery-packets.json. Final owner go/no-go/APP stamp remain separate.
 
 CODEX-103 provider planning:see PROVIDER-REAL-ACCEPTANCE-PREREQUISITES.md. A trusted broadcaster-ID exemption returns before subscription lookup;owner-channel acceptance alone cannot close ordinary subscriber/non-subscriber coverage. Extra test identities were unavailable;do not request manufactured accounts or silently use protected identities.
 

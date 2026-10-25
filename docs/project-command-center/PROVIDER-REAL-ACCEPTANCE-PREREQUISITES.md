@@ -1,4 +1,6 @@
-# Real provider acceptance prerequisites — CODEX-103
+#Current clarification — CODEX-240:the CODEX-164 report records HUMAN-REPORTED ordinary-subscriber link/active Pass success in Chrome and the separately approved one-file OAuth correction as published/source verified. Earlier “candidate held” and “no tester” entries below are historical. Preserve the working connection;Firefox retry,refresh/expiry,non-subscriber denial and wider provider branches remain unverified. No new provider/account test is authorized. [Current evidence](REAL-ACCEPTANCE-CHECKLIST.md) · [completed correction](LAUNCH-CODEX164-FIREFOX-INVESTIGATION.md).
+
+ Real provider acceptance prerequisites — CODEX-103
 
 Requirement is real acceptance before launch (CODEX-100), not a new test authorization. No provider/account/credential action has been executed here.
 

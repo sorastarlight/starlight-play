@@ -1,3 +1,7 @@
+## CODEX-240 — Acceptance prerequisite reconciliation
+
+CODEX-240 reconciled real-acceptance/provider/recovery prerequisites and shortened the owner return review. Completed Chrome/Android evidence and published OAuth correction are retained;post-change backup availability no longer reads as pending.17local document links pass. No requirement closed or new authority inferred;production unchanged. No runtime tests repeated for documentation-only work;critical boundaries and14:22UTCdeadline retained.
+
 ## CODEX-239 — Mounted Pass departure review
 
 CODEX-239 mounted Pass draft-navigation review passed16local cases and native Enter/Escape focus checks,plus two targeted suites. Cancel preserves edits,discard clears them,pending saves block departure,and uncertain saves leave without retry. No runtime/production change;main9356623f and APP20261008-rc133 unchanged. Local fixtures closed/stopped;no hosted action or change to launch requirements.

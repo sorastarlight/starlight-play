@@ -1,0 +1,19 @@
+{
+  "classification": "Documentation/source reconciliation only",
+  "files": [
+    "REAL-ACCEPTANCE-CHECKLIST.md",
+    "PROVIDER-REAL-ACCEPTANCE-PREREQUISITES.md",
+    "RECOVERY-POST-DRILL-DELTAS.md",
+    "OWNER-RETURN-REVIEW-OCT24.md"
+  ],
+  "localLinksChecked": 17,
+  "retainedResults": [
+    "CODEX164Chrome positive path and published correction",
+    "CODEX171Android scope",
+    "CODEX229post-change backup availability",
+    "14delta logical replay"
+  ],
+  "requirementsClosed": 0,
+  "newAuthorizations": 0,
+  "productionChanged": false
+}

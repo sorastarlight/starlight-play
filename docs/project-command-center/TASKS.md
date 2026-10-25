@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-236 | done | Published internal navigation review | CODEX-235 | STATIC/LOCAL only | 30pages;123links;6route aliases;4suites;no runtime change |
 | CODEX-235 | done | Helpdesk visible conversation focus | CODEX-234 | CODEX78accessibility | Main9356623f;Pages40186781359;100+1sources;126suites |
 | CODEX-234 | done | Gift confirmation narrow wrapping | CODEX-233 | CODEX78CSS-only | Main5aa6b86c;Pages40184787606;100+1sources;126suites |
 | CODEX-233 | done | Recovery confirmation narrow wrapping | CODEX-232 | CODEX78CSS-only | Mainec93d129;Pages40182783398;100+1sources;126suites |

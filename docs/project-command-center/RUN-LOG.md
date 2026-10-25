@@ -1,3 +1,7 @@
+## CODEX-236 — Published-tree navigation review
+
+CODEX-236 published-tree navigation review passed123internal links across30pages;all destinations exist and six JS fragment aliases resolve in source. Four targeted navigation/settings suites pass. No runtime or production change;main9356623f and APP20261008-rc133 unchanged. No change to launch requirements,Auth/server authority or user data.
+
 ## CODEX-235 — Helpdesk accessibility publication verified
 
 CODEX-235 Helpdesk visible-focus correction is published at main **9356623f**, Pages **40186781359 succeeded**;100monitored+one versioned source match. One focus expression now brings the existing conversation heading into view after loading older messages.24populated layouts,126suites,11support race/loading cases,feature31HTML481refs and isolated main30HTML479refs validation pass. APP20261008-rc133 unchanged. No request/permission/message behavior or hosted application action changed. Local fixture tabs closed/server stopped;private rollback retained. Sora NO;Twinkle NO;PlayTester unchanged.

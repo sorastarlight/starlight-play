@@ -1,0 +1,1207 @@
+{
+  "classification": "STATIC exact published Git tree;no hosted application calls",
+  "main": "9356623fe5c2825dc1ceda4605a373828238df42",
+  "pages": 30,
+  "links": 123,
+  "missing": [],
+  "missingAnchors": [],
+  "rows": [
+    {
+      "file": "account.html",
+      "href": "./settings.html#connections",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "connections",
+      "anchor": false,
+      "query": ""
+    },
+    {
+      "file": "account.html",
+      "href": "./settings.html#connections",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "connections",
+      "anchor": false,
+      "query": ""
+    },
+    {
+      "file": "achievements.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "achievements.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "achievements.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "achievements.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "achievements.html",
+      "href": "./settings.html#trainer-id/titles",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "trainer-id/titles",
+      "anchor": false,
+      "query": ""
+    },
+    {
+      "file": "admin-live.html",
+      "href": "./admin.html?section=dashboard",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=dashboard"
+    },
+    {
+      "file": "admin-next-trainers-fixture.html",
+      "href": "./admin-next.html?section=trainers",
+      "target": "admin-next.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=trainers"
+    },
+    {
+      "file": "admin-next-trainers-fixture.html",
+      "href": "./admin-next-trainers-workspace-v2.html",
+      "target": "admin-next-trainers-workspace-v2.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next-trainers-workspace-v2.html",
+      "href": "./admin-next-trainers-fixture.html",
+      "target": "admin-next-trainers-fixture.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=dashboard",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=dashboard"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin-next.html?section=support",
+      "target": "admin-next.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=support"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=trainers",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=trainers"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=content&view=oakqa",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=content&view=oakqa"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=economy&view=catalog",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=economy&view=catalog"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=encounters",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=encounters"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=analytics",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=analytics"
+    },
+    {
+      "file": "admin-next.html",
+      "href": "./admin.html?section=system",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?section=system"
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./admin-tools.html",
+      "target": "admin-tools.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-store.html",
+      "href": "./store.html",
+      "target": "store.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-tools.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-tools.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-tools.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-tools.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-tools.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin-tools.html",
+      "href": "./admin-store.html",
+      "target": "admin-store.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "admin.html",
+      "href": "./admin-next.html",
+      "target": "admin-next.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "bag.html",
+      "href": "./inventory.html",
+      "target": "inventory.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "bits-connect.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "bits-connect.html",
+      "href": "./admin-tools.html",
+      "target": "admin-tools.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "events.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "events.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "events.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "events.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "evolve.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "evolve.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "evolve.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "evolve.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "evolve.html",
+      "href": "./store.html#evolution",
+      "target": "store.html",
+      "exists": true,
+      "fragment": "evolution",
+      "anchor": false,
+      "query": ""
+    },
+    {
+      "file": "help.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "help.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "help.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "help.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "help.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "help.html",
+      "href": "./register.html",
+      "target": "register.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./register.html",
+      "target": "register.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./help.html",
+      "target": "help.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "index.html",
+      "href": "./store.html",
+      "target": "store.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "inventory.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "inventory.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "inventory.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "inventory.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "inventory.html",
+      "href": "./store.html",
+      "target": "store.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "password-recovery-fixture.html",
+      "href": "./signin.html",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "password-recovery-fixture.html",
+      "href": "./signin.html?reset=1",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?reset=1"
+    },
+    {
+      "file": "pokedex.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "pokedex.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "pokedex.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "pokedex.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "rankings.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "rankings.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "rankings.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "rankings.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "register.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "register.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "register.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "register.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "register.html",
+      "href": "./help.html#trainer-guide",
+      "target": "help.html",
+      "exists": true,
+      "fragment": "trainer-guide",
+      "anchor": true,
+      "query": ""
+    },
+    {
+      "file": "register.html",
+      "href": "./signin.html",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "reset-password.html",
+      "href": "./signin.html",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "reset-password.html",
+      "href": "./signin.html?reset=1",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?reset=1"
+    },
+    {
+      "file": "settings.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "settings.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "settings.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "settings.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "settings.html",
+      "href": "./support.html",
+      "target": "support.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "settings.html",
+      "href": "#trainer-id",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "trainer-id",
+      "anchor": false,
+      "query": ""
+    },
+    {
+      "file": "signin.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "signin.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "signin.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "signin.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "signin.html",
+      "href": "./signin.html?reset=1",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?reset=1"
+    },
+    {
+      "file": "signin.html",
+      "href": "./signin.html?username=1",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?username=1"
+    },
+    {
+      "file": "signin.html",
+      "href": "./register.html",
+      "target": "register.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "signin.html",
+      "href": "./signin.html?reset=1",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": "?reset=1"
+    },
+    {
+      "file": "storage.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "storage.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "storage.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "storage.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "store.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "store.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "store.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "store.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "support.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "tester.html",
+      "href": "./signin.html",
+      "target": "signin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trade.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trade.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trade.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trade.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trainer.html",
+      "href": "./",
+      "target": "index.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trainer.html",
+      "href": "./trainer.html",
+      "target": "trainer.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trainer.html",
+      "href": "./settings.html",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trainer.html",
+      "href": "./admin.html",
+      "target": "admin.html",
+      "exists": true,
+      "fragment": "",
+      "anchor": null,
+      "query": ""
+    },
+    {
+      "file": "trainer.html",
+      "href": "./settings.html#trainer-id",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "trainer-id",
+      "anchor": false,
+      "query": ""
+    }
+  ],
+  "resolvedDynamicFragments": [
+    {
+      "file": "account.html",
+      "href": "./settings.html#connections",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "connections",
+      "anchor": false,
+      "query": "",
+      "resolution": "Existing settings hash alias mapped in js/settings.js"
+    },
+    {
+      "file": "account.html",
+      "href": "./settings.html#connections",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "connections",
+      "anchor": false,
+      "query": "",
+      "resolution": "Existing settings hash alias mapped in js/settings.js"
+    },
+    {
+      "file": "achievements.html",
+      "href": "./settings.html#trainer-id/titles",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "trainer-id/titles",
+      "anchor": false,
+      "query": "",
+      "resolution": "Existing settings hash alias mapped in js/settings.js"
+    },
+    {
+      "file": "evolve.html",
+      "href": "./store.html#evolution",
+      "target": "store.html",
+      "exists": true,
+      "fragment": "evolution",
+      "anchor": false,
+      "query": "",
+      "resolution": "Existing Mart floor alias resolved in js/store.js;live floor availability not re-tested"
+    },
+    {
+      "file": "settings.html",
+      "href": "#trainer-id",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "trainer-id",
+      "anchor": false,
+      "query": "",
+      "resolution": "Existing settings hash alias mapped in js/settings.js"
+    },
+    {
+      "file": "trainer.html",
+      "href": "./settings.html#trainer-id",
+      "target": "settings.html",
+      "exists": true,
+      "fragment": "trainer-id",
+      "anchor": false,
+      "query": "",
+      "resolution": "Existing settings hash alias mapped in js/settings.js"
+    }
+  ],
+  "scopeNotes": [
+    "30 root HTML pages from exact published Git tree",
+    "123 same-origin static anchor links;no missing target path",
+    "6 fragment links are explicit JS routes,not missing IDs",
+    "Does not certify external links,provider destinations,authenticated routes,dynamic data availability or physical devices"
+  ],
+  "suites": [
+    {
+      "file": "help-navigation-tests.js",
+      "exitCode": 0,
+      "output": "PASS Signed-out guide exits unknown navigation state\nPASS Signed-in guide renders current profile using reads only\nPASS Auth sign-out invalidates an in-flight profile response immediately\nPASS Account switch schedules outside Auth callback and suppresses old identity\nPASS Token noise and explicit navigation sign-out cannot repaint stale identity\nPASS Session failure resolves shell with retry guidance and no gameplay RPC\n6 LOCAL mocked navigation checks passed;no Auth or network call\n"
+    },
+    {
+      "file": "nav-focus-tests.js",
+      "exitCode": 0,
+      "output": "PASS Escape from navigation link closes panel and restores toggle\nPASS Escape from account item restores account button\nPASS Dismissing background menus does not steal unrelated modal/content focus\nPASS Escape with menus closed leaves focus unchanged\nPASS Non-Escape keyboard handling remains unchanged\nPASS Missing navigation controls are tolerated\n6 LOCAL actual-source navigation focus checks passed\n"
+    },
+    {
+      "file": "settings-loading-tests.js",
+      "exitCode": 0,
+      "output": "7 LOCAL actual-source Settings loading/Pass feedback cases pass;fictional dependencies only\n"
+    },
+    {
+      "file": "settings-profile-keyboard-tests.js",
+      "exitCode": 0,
+      "output": "Actual Settings tab synchronization and key handler: roving focus, wrapping, modifiers, panel naming and no focus-only rendering pass.\n"
+    }
+  ]
+}

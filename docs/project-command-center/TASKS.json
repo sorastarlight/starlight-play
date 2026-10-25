@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-236",
+      "status": "done",
+      "scope": "Exact published internal navigation and hash-route source review",
+      "branch": "admin-hub-overhaul",
+      "evidence": "LAUNCH-CODEX236-INTERNAL-NAVIGATION.md;evidence/codex236-navigation.json",
+      "testResults": "30published pages;123links;6route aliases;4targeted suites",
+      "nextAction": "Continue concrete independent work;real acceptance remains separate",
+      "approvalRequirement": "STATIC/LOCAL only;no production or application action"
+    },
+    {
       "id": "CODEX-235",
       "status": "done",
       "scope": "Helpdesk populated conversation and visible keyboard focus",

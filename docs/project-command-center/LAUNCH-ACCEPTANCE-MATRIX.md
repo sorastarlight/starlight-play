@@ -1,6 +1,9 @@
 # Launch acceptance matrix
 
-Current through CODEX-213,October24. This indexes evidence,not final launch approval. Production main **de722c21**,Pages **40144190134 succeeded**,APP **20261008-rc133** unchanged. Latest runtime122local suites/build31HTML477refs;100monitored plus1changed versioned hosted sources match exact main. CODEX211previously verified100+4sources for both new editors;CODEX212changes only their presentation module.
+Latest routine completion: [CODEX-214 sibling review focus](LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md),source verified. The CODEX-213 design/local implementation question is pending;no implementation or deployment is inferred.
+
+
+Current through CODEX-214,October24. This indexes evidence,not final launch approval. Production main **ae110601**,Pages **40145088416 succeeded**,APP **20261008-rc133** unchanged. Latest runtime122local suites/build31HTML477refs;100monitored plus3changed versioned hosted sources match exact main. CODEX211previously verified100+4sources for both new editors;CODEX212changes only their presentation module.
 
 | Objective | Evidence completed | Remaining boundary |
 | --- | --- | --- |

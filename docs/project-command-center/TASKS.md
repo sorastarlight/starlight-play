@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-214 | done | Sibling long-review focus | CODEX-212 | CODEX-78 | 122suites;12reviews/4layouts;3short cases;3file publication next |
+| CODEX-214 | done | Sibling long-review focus published | CODEX-212 | CODEX-78 | Mainae110601;Pages40145088416;100+3sources;122suites |
 | CODEX-213 | done | Create-only Mart draft proposal | CODEX-212 | Design/local decision next | Disconnected mock;8cases/8width states;no server implementation |
 | CODEX-212 | done | Empty floor and long review published | CODEX-211 | CODEX-78 | Mainde722c21;Pages40144190134;100+1sources;122suites |
 | CODEX-211 | done | Mart ordering and Capture Limits published/source verified | CODEX-203/209 | Exact publication approval spent | Main9436b804;Pages40143356806;11contracts;100+4sources;no live calls |

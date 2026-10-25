@@ -2576,3 +2576,7 @@ CODEX-212 published only js/admin-next-limits-order.js under CODEX-78 at main de
 ## CODEX-214 — Sibling confirmation focus
 
 Targeted actual baseline/candidate checks after212. Only conditional heading-focus additions across3approved modules.122LOCAL HARNESS suites;12responsive review states/4editor layouts;3short focus/Escape cases;0fictional writes. Exact rollback/drift refusal pass. Routine3file publication next. No hosted application,SQL,Auth/provider,notice,save/grant/gameplay,protected-account or APP action. Sora NO;Twinkle NO;PlayTester unchanged. CODEX213design question remains pending;not bypassed.
+
+## CODEX-214 publication verified
+
+CODEX-214 published only js/admin-next-mart.js,js/admin-next-floors.js,js/admin-next-config.js under CODEX78 at main ae1106019ec368fe356811466d9ff1c0464bab56. Pages40145088416 succeeded;100monitored plus3changed versioned hosted sources match exact main.122local suites/build31HTML477refs,12responsive review states/4editor layouts,3short focus/Escape cases and guarded rollback pass. Only conditional heading-focus additions changed;no models,transports,permissions or save logic. No hosted application call,notice,SQL,Auth/provider,live save,grant/gameplay,protected-account mutation or APP stamp. Sora NO;Twinkle NO;PlayTester role unchanged. CODEX213important design question remains pending;continued214independently rather than bypassing it. No further concrete unreviewed local batch is queued;remaining required real acceptance needs external access. Existing heartbeat remains paused,no extension.

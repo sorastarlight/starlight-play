@@ -7,10 +7,12 @@
       "id": "CODEX-214",
       "status": "done",
       "scope": "Existing sibling long-confirmation focus maintenance",
-      "evidence": "LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md;evidence/codex214-runtime-scope.json;evidence/codex214-browser-checks.json;evidence/codex214-regressions.json",
+      "evidence": "LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md;evidence/codex214-runtime-scope.json;evidence/codex214-browser-checks.json;evidence/codex214-regressions.json;evidence/codex214-publication.json",
       "testResults": "122suites;12responsive reviews/4editor layouts;3short focus/cancel;exact rollback/drift refusal",
-      "nextAction": "Exact three-file routine publication and source verification",
-      "approvalRequirement": "CODEX78routine focus maintenance;no authority or hosted mutation"
+      "nextAction": "Published/source verified. CODEX213design/local implementation question pending;real acceptance requires external access/bounded scope.",
+      "approvalRequirement": "CODEX78maintenance complete;no new authority",
+      "publicationCommit": "ae1106019ec368fe356811466d9ff1c0464bab56",
+      "pagesRun": 40145088416
     },
     {
       "id": "CODEX-213",

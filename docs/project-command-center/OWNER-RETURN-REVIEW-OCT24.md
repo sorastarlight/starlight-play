@@ -1,6 +1,9 @@
 # Owner return review — October24
 
-Production main **de722c21**,Pages **40144190134 succeeded**;APP **20261008-rc133** unchanged. Both approved ordering/capture editors are published and source-verified. Routine empty-state and tall-review focus fixes are also published.122local suites/build31HTML477refs;latest100+1hosted source matches. No live catalog/settings action,SQL,notice,Auth/provider,grant/gameplay or protected-account mutation ran.
+Latest routine completion: [CODEX-214 sibling review focus](LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md),source verified. The CODEX-213 design/local implementation question is pending;no implementation or deployment is inferred.
+
+
+Production main **ae110601**,Pages **40145088416 succeeded**;APP **20261008-rc133** unchanged. Both approved ordering/capture editors are published and source-verified. Routine empty-state and tall-review focus fixes across the new and existing editors are also published.122local suites/build31HTML477refs;latest100+3hosted source matches. No live catalog/settings action,SQL,notice,Auth/provider,grant/gameplay or protected-account mutation ran.
 
 ## Next important decision
 

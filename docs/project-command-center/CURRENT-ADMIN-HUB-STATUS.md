@@ -1,8 +1,11 @@
 # Current Admin Hub status
 
-Updated through CODEX-213,October24. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
+Latest routine completion: [CODEX-214 sibling review focus](LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md),source verified. The CODEX-213 design/local implementation question is pending;no implementation or deployment is inferred.
 
-Production main **de722c21**,Pages **40144190134 succeeded**.100monitored files and the changed versioned file match exact main. APP **20261008-rc133** unchanged. Latest runtime evidence:122local suites,build31HTML/477references. CODEX-211 ordering/capture publication and CODEX-212 empty/long-dialog maintenance are complete;do not request their approvals again.
+
+Updated through CODEX-214,October24. Preview:[Admin Hub](../../admin-next.html). It is a partial replacement for the current Hub,not a complete-overhaul or final-launch declaration.
+
+Production main **ae110601**,Pages **40145088416 succeeded**.100monitored files and three changed versioned files match exact main. APP **20261008-rc133** unchanged. Latest runtime evidence:122local suites,build31HTML/477references. CODEX-211 ordering/capture publication,CODEX-212 empty/long-dialog maintenance and CODEX-214 sibling-dialog focus maintenance are complete;do not request their approvals again.
 
 | Area | Published in new Hub | Remaining scope/evidence |
 | --- | --- | --- |

@@ -2738,3 +2738,7 @@ CODEX-214 published only js/admin-next-mart.js,js/admin-next-floors.js,js/admin-
 
 Recorded owner intent for routine additions across Mart kinds,Starlight Pass bundle contents,new pages and individual Pokémon. Verified repository builder uses pinned offline PokéAPI CSV reference data and explicit Kanto/form/evolution bounds;no live API/database inventory claimed. Proposed future import validation is distinguished from requested requirements. Documentation only;no runtime/SQL/provider/APP/main change. Sora NO;Twinkle NO;PlayTester unchanged. See FUTURE-CONTENT-MANAGEMENT.md.
 
+
+
+## CODEX-242 — October 25 redesign started
+Owner requested compact layouts, Service Desk, Items & Economy, Shop Categories, complete reward picker/Secret Gifts, legacy migration and direct trainer corrections. Exact Pokémon removal selection confirmed. Initial shell/link wording changed locally; broader implementation ongoing. No production call, publication, grant or data deletion. Sora NO; Twinkle NO; PlayTester role unchanged. See ADMIN-HUB-REDESIGN-OCT25.md.

@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-242 | in_progress | Hub redesign, shared rewards and direct corrections | Owner Oct25 request | Destructive production scope held | Compact layouts and contract inventory |
 | CODEX-241 | done | Tracked delta credential review | CODEX-106/240 | STATIC only | 596texts;0selected flags/artifacts;2skipped |
 | CODEX-240 | done | Real acceptance and return handoff | CODEX-164/171/229/239 | Docs only | 4documents;17links;no requirements changed |
 | CODEX-239 | done | Mounted Pass draft departure | CODEX-219/227 | LOCAL only | 16cases;native keys;2suites;no runtime change |

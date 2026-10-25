@@ -4,6 +4,16 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-242",
+      "status": "in_progress",
+      "scope": "Coordinated Admin Hub redesign, shared rewards and direct corrections",
+      "branch": "admin-hub-overhaul",
+      "evidence": "ADMIN-HUB-REDESIGN-OCT25.md;LAUNCH-CODEX242-ADMIN-REDESIGN.md;evidence/codex242-regressions.json",
+      "testResults": "128 suites;27 local SQL cases;4 picker widths;draft/keyboard browser checks;10-file rollback",
+      "nextAction": "Publish scoped compact layout;complete typed delivery and direct correction server integration",
+      "approvalRequirement": "Owner requested implementation; exact destructive production migration remains held"
+    },
+    {
       "id": "CODEX-241",
       "status": "done",
       "scope": "Changed tracked text credential-pattern/artifact review",

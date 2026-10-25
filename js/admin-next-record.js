@@ -70,7 +70,7 @@
     const groups = kind === "inventory" ? inventoryGroups(view) : unlockGroups(view);
     const group = groups.find((item) => item.id === state.group);
     const item = group?.items.find((row) => String(row.id) === state.item);
-    if (item) return `${back(group.name, "items")}<section class="record-surface"><h4 tabindex="-1" data-record-heading>${esc(item.name || item.id)}</h4>${rows(kind === "inventory" ? [["Quantity", item.qty], ["Item / family id", item.id]] : [["Status", item.status], ["Id", item.id], ["Unlocked at", stamp(item.unlockedAt)]])}${note("Read only. Changes to this account belong in Support & Recovery.")}</section>`;
+    if (item) return `${back(group.name, "items")}<section class="record-surface"><h4 tabindex="-1" data-record-heading>${esc(item.name || item.id)}</h4>${rows(kind === "inventory" ? [["Quantity", item.qty], ["Item / family id", item.id]] : [["Status", item.status], ["Id", item.id], ["Unlocked at", stamp(item.unlockedAt)]])}${note("Read only. Changes to this account belong in Service Desk.")}</section>`;
     if (group) return `${back(kind === "inventory" ? "Inventory categories" : "Unlockable groups", "groups")}<section class="record-surface"><h4 tabindex="-1" data-record-heading>${esc(group.name)}</h4>${group.unavailable ? note(group.unavailable) : group.items.length ? `<div class="record-list">${group.items.map((row) => button(`${row.name || row.id} · ${kind === "inventory" ? value(row.qty) : row.status}`, "item", row.id)).join("")}</div>` : note("No items returned.")}</section>`;
     return `<section class="record-surface"><h4 tabindex="-1" data-record-heading>${kind === "inventory" ? "Inventory" : "Unlockables"}</h4><div class="record-groups">${groups.map((group) => categoryButton(group, kind)).join("")}</div></section>`;
   }
@@ -128,7 +128,7 @@
       }
       if (view.pane === "connections") body = '<section class="record-surface"><h4>Connected Twitch accounts</h4><div class="record-list">' + (view.connections || []).map(row => '<article class="record-surface"><h4>' + esc(row.displayName || row.login || "Twitch account") + '</h4>' + rows([["Login", row.login], ["Primary Twitch", yes(row.primary)], ["Confirmed", yes(row.confirmed)], ["Can sign in", yes(row.loginEnabled)], ["Gameplay rewards", yes(row.gameplayEnabled)], ["Status", row.status], ["Connected on", stamp(row.linkedAt)]]) + '</article>').join('') + (!(view.connections || []).length ? note("No Twitch connections returned.") : "") + '</div></section>' + `<section class="record-surface" data-trainer-diagnostics></section>` + note("Primary: main identity. Confirmed: identity-confirmation flag. Login enabled: may sign in. Gameplay enabled: may earn rewards. Link status does not indicate online presence. Bot/utility links do not classify the trainer as a bot.");
     }
-    return `${header}<div class="record-body">${body}</div><footer class="record-footer">Need to change this account? <a data-record-support href="./admin-next.html?section=support&amp;trainer=${encodeURIComponent(user.id || "")}">Open Support &amp; Recovery</a></footer>`;
+    return `${header}<div class="record-body">${body}</div><footer class="record-footer">Need to change this account? <a data-record-support href="./admin-next.html?section=support&amp;trainer=${encodeURIComponent(user.id || "")}">Open Service Desk</a></footer>`;
   }
   function presentProfile(input) {
     const view = base.presentProfile(input);

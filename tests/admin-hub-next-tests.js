@@ -29,8 +29,8 @@ test("Next hub IA labels are the seven overhaul screens", () => {
   [
     "Operations",
     "Trainers",
-    "Support &amp; Recovery",
-    "Mart &amp; Content",
+    "Service Desk",
+    "Items &amp; Economy",
     "Game Configuration",
     "Analytics &amp; Health",
     "System &amp; Access"

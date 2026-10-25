@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict'),api=require('../js/admin-trainer-corrections.js');
+const uid='11111111-1111-4111-8111-111111111111',request='22222222-2222-4222-8222-222222222222',mon='33333333-3333-4333-8333-333333333333';
+const snapshot={trainerId:uid,revision:'r1',values:[{id:'coins',kind:'currency',value:150,editable:true},{id:'capacity',kind:'capacity',value:100,used:80,editable:true}],pokemon:[{id:mon,locked:false,favorite:false,trading:false}]};
+assert.equal(api.prepare(snapshot,{type:'quantity',id:'coins',value:10},'Correction',request).correction.after,10);
+assert.throws(()=>api.prepare(snapshot,{type:'quantity',id:'coins',value:-1},'Correction',request));
+assert.throws(()=>api.prepare(snapshot,{type:'quantity',id:'coins',value:150},'Correction',request));
+assert.throws(()=>api.prepare(snapshot,{type:'quantity',id:'capacity',value:79},'Correction',request));
+assert.deepEqual(api.prepare(snapshot,{type:'removePokemon',ids:[mon]},'Correction',request).correction.ids,[mon]);
+for(const flag of ['locked','favorite','trading'])assert.throws(()=>api.prepare({...snapshot,pokemon:[{...snapshot.pokemon[0],[flag]:true}]},{type:'removePokemon',ids:[mon]},'Correction',request));
+assert.throws(()=>api.prepare(snapshot,{type:'removePokemon',ids:[mon,mon]},'Correction',request));
+(async()=>{let finish,writes=0;const model=api.controller(async(name)=>{if(name==='read')return snapshot;writes++;return await new Promise(r=>finish=r);});await model.open(uid);model.review({type:'quantity',id:'coins',value:10},'Correction',request);const pending=model.save();await assert.rejects(()=>model.save());assert.equal(writes,1);model.reset();finish({status:'saved',trainerId:uid,requestId:request});await pending;assert.equal(model.state.phase,'closed');const uncertain=api.controller(async name=>{if(name==='read')return snapshot;throw Error('lost response')});await uncertain.open(uid);uncertain.review({type:'quantity',id:'coins',value:10},'Correction',request);await uncertain.save();assert.equal(uncertain.state.phase,'uncertain');await assert.rejects(()=>uncertain.save());console.log('Direct corrections: exact resulting values, capacity floor, exact specimen protections, single flight, session reset and uncertain no-retry pass. Local model; endpoint not installed.');})().catch(e=>{console.error(e);process.exitCode=1});

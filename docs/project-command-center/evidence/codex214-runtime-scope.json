@@ -1,0 +1,23 @@
+{
+  "baselineCommit": "de722c21f9dcd54673e582d618d0d00776190deb",
+  "files": [
+    {
+      "file": "js/admin-next-mart.js",
+      "baselineSha256": "d10281e7802a388e606b245a45859538fd1ddbf6d7cae1b8f53e9b11ecfb7991",
+      "candidateSha256": "43ca062c320e2589a5025d46a1813703de7a9c2b04da4b1da368e24a72f0feaa"
+    },
+    {
+      "file": "js/admin-next-floors.js",
+      "baselineSha256": "308dbb0b50eb367855fe6f34268ee18059d2f262088bac472962388d5c76f867",
+      "candidateSha256": "e01699dcd185260baf8ae08496690d1c1fedc280bd7a9d225084a02ae2cd7daf"
+    },
+    {
+      "file": "js/admin-next-config.js",
+      "baselineSha256": "8d831c4018fdcb0a9020800f09167822332bebfa0cf883dd6cf2197b00514954",
+      "candidateSha256": "c819e0f13a2d7e6e5f93a0b7aa493c4ad5284cd3011ba7a9e4f053ebb3801c23"
+    }
+  ],
+  "onlyConditionalHeadingFocusAdded": true,
+  "rollback": true,
+  "driftRefusedBeforeWrites": true
+}

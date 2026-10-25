@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-214",
+      "status": "done",
+      "scope": "Existing sibling long-confirmation focus maintenance",
+      "evidence": "LAUNCH-CODEX214-SIBLING-REVIEW-FOCUS.md;evidence/codex214-runtime-scope.json;evidence/codex214-browser-checks.json;evidence/codex214-regressions.json",
+      "testResults": "122suites;12responsive reviews/4editor layouts;3short focus/cancel;exact rollback/drift refusal",
+      "nextAction": "Exact three-file routine publication and source verification",
+      "approvalRequirement": "CODEX78routine focus maintenance;no authority or hosted mutation"
+    },
+    {
       "id": "CODEX-213",
       "status": "done",
       "scope": "Create-only hidden Mart draft source/design proposal",

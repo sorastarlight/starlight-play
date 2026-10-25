@@ -1,0 +1,259 @@
+{
+  "classification": "REAL LOCAL DOM actual mounted modules;fictional transport",
+  "baseline": [
+    {
+      "root": "#next-mart",
+      "geometry": {
+        "focus": "BUTTON",
+        "headingVisible": false,
+        "overflow": true,
+        "scrollTop": 472.7999877929687
+      }
+    },
+    {
+      "root": "#next-mart-floors",
+      "geometry": {
+        "focus": "BUTTON",
+        "headingVisible": false,
+        "overflow": true,
+        "scrollTop": 37.599998474121094
+      }
+    },
+    {
+      "root": "#next-config",
+      "geometry": {
+        "focus": "BUTTON",
+        "headingVisible": true,
+        "overflow": true,
+        "scrollTop": 0
+      }
+    },
+    {
+      "root": "#next-config",
+      "width": 320,
+      "geometry": {
+        "kind": "dialog-metrics",
+        "title": "Review reward changes",
+        "overflow": true,
+        "scrollTop": 350.3999938964844,
+        "headingInside": false,
+        "focus": "BUTTON"
+      }
+    }
+  ],
+  "wideCandidate": [
+    {
+      "root": "#next-mart",
+      "scrollTop": 0,
+      "headingInside": true,
+      "headingFocused": true
+    },
+    {
+      "root": "#next-mart-floors",
+      "scrollTop": 0,
+      "headingInside": true,
+      "headingFocused": true
+    },
+    {
+      "root": "#next-config",
+      "scrollTop": 0,
+      "headingInside": true,
+      "headingFocused": true
+    }
+  ],
+  "layouts": [
+    {
+      "width": "320",
+      "state": "editors",
+      "measurement": "Viewport 320 / scroll 305"
+    },
+    {
+      "width": "320",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review product changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "320",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review floor changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "320",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review reward changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "390",
+      "state": "editors",
+      "measurement": "Viewport 390 / scroll 375"
+    },
+    {
+      "width": "390",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review product changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "390",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review floor changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "390",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review reward changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "768",
+      "state": "editors",
+      "measurement": "Viewport 768 / scroll 753"
+    },
+    {
+      "width": "768",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review product changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "768",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review floor changes",
+        "overflow": false,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "BUTTON"
+      }
+    },
+    {
+      "width": "768",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review reward changes",
+        "overflow": false,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "BUTTON"
+      }
+    },
+    {
+      "width": "1024",
+      "state": "editors",
+      "measurement": "Viewport 1024 / scroll 1009"
+    },
+    {
+      "width": "1024",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review product changes",
+        "overflow": true,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "H3"
+      }
+    },
+    {
+      "width": "1024",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review floor changes",
+        "overflow": false,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "BUTTON"
+      }
+    },
+    {
+      "width": "1024",
+      "state": "review",
+      "metrics": {
+        "kind": "dialog-metrics",
+        "title": "Review reward changes",
+        "overflow": false,
+        "scrollTop": 0,
+        "headingInside": true,
+        "focus": "BUTTON"
+      }
+    }
+  ],
+  "short": [
+    {
+      "root": "#next-mart",
+      "state": {
+        "focus": "BUTTON",
+        "overflow": false
+      },
+      "returnedToReview": true
+    },
+    {
+      "root": "#next-mart-floors",
+      "state": {
+        "focus": "BUTTON",
+        "overflow": false
+      },
+      "returnedToReview": true
+    },
+    {
+      "root": "#next-config",
+      "state": {
+        "focus": "BUTTON",
+        "overflow": false
+      },
+      "returnedToReview": true
+    }
+  ],
+  "fictionalWrites": 0,
+  "hostedCalls": 0,
+  "limits": "Not physical-device,screen-reader or hosted application acceptance"
+}

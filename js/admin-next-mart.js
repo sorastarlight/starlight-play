@@ -159,7 +159,7 @@
         else if (!event.shiftKey && active === last) { event.preventDefault(); first.focus(); }
       });
       dlg.onclose = () => { dlg.remove(); if (focusReturn?.isConnected) focusReturn.focus({ preventScroll: true }); };
-      dlg.showModal();
+      dlg.showModal(); if (dlg.scrollHeight > dlg.clientHeight) { const heading = dlg.querySelector('h3'); heading.tabIndex = -1; heading.focus({ preventScroll: true }); dlg.scrollTop = 0; }
     }
     root.addEventListener("input", event => {
       if (event.target.matches("[data-mart-search]")) { query = event.target.value; list(); return; }

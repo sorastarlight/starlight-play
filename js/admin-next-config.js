@@ -100,7 +100,7 @@
       root.append(dlg); dlg.querySelector("[data-config-cancel]").onclick = () => dlg.close();
       dlg.querySelector("[data-config-confirm]").onclick = () => { dlg.close(); action(); };
       dlg.onclose = () => { dlg.remove(); if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); };
-      dlg.showModal();
+      dlg.showModal(); if (dlg.scrollHeight > dlg.clientHeight) { const heading = dlg.querySelector('h3'); heading.tabIndex = -1; heading.focus({ preventScroll: true }); dlg.scrollTop = 0; }
     }
     root.addEventListener("input", event => {
       if (ui.state.phase === "ready" && !ui.state.uncertain && Object.hasOwn(fields, event.target.name)) ui.state.draft[event.target.name] = event.target.value;

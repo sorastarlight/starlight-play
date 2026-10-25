@@ -2572,3 +2572,7 @@ CODEX-211 publication completed under explicit owner approval:only admin-next.ht
 ## CODEX-212 publication / CODEX-213 proposal
 
 CODEX-212 published only js/admin-next-limits-order.js under CODEX-78 at main de722c21f9dcd54673e582d618d0d00776190deb. Pages40144190134 succeeded;100monitored plus1changed versioned hosted sources match exact main.122local suites/build31HTML477refs,7DOMcases/8long width states and guarded rollback pass. Model/adapter/controller region unchanged. No authenticated navigation,notice,live catalog/configuration call/save,SQL,Auth/provider,gameplay/grant,protected-account action or APP stamp. Sora NO;Twinkle NO;PlayTester unchanged. CODEX213selected source-only audit confirms existing upsert contract;disconnected create-only draft design prepared with8REAL LOCAL DOM cases/8width states. No product records queried,no endpoint implemented or invoked. New design/local-work decision next;production SQL/publication/live creation held. Temporary tabs/servers closed.
+
+## CODEX-214 — Sibling confirmation focus
+
+Targeted actual baseline/candidate checks after212. Only conditional heading-focus additions across3approved modules.122LOCAL HARNESS suites;12responsive review states/4editor layouts;3short focus/Escape cases;0fictional writes. Exact rollback/drift refusal pass. Routine3file publication next. No hosted application,SQL,Auth/provider,notice,save/grant/gameplay,protected-account or APP action. Sora NO;Twinkle NO;PlayTester unchanged. CODEX213design question remains pending;not bypassed.

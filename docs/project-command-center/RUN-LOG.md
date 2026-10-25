@@ -1,3 +1,7 @@
+## CODEX-221 — pending-save navigation maintenance
+
+126suites;baseline actual-handler failure/candidate pass;native fictional pending-save warning and resolution;single read/save call count unchanged;exact one-file rollback. Routine CODEX78publication/source verification next. No application calls or server changes.
+
 ## CODEX-220 — routine publication/source verification complete
 
 CODEX-220routine presentation maintenance published at mainb6daf681 / Pages40165498737success.125suites,12integrated layouts and two-file rollback pass;100monitored+2versioned deployed sources match. Pass inputs/search now44px/16px with consistent focus;Configuration headings cover all three workspaces. No JS,transport,SQL or live application action.

@@ -1,0 +1,23 @@
+{
+  "classification": "LOCAL frontend pending-save presentation maintenance",
+  "files": [
+    {
+      "file": "js/admin-next-pass.js",
+      "candidateHash": "9061e851031287abf8e45230189310cec9e59722d4bcf9f6336c1f861d414217"
+    }
+  ],
+  "rollback": {
+    "driftRefused": true,
+    "exactRestore": true
+  },
+  "transportSitesUnchanged": true,
+  "baselineNative": "Discard and continue offered during pending save;navigation did not proceed",
+  "candidateNative": [
+    "Save in progress with Return to pending save",
+    "no discard or repeat action",
+    "call count stays2:one read and one save",
+    "resolving the single response permits ordinary navigation"
+  ],
+  "regression": "Actual document-click handler fails against baseline and passes candidate",
+  "productionApplicationCalls": 0
+}

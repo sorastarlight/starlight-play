@@ -10,8 +10,8 @@
   const note = (text) => `<p class="record-note">${esc(text)}</p>`;
   const button = (label, action, id = "") => `<button type="button" class="record-hit" data-record-action="${action}" data-record-id="${esc(id)}">${esc(label)}<span aria-hidden="true">›</span></button>`;
   const back = (label, action) => `<button type="button" class="secondary record-back" data-record-action="${action}">← ${esc(label)}</button>`;
-  const PANES = [...base.PANES, "pass", "gifts", "tickets"];
-  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", tickets: "Tickets" };
+  const PANES = [...base.PANES, "pass", "gifts", "corrections", "tickets"];
+  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", corrections: "Corrections", tickets: "Tickets" };
   const stamp = (input) => !input || !Number.isFinite(new Date(input).getTime()) ? "Unavailable" : new Date(input).toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
   function ballName(input) {
     if (input == null || input === "") return input;
@@ -111,10 +111,11 @@
     if (view.loading || view.denied || view.error) return base.profileHtml(view);
     const user = view.user || {};
     const header = `<header class="record-header"><span class="record-identity">${avatar(user)}<span><p class="eyebrow">Trainer record</p><h3>${esc(user.displayName || user.login || "Trainer")}</h3>${user.login ? `<p class="admin-next-trainer-handle">@${esc(user.login)}</p>` : ""}<span class="record-account-meta"><span class="admin-next-chip">${esc(user.role || "player")}</span> <span data-record-pass class="admin-next-chip${user.pass ? " is-pass" : ""}">${user.pass ? "Starlight Pass" : "No Pass"}</span><span class="record-date">Last seen ${esc(stamp(user.lastSeenAt))}</span></span></span></span></header>
-      <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer dossier">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}" tabindex="${view.pane === pane ? 0 : -1}">${labels[pane]}</button>`).join("")}</div>`;
+      <div class="admin-next-trainer-subnav record-tabs" role="tablist" aria-label="Trainer account sections">${PANES.map((pane) => `<button type="button" role="tab" data-trainer-pane="${pane}" aria-selected="${view.pane === pane}" tabindex="${view.pane === pane ? 0 : -1}">${labels[pane]}</button>`).join("")}</div>`;
     let body;
     if (view.pane === "pokemon") body = `<section data-trainer-roster>${pokemon(view)}</section>`;
-    else if (view.pane === "inventory") body = manager(view, "inventory") + note("Bits, the complete item catalog and item removal are not available in this view. Use Gifts to give rewards.");
+    else if (view.pane === "inventory") body = manager(view, "inventory") + note("Open Corrections to adjust existing quantities, balances or capacity. Open Gifts to send additional rewards.");
+    else if (view.pane === "corrections") body = `<section class="record-surface" data-trainer-corrections><p>Loading account corrections…</p></section>`;
     else if (view.pane === "pass" || view.pane === "gifts") body = `<section class="record-surface" data-trainer-rewards><h4>${labels[view.pane]}</h4>${note("Loading staff reward tools…")}</section>`;
     else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4><div data-support-trainer></div></section>`;
     else {

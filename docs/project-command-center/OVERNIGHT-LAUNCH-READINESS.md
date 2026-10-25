@@ -336,3 +336,6 @@ CODEX-243: owner requested primary Hub and replacement of legacy handoffs. Six-f
 CODEX243 complete: mainfaf17b8c / Pages40231206566 success;100+8source matches.76stored products locally round-trip unchanged. Ticket disclosures removed;staff menu targets newHub. No catalog save,SQLmigration,notices,grants,cleanup or APPstamp. Full CODEX242 remains in progress for typedPass/directcorrections and remaining workspaces.
 
 CODEX244 LIVE: migration20261025211631;main6e97544f/Pages40234735264success;100+12source matches.311catalog entries,79canonicalCandyfamilies,151Pokémon.132suites;15SQLgroups+rollback/drift;4pickerwidths. Exact baselinebundlesconverted;0deliveries. No hosted grant/claim/save/notices or protectedaccount mutation. NewPassusesprivatestorage;directcorrectionsnextCODEX245. Automation stays paused;currenthumaninstructionauthorizescontinuedwork.
+
+
+CODEX-245: direct correction endpoint/UI prepared and locally tested (133 suites;17 correction +5 trade-race/create +5 rollback groups). Scope: resulting inventory/Candy/coins/capacity and exact protected specimen selection, private audit/recovery, stale/busy/retry safety. Install/publication pending; no live correction calls. Expanded Pass CODEX244 is already live. Continue remaining System/Encounter migration after this slice.

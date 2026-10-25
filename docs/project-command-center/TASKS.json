@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-245",
+      "status": "in_progress",
+      "scope": "Audited direct trainer corrections and exact specimen removal",
+      "evidence": "LAUNCH-CODEX245-DIRECT-CORRECTIONS.md",
+      "testResults": "133 suites;17 correction groups;5 trade race/create groups;5 rollback checks;4 responsive widths",
+      "nextAction": "Guarded installation and five-file publication",
+      "approvalRequirement": "Owner expanded functionality and completed go-live explicitly authorized"
+    },
+    {
       "id": "CODEX-244",
       "status": "done",
       "scope": "Expanded Pass rewards and private atomic delivery",

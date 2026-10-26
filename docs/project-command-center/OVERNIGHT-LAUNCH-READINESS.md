@@ -431,3 +431,6 @@ Trainer experience LIVE: main9d32f520/Pages40325593008 and availability follow-u
 
 ## 2026-10-26 Berry reward handoff
 XP-scaled berry drops and one-ball failed-throw rewards are live;mainfc10cffe/Pages40379747343,cutoff18:42:46.054568UTC. Full bags preserve pending items.26local SQL groups,163tests,8hostedsource matches. No hosted gameplay performed.72recovery files;post-change physical backup not yet verified. Berry type-affinity redesign remains separate/not activated. See BERRY-DROP-IMPLEMENTATION.md.
+
+## 2026-10-26 PC item storage handoff
+Owner-requested overflow/deposit/withdraw workflow is LIVE:main26cf6f7d,Pages40383961744,SQL20261026190657.17local SQL groups cover68itemtypes;164tests;18source/ACL and10hosted-static matches. Stored items remain unavailable to gameplay until withdrawn. No actual player transfers or protected-account writes tested. Recovery preserves stored items/withdrawal API;74recovery files. Physical backup after this migration remains unverified. See PC-ITEM-STORAGE.md.

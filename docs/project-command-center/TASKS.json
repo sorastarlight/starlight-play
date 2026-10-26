@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PC-ITEM-STORAGE",
+      "status": "done",
+      "scope": "My PC item deposits, withdrawals and automatic reward overflow",
+      "evidence": "PC-ITEM-STORAGE.md",
+      "testResults": "17 local SQL groups;68 item types;164 regression files;18 function/ACL matches;10 hosted sources;Pages40383961744",
+      "nextAction": "Normal player acceptance and later post-change physical backup verification;no hosted transfer test performed",
+      "approval": "Owner explicitly requested storage/withdrawal and reward overflow revamp;no destructive cleanup or hosted grants"
+    },
+    {
       "id": "BERRY-DROP-PROGRESSION",
       "status": "done",
       "scope": "XP-scaled berry item drops and missed-throw consolation",

@@ -2832,3 +2832,6 @@ Berry drop progression:current XP curve and60eligible live-catalog items inspect
 
 ## 2026-10-26 Berry catch rewards
 Completed server receipts, capacity-safe pending claims and Inventory panel. Migration20261026183846;mainfc10cffe;Pages40379747343;activation18:42:46UTC. LOCAL26SQLgroups/163regression files;REAL DOM desktop/narrow/full-bag;PRODUCTION source/policy verification only. No hosted throw/claim/grant/notice acknowledgement. Sora NO;Twinkle NO;PlayTester unchanged. APP unchanged. See BERRY-DROP-IMPLEMENTATION.md.
+
+## 2026-10-26 My PC item storage
+Installed migration20261026190657 and published five runtime files at main26cf6f7d/Pages40383961744. LOCAL17SQLgroups/68itemtypes/164regression files;REAL DOM desktop,narrow,depositcounts,keyboard uncertain-request retry;PRODUCTION18function/ACL and10static-source matches. All earned physical items through shared/direct reward routes overflow into private PC storage. Existing pending catch receipts carry over lazily. Ordinary purchases/corrections retain their capacity checks. No hosted deposit/withdrawal/claim/grant. Sora NO;Twinkle NO;PlayTester unchanged. APP unchanged;74recovery files.

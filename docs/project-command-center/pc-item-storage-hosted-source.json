@@ -1,0 +1,56 @@
+{
+  "commit": "26cf6f7d2c6ab595e4da7792aba5fbf063436d6a",
+  "pagesRun": 40383961744,
+  "results": [
+    {
+      "file": "css/play.css",
+      "suffix": "",
+      "sha256": "1451e2216054122ce9dfa0f8f808235461f76415254cb0f53aeb7f6b030eef1e"
+    },
+    {
+      "file": "css/play.css",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "1451e2216054122ce9dfa0f8f808235461f76415254cb0f53aeb7f6b030eef1e"
+    },
+    {
+      "file": "inventory.html",
+      "suffix": "",
+      "sha256": "87aee6c5bc341b0459f3d13fa9ab898b93e0473b6610c355b5cf1253a5291dfc"
+    },
+    {
+      "file": "inventory.html",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "87aee6c5bc341b0459f3d13fa9ab898b93e0473b6610c355b5cf1253a5291dfc"
+    },
+    {
+      "file": "js/inventory.js",
+      "suffix": "",
+      "sha256": "5da023ce7397bf65e2dd43817cb32da0b5bd0e36b9896ccad717c3ad97a69afa"
+    },
+    {
+      "file": "js/inventory.js",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "5da023ce7397bf65e2dd43817cb32da0b5bd0e36b9896ccad717c3ad97a69afa"
+    },
+    {
+      "file": "js/pc-items.js",
+      "suffix": "",
+      "sha256": "5ecf5e9d1712fdc91882c55e1295b6c9507d171dc5e6489a43e26b383028b7fe"
+    },
+    {
+      "file": "js/pc-items.js",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "5ecf5e9d1712fdc91882c55e1295b6c9507d171dc5e6489a43e26b383028b7fe"
+    },
+    {
+      "file": "storage.html",
+      "suffix": "",
+      "sha256": "80832f16ddd97357fd546d199e4a13b6fca4d72580835de25afd0c8393a6b7b3"
+    },
+    {
+      "file": "storage.html",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "80832f16ddd97357fd546d199e4a13b6fca4d72580835de25afd0c8393a6b7b3"
+    }
+  ]
+}

@@ -575,3 +575,5 @@ Trainer experience LIVE: main9d32f520/Pages40325593008 and availability follow-u
 Berry drop progression:current XP curve and60eligible live-catalog items inspected;offline model and tests complete. Smooth90%to35% item-drop chance across0to8428XP,berry-quality pools separate;failure1ball remains unscaled.100001XPpoints and reward boundaries pass. No production changes. Next:transactional settlement/pending-delivery SQL and concurrency tests;see BERRY-DROP-PROGRESSION.md.
 
 | BERRY-DROP-PROGRESSION | done | XP-scaled berry bonus and missed-throw ball | Server receipts | Owner proceed | Live main fc10cffe;26SQLgroups;163tests;8source matches;affinities separate |
+
+| PC-ITEM-STORAGE | done | My PC item storage and automatic reward overflow | Shared reward delivery | Owner request | Live main26cf6f7d;17SQLgroups;68itemtypes;164tests;10hosted sources |

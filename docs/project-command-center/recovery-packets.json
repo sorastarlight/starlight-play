@@ -404,6 +404,19 @@
           "sha256": "54c72095ee4e1951a1c0aa592e2ec8995f94a3983735e3814c9d886d358cc661"
         }
       ]
+    },
+    {
+      "version": "20261026112826",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-account-signin-guard/INSTALL.sql",
+          "sha256": "3fbc0235020eda258b4ea88ba027882ff20049a82432c1a1ecd131afb8f5630c"
+        },
+        {
+          "file": "supabase/unapplied/hub-account-signin-guard/ROLLBACK.sql",
+          "sha256": "fcab985d9c3e60430dd0dad3163c1fa97e8502eace69b9ebf36d3bcb8a9583b7"
+        }
+      ]
     }
   ]
 }

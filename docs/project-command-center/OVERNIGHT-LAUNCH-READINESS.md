@@ -411,3 +411,6 @@ CODEX259 LIVE: native searchable evolutionrules/existing read-only validation;ma
 CODEX260 LIVE: native image library/reviewed unique uploads;maina8f3e6ee;Pages40250505674success;100+4sources;144suites;12layouts;decode/invalid/pending/reset/cancelproof. EdgeV5JWTunchanged;noactualupload/catalogapplicationcall. CODEX261 pure spawnreport locallypassed8SQLgroups;notinstalledyet.
 
 CODEX261 LIVE: migration20261026004548;main53d30923;Pages40250985052success;100+3sources;145suites;8SQLgroups including READONLY;8layouts;46recoveryfiles. NewpureSpawnreportavoidslegacyoverviewsettlement;noactualreport/roll/encounter. CODEX262 SpecialEvents locallyinprogress;existingupsertambiguityfixedincandidate,notinstalled.
+
+## CODEX-273 approved installation — October 26
+Two guarded sign-in function replacements installed as 20261026112826; exact source hashes and unchanged ACL/owner/search paths verified. Six-file main af14ea65 publication is running at Pages40315434912. No actual account calls or changes. Destructive cleanup276 remains held. APP unchanged. Recovery packet inventory64 files.

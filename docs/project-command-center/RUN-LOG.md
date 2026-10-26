@@ -2810,3 +2810,6 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 CODEX-274 completed post-change PHYSICAL backup available October26 07:44:28UTC,after latest migration20261026072445. Availability only;no restore/export.62 recovery files. CODEX-273 Account controls and last-sign-in safeguard are locally tested and held for owner decision;production stays CODEX-272. [Backup report](LAUNCH-CODEX274-POST-CHANGE-BACKUP.md).
 
 Continuation:CODEX-275 entry bridge privately prepared/unit+rendered tested,not published;CODEX-276 exact one-product archive/removal/selective-restore packet passes6localSQLgroups,execution held;CODEX-277 current legacy-stat audit confirms CP/AV columns already retired and identifies active ecology helpers that must stay. CODEX-273 remains the important pending decision;production stays CODEX-272/main9b852266. No destructive cleanup or provider test.
+
+## CODEX-273 approved installation — October 26
+Two guarded sign-in function replacements installed as 20261026112826; exact source hashes and unchanged ACL/owner/search paths verified. Six-file main af14ea65 publication is running at Pages40315434912. No actual account calls or changes. Destructive cleanup276 remains held. APP unchanged. Recovery packet inventory64 files.

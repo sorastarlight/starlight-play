@@ -7,3 +7,7 @@ Local validation: 157 regression suites, nine real isolated SQL groups and 44 re
 An important last-sign-in policy decision is held for the owner before the proposed two-function safeguard and six-file frontend publication. Exact private review: `C:\Users\FET\AppData\Local\PokemonStreamLink\security\codex273\README.md`; install/rollback and detailed security reproduction stay outside Git. No new SQL migration/recovery inventory entry until approved and installed.
 
 Runtime scope: `admin-next.html`, `js/admin-next.js`, `js/admin-next-record.js`, `js/admin-next-trainers.js`, `js/admin-account-tools.js`, `css/admin-account-tools.css`. Production remains CODEX-272 main9b852266, APP20261008-rc133. Continue independent entry-cutover preparation, visual checks and exact cleanup preparation while this decision is held. Destructive execution and final launch remain excluded.
+
+## Owner-approved installation — October 26
+
+Installed migration 20261026112826 after exact original/dependency source checks. Both candidate hashes, unchanged ACLs, owner and search paths verified. No real account handler invoked. Destructive cleanup remains held.

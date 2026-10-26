@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-272",
+      "status": "done",
+      "scope": "Native five-tool planning with log-free loot estimates",
+      "evidence": "LAUNCH-CODEX272-NATIVE-PLANNING.md",
+      "testResults": "156 suites;6 local SQL groups;120 layouts;100+4 sources;Pages40285801248success",
+      "nextAction": "Identity-tool parity;old entry cutover;post-change backup when due",
+      "approval": "Full migration and tested publication authority"
+    },
+    {
       "id": "CODEX-271",
       "status": "done",
       "scope": "Empty avatar collection publication validation",

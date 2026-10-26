@@ -9,3 +9,5 @@ Validation: 156 regression suites; six real isolated SQL groups pinning 19 origi
 Migration `20261026072445` installed the two existing function replacements and two new stateless functions. Source/ACL verification matched the tested candidates, the private helper has only postgres execution, the new public read has authenticated/service-role execution with an explicit staff/session guard and no anonymous execution. Seventeen other inspected functions and existing permissions were unchanged; complete product/style/site-config fingerprints matched the preflight. Exact recovery pair is `supabase/unapplied/hub-planning`; 62 recovery files overall.
 
 Publication scope: `admin-next.html`, `js/admin-next.js`, `js/admin-planning.js`, `css/admin-planning.css`. Guarded frontend rollback passed. APP stays `20261008-rc133`. Private local SQL/browser/reproduction and rollback evidence is outside Git in `security/codex272`. No destructive cleanup or launch declaration.
+
+Published main `9b852266f5ede74dc63977ef10869829eaf2a906`, Pages `40285801248` succeeded;100 monitored+4 changed versioned source matches.

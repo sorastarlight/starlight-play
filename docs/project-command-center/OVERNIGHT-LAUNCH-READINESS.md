@@ -1,5 +1,7 @@
 # Current launch readiness handoff — through CODEX-241
 
+CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 monitored+4 changed source matches.156 suites,6 real local SQL groups,120 responsive states and full Hub five routes/late-account clearing. Migration20261026072445;62 recovery files;APP unchanged. No hosted estimate or application action. [Report](LAUNCH-CODEX272-NATIVE-PLANNING.md).
+
 CODEX-271 empty-avatar publication guard live at main147dfc27/Pages40284312464 success;100 monitored+1 changed source matches.155 suites,7 real local SQL groups,4 responsive warning states. Migration20261026071051;60 recovery files;APP unchanged. All product/style/category rows and purchase controls unchanged. [Report](LAUNCH-CODEX271-AVATAR-PUBLICATION.md).
 
 CODEX-270 Categories live at main97a36595/Pages40283817849 success;100 monitored+3 changed source matches.154 suites,5 real local SQL groups,44 responsive states/full Hub keyboard/account reset. Creates hidden shop/Twitch/avatar categories and edits all existing category types;no new SQL or actual category action.58 recovery files;APP unchanged. [Report](LAUNCH-CODEX270-NATIVE-CATEGORIES.md).

@@ -2792,3 +2792,5 @@ CODEX-263 Pages40268261941 succeeded;mainc654ecf9 exact100+2source matches. No h
 CODEX-264 final mainc9531031/Pages40268845012 verified100+1sources;148suites/fullHubread-and-role-switch. Intermediate cf04 wrong Analytics allowlist corrected in finalsource;do not use intermediate rollback. No hosted app actions.
 
 CODEX-265 migration20261026043859/mainbf7e06be/Pages40270302025success;100+4sources,4SQLsourceACLmatches,7unchangedcontrols,completeballberryhashesunchanged/audit0.149suites/10SQLgroups/40layouts/fullHubreset/52recoveryfiles. No hosted item edit,grant,protected action,cleanup,APPstamp. Continue fuller creation/appearance tools.
+
+CODEX-266 maine7af3b22/Pages40273574587success;100+5sources;150suites,5localSQLgroups,48layouts/fullHubrouting/reset/76snapshotrows. No SQL/hostedproductsave,grant,protectedaction,cleanup or APPstamp. Fixed Ball identity preserved;emptyMaster1 remains hidden draft pending exactcleanup review.

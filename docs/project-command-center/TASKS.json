@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-266",
+      "status": "done",
+      "scope": "Compact product tabs,bounded lists and visual custom reward contents",
+      "evidence": "LAUNCH-CODEX266-PRODUCT-CONTENTS.md",
+      "testResults": "150suites;5real localSQLgroups;48layouts;76retainedsnapshotrows;fullHubrouting/reset;Pages40273574587success;100+5sources",
+      "nextAction": "Catalogue names/new product types/appearance tools/entry cutover;Master placeholder cleanup held",
+      "approvalRequirement": "Owner full migration/completed publication authorized;no hosted saves or destructive cleanup"
+    },
+    {
       "id": "CODEX-265",
       "status": "done",
       "scope": "Native item descriptions/default shelf/capture-effect editor",

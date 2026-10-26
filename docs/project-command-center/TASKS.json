@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-255",
+      "status": "done",
+      "scope": "Restore accented labels and punctuation in two migrated editors",
+      "evidence": "LAUNCH-CODEX255-EDITOR-ENCODING.md",
+      "testResults": "140 suites;two-file guarded rollback;Pages40246842618success;100+2sources",
+      "nextAction": "Continue native provider tools and primary entry parity",
+      "approvalRequirement": "Routine tested frontend maintenance authorized"
+    },
+    {
       "id": "CODEX-256",
       "status": "done",
       "scope": "Audited expired trade hold repair replaces blind unlock",

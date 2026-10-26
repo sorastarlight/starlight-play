@@ -23,9 +23,11 @@
   let lastLedgerOrder = [];
   let tab = "all";
   let selectedKey = "";
+  const catchRewards = window.PLAY_CATCH_REWARDS?.create(document.getElementById("catch-rewards"), { client:supabase, call:(name,args)=>window.playCall(name,args), onClaim:()=>load() });
   let loadGeneration = 0;
   function invalidateInventory() {
     loadGeneration++;
+    catchRewards?.reset();
     els.trainer.hidden = true;
     if (els.detail?.open) els.detail.close();
     if (invChannel) { supabase.removeChannel(invChannel); invChannel = null; }
@@ -290,6 +292,7 @@
     }
     els.gate.hidden = true;
     els.trainer.hidden = false;
+    catchRewards?.load(session.user.id);
     if (invChannel) supabase.removeChannel(invChannel);
     let refreshGeneration = 0;
     const refreshWarning = "Inventory refresh unavailable. Showing your last loaded bag; reload to try again.";

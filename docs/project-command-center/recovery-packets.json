@@ -456,6 +456,19 @@
           "sha256": "24ee84837e93edc8e4ba43ed83ddde292d66b531a2de4753321b0900b79a04ea"
         }
       ]
+    },
+    {
+      "version": "20261026183846",
+      "files": [
+        {
+          "file": "supabase/unapplied/berry-catch-drops/INSTALL.sql",
+          "sha256": "64044bcff266fd82e9d24d8008e689b97611959e8370f0dc076343082edb577c"
+        },
+        {
+          "file": "supabase/unapplied/berry-catch-drops/ROLLBACK.sql",
+          "sha256": "c657250c88bbe98f37b6cad1250c916a5aa5fd2249f7f3fc5def55217f03bf9c"
+        }
+      ]
     }
   ]
 }

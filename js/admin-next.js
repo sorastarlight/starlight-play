@@ -103,11 +103,7 @@
   const analyticsApi = window.PLAY_ADMIN_NEXT_ANALYTICS;
   const analytics = analyticsApi?.mount(document.getElementById("next-analytics-reports"), analyticsApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => analyticsIdentity,
-    allowed: () => staffOpen, call: (name, args) => {
-      if (name === "admin_store_draft_options") return window.playCall("admin_store_draft_options");
-      if (name === "admin_store_create_draft") return window.playCall("admin_store_create_draft", args);
-      throw Error("Unsupported draft operation.");
-    }
+    allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
   }), document.getElementById("next-analytics-health"), () => loadHealth());
   const assetApi=window.PLAY_ADMIN_ASSETS;
   const assets=assetApi?.mount(document.getElementById('next-assets'),assetApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),invoke:(name,args)=>supabase.functions.invoke(name,args),encode:file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('Image could not be read.'));reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.readAsDataURL(file);})}));
@@ -129,7 +125,11 @@
   const createApi = window.PLAY_ADMIN_CREATE;
   const draftCreator = createApi?.mount(document.getElementById("next-mart-create"), createApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => martIdentity,
-    allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
+    allowed: () => staffOpen, call: (name, args) => {
+      if (name === "admin_store_draft_options") return window.playCall("admin_store_draft_options");
+      if (name === "admin_store_create_draft") return window.playCall("admin_store_create_draft", args);
+      throw Error("Unsupported draft operation.");
+    }
   }));
   const boundedApi = window.PLAY_ADMIN_LIMITS_ORDER;
   const floorOrder = boundedApi?.mount(document.getElementById("next-floor-order"), "order", boundedApi.adapter("order", {

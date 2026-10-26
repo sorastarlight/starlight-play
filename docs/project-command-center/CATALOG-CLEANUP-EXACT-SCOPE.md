@@ -1,0 +1,7 @@
+# Exact catalog cleanup preparation — held
+
+The concrete first cleanup proposal affects only the one empty hidden Master Ball product (`master1`). It is a draft with no grants. Aggregate checks found zero matching orders, coin/item ledger references and new draft receipts. There are no inbound foreign keys or DELETE triggers on store_items; the only trigger is the pinned before-insert/update validator.
+
+The private packet would archive the exact unchanged row to an owner-only private RLS table, then remove just that product. It stops on row/source/dependency changes, new references or a prior archive. Selective restore reconstructs the complete row only when its SKU is unused, preserves all other products and retains the archive. Six local SQL groups passed, including exact hash/restore, private permissions, duplicate/occupied-SKU refusal, changed-row refusal and new-reference refusal. The rehearsal copied one non-user catalog row; no player/Auth data was imported. Isolated runtime removed and original schema archive unchanged.
+
+Nothing was deleted or archived in production. This remains held under the owner's exact destructive-cleanup review requirement. Review is security/codex276/README.md, with private INSTALL.sql/RESTORE.sql and the captured row outside Git. It does not authorize dropping old capture archives, active ecology helpers, schemas, historical records or source assets. The functional Hub does not depend on executing this cleanup.

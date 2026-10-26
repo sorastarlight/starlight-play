@@ -4,6 +4,9 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-277 | done | Legacy-stat dependency audit | Existing retirement | Read-only |CP/AV already gone;active ecology kept |
+| CODEX-276 | blocked | Exact one-product cleanup/restore | Scope review | Destructive hold |6SQLgroups;no production action |
+| CODEX-275 | blocked | Old entry bridge preparation | CODEX273/parity | Full migration;dependency held |Unit/rendered redirect passed;entries untouched |
 | CODEX-274 | done | Post-change physical backup | SQL272 | Read-only |07:44:28UTC available;no restore/export |
 | CODEX-273 | blocked | Native Account and last-sign-in safeguard | Policy decision | Important owner decision pending |157suites;9SQLgroups;44layouts;no install/publication |
 | CODEX-272 | done | Native five-tool Planning | Full migration | Completed install/publication authorized |156suites;6SQLgroups;120layouts;100+4sources;no hosted estimate |

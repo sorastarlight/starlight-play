@@ -19,8 +19,8 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 
 1. CODEX-273 native Account controls are locally tested; await the important owner decision on the proposed last-sign-in safeguard before publication.
 2. Planning now covers all five old simulators. Retire obsolete self-grant QA instead of recreating it.
-3. Switch the old direct admin entry to the primary Hub after remaining capabilities are accounted for. The old page is still present; staff navigation already uses the primary Hub.
-4. Prepare an exact obsolete-data/schema cleanup packet for owner review. Destructive execution remains held.
+3. The old direct entry bridge is privately prepared and unit/rendered tested (CODEX-275). Publish after the Account controls/policy dependency and final parity review. Staff navigation already uses the native Hub.
+4. Exact one-product catalog cleanup/selective restore is prepared and passes six local SQL groups (CODEX-276); destructive execution remains held. CP/AV schema retirement is already complete. Active ecology helpers are not cleanup targets (CODEX-277).
 
 ## Launch acceptance and recovery
 

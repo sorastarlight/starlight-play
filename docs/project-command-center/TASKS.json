@@ -4,6 +4,33 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-277",
+      "status": "done",
+      "scope": "Current legacy-stat/source dependency audit",
+      "evidence": "LEGACY-SCHEMA-CURRENT-AUDIT.md",
+      "testResults": "CP/AV catch columns absent;unused asset and four active ecology helpers identified",
+      "nextAction": "Do not drop required ecology helpers",
+      "approval": "Read-only source/catalog audit"
+    },
+    {
+      "id": "CODEX-276",
+      "status": "blocked",
+      "scope": "Exact one-product catalog archive and selective restore proposal",
+      "evidence": "CATALOG-CLEANUP-EXACT-SCOPE.md",
+      "testResults": "6 local SQL groups;private RLS;exact restore;drift/reference refusals",
+      "nextAction": "Owner exact destructive-scope review;no execution",
+      "approval": "Explicit destructive cleanup hold"
+    },
+    {
+      "id": "CODEX-275",
+      "status": "blocked",
+      "scope": "Old Admin/Store direct-entry cutover preparation",
+      "evidence": "ADMIN-HUB-ENTRY-CUTOVER-PREPARATION.md",
+      "testResults": "Pure URL cases and disconnected rendered callback-preserving redirect",
+      "nextAction": "Resolve CODEX273 and final parity before canonical entry changes",
+      "approval": "Full migration;dependency held"
+    },
+    {
       "id": "CODEX-274",
       "status": "done",
       "scope": "Post-change physical backup availability",

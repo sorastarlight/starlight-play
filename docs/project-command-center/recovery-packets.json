@@ -300,6 +300,19 @@
           "sha256": "a3d20523fa409a1b1315c382ff0b2aa20818a017de96a0052eda6bc4dfb3ec54"
         }
       ]
+    },
+    {
+      "version": "20261026040216",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-special-events/INSTALL.sql",
+          "sha256": "5bc1496f8cb03f41164eb3b18161668c808c15e87ba33c8b271e2d6cf29fefe0"
+        },
+        {
+          "file": "supabase/unapplied/hub-special-events/ROLLBACK.sql",
+          "sha256": "1447350cd3eafe05c2809024c2b7d239ae09a72f96df3f352a3b0528a7f9b0e6"
+        }
+      ]
     }
   ]
 }

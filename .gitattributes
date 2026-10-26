@@ -56,3 +56,6 @@ supabase/migrations/*_hub_staff_access.sql text eol=lf
 
 supabase/unapplied/hub-spawn-report/*.sql text eol=lf
 supabase/migrations/*_hub_spawn_report.sql text eol=lf
+
+supabase/unapplied/hub-special-events/*.sql text eol=lf
+supabase/migrations/*_hub_special_events.sql text eol=lf

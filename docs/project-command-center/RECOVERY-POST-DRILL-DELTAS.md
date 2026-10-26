@@ -230,3 +230,11 @@ Migration20261026004548;source/ACL/STABLEattributesmatch;nohostedreportcall. Eig
 |Migration|Installpacket|SHA256|
 |---|---|---|
 |20261026004548 hub_spawn_report|supabase/unapplied/hub-spawn-report/INSTALL.sql|a23ccd0594911623c5b706de202f8493fbbaf74965a13acb971f4b6a7989f180|
+
+## CODEX-262 - Native reviewed Special Events
+
+Migration20261026040216;5source/ACLmatches;11controlsunchanged;auditRLStrue/rows0.14SQLgroupsincludingactualoldedit42702reproduction/read-onlylist/concurrency. Launchboundaryfictionalonly. Rollbackrestoresoldfunctionsbyte-exactlyandretainsevents/audits;oldunauditedactions/ambiguityreturn. No actualevent/schedule/gameplayoperation.
+
+|Migration|Installpacket|SHA256|
+|---|---|---|
+|20261026040216 hub_special_events|supabase/unapplied/hub-special-events/INSTALL.sql|5bc1496f8cb03f41164eb3b18161668c808c15e87ba33c8b271e2d6cf29fefe0|

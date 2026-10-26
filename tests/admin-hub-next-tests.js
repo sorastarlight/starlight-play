@@ -33,7 +33,7 @@ test("Next hub IA labels are the seven overhaul screens", () => {
     "Items &amp; Economy",
     "Game Configuration",
     "Analytics &amp; Health",
-    "System &amp; Access"
+    "Connections"
   ].forEach((label) => assert(nextHtml.includes(label), `missing ${label}`));
 });
 

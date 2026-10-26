@@ -2,7 +2,7 @@
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
-Latest verified production: main080e4db9, Pages40267239825 succeeded,100 monitored plus4 changed source matches. CODEX-263 expanded shop drafts are installed at migration20261026041556;two-file publication mainc654ecf9 is complete,Pages40268261941 succeeded;100 monitored+2 changed source matches. APP20261008-rc133 unchanged. No hosted application action was used for these verifications.
+Latest verified production: mainc9531031, Pages40268845012 succeeded,100 monitored plus1 changed source match. CODEX-263 expanded shop drafts are installed/source verified;CODEX-264 fixes and integration-tests their actual outer Hub routing and preserves Analytics forwarding.148 suites pass. APP20261008-rc133 unchanged. No hosted application action was used for these verifications.
 
 | Workspace | Implemented and published | Evidence or remaining work |
 | --- | --- | --- |

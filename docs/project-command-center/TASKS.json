@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-264",
+      "status": "done",
+      "scope": "Actual full-Hub draft catalogue routing",
+      "evidence": "LAUNCH-CODEX264-DRAFT-SHELL-ROUTING.md",
+      "testResults": "148 suites;full-Hub read/account transition;Pages40268845012success;100+1source",
+      "nextAction": "Continue native item authoring;no hosted mutations",
+      "approvalRequirement": "Owner completed migration/publication authorized"
+    },
+    {
       "id": "CODEX-263",
       "status": "done",
       "scope": "Expanded visual shop draft catalogue",

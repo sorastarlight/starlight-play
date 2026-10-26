@@ -1,5 +1,7 @@
 # Launch acceptance matrix
 
+CODEX-264 current:mainc9531031/Pages40268845012 succeeded;100+1 source matches,148 suites and real full-Hub disconnected draft-loading/late-read checks. Final source restores Analytics routing and explicitly allowlists draft read/create. No hosted application action. [Report](LAUNCH-CODEX264-DRAFT-SHELL-ROUTING.md).
+
 ## Current migration checkpoint — CODEX-263
 
 Current status is consolidated in [Current Admin Hub status](CURRENT-ADMIN-HUB-STATUS.md). The older entries below are historical and must not be read as current unmigrated-tool or approval requirements.

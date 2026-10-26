@@ -247,3 +247,12 @@ Migration 20261026041556;three exact sources verified;five controls unchanged;pr
 |Migration|Install packet|SHA256|
 |---|---|---|
 |20261026041556 hub_mart_draft_catalog|supabase/unapplied/hub-mart-draft-catalog/INSTALL.sql|26651177f496fe1202b6af872eceba05f1ccc7d6e3047df5b8263aad0c29ea62|
+
+
+# CODEX-265 - Native item definitions
+
+Migration20261026043859;4exactsource/ACLmatches,7controlsunchanged,allball/berryrowhashesunchanged,newauditRLStrue/browserreadfalse/rows0.10schema-onlySQLgroups;no hosted app call or actual item change. Rollback preserves item edits/audits,restores old unaudited writer and revokes new API.
+
+|Migration|Install packet|SHA256|
+|---|---|---|
+|20261026043859 hub_item_definitions|supabase/unapplied/hub-item-definitions/INSTALL.sql|d32b814ca425fa2276b98283db30b37de6f42dfa54a3752d26fac4cfe422380b|

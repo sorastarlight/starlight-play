@@ -541,6 +541,15 @@
     return extras.length ? ` + ${extras.join(", ")}` : "";
   }
 
+  function passSupplyTiming(wallet, kind) {
+    const daily = kind === 'daily', ready = wallet?.[daily ? 'dailyReady' : 'weeklyReady'];
+    const next = wallet?.[daily ? 'passDailyNextAt' : 'passWeeklyNextAt'];
+    const last = wallet?.[daily ? 'passDailyClaimedAt' : 'passWeeklyClaimedAt'];
+    const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString() : null;
+    const available = ready ? 'Available now.' : date(next) ? `Next supply: ${date(next)}.` : 'Check back for your next supply.';
+    return available + (date(last) ? ` Last claimed: ${date(last)}.` : '');
+  }
+
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
     const perks = ["25 extra inventory spaces while your Pass is active", "Daily and weekly Pass supplies"];
@@ -592,7 +601,7 @@
                 <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.dailyReady ? "Ready" : "Cooldown"}</span>
               </header>
               <p class="pass-reward-body">Daily subscriber supplies.</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ""}
-              <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
+              <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
               <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "On cooldown" : "Claim Daily Supply"}</button>
             </article>
             <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? " is-ready" : ""}${info.active && !wallet?.weeklyReady ? " is-cooldown" : ""}${!info.active ? " is-locked" : ""}">
@@ -601,7 +610,7 @@
                 <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.weeklyReady ? "Ready" : "Cooldown"}</span>
               </header>
               <p class="pass-reward-body">Weekly subscriber supplies.</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ""}
-              <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
+              <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'weekly'))}</p>
               <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "On cooldown" : "Claim Weekly Supply"}</button>
             </article>
           </div>

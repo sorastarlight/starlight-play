@@ -2,13 +2,13 @@
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
-Latest verified production: mainfb4e543b,Pages40281937581 succeeded;100monitored+4changed source matches. CODEX-269 native Twitch/avatar draft creators are live;153suites,11localSQLgroups,64rendered states. Recovery inventory58files. APP20261008-rc133 unchanged. No hosted application action or actual product/style/image edit used for verification.
+CODEX-270 Categories live at main97a36595/Pages40283817849 success;100 monitored+3 changed source matches.154 suites,5 real local SQL groups,44 responsive states/full Hub keyboard/account reset. Creates hidden shop/Twitch/avatar categories and edits all existing category types;no new SQL or actual category action.58 recovery files;APP unchanged. [Report](LAUNCH-CODEX270-NATIVE-CATEGORIES.md).
 
 | Workspace | Implemented and published | Evidence or remaining work |
 | --- | --- | --- |
 | Trainers | Directory, current roster/search/paging, stat inspector, gifts, Pass controls, direct inventory/Candy/coin/capacity corrections, exact specimen reductions, audited trade-hold repair, reviewed staff access | Local SQL/response/role/race/recovery checks. Earlier bounded hosted QA remains narrower than all newly expanded writes. No agent role change, direct correction or grant in these slices. |
 | Service Desk | Ticket queue/conversation layout, reply and internal notes, assignment/history, recovery workflow | Prior bounded hosted player/staff checks plus local populated/error/account-transition checks. Attachments/email notifications remain deferred. |
-| Items & Economy | Editing existing item/pack/Bits/avatar products, visual add/remove of supported custom product contents, category editing/order, draft creation, visual image library/uploads, native item identity/capture-effect editing,Trainer style registration/metadata/portraits/cropping,new Twitch/avatar drafts | CODEX-263 expands new single-item drafts beyond six choices. Custom bundles can be built from a hidden item draft and edited contents. Native creators now cover the existing product types. Category creation and special-category editing still need their final migration audit. No agent catalog save/upload performed. |
+| Items & Economy | Editing existing item/pack/Bits/avatar products, visual add/remove of supported custom product contents, category editing/order, draft creation, visual image library/uploads, native item identity/capture-effect editing,Trainer style registration/metadata/portraits/cropping,new Twitch/avatar drafts | CODEX-263 expands new single-item drafts beyond six choices. Custom bundles can be built from a hidden item draft and edited contents. Native creators now cover the existing product types. Native creation and editing now cover categories; exact remaining tool parity is being audited. No agent catalog save/upload performed. |
 | Starlight Pass | Visual selection of supported inventory items, family Evolution Candy and current Pokémon, quantities and Secret Gifts; reviewed daily/weekly bundles | CODEX-244 delivery/schema tests and browser fixtures. Master Balls allowed here; not in purchases. New expanded live claims/saves have not been exercised by agent. |
 | Configuration | PokéCoin rewards, Trainer XP, capture multipliers/chance/Honey, supplies, timings, evolution-rule inspection, pure spawn-rate report | Source/local acceptance. Spawn report avoids settling encounters. New writes have not been hosted-tested by agent. |
 | Operations | Live encounter observation/reviewed controls, manual and queued encounters, pause/resume/Auto, native Special Events list/details/scheduling/live actions/history | CODEX-262 source verified. Local real SQL exercises draft/schedule/cancel and fixes an existing edit ambiguity; launch/repeat generation boundary remains fictional. No production command or scheduling action invoked. |
@@ -17,7 +17,7 @@ Latest verified production: mainfb4e543b,Pages40281937581 succeeded;100monitored
 
 ## Remaining migration work
 
-1. Complete category creation/special-category metadata editing and audit remaining old tools.
+1. Audit remaining old tools and catalog validation safeguards.
 2. Audit useful calculators/simulations; retire obsolete self-grant QA instead of recreating it.
 3. Switch the old direct admin entry to the primary Hub after remaining capabilities are accounted for. The old page is still present; staff navigation already uses the primary Hub.
 4. Prepare an exact obsolete-data/schema cleanup packet for owner review. Destructive execution remains held.

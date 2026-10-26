@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-270 | done | Native category creation/all types | Full migration | Completed publication authorized |154suites;5SQLgroups;44layouts;100+3sources;no actual category action |
 | CODEX-269 | done | New Twitch/avatar drafts | Full migration | Completed publication authorized |153suites;11SQLgroups;64layouts;100+4sources;no actual create/save |
 | CODEX-268 | done | Native Trainer styles/portraits | Full migration | Completed publication authorized |152suites;11SQLgroups;44layouts;100+4sources;no actual edit/upload |
 | CODEX-267 | done | Canonical item names | Full migration | Completed publication authorized |151suites;7localSQLgroups;100+4sources;no hosted item edit |

@@ -1,5 +1,7 @@
 # Current launch readiness handoff — through CODEX-241
 
+CODEX-270 Categories live at main97a36595/Pages40283817849 success;100 monitored+3 changed source matches.154 suites,5 real local SQL groups,44 responsive states/full Hub keyboard/account reset. Creates hidden shop/Twitch/avatar categories and edits all existing category types;no new SQL or actual category action.58 recovery files;APP unchanged. [Report](LAUNCH-CODEX270-NATIVE-CATEGORIES.md).
+
 CODEX-269 newTwitch/avatar drafts live mainfb4e543b/Pages40281937581success;100+4sources,153suites,11localSQLgroups,64layouts/fullHub3producttypes/accountreset. Migration20261026064110;58recoveryfiles. Generic product saver is edit-only. No real create/save,entitlement change,upload or provider activation. Next:categories/parityaudit/entrycutover;destructivecleanupheld. [Report](LAUNCH-CODEX269-SPECIAL-PRODUCT-DRAFTS.md).
 
 CODEX-268 Trainer styles/registration/portrait crop live at mainc187927a/Pages40277311254success;100+4source matches,152suites,11localSQLgroups,44layouts/full-Hub late-account reset. Migration20261026055351;56recoveryfiles. No real style/image/product/profile edit or upload. Next:newBits/avatar drafts,legacycapabilityaudit/entrycutover,exactheldcleanup. [Report](LAUNCH-CODEX268-TRAINER-STYLES.md).

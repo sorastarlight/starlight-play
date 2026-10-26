@@ -9,3 +9,5 @@ Local evidence: 154 regression suites; five real schema-only SQL check groups co
 Publication scope is exactly `admin-next.html`, `js/admin-next-floors.js`, and `css/admin-floors.css`. Private evidence and rollback are outside Git in `security/codex270`. Recovery inventory remains 58 exact files and APP remains `20261008-rc133`. No authenticated hosted navigation, category creation/update, product action or destructive cleanup is included.
 
 Hosted source contracts rechecked before publication: category saver `2acddf09c0a18a55363e34aa67095f69`, catalog read `6c63ea0f5135ea06637e5e2a426c5dc9`, product saver `df64521c901d1410d0105378a2f1bdb3`.
+
+Published main `97a365954664a49c85a89c596ca69304f2143542`; Pages `40283817849` succeeded. All 100 monitored and three changed versioned source files match.

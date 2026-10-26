@@ -256,3 +256,9 @@ Migration20261026043859;4exactsource/ACLmatches,7controlsunchanged,allball/berry
 |Migration|Install packet|SHA256|
 |---|---|---|
 |20261026043859 hub_item_definitions|supabase/unapplied/hub-item-definitions/INSTALL.sql|d32b814ca425fa2276b98283db30b37de6f42dfa54a3752d26fac4cfe422380b|
+
+CODEX-267 20261026053518 hub-catalog-names adds two exact install/rollback files;54 total. Seven local SQL groups,exact source/ACL rollback and original archive integrity pass. No new export or hosted application call.
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261026053518 hub_catalog_names|supabase/unapplied/hub-catalog-names/INSTALL.sql|ca391956f548edf164cf40f14eca1461818592904d5e0b27eb488baadeb1ac9b|

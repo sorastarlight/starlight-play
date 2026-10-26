@@ -442,9 +442,9 @@
       const prefs = window.playEncounterSettings(data?.encounterSettings);
       const advice = Array.isArray(data?.ballAdvice) ? data.ballAdvice : [];
       const adviceMap = new Map(advice.map((row) => [row.ballId, row]));
-      const owned = window.playOwnedBalls(bag);
+      const owned = window.playOwnedBalls(bag, data?.captureItems);
       const ownedMap = new Map(owned.map((row) => [row.key, row]));
-      const infoOf = (key) => ownedMap.get(key) || window.playBallInfo?.(key) || { key, name: window.playItemLabel?.(key) || key };
+      const infoOf = (key) => ownedMap.get(key) || window.playBallInfo?.(key, data?.captureItems) || { key, name: window.playItemLabel?.(key, data?.captureItems) || key };
       let keys = Array.isArray(prefs.favoriteBalls) ? prefs.favoriteBalls.slice() : [];
       if (me.ball && me.ball !== "standard" && !keys.includes(me.ball)) keys.push(me.ball);
       keys = keys.filter((key, index, list) => key && list.indexOf(key) === index);
@@ -495,9 +495,9 @@
     if (joining && !me && joiningPending) status = "";
     else if (joining && me) status = "";
     else if (preparing && me?.prep) {
-      status = window.playStatusItem ? window.playStatusItem(me.prep) : waiting;
+      status = window.playStatusItem ? window.playStatusItem(me.prep, data?.captureItems) : waiting;
     } else if (throwing && me?.ball) {
-      status = window.playStatusBall ? window.playStatusBall(me.ball) : waiting;
+      status = window.playStatusBall ? window.playStatusBall(me.ball, data?.captureItems) : waiting;
     } else if (preparing && me) status = "";
     else if (emptyThrow) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter. Restock at the Mart.";
     else if (throwing && me && !buttons.length) status = window.PLAY_STATUS?.emptyBalls || "You don't have a Poké Ball available for this encounter.";
@@ -710,7 +710,7 @@
       <div class="enc-skip enc-hud-in">${skip.map(renderActionCard).join("")}</div>`;
     }
     if (plan.readyBall && !balls.length) {
-      const label = window.playItemLabel(plan.readyBall);
+      const label = window.playItemLabel(plan.readyBall, data?.captureItems);
       html += `<div class="enc-ready enc-hud-in" role="status">
         <p class="enc-ready-kicker">READY TO THROW</p>
         <img src="${window.playItemSprite(plan.readyBall)}" alt="">
@@ -725,7 +725,7 @@
       html += `<div class="enc-more-balls enc-hud-in">${moreBalls.map(renderActionCard).join("")}</div>`;
     }
     if (plan.used && typeof window.playUsedSummaryHtml === "function") {
-      html += window.playUsedSummaryHtml(plan.used, liveRound(data));
+      html += window.playUsedSummaryHtml(plan.used, liveRound(data), data?.captureItems);
     }
     const round = liveRound(data);
     if (round && typeof window.playCommunityResultReady === "function"
@@ -773,7 +773,7 @@
         ? "Balls you own. Recommendations come from this encounter — not a raw multiplier."
         : (window.PLAY_STATUS?.otherBallsHint || "Choose any Poké Ball from your bag.");
     }
-    const rows = window.playOwnedBalls(bag);
+    const rows = window.playOwnedBalls(bag, state?.captureItems);
     const adviceMap = new Map((state?.ballAdvice || []).map((row) => [row.ballId, row]));
     const adviceFor = (key) => {
       const rec = adviceMap.get(key);
@@ -789,7 +789,7 @@
         const disabled = throwViewOnly ? "disabled" : "";
         return `<button type="button" class="ball-tile" data-throw="${row.key}" ${disabled}>
           <img src="${window.playItemSprite(row.key)}" alt="">
-          <strong>${row.name}</strong>
+          <strong>${window.playEscapeAttr(row.name)}</strong>
           <span class="ball-rate">${adviceMap.get(row.key)?.effectiveness || row.effect || "Poké Ball"}</span>
           ${throwViewOnly ? `<span class="muted">${qty} in bag</span>` : adviceFor(row.key)}
         </button>`;
@@ -813,7 +813,7 @@
       els.throwGrid.innerHTML = rows.map((row) => `
         <button type="button" class="ball-tile" data-prep="${row.key}">
           <img src="${window.playItemSprite(row.key)}" alt="">
-          <strong>${row.name}</strong>
+          <strong>${window.playEscapeAttr(row.name)}</strong>
           <span class="ball-rate">${window.playEscapeAttr(row.description || "Helps with the catch.")}</span>
           <span class="muted">${row.qty} in bag</span>
         </button>`).join("");

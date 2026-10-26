@@ -93,10 +93,10 @@
         .replace(/</g, "&lt;");
   }
 
-  function labelOf(key) {
+  function labelOf(key, captureItems) {
     if (key === "none") return "No item";
     return typeof window !== "undefined" && root.playItemLabel
-      ? root.playItemLabel(key)
+      ? root.playItemLabel(key, captureItems)
       : key;
   }
 
@@ -243,14 +243,14 @@
     return "";
   };
 
-  root.playStatusItem = function playStatusItem(item) {
+  root.playStatusItem = function playStatusItem(item, captureItems) {
     if (!item || item === "none") return STATUS.noItem;
     if (item === "bait") return STATUS.honey;
-    return `✓ ${labelOf(item)} selected. Waiting for other Trainers…`;
+    return `✓ ${labelOf(item, captureItems)} selected. Waiting for other Trainers…`;
   };
 
-  root.playStatusBall = function playStatusBall(item) {
-    return `✓ ${labelOf(item)} selected. Waiting for other Trainers…`;
+  root.playStatusBall = function playStatusBall(item, captureItems) {
+    return `✓ ${labelOf(item, captureItems)} selected. Waiting for other Trainers…`;
   };
 
   root.playHumanRpcError = function playHumanRpcError(error, fallback) {
@@ -521,7 +521,7 @@
 
   root.playBagRowHtml = function playBagRowHtml(key, qty, captureItems, opts) {
     const options = opts || {};
-    const name = labelOf(key);
+    const name = labelOf(key, captureItems);
     const pinned = (options.pins || []).includes(key);
     const isNew = root.playIsNewItem(key, qty);
     const coins = key === "coins";
@@ -551,7 +551,7 @@
     const store = root.playItemAcquisition(key, captureItems);
     return `<div class="item-detail">
       <img class="item-sprite" src="${spriteOf(key)}" alt="">
-      <h3>${esc(labelOf(key))}</h3>
+      <h3>${esc(labelOf(key, captureItems))}</h3>
       <p class="bag-qty">Owned: ${Number(qty || 0).toLocaleString()}</p>
       <p>${esc(root.playItemPlayerText(key, captureItems))}</p>
       <p class="muted">Category: ${esc(root.playItemCategory(key))}</p>
@@ -582,11 +582,11 @@
     </aside>`;
   };
 
-  root.playUsedSummaryHtml = function playUsedSummaryHtml(me, round) {
+  root.playUsedSummaryHtml = function playUsedSummaryHtml(me, round, captureItems) {
     if (!me) return "";
-    const berry = me.prep && me.prep !== "none" && me.prep !== "bait" ? labelOf(me.prep) : "";
+    const berry = me.prep && me.prep !== "none" && me.prep !== "bait" ? labelOf(me.prep, captureItems) : "";
     const honey = me.prep === "bait" || Number(round?.baitBonusPercent || 0) > 0;
-    const ball = me.ball ? labelOf(me.ball) : "";
+    const ball = me.ball ? labelOf(me.ball, captureItems) : "";
     if (!berry && !ball && !honey) return "";
     const parts = [berry, ball, honey ? `Honey +${Number(round?.baitBonusPercent || 0)}%` : ""].filter(Boolean);
     return `<p class="enc-used enc-used-slim">${parts.map((part) => `<span>${esc(part)}</span>`).join("<i>·</i>")}</p>`;

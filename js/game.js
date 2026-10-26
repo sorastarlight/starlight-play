@@ -205,12 +205,24 @@
     { key: "goldenrazz", name: "Golden Razz Berry", sprite: "razz-berry", tier: "premium", description: "Rare, expensive catch help. Save it for Pokémon you really want." }
   ];
 
-  window.playItemLabel = function playItemLabel(item) {
-    return ITEM_LABELS[item] || item;
+  function liveItemName(key, captureItems) {
+    const rows = [captureItems?.balls, captureItems?.berries];
+    for (const list of rows) {
+      if (!Array.isArray(list)) continue;
+      const name = list.find((row) => row?.key === key)?.name;
+      if (typeof name === "string" && name.trim()) return name.trim();
+    }
+    return "";
+  }
+
+  window.playItemLabel = function playItemLabel(item, captureItems) {
+    return liveItemName(item, captureItems) || ITEM_LABELS[item] || item;
   };
 
-  window.playBallInfo = function playBallInfo(key) {
-    return (window.PLAY_BALLS || []).find((row) => row.key === key) || null;
+  window.playBallInfo = function playBallInfo(key, captureItems) {
+    const row = (window.PLAY_BALLS || []).find((row) => row.key === key) || null;
+    const name = liveItemName(key, captureItems);
+    return row && name ? { ...row, name } : row;
   };
 
   window.playBerryCatalog = function playBerryCatalog(captureItems) {
@@ -556,8 +568,9 @@
     };
   }
 
-  window.playOwnedBalls = function playOwnedBalls(bag) {
-    return (window.PLAY_BALLS || []).filter((row) => Number(bag?.[row.key] || 0) > 0);
+  window.playOwnedBalls = function playOwnedBalls(bag, captureItems) {
+    return (window.PLAY_BALLS || []).filter((row) => Number(bag?.[row.key] || 0) > 0)
+      .map((row) => window.playBallInfo(row.key, captureItems));
   };
 
   window.playEncounterSettings = function playEncounterSettings(raw) {
@@ -574,8 +587,8 @@
     };
   };
 
-  window.playFavoriteBalls = function playFavoriteBalls(bag, settings) {
-    const owned = window.playOwnedBalls(bag);
+  window.playFavoriteBalls = function playFavoriteBalls(bag, settings, captureItems) {
+    const owned = window.playOwnedBalls(bag, captureItems);
     const prefs = window.playEncounterSettings(settings);
     const picked = prefs.favoriteBalls
       .map((key) => owned.find((row) => row.key === key))

@@ -469,6 +469,19 @@
           "sha256": "c657250c88bbe98f37b6cad1250c916a5aa5fd2249f7f3fc5def55217f03bf9c"
         }
       ]
+    },
+    {
+      "version": "20261026190657",
+      "files": [
+        {
+          "file": "supabase/unapplied/pc-item-storage/INSTALL.sql",
+          "sha256": "311c7b7bb455f22da959cccaea064e86938f3aca2f243a38b11dd6308affd1e1"
+        },
+        {
+          "file": "supabase/unapplied/pc-item-storage/ROLLBACK.sql",
+          "sha256": "487abc178aa65ad427a02021a720f620acd03423347d9f1bed495e52c3ea5568"
+        }
+      ]
     }
   ]
 }

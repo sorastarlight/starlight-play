@@ -83,3 +83,6 @@ supabase/migrations/*_hub_planning.sql text eol=lf
 
 supabase/unapplied/berry-catch-drops/*.sql text eol=lf
 supabase/migrations/*_berry_catch_rewards_disabled.sql text eol=lf
+
+supabase/unapplied/pc-item-storage/*.sql text eol=lf
+supabase/migrations/*_pc_item_storage_and_reward_overflow.sql text eol=lf

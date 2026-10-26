@@ -1,0 +1,11 @@
+const assert=require('node:assert/strict');const {rows,cards,create}=require('../js/pc-items');
+const data={ok:true,bag:{pokeball:3,berry:0},stored:{pokeball:4,goldenrazz:2},used:3,capacity:20};
+assert.equal(rows(data).length,2);assert.equal(rows(data,'golden').length,1);
+assert(cards(data,'',()=>'<unsafe>',()=>'/sprite.png').includes('&lt;unsafe&gt;'));
+assert(!cards(data,'',()=>'<unsafe>',()=>'/sprite.png').includes('<unsafe>'));
+assert(cards({...data,used:20},'',k=>k,()=>'/sprite.png').includes('data-move="withdraw" disabled'));
+async function run(){let handler,account='a',resolve,transfers=0;const status={textContent:'',focus(){}},retry={hidden:true,disabled:false,focus(){}},input={value:'2',disabled:false},card={dataset:{item:'pokeball'},querySelector:()=>input},button={dataset:{move:'deposit'},disabled:false,closest:()=>card};const el={innerHTML:'',addEventListener:(n,fn)=>{if(n==='click')handler=fn;},querySelector:s=>s==='[data-pc-status]'?status:retry,querySelectorAll:()=>[button,input,retry]};
+ const api=create(el,{client:{auth:{getSession:async()=>({data:{session:{user:{id:account}}}})}},call:async name=>{if(name==='play_pc_items')return data;transfers++;return new Promise(r=>resolve=r);},uuid:()=> 'fixed'});await api.load('a');assert(el.innerHTML.includes('Item storage'));
+ const event={target:{closest:s=>s==='[data-move]'?button:null}};const pending=handler(event);await new Promise(r=>setImmediate(r));await handler(event);assert.equal(transfers,1);account='b';api.reset();resolve({ok:true,direction:'deposit',quantity:2,item:'pokeball'});await pending;assert.equal(el.innerHTML,'');
+ console.log('PASS PC items: search, escaping, capacity, duplicate click and account change');
+}run().catch(e=>{console.error(e);process.exitCode=1;});

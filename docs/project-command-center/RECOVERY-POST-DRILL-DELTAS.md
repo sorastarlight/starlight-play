@@ -304,3 +304,5 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 |20261026125452 pass_availability_display|supabase/unapplied/pass-availability-display/INSTALL.sql|b3bec52b20f263fd7ebdec8fe4ad0c1815ae8190039ee2a50e9a853adf686042|
 
 |20261026183846 berry_catch_rewards_disabled|supabase/unapplied/berry-catch-drops/INSTALL.sql|64044bcff266fd82e9d24d8008e689b97611959e8370f0dc076343082edb577c|
+
+|20261026190657 pc_item_storage_and_reward_overflow|supabase/unapplied/pc-item-storage/INSTALL.sql|311c7b7bb455f22da959cccaea064e86938f3aca2f243a38b11dd6308affd1e1|

@@ -1,0 +1,97 @@
+{
+  "checks": 17,
+  "poolItems": 68,
+  "hashes": [
+    {
+      "signature": "private.grant_items(uuid,jsonb,text,text,text,boolean)",
+      "hash": "a5f02ee26d074e56bfd2d7479fab49de",
+      "acl": null
+    },
+    {
+      "signature": "private.deliver_berry_drop(uuid,uuid)",
+      "hash": "73d0c23227473d8ef45ecb41c6d49854",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "admin_gift_joined(text)",
+      "hash": "0d3e66e1ea439f90da72262a1a80b8e9",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "admin_grant_bits_pack(text,text)",
+      "hash": "b1875e0147ce9a3e45562acd45f2077a",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "bridge_grant_bits_pack(text,text,text)",
+      "hash": "249683c120a8c03f43b0709e0d0025d3",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "credit_bits_from_twitch(text,text,text,integer)",
+      "hash": "c9eefeb68b80705487459b5517f006dc",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "credit_bits_from_twitch(text,text,text,integer,text)",
+      "hash": "e9ca15b26174c4063791cdcda15a9707",
+      "acl": "{postgres=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.flush_bits_pending(uuid)",
+      "hash": "3c3c66dc52cb382bc11bb818d2981aa7",
+      "acl": null
+    },
+    {
+      "signature": "private.grant_starter_kit(uuid)",
+      "hash": "55bb1041f72af4efbae2974d41dfaba9",
+      "acl": null
+    },
+    {
+      "signature": "play_claim_choice(text,text)",
+      "hash": "e5fd8bba028db0c36514cd304c7b0bd1",
+      "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.roll_gameplay_loot(uuid,text,text,text,text,numeric,text,jsonb)",
+      "hash": "27b16c4ee3e5d6686c924b5b2efb3a06",
+      "acl": null
+    },
+    {
+      "signature": "private.pc_item_location(text)",
+      "hash": "b280cd41c3f5c675c132723e747215b1",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_bag_adjust(uuid,text,integer)",
+      "hash": "f2c86c572409ed0e4b93402e8716567c",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_store_items(uuid,text,integer,text)",
+      "hash": "1e32709b0c6b19ec7a2fcfb77d8aa825",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_deliver_items(uuid,jsonb,text)",
+      "hash": "bf414cd7c65bc77f83ef8ba68faae90a",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_import_catch_rewards(uuid)",
+      "hash": "a969e2b230cb3cf23b286692f23ccfb2",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "public.play_pc_items()",
+      "hash": "6aa85fe12e5f7a957a6a468a8aec9a68",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "public.play_pc_item_transfer(uuid,text,text,integer)",
+      "hash": "59b51fe9251f66061f56cdc97a081e75",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    }
+  ],
+  "productionCalls": false
+}

@@ -2852,3 +2852,4 @@ PC item box publication complete: main 57612536, Pages40388312647, six source ma
 PC-STORAGE-POLISH publication: main7b90ae50,Pages40397191284;all eight hosted runtime sources exactly match. Featureb0dc1129. No hosted transfer or Pokemon action.
 
 2026-10-26 PC dragging follow-up: immediate optimistic arrangement, serialized background saves, no success redraw/disabled flicker, Pokemon-style drag targets.166 suites and delayed-response rendered pointer test pass. No SQL/player writes.
+PC immediate-drag publication complete: main e4ae76f7, Pages40397884225 success, exact hosted js/pc-items.js source match. Feature1ce3661c;APP unchanged;no hosted player calls.

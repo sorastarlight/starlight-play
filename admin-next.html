@@ -21,6 +21,7 @@
 <link rel="stylesheet" href="css/admin-session.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/support.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/admin-reward-picker.css?v=20261008-rc133">
+<link rel="stylesheet" href="css/admin-events.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/admin-corrections.css?v=20261008-rc133">
 <link rel="stylesheet" href="css/admin-workspaces.css?v=20261008-rc133">
 <body data-page="admin-next">
@@ -86,14 +87,15 @@
           <button type="button" role="tab" id="next-tab-mart" aria-controls="next-panel-mart" tabindex="-1" data-next-tab="mart">Items &amp; Economy</button>
           <button type="button" role="tab" id="next-tab-config" aria-controls="next-panel-config" tabindex="-1" data-next-tab="config">Game Configuration</button>
           <button type="button" role="tab" id="next-tab-analytics" aria-controls="next-panel-analytics" tabindex="-1" data-next-tab="analytics">Analytics &amp; Health</button>
-          <button type="button" role="tab" id="next-tab-system" aria-controls="next-panel-system" tabindex="-1" data-next-tab="system">System &amp; Access</button>
+          <button type="button" role="tab" id="next-tab-system" aria-controls="next-panel-system" tabindex="-1" data-next-tab="system">Connections</button>
         </div>
       </aside>
       <div class="hub-main">
         <section id="next-panel-operations" role="tabpanel" aria-labelledby="next-tab-operations" tabindex="0" class="hub-card admin-next-panel admin-next-ops" data-next-panel="operations">
           <p class="eyebrow">Operations · session controls</p>
-          <h2>Live Operations overview</h2>
+          <h2>Live Operations</h2>
           <p class="admin-next-lifecycle">Start the RPG session when the stream is live. Twitch going live does not start the RPG automatically. Going offline ends it automatically. Review changes before confirming.</p>
+          <div class="hub-workspaces" data-workspaces aria-label="Operations tools"><section data-workspace="Live encounters">
           <p id="next-ops-status" class="muted" role="status">Live status is unavailable. Reload Operations to try again.</p>
           <p id="next-ops-freshness" class="admin-next-freshness">No confirmed observation yet.</p>
           <div id="next-ops-metrics" class="admin-next-ops-grid admin-next-metrics">
@@ -103,7 +105,7 @@
           </div>
           
           <div id="next-session-controls"></div>
-          <div id="next-operations-controls"></div>
+          <div id="next-operations-controls"></div></section><section data-workspace="Special Events"><div id="next-special-events"></div></section></div>
 
         </section>
         <section id="next-panel-trainers" role="tabpanel" aria-labelledby="next-tab-trainers" tabindex="0" class="hub-card admin-next-panel admin-next-trainers-panel" data-next-panel="trainers" hidden>
@@ -202,6 +204,7 @@
 <script src="js/build-client.js?v=20261008-rc133"></script>
 <script src="js/auth.js?v=20261008-rc133"></script>
 <script src="js/variants.js?v=20261008-rc133"></script>
+<script src="js/forms.js?v=20261008-rc133"></script>
 <script src="js/evolution-candy-png.js?v=20261008-rc133"></script>
 <script src="js/game.js?v=20261008-rc133"></script>
 <script src="js/play-encounter-state.js?v=20261008-rc133"></script>
@@ -237,6 +240,7 @@
 <script src="js/admin-reward-bundles.js?v=20261008-rc133"></script>
 <script src="js/admin-reward-picker.js?v=20261008-rc133"></script>
 <script src="js/admin-pass-editor.js?v=20261008-rc133"></script>
+<script src="js/admin-special-events.js?v=20261008-rc133"></script>
 <script src="js/admin-spawn-rules.js?v=20261008-rc133"></script>
 <script src="js/admin-assets.js?v=20261008-rc133"></script>
 <script src="js/admin-evolution-rules.js?v=20261008-rc133"></script>

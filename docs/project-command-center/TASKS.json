@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-268",
+      "status": "done",
+      "scope": "Native Trainer styles,registered sprite creation,portrait assignment/cropping",
+      "evidence": "LAUNCH-CODEX268-TRAINER-STYLES.md",
+      "testResults": "152suites;11localSQLgroups;44layouts;fullHub/accountreset;100+4sources;Pages40277311254success",
+      "nextAction": "New Bits/avatar drafts;parityaudit/entrycutover;exactheldcleanup",
+      "approvalRequirement": "Owner full migration/publication authorized;no actual staff edits/uploads"
+    },
+    {
       "id": "CODEX-267",
       "status": "done",
       "scope": "Catalogue names in core rewards and player Bag/encounter labels",

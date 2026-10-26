@@ -1,5 +1,7 @@
 # Current launch readiness handoff — through CODEX-241
 
+CODEX-268 Trainer styles/registration/portrait crop live at mainc187927a/Pages40277311254success;100+4source matches,152suites,11localSQLgroups,44layouts/full-Hub late-account reset. Migration20261026055351;56recoveryfiles. No real style/image/product/profile edit or upload. Next:newBits/avatar drafts,legacycapabilityaudit/entrycutover,exactheldcleanup. [Report](LAUNCH-CODEX268-TRAINER-STYLES.md).
+
 CODEX-267 catalogue names live at main6ebf0480/Pages40275184399success;100+4source matches,151suites,7localSQLgroups,16componentlayouts. Migration20261026053518 source/ACL and unchanged item/product digests verified.54recoveryfiles. Next:appearance/crop tooling,newBits-avatar creation,entrycutover,exactheldcleanup. [Report](LAUNCH-CODEX267-CATALOGUE-NAMES.md).
 
 CODEX-266 current:compact product tabs,bounded76-item list,visual custom contents add/remove and Pass Secret Gifts preserved. Maine7af3b22/Pages40273574587 succeeded;100+5sources,150suites,5localSQLgroups,48layouts/fullHubrouting/reset. No new backend/SQL or actual product/player mutation. Continue name propagation/new Bits-avatar creation/appearance tools/entry cutover. Master1 empty hidden placeholder is cleanup-review scope only. [Report](LAUNCH-CODEX266-PRODUCT-CONTENTS.md).

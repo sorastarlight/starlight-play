@@ -378,6 +378,19 @@
           "sha256": "a5e74733f7ea47da8ddb2ff6dd07b561b6ae347c0d50d79b1b23b76d3550ae75"
         }
       ]
+    },
+    {
+      "version": "20261026071051",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-avatar-publication/INSTALL.sql",
+          "sha256": "5d43a90831b7baf5dcd25d9d5d516137223988adf9e8da78c70e8b8ab9019c01"
+        },
+        {
+          "file": "supabase/unapplied/hub-avatar-publication/ROLLBACK.sql",
+          "sha256": "83c5e5db106ce4b9be68c75270bf44dde379fe97914ab0b978797dfc92935b5c"
+        }
+      ]
     }
   ]
 }

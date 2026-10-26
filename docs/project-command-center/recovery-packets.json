@@ -495,6 +495,19 @@
           "sha256": "98aa061fea25157c97d6b19fac9af8e2bb7ffa93252e01e288e328a394619b03"
         }
       ]
+    },
+    {
+      "version": "20261026195430",
+      "files": [
+        {
+          "file": "supabase/unapplied/owner-self-gifts/INSTALL.sql",
+          "sha256": "63fffb5fdedbafb7c004278964c9202d70bd3b8ad892971d91a23549e7990413"
+        },
+        {
+          "file": "supabase/unapplied/owner-self-gifts/ROLLBACK.sql",
+          "sha256": "c32372daa24431385fbc609651fd9c25778dc4e68c15ba58d458b825fa440cf8"
+        }
+      ]
     }
   ]
 }

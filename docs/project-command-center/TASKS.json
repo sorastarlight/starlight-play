@@ -4,6 +4,13 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "OWNER-SELF-GIFTS",
+      "status": "in_progress",
+      "scope": "Owner-only self-gifts and approved PC test assortment",
+      "evidence": "supabase/unapplied/owner-self-gifts/README.md",
+      "nextAction": "Publish UI and deliver exact assortment via owner session"
+    },
+    {
       "id": "PC-ITEM-STORAGE",
       "status": "done",
       "scope": "My PC item deposits, withdrawals and automatic reward overflow",

@@ -180,7 +180,7 @@ Migration20261025225608 retires one unused client credential-storage branch whil
 |20261025225608 retire_unvalidated_ads_token_route|supabase/unapplied/retired-ads-token-route/INSTALL.sql|4d3c946872b91728cda5def55b299712909a8d18f2885ac295a90ac20c221bb2|
 
 
-## CODEX-250 — System connections
+## CODEX-250 ï¿½ System connections
 
 Source-guarded connection migration; all five installed definitions match locally tested candidates. Audit has RLS, no browser read and zero rows. Rollback preserves current credentials/settings/audit and disables new APIs. No hosted key/channel/token action invoked.
 
@@ -308,3 +308,5 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 |20261026190657 pc_item_storage_and_reward_overflow|supabase/unapplied/pc-item-storage/INSTALL.sql|311c7b7bb455f22da959cccaea064e86938f3aca2f243a38b11dd6308affd1e1|
 
 |20261026193431 pc_item_box_slots|supabase/unapplied/pc-item-box/INSTALL.sql|1583f42cc459bf463c3871f42d1d415e40baf28d394958b4b63d83dcf9afd7b4|
+
+|20261026195430 owner_self_gifts|supabase/unapplied/owner-self-gifts/INSTALL.sql|63fffb5fdedbafb7c004278964c9202d70bd3b8ad892971d91a23549e7990413|

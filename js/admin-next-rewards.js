@@ -145,7 +145,12 @@
       if(!current())return;
       ctx.data=data;
       slot.innerHTML=`<p role="status" data-reward-status></p>${pane==="pass"?passHtml(data):giftHtml(data)}<button type="button" class="secondary" data-reward-retry hidden>Retry the same request</button>`;
-      if(data.canWrite===false){slot.querySelectorAll('form').forEach(form=>form.remove());status("Protected trainer: account changes require separately scoped authorization.");}
+      if(data.canWrite===false){
+        if(pane!=="pass"&&data.canSelfGift===true){
+          slot.querySelectorAll('[name="gift_kind"] option').forEach(option=>{if(!["item","pokemon"].includes(option.value))option.remove();});
+          status("Owner self-gifts: Pokémon and items only.");
+        }else{slot.querySelectorAll('form').forEach(form=>form.remove());status("Protected trainer: account changes require separately scoped authorization.");}
+      }
     }
     async function send(intent){
       if(!current()||ctx.busy)return;

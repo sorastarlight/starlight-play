@@ -1,6 +1,6 @@
 # CODEX-257 — Native reviewed Twitch ad controls
 
-Status: locally complete; exact four-file publication/source verification pending.
+Status: LIVE at mainda805cae246dbb7d3dc79cd8874bbdd800a19a00;Pages40248494174success.100 monitored and all four changed versioned sources match. No actual provider request or credential change was performed.
 
 System / Twitch Ads now separates saved timing reads from actual Twitch requests. Owner-visible controls review connection, schedule refresh and a five-minute snooze. Connecting uses the existing same-tab Supabase Twitch flow and exactly the existing email/subscription/ad-read/ad-management scopes. Its ten-minute session-only approval contains the actor, nonce and public channel revision,never provider tokens. Callback handling verifies the same actor/channel,consumes the matching approval before transmission,opens the correct workspace and sends one connection request. A stale callback cannot erase a newer valid approval. Missing/browser-blocked storage refuses consent opening with actionable feedback.
 

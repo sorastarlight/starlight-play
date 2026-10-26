@@ -369,3 +369,6 @@ CODEX254 LIVE: migration20261025233857;main5b2c60bb;Pages40245719723success;100+
 
 
 CODEX256 LIVE: migration20261025234842;main54e3b3d8;Pages40246446510success;100+3sources;140suites;11SQLgroups;12layouts;4source/ACLmatches;correctionaudit0;42recoveryfiles. Blind unlock retired;personal locks/favorites retained;active trades/live cooldown/protected accounts refuse. No hosted repair. Two migrated editor files have a local Unicode correction pending routine publication.
+
+
+CODEX255 LIVE: main89c31c7a;Pages40246842618success;100+2sources;UTF8 restored;noSQL. CODEX257 LIVE: mainda805cae;Pages40248494174success;100+4sources;141suites;12loaded owner/moderator/errorlayouts;simulatedSDKreturnoneuse;heldownerresponsecannotrestorecontrols;TwitchAdsV2JWT/sourceunchanged;6sensitivehelpersserviceonly. No actual provider/Auth setting/credential/ad/notice/gameplay action.42recoveryfiles;post-changephysicalbackupstilldueOct26~07:44UTC. Continue staff access/content/asset parity and primary entry switch;destructivecleanup and paidBitsactivationheld.

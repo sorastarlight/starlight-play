@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-257",
+      "status": "done",
+      "scope": "Native reviewed Twitch Ads consent,refresh and snooze controls",
+      "evidence": "LAUNCH-CODEX257-TWITCH-AD-CONTROLS.md",
+      "testResults": "141 suites;12loaded responsive role/errorstates;mockedSDKreturn/accountswitch;JWTsource unchanged;6serviceonlyhelpers;Pages40248494174success;100+4sources",
+      "nextAction": "Staff access,content/asset parity and primary Hub entry switch;realprovideracceptanceheld",
+      "approvalRequirement": "Full migration/completed go-live authorized;no real provider action"
+    },
+    {
       "id": "CODEX-255",
       "status": "done",
       "scope": "Restore accented labels and punctuation in two migrated editors",

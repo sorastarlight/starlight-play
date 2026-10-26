@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-257 | done | Native reviewed Twitch Ads controls | Full migration | Completed go-live authorized | Pages40248494174success;100+4sources;realprovider test pending |
 | CODEX-255 | done | Editor Unicode text correction | Routine maintenance | CODEX78/full migration | Pages40246842618success;100+2sources |
 | CODEX-256 | done | Audited expired trade hold repair | Owner full migration | Legacy replacement authorized | Migration20261025234842;Pages40246446510success;100+3sources |
 | CODEX-254 | done | Direct Pokemon species quantity corrections | Owner expanded corrections | Completed go-live authorized | Migration20261025233857;Pages40245719723success;100+2sources |

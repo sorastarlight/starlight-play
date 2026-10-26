@@ -18,6 +18,7 @@
       "help.html",
       "index.html",
       "inventory.html",
+      "notifications.html",
       "pokedex.html",
       "rankings.html",
       "register.html",
@@ -26,8 +27,8 @@
       "signin.html",
       "storage.html",
       "store.html",
-      "trainer.html",
-      "trade.html"
+      "trade.html",
+      "trainer.html"
     ]
   },
   "exceptions": [

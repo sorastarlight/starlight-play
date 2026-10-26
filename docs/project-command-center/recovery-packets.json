@@ -417,6 +417,32 @@
           "sha256": "fcab985d9c3e60430dd0dad3163c1fa97e8502eace69b9ebf36d3bcb8a9583b7"
         }
       ]
+    },
+    {
+      "version": "20261026122406",
+      "files": [
+        {
+          "file": "supabase/unapplied/admin-battle-stats-display/INSTALL.sql",
+          "sha256": "62a44f30fb6dfc9a67702e6770ea559d14af4fd7725cc0d174e786b74c9985b7"
+        },
+        {
+          "file": "supabase/unapplied/admin-battle-stats-display/ROLLBACK.sql",
+          "sha256": "6c8a5cb25a006507c80405b39282cd7403980b13c6e73b03c6763a9c90d3c900"
+        }
+      ]
+    },
+    {
+      "version": "20261026123549",
+      "files": [
+        {
+          "file": "supabase/unapplied/trainer-notifications/INSTALL.sql",
+          "sha256": "2eb579206ec5c4d4a1744360d54230b764d1cb825906fec015d1066254c3eb27"
+        },
+        {
+          "file": "supabase/unapplied/trainer-notifications/ROLLBACK.sql",
+          "sha256": "19258d296683bfe09efdaee052a45e7e8f5abee461fbe4ab025e8310e7acaf69"
+        }
+      ]
     }
   ]
 }

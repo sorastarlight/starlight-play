@@ -182,20 +182,14 @@
   }
 
   function addButton(sku, { avatar } = {}) {
-    const attr = avatar ? `data-avatar-sku="${esc(sku)}"` : `data-sku="${esc(sku)}"`;
     const item = findSku(sku);
     const cost = Number(item?.cost || 0);
     const coins = Number(lastWallet?.coins || 0);
     const short = Boolean(lastWallet) && coins < cost;
     const need = short ? `You need ${money(cost - coins)} more PokéCoins.` : "";
-    const qty = avatar || item?.pack
-      ? ""
-      : `<span class="mart-qty-adds">
-          <button type="button" class="secondary" ${attr} data-add-qty="1">+1</button>
-          <button type="button" class="secondary" ${attr} data-add-qty="5">+5</button>
-          <button type="button" class="secondary" ${attr} data-add-qty="10">+10</button>
-        </span>`;
-    return `${qty}<button type="button" class="mart-add" ${attr}${short ? " disabled" : ""}>${short ? "Need more PokéCoins" : "Add to checkout"}</button>${need ? `<p class="mart-cart-warn">${need}</p>` : ""}`;
+    const count = cart.find(row => row.sku === sku)?.qty || 0;
+    const qty = `<div class="mart-product-quantity" data-product-quantity="${esc(sku)}"><button type="button" class="secondary" data-product-step="-1" data-product-sku="${esc(sku)}" aria-label="Remove one ${esc(displayName(item))} from cart">−</button><input type="number" min="0" max="${item?.pack ? 1 : CART_MAX_QTY}" step="1" value="${count}" data-product-count="${esc(sku)}" aria-label="${esc(displayName(item))} quantity in cart"><button type="button" class="secondary" data-product-step="1" data-product-sku="${esc(sku)}" aria-label="Add one ${esc(displayName(item))} to cart">+</button></div>`;
+    return `${qty}<p class="mart-product-feedback" role="status" data-product-feedback="${esc(sku)}">${count ? `${count} in cart` : "Not in cart"}</p><p class="mart-cart-warn" data-product-warning="${esc(sku)}">${need || "&nbsp;"}</p>`;
   }
 
   function cartIconHtml(className) {
@@ -455,7 +449,7 @@
     if (!dialog) return;
     const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
     const key = row.key || grantKey(row);
-    const purpose = purposeText(row, mode);
+    const purpose = row.identity?.collector ? "This is a rare Poké Ball for collectors. Catch power matches a Poké Ball." : purposeText(row, mode);
     const info = typeof window.playMartDetailParts === "function" ? window.playMartDetailParts(row) : { parts: [] };
     const grants = isPackProduct(row) || mode === "bits" ? grantListHtml(row) : "";
     const uses = useLinesHtml(row);
@@ -487,10 +481,8 @@
     const row = mode === "balls" ? ballView(item) : withLureBlurb(item);
     const sprite = art(row, row.key || row.sku || grantKey(row));
     const action = mode === "bits" ? "" : addButton(row.sku);
-    const purpose = purposeText(row, mode);
-    const details = detailWorthShowing(row, mode)
-      ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>`
-      : `<span class="mart-more-spacer" aria-hidden="true"></span>`;
+    const purpose = row.identity?.collector ? "This is a rare Poké Ball for collectors. Catch power matches a Poké Ball." : purposeText(row, mode);
+    const details = "";
     const collector = row.identity?.collector ? `<span class="studio-chip">Collector</span>` : "";
     return `
       <article class="mart-card${mode === "bits" ? " is-bits" : ""}${row.sku === "radar1" || row.sku === "lure1" ? " is-radar" : ""}${row.featured ? " is-featured" : ""}">
@@ -551,7 +543,7 @@
 
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
-    const perks = ["25 extra inventory spaces while your Pass is active", "A daily gift and a weekly crate"];
+    const perks = ["25 extra inventory spaces while your Pass is active", "Daily and weekly Pass supplies"];
     const title = floor.name || "Starlight Pass";
     const day = Math.max(1, Math.min(7, Number(wallet?.dailyStreakDay || 1)));
     const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
@@ -594,23 +586,23 @@
               <p class="pass-time-note">Daily supplies reset at midnight Eastern. A cooldown also applies between claims.</p>
               <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? "" : " disabled"}>${supplyReady ? "Claim Supply" : supplyCooldown ? "On cooldown" : "Claimed"}</button>
             </article>
-            <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? " is-ready" : ""}${info.active && !wallet?.dailyReady ? " is-claimed" : ""}${!info.active ? " is-locked" : ""}">
+            <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? " is-ready" : ""}${info.active && !wallet?.dailyReady ? " is-cooldown" : ""}${!info.active ? " is-locked" : ""}">
               <header class="pass-reward-head">
-                <p class="eyebrow">Pass Daily Gift</p>
+                <p class="eyebrow">Pass Daily Supply</p>
                 <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.dailyReady ? "Ready" : "Cooldown"}</span>
               </header>
-              <p class="pass-reward-body">Subscriber daily gift (about every 20 hours).</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ""}
+              <p class="pass-reward-body">Daily subscriber supplies.</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ""}
               <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
-              <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "On cooldown" : "Claim Daily Gift"}</button>
+              <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "On cooldown" : "Claim Daily Supply"}</button>
             </article>
-            <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? " is-ready" : ""}${info.active && !wallet?.weeklyReady ? " is-claimed" : ""}${!info.active ? " is-locked" : ""}">
+            <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? " is-ready" : ""}${info.active && !wallet?.weeklyReady ? " is-cooldown" : ""}${!info.active ? " is-locked" : ""}">
               <header class="pass-reward-head">
-                <p class="eyebrow">Pass Weekly Crate</p>
+                <p class="eyebrow">Pass Weekly Supply</p>
                 <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.weeklyReady ? "Ready" : "Cooldown"}</span>
               </header>
-              <p class="pass-reward-body">Subscriber weekly crate (about every 6 days).</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ""}
+              <p class="pass-reward-body">Weekly subscriber supplies.</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ""}
               <p class="pass-time-note">Uses the Pass cooldown — not the midnight Eastern reset.</p>
-              <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "On cooldown" : "Claim Weekly Crate"}</button>
+              <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "On cooldown" : "Claim Weekly Supply"}</button>
             </article>
           </div>
           <div class="pass-footer-row">
@@ -645,7 +637,7 @@
       if (mode === "bits") extra = grantListHtml(row);
     }
     const mark = item.featured ? "Featured" : "Special";
-    const purpose = purposeText(row, mode);
+    const purpose = row.identity?.collector ? "This is a rare Poké Ball for collectors. Catch power matches a Poké Ball." : purposeText(row, mode);
     return `<article class="mart-featured${item.featured ? " is-glow" : ""}">
       <div class="mart-featured-art${artClass}" aria-hidden="true">
         <img src="${esc(sprite)}" alt="">
@@ -658,7 +650,7 @@
       </div>
       <div class="mart-featured-actions mart-price">
         <div class="mart-card-price">${costHtml(row, mode === "avatars" ? "coins" : mode)}</div>
-        ${detailWorthShowing(row, mode) ? `<button type="button" class="secondary mart-more" data-mart-detail="${esc(row.sku)}" data-mart-mode="${esc(mode)}">Details</button>` : `<span class="mart-more-spacer" aria-hidden="true"></span>`}
+
         ${action || `<span class="mart-add-spacer" aria-hidden="true"></span>`}
       </div>
     </article>`;
@@ -1152,6 +1144,9 @@
   }
 
   function syncCheckoutUi({ bump } = {}) {
+    document.querySelectorAll('[data-product-count]').forEach(input => { const count=cart.find(row=>row.sku===input.dataset.productCount)?.qty||0; if(document.activeElement!==input)input.value=count; });
+    document.querySelectorAll('[data-product-feedback]').forEach(el=>{const count=cart.find(row=>row.sku===el.dataset.productFeedback)?.qty||0;el.textContent=count?`${count} in cart`:'Not in cart';});
+    document.querySelectorAll('[data-product-warning]').forEach(el=>{const sku=el.dataset.productWarning,item=findSku(sku),count=cart.find(row=>row.sku===sku)?.qty||1,short=Number(item?.cost||0)*count-Number(lastWallet?.coins||0);el.textContent=lastWallet&&short>0?`You need ${money(short)} more PokéCoins.`:'\u00a0';});
     const tab = els.floors?.querySelector(".mart-tab-checkout");
     if (tab) {
       tab.innerHTML = checkoutTabLabel();
@@ -1201,6 +1196,7 @@
       const row = cart.find((entry) => entry.sku === sku);
       const cap = item?.pack ? 1 : CART_MAX_QTY;
       if (row) row.qty = Math.min(cap, next);
+      else if(item && !Number(item.bits) && !(item.pack && (lastOwned||[]).includes(item.pack))) cart.push({sku,qty:Math.min(cap,next)});
     }
     saveCart();
     syncCheckoutUi();
@@ -1465,6 +1461,8 @@
       openMartDetail(findSku(more.dataset.martDetail), more.dataset.martMode);
       return;
     }
+    const step = event.target.closest('[data-product-step]');
+    if(step){const sku=step.dataset.productSku;setCartQty(sku,(cart.find(row=>row.sku===sku)?.qty||0)+Number(step.dataset.productStep));return;}
     const add = event.target.closest("button[data-sku], button[data-avatar-sku]");
     if (add) {
       const sku = add.dataset.sku || add.dataset.avatarSku;
@@ -1630,10 +1628,13 @@
     if (event.target === els.ballModal) els.ballModal.close("cancel");
   });
   els.ballGrid?.addEventListener("click", (event) => {
+    const step=event.target.closest("[data-product-step]");
+    if(step){const sku=step.dataset.productSku;setCartQty(sku,(cart.find(row=>row.sku===sku)?.qty||0)+Number(step.dataset.productStep));return;}
     const add = event.target.closest("button[data-sku]");
     if (add) addToCheckout(add.dataset.sku);
   });
 
+  document.addEventListener('change',event=>{const input=event.target.closest('[data-product-count]');if(!input)return;const n=Number(input.value);if(!Number.isSafeInteger(n)||n<0){input.value=cart.find(row=>row.sku===input.dataset.productCount)?.qty||0;return;}setCartQty(input.dataset.productCount,n);input.value=cart.find(row=>row.sku===input.dataset.productCount)?.qty||0;});
   supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
   load();
 })();

@@ -303,7 +303,7 @@
     if (els.trainerDetail) window.PLAY_SUPPORT?.unmount(els.trainerDetail.querySelector("[data-support-trainer]"));
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
     if (view.pane === "pokemon" && view.user && window.PLAY_ADMIN_ROSTER) roster = window.PLAY_ADMIN_ROSTER.mount(els.trainerDetail?.querySelector('[data-trainer-roster]'),view.user.id,window.PLAY_ADMIN_ROSTER.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,call:(_name,args)=>window.playCall("admin_trainer_pokemon",args)}),trainersUi);
-    if (view.pane === "corrections" && view.user && window.PLAY_TRAINER_CORRECTIONS) {
+    if (view.pane === "inventory" && view.user && window.PLAY_TRAINER_CORRECTIONS) {
       const api=window.PLAY_TRAINER_CORRECTIONS;
       corrections=api.mount(els.trainerDetail?.querySelector('[data-trainer-corrections]'),api.adapter({
         session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,

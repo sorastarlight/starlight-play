@@ -296,3 +296,7 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 62exact recovery files. Two existing estimate functions replaced;new staff choices handler/private log-free helper. Live gameplay loot helper untouched. Six real local SQL groups include all five estimates in READ ONLY,19 pinned sources,zero-price affordability and exact rollback. No production application/report/estimate called;product/style/config digests unchanged.
 
 |20261026112826 hub_account_signin_guard|supabase/unapplied/hub-account-signin-guard/INSTALL.sql|3fbc0235020eda258b4ea88ba027882ff20049a82432c1a1ecd131afb8f5630c|
+
+|20261026122406 admin_battle_stats_display|supabase/unapplied/admin-battle-stats-display/INSTALL.sql|62a44f30fb6dfc9a67702e6770ea559d14af4fd7725cc0d174e786b74c9985b7|
+
+|20261026123549 trainer_notifications|supabase/unapplied/trainer-notifications/INSTALL.sql|2eb579206ec5c4d4a1744360d54230b764d1cb825906fec015d1066254c3eb27|

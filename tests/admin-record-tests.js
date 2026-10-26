@@ -19,10 +19,8 @@ test("Record header escapes identity and excludes balances", () => {
   assert(!html.includes('class="admin-next-trainer-head"'));
   assert(html.includes("Password sign-in"));
 });
-test("Inventory drill-in keeps zero distinct from unavailable", () => {
-  const html = ui.profileHtml(view("inventory", { group: "currency", item: "coins" }));
-  assert(html.includes("<dd>0</dd>")); assert(!html.includes("data-record-action=\"group\""));
-  assert(ui.profileHtml(view("inventory", { group: "balls", item: "ultraball" })).includes("<dd>Unavailable</dd>"));
+test("Inventory mounts the audited editor without a separate Corrections tab", () => {
+ const html=ui.profileHtml(view("inventory"));assert(html.includes('data-trainer-corrections'));assert(!html.includes('data-trainer-pane="corrections"'));
 });
 test("Unlocks never infer ownership from catalog presence", () => {
   const items = ui.unlockGroups(view("progression")).find((group) => group.id === "background").items;
@@ -77,7 +75,7 @@ test("Shiny identity, honest stats and human item labels", () => {
   const shiny = { ...account, mons: [{...account.mons[0], variant: "shiny"}] };
   const html = ui.profileHtml({...ui.presentProfile({account:shiny,pane:"pokemon"}),recordState:{mon:"mon1"}});
   assert(html.includes("record-shiny")); assert(!html.includes("<dt>Variant</dt>")); assert(!html.includes("<dt>Species</dt>"));
-  assert(html.includes("disabled>Edit stats")); assert(html.includes("<dt>Ability</dt><dd>Unavailable</dd>"));
+  assert(html.includes("Stats are currently read-only.")); assert(html.includes("<dt>Ability</dt><dd>Unavailable</dd>"));
   assert.equal(ui.inventoryGroups(view("inventory")).find(g=>g.id==="balls").items.find(i=>i.id==="masterball").name,"Master Ball");
 });
 test("Account shell delegates capabilities to the gated account controls without interpolating raw provider labels", () => {
@@ -88,12 +86,12 @@ test("Account shell delegates capabilities to the gated account controls without
   assert(!html.includes('Linked Twitch rows'));assert(html.includes('data-trainer-diagnostics'));
 });
 test("Stored battle data preserves zero, missing fields and escaped move names", () => {
-  const mon={...account.mons[0],battleData:{ivs:{hp:0,atk:31},evs:{hp:0},avs:{hp:0},hpCurrent:0,hpMax:20,nature:'Hardy',ability:'solar-power',moves:[{name:'<img onerror=bad>'}]}};
+  const mon={...account.mons[0],battleData:{stats:{hp:20,atk:12},ivs:{hp:0,atk:31},evs:{hp:0},avs:{hp:0},hpCurrent:0,hpMax:20,nature:'Hardy',ability:'solar-power',moves:[{name:'<img onerror=bad>'}]}};
   const html=ui.profileHtml({...ui.presentProfile({account:{...account,mons:[mon]},pane:'pokemon'}),recordState:{mon:'mon1'}});
   assert(html.includes('<td>0</td>'));assert(html.includes('<td>31</td>'));assert(html.includes('<td>Unavailable</td>'));
   assert(html.includes('<dd>0 / 20</dd>'));assert(html.includes('Solar Power'));assert(html.includes('Hardy'));
   assert(!html.includes('<img onerror=bad>'));assert(html.includes('&lt;Img Onerror=Bad&gt;'));
-  assert(!html.includes('Awakening value'));assert.equal((html.match(/<th scope="col">/g)||[]).length,3);
-  assert(html.includes('disabled>Edit stats'));assert(!html.includes('streamlink_stat'));
+  assert(!html.includes('Awakening value'));assert.equal((html.match(/<th scope="col">/g)||[]).length,4);
+  assert(html.includes('Stats are currently read-only.'));assert(!html.includes('streamlink_stat'));
 });
 console.log(`${checks} passed`);

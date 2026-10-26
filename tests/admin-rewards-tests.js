@@ -19,7 +19,7 @@ test("Reward history and labels escape arbitrary names and reasons",()=>{
 });
 test("Inventory groups use requested production labels",()=>{
  const view=record.presentProfile({account:{user:{id:"fixture"}},pane:"inventory"});
- const html=record.profileHtml(view);assert(html.includes("Evolution Candy"));assert(html.includes("PokéCoins and Inventory Space"));assert(!html.includes("in snapshot"));
+ const groups=record.inventoryGroups(view);assert(groups.some(g=>g.name==="Evolution Candy"));assert(groups.some(g=>g.name==="PokéCoins and Inventory Space"));assert(record.profileHtml(view).includes("data-trainer-corrections"));
 });
 test("Missing login is omitted instead of shown as @Unavailable",()=>{
  const html=record.profileHtml(record.presentProfile({account:{user:{id:"fixture",displayName:"Trainer"}},pane:"overview"}));

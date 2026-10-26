@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "TRAINER-EXPERIENCE",
+      "status": "in_progress",
+      "scope": "Requested trainer, modal, notifications, Mart and Pass improvements",
+      "evidence": "TRAINER-EXPERIENCE-UPDATE.md",
+      "testResults": "161 local/static suites;21 SQL groups;local rendered interactions",
+      "nextAction": "Verify scoped publication;finish berry balance design and constrained stat editor",
+      "approval": "User requested changes;existing Pass timing retained;destructive cleanup held"
+    },
+    {
       "id": "CODEX-277",
       "status": "done",
       "scope": "Current legacy-stat/source dependency audit",

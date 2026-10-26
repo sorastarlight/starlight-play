@@ -566,3 +566,6 @@ Two guarded sign-in function replacements installed as 20261026112826; exact sou
 ## CODEX-273 publication verified — October 26
 
 Main af14ea65, Pages40315434912 succeeded. All100 monitored files and6 versioned Account-control files match exact published source. Four targeted regression suites, build and64-file recovery integrity checks pass. Both installed function definitions and permissions verified without invoking account handlers. No real account data changed by this work; no provider test or destructive cleanup.
+
+
+Trainer experience update October26: stats/public IDs, Inventory integration, Notifications, modal dismissal, Mart quantities/feedback, compact Pass supplies and supplied sprite implemented. Existing Pass timing retained by explicit owner decision. Two migrations installed/source verified;21 local SQL groups and161 regression suites;frontend publication pending. See TRAINER-EXPERIENCE-UPDATE.md. Berry balance and actual stat editing remain unfinished;no destructive cleanup or hosted user action.

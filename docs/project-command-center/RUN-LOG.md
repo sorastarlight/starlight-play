@@ -2822,3 +2822,6 @@ Main af14ea65, Pages40315434912 succeeded. All100 monitored files and6 versioned
 One CSS file adds modal-only root/body scroll locking, dialog scroll containment and stable scrollbar space. REAL LOCAL BROWSER: long reward-dialog scrollTop reached1667 while document stayed0; after Escape document scrolled300; reopening/scrolled boundary/closing preserved300. No authenticated hosted navigation or account action. Build passes. Feature370957c9;scoped main e424270c;Pages40316243750 awaiting source verification.
 
 Modal scroll publication completed: Pages40316243750 succeeded;plain and versioned CSS match exact main e424270c source. No APP stamp or hosted application action.
+
+
+Trainer experience update October26: stats/public IDs, Inventory integration, Notifications, modal dismissal, Mart quantities/feedback, compact Pass supplies and supplied sprite implemented. Existing Pass timing retained by explicit owner decision. Two migrations installed/source verified;21 local SQL groups and161 regression suites;frontend publication pending. See TRAINER-EXPERIENCE-UPDATE.md. Berry balance and actual stat editing remain unfinished;no destructive cleanup or hosted user action.

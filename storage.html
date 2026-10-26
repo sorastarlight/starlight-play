@@ -52,24 +52,17 @@
   </div>
 </nav>
 <div class="wrap box-wrap">
-  <div class="pc-mode-tabs" role="tablist" aria-label="PC storage">
-    <button type="button" role="tab" data-pc-mode="pokemon" aria-selected="true" aria-controls="box-app">Pokémon</button>
-    <button type="button" role="tab" data-pc-mode="items" aria-selected="false" aria-controls="pc-item-panel">Items</button>
-  </div>
-  <section id="pc-item-panel" class="card body" aria-label="Item storage" hidden></section>
-  <p id="gate" class="notice">Sign in to open your PC boxes.</p>
-  <div id="box-app" hidden>
-    <section class="pc-terminal" aria-label="Pokémon Storage System">
+  <section class="pc-terminal" aria-label="My PC storage">
       <header class="pc-terminal-head">
         <div class="pc-terminal-brand">
           <img class="pc-brand-mark" src="images/pc-terminal-icon.png" alt="" width="48" height="48" decoding="async">
           <div>
             <h1 class="pc-title">My PC</h1>
-            <p class="pc-subtitle">Pokémon Storage System</p>
+            <p class="pc-subtitle">Pokémon &amp; Item Storage</p>
             <ul class="pc-status-lights" aria-label="Terminal status">
               <li class="is-on"><i aria-hidden="true"></i> Online</li>
               <li class="is-on"><i aria-hidden="true"></i> Storage Link</li>
-              <li class="is-on"><i aria-hidden="true"></i> Box Active</li>
+              <li class="is-on"><i aria-hidden="true"></i> Connected</li>
             </ul>
           </div>
         </div>
@@ -80,6 +73,14 @@
         </div>
       </header>
 
+      <div class="pc-mode-tabs" role="tablist" aria-label="PC storage">
+        <button id="pc-pokemon-tab" type="button" role="tab" data-pc-mode="pokemon" aria-selected="true" aria-controls="pc-pokemon-panel">Pokémon</button>
+        <button id="pc-items-tab" type="button" role="tab" data-pc-mode="items" aria-selected="false" aria-controls="pc-item-panel" tabindex="-1">Items</button>
+      </div>
+      <section id="pc-item-panel" class="pc-item-panel" role="tabpanel" aria-labelledby="pc-items-tab" hidden></section>
+      <div id="pc-pokemon-panel" role="tabpanel" aria-labelledby="pc-pokemon-tab">
+        <p id="gate" class="notice">Sign in to open your PC boxes.</p>
+        <div id="box-app" hidden>
       <div class="pc-terminal-body">
         <div class="pc-storage">
           <div class="pc-nav-row">
@@ -104,9 +105,10 @@
           </div>
         </aside>
       </div>
-    </section>
-    <p id="box-status" class="muted" role="status"></p>
-  </div>
+          <p id="box-status" class="muted" role="status"></p>
+        </div>
+      </div>
+  </section>
 </div>
 <dialog id="oak-modal" class="play-modal play-modal-confirm" aria-labelledby="oak-title">
   <form class="play-modal-card" method="dialog">

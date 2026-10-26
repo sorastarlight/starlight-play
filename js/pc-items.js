@@ -5,6 +5,13 @@
  function rows(data,query='',label=k=>k){return [...new Set([...Object.keys(data?.bag||{}),...Object.keys(data?.stored||{})])].map(key=>({key,name:label(key),bag:Number(data.bag?.[key]||0),stored:Number(data.stored?.[key]||0)})).filter(x=>(x.bag>0||x.stored>0)&&x.name.toLowerCase().includes(query.toLowerCase())).sort((a,b)=>a.name.localeCompare(b.name));}
  function slots(data){return Array.from({length:SIZE},(_,i)=>data.slots?.[i]||null);}
  function cards(data,query,label,sprite,selected=null){return slots(data).map((key,i)=>{const match=key&&label(key).toLowerCase().includes(query.toLowerCase());return `<button type="button" class="pc-slot pc-item-slot ${key?'':'is-empty'} ${key===selected&&key?'is-selected':''} ${key&&!match?'is-filtered':''}" data-slot="${i}" ${key?`data-select="${esc(key)}" draggable="true"`:''} aria-label="${key?esc(label(key))+', '+Number(data.stored[key]||0).toLocaleString()+' stored':'Empty slot '+(i+1)}" aria-pressed="${!!key&&key===selected}">${key?`<span class="pc-slot-art"><img src="${esc(sprite(key))}" alt="" width="64" height="64" draggable="false"></span><span class="pc-item-stack">×${Number(data.stored[key]||0).toLocaleString()}</span><span class="pc-item-slot-name">${esc(label(key))}</span>`:'<span aria-hidden="true">·</span>'}</button>`;}).join('');}
+ // Reorder the existing cells: never recreate decoded sprites for a layout-only move.
+ function reorderCells(container,next){
+  const cells=Array.from(container.children),items=new Map(cells.filter(n=>n.dataset.select).map(n=>[n.dataset.select,n])),empty=cells.filter(n=>!n.dataset.select);
+  const ordered=next.map(key=>key?items.get(key):empty.shift());
+  if(ordered.some(n=>!n)||ordered.length!==cells.length)throw Error('Item layout changed');
+  ordered.forEach((node,i)=>{if(container.children[i]!==node)container.insertBefore(node,container.children[i]||null);node.dataset.slot=String(i);if(!node.dataset.select)node.setAttribute('aria-label','Empty slot '+(i+1));});
+ }
  function create(el,{client,call,label=k=>k,sprite=()=>'',uuid=()=>crypto.randomUUID(),onState=()=>{},notify=notice=>root.playToast?.(notice)}){
   let generation=0,uid=null,data=null,pending=null,busy=false,selected=null,query='',moving=false,dragFrom=null,bagOpen=false,bagQuery='',direction='withdraw',stale=false,arranging=false;
   const cacheKey=id=>'pc-item-transfer:'+id,status=()=>el.querySelector('[data-pc-status]');
@@ -56,7 +63,7 @@
    if(busy||pending||stale||!data)return;
    let expected=slots(data);if(next.every((key,i)=>key===expected[i]))return;
    // Show the move immediately. One writer persists successive layouts in order.
-   data.slots=next.slice();moving=false;grid();
+   reorderCells(el.querySelector('[data-pc-grid]'),next);data.slots=next.slice();moving=false;
    if(arranging)return;
    arranging=true;const g=generation,id=uid;say('Saving arrangement…');
    try{
@@ -93,7 +100,7 @@
   el.addEventListener('dragend',()=>{dragFrom=null;clearDrag();});
   return{load,reset};
  }
- const api={rows,cards,slots,create};if(typeof module!=='undefined')module.exports=api;else{
+ const api={rows,cards,slots,reorderCells,create};if(typeof module!=='undefined')module.exports=api;else{
   root.PLAY_PC_ITEMS=api;const el=document.getElementById('pc-item-panel');if(!el)return;const meta=document.getElementById('pc-item-meta');
   const ui=create(el,{client:root.playSupabase,call:(n,a)=>root.playCall(n,a),label:k=>root.playItemLabel(k),sprite:k=>root.playItemSprite(k),onState:d=>{if(meta)meta.innerHTML=`<p class="pc-box-label">ITEM BOX</p><p class="pc-box-count">${d?slots(d).filter(Boolean).length:'—'} / 30</p><div class="pc-usage" aria-hidden="true"><i style="--pc-fill:${d?slots(d).filter(Boolean).length/30*100:0}%"></i></div>`;}});let epoch=0;
   async function mode(items){const g=++epoch;ui.reset();document.body.classList.toggle('pc-items-mode',items);el.hidden=!items;document.getElementById('pc-pokemon-panel').hidden=items;if(meta)meta.hidden=!items;document.querySelectorAll('[data-pc-mode]').forEach(b=>{const active=(b.dataset.pcMode==='items')===items;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});if(!items)return;try{const s=await root.playSupabase.auth.getSession();if(g!==epoch)return;const id=s.data?.session?.user?.id;if(id)await ui.load(id);else el.innerHTML='<p class="pc-item-message">Sign in to use item storage.</p>';}catch(_){if(g===epoch)el.innerHTML='<p class="pc-item-message">Could not check sign-in. Refresh to try again.</p>';}}

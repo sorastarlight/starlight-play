@@ -37,3 +37,33 @@
  #pc-item-panel [data-bag-list]{grid-template-columns:1fr}
  #pc-item-panel .pc-inspect{border-top:2px solid #c6e7f5}
 }
+
+/* Both storage tabs share a compact, fixed-height toolbar and search row. */
+.pc-terminal .pc-storage{grid-template-rows:auto auto auto minmax(0,1fr);align-content:start}
+.pc-terminal .pc-search{align-self:start;height:auto;min-height:0}
+.pc-terminal .pc-search input{box-sizing:border-box;min-height:44px}
+.pc-terminal .pc-search-icon{top:22px}
+.pc-terminal > .pc-mode-tabs{padding:10px 14px;gap:6px;background:linear-gradient(90deg,#edf8ff,#f9f3fc);border-block:1px solid #d2e5f2}
+.pc-terminal > .pc-mode-tabs button{display:flex;align-items:center;justify-content:center;gap:9px;min-height:44px;padding:9px 22px;border:1px solid transparent;border-radius:12px;color:#606582}
+.pc-terminal > .pc-mode-tabs button[aria-selected=true]{background:#fff;border-color:#adcde6;color:#354567;box-shadow:0 2px 5px #5575a21a}
+.pc-mode-tabs img{width:24px;height:24px;object-fit:contain;image-rendering:pixelated}
+#pc-item-panel .pc-inspect{display:flex;flex-direction:column;gap:12px;justify-content:flex-start}
+#pc-item-panel .pc-inspect-empty{min-height:0;padding:32px 8px;text-align:center}
+#pc-item-panel .pc-inspect-empty h2{font-size:20px;line-height:1.35}
+#pc-item-panel .pc-item-inspector{gap:10px;padding:14px;border:1px solid #c6daed;background:#ffffffc9;border-radius:14px}
+#pc-item-panel .pc-item-hero{margin-top:0;width:80px;height:80px}
+#pc-item-panel .pc-transfer-route{padding:7px;border-radius:8px;background:#eaf3ff;color:#4b5a80;font-weight:800;font-size:13px}
+#pc-item-panel .pc-transfer-route span{padding:0 8px}
+#pc-item-panel .pc-quantity-shortcuts{display:flex;gap:6px}
+#pc-item-panel .pc-quantity-shortcuts button{flex:1;min-height:38px;box-shadow:none;padding:6px;font:inherit}
+#pc-item-panel .pc-transfer-submit{min-height:46px;font-weight:800}
+#pc-item-panel .pc-bag-heading{display:flex;gap:8px;align-items:center;justify-content:space-between}
+#pc-item-panel .pc-bag-heading h2{margin:0}
+#pc-item-panel .pc-bag-heading button{min-height:40px;padding:6px 10px;box-shadow:none}
+#pc-item-panel .pc-item-bag p{font-size:13px;margin:8px 0 12px}
+#pc-item-panel [data-bag-list]{max-height:190px;overscroll-behavior:contain}
+#pc-item-panel [data-bag-item][aria-pressed=true]{border-color:#8d78c5;background:#f1ebff}
+#pc-item-panel [data-bag-toggle]{background:#e6f3ff;border-color:#a5cbe8}
+#pc-item-panel [data-pc-status]{font-size:13px;margin:0;overflow-wrap:anywhere}
+@media(max-width:600px){.pc-terminal > .pc-mode-tabs button{flex:1;padding:9px 12px}}
+#pc-item-panel .pc-search{width:100%}

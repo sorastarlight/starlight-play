@@ -208,7 +208,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     { href: "./", id: "play", label: "Play" },
     { href: "./storage.html", id: "storage", label: "My PC" },
     { href: "./pokedex.html", id: "pokedex", label: "My Pokédex" },
-    { href: "./inventory.html", id: "inventory", label: "My Inventory" },
+    { href: "./inventory.html", id: "inventory", label: "My Bag" },
     { href: "./trainer.html", id: "trainer", label: "My Trainer ID" },
     { href: "./achievements.html", id: "achievements", label: "My Achievements" },
     { href: "./evolve.html", id: "evolve", label: "Prof. Oak's Lab" },

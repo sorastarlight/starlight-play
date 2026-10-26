@@ -179,14 +179,16 @@
     return (data?.mons || []).filter(matches);
   }
 
-  function saveLayout() {
+  function saveLayout(message = "") {
     clearTimeout(saveTimer);
     saveTimer = setTimeout(async () => {
       try {
         const next = await window.playCall("play_save_pc", { p_layout: data.layout });
         if (next?.layout) data.layout = next.layout;
+        if (message) window.playToast?.({ kind: "success", title: "My PC updated", body: message });
       } catch (error) {
         if (els.status) els.status.textContent = window.playRpcError(error);
+        window.playToast?.({ kind: "error", title: "Could not save your box", body: "Your arrangement was not confirmed. Refresh before moving more Pokémon." });
       }
     }, 350);
   }
@@ -965,7 +967,7 @@
     boxes[fromBox].slots[fromSlot] = b;
     boxes[toBox].slots[toSlot] = a;
     data.layout = { boxes };
-    saveLayout();
+    saveLayout("Pokémon arrangement saved.");
     renderGrid();
   }
 
@@ -1108,7 +1110,7 @@
       if (save) {
         box.name = String(input.value).trim().slice(0, 12) || box.name;
         data.layout = { boxes };
-        saveLayout();
+        saveLayout("Box name saved.");
       }
       renderGrid();
     };
@@ -1176,7 +1178,7 @@
       boxes.push({ name: `BOX ${boxes.length + 1}`, slots: Array(BOX_SLOTS).fill(null) });
       boxIndex = boxes.length - 1;
       data.layout = { boxes };
-      saveLayout();
+      saveLayout("New Pokémon box added.");
       renderGrid();
       return;
     }

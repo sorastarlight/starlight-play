@@ -262,3 +262,11 @@ CODEX-267 20261026053518 hub-catalog-names adds two exact install/rollback files
 |Migration|Guarded install|SHA256|
 |---|---|---|
 |20261026053518 hub_catalog_names|supabase/unapplied/hub-catalog-names/INSTALL.sql|ca391956f548edf164cf40f14eca1461818592904d5e0b27eb488baadeb1ac9b|
+
+## CODEX-268 Trainer styles
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261026055351 hub_trainer_styles|supabase/unapplied/hub-trainer-styles/INSTALL.sql|b42da8fb81911dcd3444488ffe8151d2edc2f0dea9f0ad8cae6312155e6154e3|
+
+56exact recovery files. New staff handlers/private audit only;no existing style/product/image/profile row changed. Nondestructive rollback retains styles/audits and revokes new handlers.11isolatedSQLgroups;no hosted editor call/upload.

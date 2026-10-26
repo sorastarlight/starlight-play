@@ -108,7 +108,10 @@
   const itemDefinitionsApi=window.PLAY_ADMIN_ITEM_DEFINITIONS;
   const itemDefinitions=itemDefinitionsApi?.mount(document.getElementById('next-item-definitions'),itemDefinitionsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const assetApi=window.PLAY_ADMIN_ASSETS;
-  const assets=assetApi?.mount(document.getElementById('next-assets'),assetApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),invoke:(name,args)=>supabase.functions.invoke(name,args),encode:file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('Image could not be read.'));reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.readAsDataURL(file);})}));
+  const assetTransport=assetApi?.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),invoke:(name,args)=>supabase.functions.invoke(name,args),encode:file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('Image could not be read.'));reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.readAsDataURL(file);})});
+  const assets=assetApi?.mount(document.getElementById('next-assets'),assetTransport);
+  const styleApi=window.PLAY_ADMIN_STYLES;
+  const trainerStyles=styleApi?.mount(document.getElementById('next-trainer-styles'),styleApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),upload:payload=>assetTransport('upload',payload)}));
   const mart = window.PLAY_ADMIN_NEXT_MART?.mount(document.getElementById("next-mart"), async (name, args) => {
     if (!["admin_store_get", "admin_store_draft_options", "admin_store_save_item"].includes(name)) throw new Error("Unsupported Mart operation.");
     const identity = martIdentity;
@@ -600,6 +603,7 @@
     martIdentity = "";
     mart?.reset();
     assets?.reset();
+    trainerStyles?.reset();
     itemDefinitions?.reset();
     floorEditor?.reset();
     draftCreator?.reset();
@@ -624,6 +628,7 @@
       martIdentity = "";
       mart?.reset();
       assets?.reset();
+    trainerStyles?.reset();
       itemDefinitions?.reset();
       floorEditor?.reset();
       draftCreator?.reset();
@@ -651,6 +656,7 @@
       martIdentity = "";
       mart?.reset();
       assets?.reset();
+    trainerStyles?.reset();
       itemDefinitions?.reset();
       floorEditor?.reset();
       draftCreator?.reset();

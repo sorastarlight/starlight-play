@@ -352,6 +352,19 @@
           "sha256": "5146247e8366c583daf4f3eeb485f585abe17dc7814ffa33787c76c074222d6f"
         }
       ]
+    },
+    {
+      "version": "20261026055351",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-trainer-styles/INSTALL.sql",
+          "sha256": "b42da8fb81911dcd3444488ffe8151d2edc2f0dea9f0ad8cae6312155e6154e3"
+        },
+        {
+          "file": "supabase/unapplied/hub-trainer-styles/ROLLBACK.sql",
+          "sha256": "2aa6e181657dc366735115433be3166f94713159e5e366275c24a3c82ef0d85b"
+        }
+      ]
     }
   ]
 }

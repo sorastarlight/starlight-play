@@ -68,3 +68,6 @@ supabase/unapplied/hub-item-definitions/*.sql text eol=lf
 
 supabase/unapplied/hub-catalog-names/*.sql text eol=lf
 supabase/migrations/*_hub_catalog_names.sql text eol=lf
+
+supabase/unapplied/hub-trainer-styles/*.sql text eol=lf
+supabase/migrations/*_hub_trainer_styles.sql text eol=lf

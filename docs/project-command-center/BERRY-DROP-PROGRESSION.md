@@ -60,3 +60,6 @@ These are replacement purchase values, not awarded cash or guaranteed resale val
 
 ## Validation and scope
 `node tests/berry-drop-balance-tests.js` checks100001XPpoints for monotonicity/bounds,all rarity buckets,random boundaries,catalog exclusions and progression benchmarks. `node tools/berry-drop-balance.js` reproduces the JSON report from the public-catalog snapshot. This is local JavaScript balance code,not installed server SQL or a live reward system. No hosted throw,claim,grant,notice or protected-account action occurred.
+
+## Implemented 2026-10-26
+The offline proposal is now implemented and active for future eligible captures. See BERRY-DROP-IMPLEMENTATION.md for deployment, cutoff, 26 local SQL groups, source verification and recovery details. Berry affinities remain separate.

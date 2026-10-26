@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "BERRY-DROP-PROGRESSION",
-      "status": "in_progress",
+      "status": "done",
       "scope": "XP-scaled berry item drops and missed-throw consolation",
-      "evidence": "BERRY-DROP-PROGRESSION.md",
-      "testResults": "Offline progression/pool model tested;100001XPpoints;60eligible catalog items",
-      "nextAction": "Prepare transactional reward receipt and capacity-safe delivery with local concurrency tests;not deployed",
-      "approval": "Proceed with requested progression analysis;no live gameplay test performed"
+      "evidence": "BERRY-DROP-IMPLEMENTATION.md",
+      "testResults": "26 local SQL groups;60 grant keys;163 regression files;8 hosted source matches;Pages40379747343;policy verified active",
+      "nextAction": "Observe normal use;no hosted gameplay test performed. Separate berry affinity implementation and later physical backup verification remain.",
+      "approval": "User requested item-drop/scaled progression implementation and said proceed;no hosted gameplay or protected-account actions"
     },
     {
       "id": "TRAINER-EXPERIENCE",
@@ -18,7 +18,7 @@
       "scope": "Requested trainer, modal, notifications, Mart and Pass improvements",
       "evidence": "TRAINER-EXPERIENCE-UPDATE.md",
       "testResults": "161 suites;29 local SQL groups;70 recovery files;two Pages deployments/source verified",
-      "nextAction": "Berry balance-model decision pending;current stats view explicitly read-only",
+      "nextAction": "Separate berry type-affinity implementation and trainer stat-editing remain;XP-scaled drops are live.",
       "approval": "User requested changes;existing Pass timing retained;destructive cleanup held",
       "commit": "d6953be0 production;36d1e636 feature"
     },

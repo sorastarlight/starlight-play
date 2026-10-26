@@ -1,0 +1,45 @@
+{
+  "commit": "fc10cffe0c740be0792e5bb1ec5b457f0e01e6fe",
+  "results": [
+    {
+      "file": "css/play.css",
+      "suffix": "",
+      "sha256": "d88260f2d0a904a21f3731b246bb779c8020dd2e778f32c72e055637f72d2e45"
+    },
+    {
+      "file": "css/play.css",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "d88260f2d0a904a21f3731b246bb779c8020dd2e778f32c72e055637f72d2e45"
+    },
+    {
+      "file": "inventory.html",
+      "suffix": "",
+      "sha256": "83bd7f356dd807055b3f6599410417707d6e2dfbe098634f1a0ec973ae0e0f81"
+    },
+    {
+      "file": "inventory.html",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "83bd7f356dd807055b3f6599410417707d6e2dfbe098634f1a0ec973ae0e0f81"
+    },
+    {
+      "file": "js/catch-rewards.js",
+      "suffix": "",
+      "sha256": "c7034299d440bf36321575e92fe1440ab05815adc9d7d3df9b9e038f4d9032e1"
+    },
+    {
+      "file": "js/catch-rewards.js",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "c7034299d440bf36321575e92fe1440ab05815adc9d7d3df9b9e038f4d9032e1"
+    },
+    {
+      "file": "js/inventory.js",
+      "suffix": "",
+      "sha256": "41857483344ac42355557d1527a7d4068a70c0bd0f2d6d70b380954ace0e347f"
+    },
+    {
+      "file": "js/inventory.js",
+      "suffix": "?v=20261008-rc133",
+      "sha256": "41857483344ac42355557d1527a7d4068a70c0bd0f2d6d70b380954ace0e347f"
+    }
+  ]
+}

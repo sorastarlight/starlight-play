@@ -1,0 +1,45 @@
+{
+  "checks": 26,
+  "hashes": [
+    {
+      "sig": "private.berry_drop_probability(integer)",
+      "hash": "8b7e127f87f710a6fda7cae3cde95d53",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "sig": "private.deliver_berry_drop(uuid,uuid)",
+      "hash": "d79fa184970657b8c2468bb3b2c06da3",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "sig": "private.record_berry_drop(uuid,uuid)",
+      "hash": "075d35ca779b19a6def09dab9b5a111a",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "sig": "public.play_pending_catch_rewards()",
+      "hash": "f83806befc927ecdcdec7e9f30681472",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "sig": "public.play_claim_catch_reward(uuid)",
+      "hash": "004f30dc4ff984176213a552b52c33fe",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "sig": "private.award_encounter_rewards(uuid,uuid,boolean,text,jsonb)",
+      "hash": "0ba132b48475d431d1b31f862ab003ff",
+      "acl": null
+    },
+    {
+      "sig": "private.grant_known(uuid,jsonb)",
+      "hash": "d247dbcdf8f74f2cdc575e81e0f0a193",
+      "acl": null
+    }
+  ],
+  "poolItems": 60,
+  "productionCalls": false,
+  "regressionFiles": 163,
+  "build": "passed",
+  "classification": "LOCAL SQL fictional data; source verification only in production"
+}

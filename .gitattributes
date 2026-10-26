@@ -80,3 +80,6 @@ supabase/migrations/*_hub_avatar_publication.sql text eol=lf
 
 supabase/unapplied/hub-planning/*.sql text eol=lf
 supabase/migrations/*_hub_planning.sql text eol=lf
+
+supabase/unapplied/berry-catch-drops/*.sql text eol=lf
+supabase/migrations/*_berry_catch_rewards_disabled.sql text eol=lf

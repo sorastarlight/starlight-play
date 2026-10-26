@@ -63,7 +63,7 @@ test("Generic reads stay read-only; approved Mart adapter stays separate", () =>
   assert(names.join(",") === "admin_build_health,admin_game_health,admin_live_snapshot,admin_list_users,admin_user_account,admin_identity_inspect,admin_trainer_rewards");
   assert(!names.includes("admin_trainer_reward_action"), "Mutating reward action must not be in read allowlist");
   assert(!names.includes("admin_store_save_item"));
-  assert(nextJs.includes('["admin_store_get", "admin_store_save_item"].includes(name)'));
+  assert(nextJs.includes('["admin_store_get", "admin_store_draft_options", "admin_store_save_item"].includes(name)'));
   assert(nextJs.includes('data?.session?.user?.id !== identity'));
 });
 

@@ -53,7 +53,7 @@ const defer = () => { let resolve, reject; const promise = new Promise((a, b) =>
   const denied = api.createController(async () => { throw Object.assign(Error("denied"), { code: "42501" }); }); await denied.open(); assert.equal(denied.state.catalog, null);
   const hub = fs.readFileSync("js/admin-next.js", "utf8");
   const readList = hub.match(/const READ_RPCS = Object.freeze\(\[([\s\S]*?)\]\)/)[1]; assert(!readList.includes("admin_store"));
-  assert(hub.includes('["admin_store_get", "admin_store_save_item"].includes(name)')); assert(hub.includes('data?.session?.user?.id !== identity')); assert(hub.includes('generation !== hubGeneration'));
+  assert(hub.includes('["admin_store_get", "admin_store_draft_options", "admin_store_save_item"].includes(name)')); assert(hub.includes('data?.session?.user?.id !== identity')); assert(hub.includes('generation !== hubGeneration'));
   // Execute the actual dedicated adapter, not a replacement implementation.
   const vm = require("node:vm"), adapterStart = hub.indexOf("async (name, args) => {"), adapterEnd = hub.indexOf("\n  });", adapterStart);
   const adapterCode = "(" + hub.slice(adapterStart, adapterEnd + 4) + ")";

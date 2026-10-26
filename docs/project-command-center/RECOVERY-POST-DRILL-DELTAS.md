@@ -282,3 +282,7 @@ CODEX-267 20261026053518 hub-catalog-names adds two exact install/rollback files
 ## CODEX-271 avatar publication guard
 
 Migration20261026071051 replaces one existing staff function. Empty avatar collections cannot be published;empty drafts remain editable. Exact install/rollback are in supabase/unapplied/hub-avatar-publication;INSTALL SHA256 5d43a90831b7baf5dcd25d9d5d516137223988adf9e8da78c70e8b8ab9019c01.60exact recovery files. Seven local SQL groups cover refusal,role denial,valid publication,empty drafts,row preservation,exact rollback and drift refusal. No actual product/Trainer style/category or purchase action.
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261026071051 hub_avatar_publication|supabase/unapplied/hub-avatar-publication/INSTALL.sql|5d43a90831b7baf5dcd25d9d5d516137223988adf9e8da78c70e8b8ab9019c01|

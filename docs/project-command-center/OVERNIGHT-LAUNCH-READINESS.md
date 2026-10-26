@@ -372,3 +372,5 @@ CODEX256 LIVE: migration20261025234842;main54e3b3d8;Pages40246446510success;100+
 
 
 CODEX255 LIVE: main89c31c7a;Pages40246842618success;100+2sources;UTF8 restored;noSQL. CODEX257 LIVE: mainda805cae;Pages40248494174success;100+4sources;141suites;12loaded owner/moderator/errorlayouts;simulatedSDKreturnoneuse;heldownerresponsecannotrestorecontrols;TwitchAdsV2JWT/sourceunchanged;6sensitivehelpersserviceonly. No actual provider/Auth setting/credential/ad/notice/gameplay action.42recoveryfiles;post-changephysicalbackupstilldueOct26~07:44UTC. Continue staff access/content/asset parity and primary entry switch;destructivecleanup and paidBitsactivationheld.
+
+CODEX258 LIVE: migration20261026002948;mainb7193a0e;Pages40249712073success;100+5sources;142suites;12SQLgroups;12layouts;4source/ACLmatches;audit0. Staffrolepolicyunchanged;noactualrolechange.44recoveryfiles. Continue evolution/content/asset parity and primaryentrymigration;cleanupheld.

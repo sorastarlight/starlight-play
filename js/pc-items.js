@@ -6,12 +6,12 @@
  function slots(data){return Array.from({length:SIZE},(_,i)=>data.slots?.[i]||null);}
  function cards(data,query,label,sprite,selected=null){return slots(data).map((key,i)=>{const match=key&&label(key).toLowerCase().includes(query.toLowerCase());return `<button type="button" class="pc-slot pc-item-slot ${key?'':'is-empty'} ${key===selected&&key?'is-selected':''} ${key&&!match?'is-filtered':''}" data-slot="${i}" ${key?`data-select="${esc(key)}" draggable="true"`:''} aria-label="${key?esc(label(key))+', '+Number(data.stored[key]||0).toLocaleString()+' stored':'Empty slot '+(i+1)}" aria-pressed="${!!key&&key===selected}">${key?`<span class="pc-slot-art"><img src="${esc(sprite(key))}" alt="" width="64" height="64" draggable="false"></span><span class="pc-item-stack">×${Number(data.stored[key]||0).toLocaleString()}</span><span class="pc-item-slot-name">${esc(label(key))}</span>`:'<span aria-hidden="true">·</span>'}</button>`;}).join('');}
  function create(el,{client,call,label=k=>k,sprite=()=>'',uuid=()=>crypto.randomUUID(),onState=()=>{},notify=notice=>root.playToast?.(notice)}){
-  let generation=0,uid=null,data=null,pending=null,busy=false,selected=null,query='',moving=false,dragFrom=null,bagOpen=false,bagQuery='',direction='withdraw',stale=false;
+  let generation=0,uid=null,data=null,pending=null,busy=false,selected=null,query='',moving=false,dragFrom=null,bagOpen=false,bagQuery='',direction='withdraw',stale=false,arranging=false;
   const cacheKey=id=>'pc-item-transfer:'+id,status=()=>el.querySelector('[data-pc-status]');
   function say(text,focus=false){const s=status();if(s){s.textContent=text;if(focus)s.focus();}}
   function toast(body,kind='success'){notify({kind,title:kind==='success'?'My PC updated':'Item transfer',body});}
   function remember(){if(root.sessionStorage&&uid){if(pending)root.sessionStorage.setItem(cacheKey(uid),JSON.stringify(pending));else root.sessionStorage.removeItem(cacheKey(uid));}}
-  function reset(){generation++;uid=null;data=null;pending=null;busy=false;selected=null;query='';moving=false;dragFrom=null;bagOpen=false;bagQuery='';stale=false;el.innerHTML='';onState(null);}
+  function reset(){generation++;arranging=false;uid=null;data=null;pending=null;busy=false;selected=null;query='';moving=false;dragFrom=null;bagOpen=false;bagQuery='';stale=false;el.innerHTML='';onState(null);}
   async function request(name,args,g,id){const before=await client.auth.getSession();if(g!==generation||before.data?.session?.user?.id!==id)throw Error('Account changed');const result=await call(name,args);const after=await client.auth.getSession();if(g!==generation||after.data?.session?.user?.id!==id)throw Error('Account changed');return result;}
   function detail(){
    const pane=el.querySelector('[data-pc-detail]');if(!pane)return;
@@ -53,16 +53,29 @@
    }finally{if(g===generation){busy=false;unlock();if(pending){el.querySelectorAll('button,input').forEach(x=>x.disabled=true);el.querySelector('[data-pc-retry]').disabled=false;}else el.querySelector('[data-pc-retry]').hidden=true;}}
   }
   async function arrange(next){
-   if(busy||pending||stale||!data)return;const expected=slots(data);if(next.every((key,i)=>key===expected[i])){toast('Items are already in that order.');return;}
-   busy=true;moving=false;const g=generation,id=uid,unlock=lock();say('Saving arrangement…');
-   try{const r=await request('play_pc_item_arrange',{p_slots:next,p_expected:expected},g,id);if(g!==generation)return;if(!r?.ok)throw Error('Unavailable');data.slots=next;grid();detail();onState(data);say('Item arrangement saved.');toast('Item arrangement saved.');}
-   catch(_){if(g===generation){try{await refresh(g,id);say('Arrangement refreshed. Check your box before trying again.');toast('Could not confirm the arrangement. Your current box is shown.','warning');}catch(_){refreshFailed('Could not confirm the arrangement. Refresh before moving more items.');}}}
-   finally{if(g===generation){busy=false;unlock();}}
+   if(busy||pending||stale||!data)return;
+   let expected=slots(data);if(next.every((key,i)=>key===expected[i]))return;
+   // Show the move immediately. One writer persists successive layouts in order.
+   data.slots=next.slice();moving=false;grid();
+   if(arranging)return;
+   arranging=true;const g=generation,id=uid;say('Saving arrangement…');
+   try{
+    while(g===generation){
+     const desired=slots(data);
+     const result=await request('play_pc_item_arrange',{p_slots:desired,p_expected:expected},g,id);
+     if(g!==generation)return;if(!result?.ok)throw Error('Unavailable');
+     expected=desired;
+     if(slots(data).every((key,i)=>key===expected[i]))break;
+    }
+    say('Item arrangement saved.');toast('Item arrangement saved.');
+   }catch(_){if(g===generation){busy=true;try{await refresh(g,id);if(g===generation){say('Could not save every move. Your saved arrangement is shown.');toast('Could not save every move. Your saved arrangement is shown.','warning');}}catch(_){if(g===generation)refreshFailed('Could not confirm the arrangement. Refresh before moving more items.');}}}
+   finally{if(g===generation){arranging=false;busy=false;}}
   }
-  function moveTo(index){const next=slots(data),from=next.indexOf(selected);if(from<0)return;[next[from],next[index]]=[next[index],next[from]];arrange(next);}
+  function clearDrag(){el.querySelectorAll('.is-dragging,.is-drop-target').forEach(node=>node.classList.remove('is-dragging','is-drop-target'));}
+  function moveTo(index,key=selected){const next=slots(data),from=next.indexOf(key);if(from<0)return;[next[from],next[index]]=[next[index],next[from]];arrange(next);}
   el.addEventListener('input',event=>{if(!data||pending||busy)return;if(event.target.matches('[data-pc-search]')){query=event.target.value;grid();}if(event.target.matches('[data-bag-search]')){bagQuery=event.target.value;bagList(bagQuery);}});
   el.addEventListener('click',async event=>{
-   if(busy||!uid)return;if(event.target.closest('[data-pc-retry]')){await transfer();return;}if(pending)return;if(event.target.closest('[data-pc-refresh]')){if(!data){await load(uid);return;}busy=true;const g=generation,unlock=lock();try{await refresh();if(g===generation){say('Item box updated.');toast('Item box updated.');}}catch(_){if(g===generation)refreshFailed('Could not refresh. Try again before transferring items.');}finally{if(g===generation){busy=false;unlock();}}return;}if(!data||stale)return;
+   if(busy||!uid)return;if(arranging&&(event.target.closest('[data-move]')||event.target.closest('[data-pc-refresh]'))){say('Finishing your arrangement. Try the transfer or refresh in a moment.');return;}if(event.target.closest('[data-pc-retry]')){await transfer();return;}if(pending)return;if(event.target.closest('[data-pc-refresh]')){if(!data){await load(uid);return;}busy=true;const g=generation,unlock=lock();try{await refresh();if(g===generation){say('Item box updated.');toast('Item box updated.');}}catch(_){if(g===generation)refreshFailed('Could not refresh. Try again before transferring items.');}finally{if(g===generation){busy=false;unlock();}}return;}if(!data||stale)return;
    const shortcut=event.target.closest('[data-quantity]');if(shortcut){el.querySelector('[data-pc-quantity]').value=shortcut.dataset.quantity;return;}
    if(event.target.closest('[data-bag-close]')){bagOpen=false;el.querySelector('[data-bag-panel]').hidden=true;el.querySelector('[data-bag-toggle]').setAttribute('aria-expanded','false');el.querySelector('[data-bag-toggle]').focus({preventScroll:true});return;}
    if(event.target.closest('[data-sort]')){const next=slots(data).filter(Boolean).sort((a,b)=>label(a).localeCompare(label(b)));while(next.length<SIZE)next.push(null);await arrange(next);return;}
@@ -73,10 +86,11 @@
    const button=event.target.closest('[data-move]');if(!button||!selected)return;const quantity=Number(el.querySelector('[data-pc-quantity]').value);if(!Number.isSafeInteger(quantity)||quantity<1||quantity>Number(el.querySelector('[data-pc-quantity]').max||1000000)){say('Choose a quantity within the available amount and storage space.');return;}pending={p_request:uuid(),p_direction:button.dataset.move,p_item:selected,p_quantity:quantity};try{remember();}catch(_){pending=null;say('Your browser could not save the transfer request. Check its storage settings and try again.');return;}await transfer();
   });
   el.addEventListener('keydown',event=>{if(event.key==='Escape'){moving=false;say('Move cancelled.');return;}const b=event.target.closest('[data-slot]');if(!b||!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return;event.preventDefault();const columns=root.getComputedStyle?root.getComputedStyle(el.querySelector('[data-pc-grid]')).gridTemplateColumns.split(' ').length:6;const i=Number(b.dataset.slot),n=event.key==='Home'?0:event.key==='End'?29:Math.max(0,Math.min(29,i+({ArrowLeft:-1,ArrowRight:1,ArrowUp:-columns,ArrowDown:columns}[event.key])));el.querySelector(`[data-slot="${n}"]`)?.focus();});
-  el.addEventListener('dragstart',event=>{const b=event.target.closest('[data-select]');if(!b||busy||pending){event.preventDefault();return;}dragFrom=Number(b.dataset.slot);event.dataTransfer.setData('text/plain',String(dragFrom));event.dataTransfer.effectAllowed='move';});
-  el.addEventListener('dragover',event=>{if(dragFrom!==null&&!busy&&!pending&&event.target.closest('[data-slot]'))event.preventDefault();});
-  el.addEventListener('drop',event=>{const b=event.target.closest('[data-slot]');if(dragFrom===null||!b||busy||pending)return;event.preventDefault();selected=slots(data)[dragFrom];dragFrom=null;moveTo(Number(b.dataset.slot));});
-  el.addEventListener('dragend',()=>{dragFrom=null;});
+  el.addEventListener('dragstart',event=>{const b=event.target.closest('[data-select]');if(!b||busy||pending||stale){event.preventDefault();return;}b.classList.add('is-dragging');dragFrom=Number(b.dataset.slot);event.dataTransfer.setData('text/plain',String(dragFrom));event.dataTransfer.effectAllowed='move';});
+  el.addEventListener('dragover',event=>{const slot=event.target.closest('[data-slot]');if(dragFrom!==null&&!busy&&!pending&&!stale&&slot){event.preventDefault();event.dataTransfer.dropEffect='move';el.querySelectorAll('.is-drop-target').forEach(node=>{if(node!==slot)node.classList.remove('is-drop-target');});slot.classList.add('is-drop-target');}});
+  el.addEventListener('dragleave',event=>{const slot=event.target.closest('[data-slot]');if(slot&&!slot.contains(event.relatedTarget))slot.classList.remove('is-drop-target');});
+  el.addEventListener('drop',event=>{const b=event.target.closest('[data-slot]');if(dragFrom===null||!b||busy||pending||stale)return;event.preventDefault();clearDrag();const key=slots(data)[dragFrom];dragFrom=null;moveTo(Number(b.dataset.slot),key);});
+  el.addEventListener('dragend',()=>{dragFrom=null;clearDrag();});
   return{load,reset};
  }
  const api={rows,cards,slots,create};if(typeof module!=='undefined')module.exports=api;else{

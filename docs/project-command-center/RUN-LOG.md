@@ -2850,3 +2850,5 @@ PC item box publication complete: main 57612536, Pages40388312647, six source ma
 2026-10-26 PC-STORAGE-POLISH: My Bag naming, in-place item transfers/arrangement, explicit quantity/direction, bottom-right feedback and PC search/tab layout.165 regression suites/build pass;local fictional deposit/withdraw/drag/auto-arrange and390px rendering verified. No hosted player calls or SQL.
 
 PC-STORAGE-POLISH publication: main7b90ae50,Pages40397191284;all eight hosted runtime sources exactly match. Featureb0dc1129. No hosted transfer or Pokemon action.
+
+2026-10-26 PC dragging follow-up: immediate optimistic arrangement, serialized background saves, no success redraw/disabled flicker, Pokemon-style drag targets.166 suites and delayed-response rendered pointer test pass. No SQL/player writes.

@@ -589,3 +589,5 @@ Owner self-gifts: authorized exception installed/tested; scoped UI publication a
 2026-10-26 PC-STORAGE-POLISH: local checks complete;165 suites and rendered fictional transfers/drag pass. Scoped publication pending. See PC-STORAGE-POLISH.md.
 
 PC-STORAGE-POLISH published main7b90ae50;8/8 hosted sources match. Complete.
+
+PC-STORAGE-POLISH follow-up: immediate item dragging with serialized saves locally complete;166 suites.

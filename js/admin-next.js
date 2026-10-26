@@ -81,6 +81,8 @@
   const timings=timingsApi?.mount(document.getElementById("next-timings"),timingsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const systemApi=window.PLAY_ADMIN_SYSTEM;
   const systemConnections=systemApi?.mount(document.getElementById("next-system-connections"),systemApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
+  const providersApi=window.PLAY_ADMIN_PROVIDERS;
+  const providers=providersApi?.mount(document.getElementById("next-system-providers"),providersApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),invoke:(name,args)=>supabase.functions.invoke(name,args),oauth:args=>supabase.auth.signInWithOAuth(args),origin:location.origin}),{getItem:key=>window.sessionStorage.getItem(key),setItem:(key,value)=>window.sessionStorage.setItem(key,value),removeItem:key=>window.sessionStorage.removeItem(key)},{get href(){return location.href;},replace:url=>history.replaceState({},"",url)});
   const bitsApi=window.PLAY_ADMIN_BITS;
   const bitsActivity=bitsApi?.mount(document.getElementById("next-system-bits"),bitsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const passApi = window.PLAY_ADMIN_PASS_EDITOR;
@@ -506,6 +508,7 @@
     timings?.reset();
     systemConnections?.reset();
     bitsActivity?.reset();
+    providers?.reset();
     captureLimits?.reset();
     passBundles?.reset();
     analyticsIdentity = "";
@@ -650,6 +653,7 @@
     opsIdentity = session.user.id;
     const section = new URL(window.location.href).searchParams.get("section");
     showTab(section, false);
+    providers?.resume();
   }
 
   els.toggle?.addEventListener("click", () => {

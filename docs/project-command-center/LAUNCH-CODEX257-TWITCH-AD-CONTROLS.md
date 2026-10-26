@@ -1,0 +1,13 @@
+# CODEX-257 — Native reviewed Twitch ad controls
+
+Status: locally complete; exact four-file publication/source verification pending.
+
+System / Twitch Ads now separates saved timing reads from actual Twitch requests. Owner-visible controls review connection, schedule refresh and a five-minute snooze. Connecting uses the existing same-tab Supabase Twitch flow and exactly the existing email/subscription/ad-read/ad-management scopes. Its ten-minute session-only approval contains the actor, nonce and public channel revision,never provider tokens. Callback handling verifies the same actor/channel,consumes the matching approval before transmission,opens the correct workspace and sends one connection request. A stale callback cannot erase a newer valid approval. Missing/browser-blocked storage refuses consent opening with actionable feedback.
+
+Refresh/snooze recheck staff session,owner capability and unchanged channel. Snooze also requires a recent Twitch schedule (five minutes),no active break,a future reviewed ad time and the same time immediately before sending. Unknown outcomes stay locked until saved timing is reloaded. Known missing-scope responses point to reconnection; raw provider errors/tokens are never shown or retained in controller state. Account transitions discard late owner acknowledgements/failures.
+
+Validation:141 suites/build;12 composed responsive owner/moderator/error layouts at320/390/768/1024 without horizontal overflow. Rendered fictional SDK return sends one connection call,cleans the marker URL and focuses its status. Cancel returns focus; real-schedule review names the exact ad time. A held fictional provider response cannot restore owner actions after switching to moderator. All fixture connections are blocked and all tokens/identities are fictional.
+
+Existing production twitch-ads version2 source exactly matches the inspected handler and JWT verification is on. Six sensitive helper APIs remain service-only (browser/anonymous execution denied). Schedule ingestion was inspected and updates/logs timing without ticking or starting encounters. No SQL,Edge deployment,Auth setting,provider consent/token read,actual Twitch request,ad change,webhook activation,hosted page/notice or gameplay test was run. This is source/local acceptance only;real provider acceptance is still required. Paid Bits activation stays off.
+
+Runtime scope:admin-next.html,css/admin-system.css,js/admin-next.js,js/admin-next-providers.js. Drift-guarded frontend rollback restores the previous four-file state;it does not undo any human-requested provider connection or ad change. Separate main/feature histories and APP20261008-rc133 remain intact.

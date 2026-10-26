@@ -51,7 +51,7 @@
     },
     {
       "file": "admin-hub-gate-17-s1b-tests.js",
-      "exitCode": 1
+      "exitCode": 0
     },
     {
       "file": "admin-hub-gate-2a-r-identity-tests.js",

@@ -21,3 +21,6 @@ The server validates available quantity and bag space, serializes transfers and 
 Hosted deployment/source evidence will be recorded after Pages completes.
 
 Confirmed live: Pages40383961744 succeeded. All10plain/versioned runtime source checks match main26cf6f7d. No authenticated hosted navigation or player RPC was used for acceptance.
+
+
+2026-10-26: Integrated Pokémon / Items tabs inside the shared My PC terminal, with one persistent header and separate accessible panels. Local rendered pointer and arrow-key switching passed; item-storage regression and build checks passed. Three-file publication main 92a52c13, feature 12bc9eb4. No hosted player calls or SQL changes.

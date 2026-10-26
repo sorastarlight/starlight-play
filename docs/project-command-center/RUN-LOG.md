@@ -2835,3 +2835,6 @@ Completed server receipts, capacity-safe pending claims and Inventory panel. Mig
 
 ## 2026-10-26 My PC item storage
 Installed migration20261026190657 and published five runtime files at main26cf6f7d/Pages40383961744. LOCAL17SQLgroups/68itemtypes/164regression files;REAL DOM desktop,narrow,depositcounts,keyboard uncertain-request retry;PRODUCTION18function/ACL and10static-source matches. All earned physical items through shared/direct reward routes overflow into private PC storage. Existing pending catch receipts carry over lazily. Ordinary purchases/corrections retain their capacity checks. No hosted deposit/withdrawal/claim/grant. Sora NO;Twinkle NO;PlayTester unchanged. APP unchanged;74recovery files.
+
+
+2026-10-26: Integrated Pokémon / Items tabs inside the shared My PC terminal, with one persistent header and separate accessible panels. Local rendered pointer and arrow-key switching passed; item-storage regression and build checks passed. Three-file publication main 92a52c13, feature 12bc9eb4. No hosted player calls or SQL changes.

@@ -577,3 +577,5 @@ Berry drop progression:current XP curve and60eligible live-catalog items inspect
 | BERRY-DROP-PROGRESSION | done | XP-scaled berry bonus and missed-throw ball | Server receipts | Owner proceed | Live main fc10cffe;26SQLgroups;163tests;8source matches;affinities separate |
 
 | PC-ITEM-STORAGE | done | My PC item storage and automatic reward overflow | Shared reward delivery | Owner request | Live main26cf6f7d;17SQLgroups;68itemtypes;164tests;10hosted sources |
+
+- My PC item storage presentation: integrated terminal tabs published at main 92a52c13; pointer/keyboard local acceptance passed.

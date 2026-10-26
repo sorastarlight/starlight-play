@@ -8,9 +8,10 @@
       "status": "in_progress",
       "scope": "Requested trainer, modal, notifications, Mart and Pass improvements",
       "evidence": "TRAINER-EXPERIENCE-UPDATE.md",
-      "testResults": "161 local/static suites;21 SQL groups;local rendered interactions",
-      "nextAction": "Verify scoped publication;finish berry balance design and constrained stat editor",
-      "approval": "User requested changes;existing Pass timing retained;destructive cleanup held"
+      "testResults": "161 suites;29 local SQL groups;70 recovery files;two Pages deployments/source verified",
+      "nextAction": "Berry balance-model decision pending;current stats view explicitly read-only",
+      "approval": "User requested changes;existing Pass timing retained;destructive cleanup held",
+      "commit": "d6953be0 production;36d1e636 feature"
     },
     {
       "id": "CODEX-277",

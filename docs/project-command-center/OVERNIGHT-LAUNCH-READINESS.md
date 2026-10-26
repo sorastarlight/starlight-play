@@ -426,3 +426,5 @@ Modal scroll publication completed: Pages40316243750 succeeded;plain and version
 
 
 Trainer experience update October26: stats/public IDs, Inventory integration, Notifications, modal dismissal, Mart quantities/feedback, compact Pass supplies and supplied sprite implemented. Existing Pass timing retained by explicit owner decision. Two migrations installed/source verified;21 local SQL groups and161 regression suites;frontend publication pending. See TRAINER-EXPERIENCE-UPDATE.md. Berry balance and actual stat editing remain unfinished;no destructive cleanup or hosted user action.
+
+Trainer experience LIVE: main9d32f520/Pages40325593008 and availability follow-up maind6953be0/Pages40326588107;9runtimefiles plus1follow-up source verified. Three migrations source verified;29 local SQL groups,161regression suites,70recovery files pass. No hosted gameplay/account/claim/announcement action. Pass timing unchanged;actual next/last timestamps now shown. Berry design has110110arithmetic checks and awaits the important balance-model decision;no berry mechanics changed. Stat editing remains read-only. See TRAINER-EXPERIENCE-UPDATE.md and BERRY-AFFINITY-DESIGN.md.

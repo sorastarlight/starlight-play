@@ -11,7 +11,7 @@ const context = {
   esc: value => String(value ?? ''), lastLinkedLogin: ''
 };
 vm.createContext(context);
-vm.runInContext(['describePass', 'dailyBonusLine', 'passFloor'].map(extract).join('\n'), context);
+vm.runInContext(['describePass', 'dailyBonusLine', 'passSupplyTiming', 'passFloor'].map(extract).join('\n'), context);
 const render = (wallet, pass = { active: true }) => context.passFloor({ name: 'Starlight Pass' }, pass, wallet);
 const supplyButton = html => html.match(/<button id="claim-supply"([^>]*)>([^<]*)<\/button>/).slice(1);
 for (const [wallet, label, disabled] of [
@@ -37,3 +37,4 @@ assert(off.includes('Starlight Pass is inactive.'));
 assert(off.includes('id="claim-daily" class="pass-claim-btn" type="button" disabled'));
 assert(off.includes('id="claim-weekly" class="pass-claim-btn is-weekly" type="button" disabled'));
 console.log('9 LOCAL actual Mart presentation scenarios passed; no claims or RPCs');
+

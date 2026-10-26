@@ -443,6 +443,19 @@
           "sha256": "19258d296683bfe09efdaee052a45e7e8f5abee461fbe4ab025e8310e7acaf69"
         }
       ]
+    },
+    {
+      "version": "20261026125452",
+      "files": [
+        {
+          "file": "supabase/unapplied/pass-availability-display/INSTALL.sql",
+          "sha256": "b3bec52b20f263fd7ebdec8fe4ad0c1815ae8190039ee2a50e9a853adf686042"
+        },
+        {
+          "file": "supabase/unapplied/pass-availability-display/ROLLBACK.sql",
+          "sha256": "24ee84837e93edc8e4ba43ed83ddde292d66b531a2de4753321b0900b79a04ea"
+        }
+      ]
     }
   ]
 }

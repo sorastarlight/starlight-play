@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-269",
+      "status": "done",
+      "scope": "Native Twitch/avatar drafts and edit-only generic product saver",
+      "evidence": "LAUNCH-CODEX269-SPECIAL-PRODUCT-DRAFTS.md",
+      "testResults": "153suites;11localSQLgroups;64layouts;fullHub3types/reset;100+4sources;Pages40281937581success",
+      "nextAction": "Category/parity audit;entrycutover;exactcleanupheld",
+      "approvalRequirement": "Owner full migration/publication authorized;no actual creates/saves/provider activation"
+    },
+    {
       "id": "CODEX-268",
       "status": "done",
       "scope": "Native Trainer styles,registered sprite creation,portrait assignment/cropping",

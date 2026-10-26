@@ -2813,3 +2813,7 @@ Continuation:CODEX-275 entry bridge privately prepared/unit+rendered tested,not 
 
 ## CODEX-273 approved installation — October 26
 Two guarded sign-in function replacements installed as 20261026112826; exact source hashes and unchanged ACL/owner/search paths verified. Six-file main af14ea65 publication is running at Pages40315434912. No actual account calls or changes. Destructive cleanup276 remains held. APP unchanged. Recovery packet inventory64 files.
+
+## CODEX-273 publication verified — October 26
+
+Main af14ea65, Pages40315434912 succeeded. All100 monitored files and6 versioned Account-control files match exact published source. Four targeted regression suites, build and64-file recovery integrity checks pass. Both installed function definitions and permissions verified without invoking account handlers. No real account data changed by this work; no provider test or destructive cleanup.

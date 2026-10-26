@@ -11,3 +11,7 @@ Runtime scope: `admin-next.html`, `js/admin-next.js`, `js/admin-next-record.js`,
 ## Owner-approved installation — October 26
 
 Installed migration 20261026112826 after exact original/dependency source checks. Both candidate hashes, unchanged ACLs, owner and search paths verified. No real account handler invoked. Destructive cleanup remains held.
+
+## CODEX-273 publication verified — October 26
+
+Main af14ea65, Pages40315434912 succeeded. All100 monitored files and6 versioned Account-control files match exact published source. Four targeted regression suites, build and64-file recovery integrity checks pass. Both installed function definitions and permissions verified without invoking account handlers. No real account data changed by this work; no provider test or destructive cleanup.

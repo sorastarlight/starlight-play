@@ -41,11 +41,11 @@
     },
     {
       "id": "CODEX-273",
-      "status": "installed-publication-verifying",
+      "status": "done",
       "scope": "Native Account controls and last-sign-in policy decision",
       "evidence": "LAUNCH-CODEX273-LOCAL-ACCOUNT-TOOLS.md",
-      "testResults": "157 suites;9 real SQL groups;44 layouts;full Hub/keyboard/reset;guarded rollbacks",
-      "nextAction": "Verify Pages40315434912 and deployed static sources; no account actions",
+      "testResults": "157 suites;9 real SQL groups;44 layouts;full Hub/keyboard/reset;guarded rollbacks;production migration20261026112826;Pages40315434912 success;100+6 source matches",
+      "nextAction": "Continue remaining migration parity; destructive cleanup remains held",
       "approval": "Owner explicitly approved safeguards and six-file publication October 26"
     },
     {

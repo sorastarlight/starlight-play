@@ -48,6 +48,7 @@
     if(!wanted.length&&category?.kind!=='avatars'&&!(Object.keys(row.grants).length===0&&edited.status==='draft'&&edited.visible===false))throw Error('Add at least one product reward.');
     next.grants = Object.fromEntries(Object.entries(edited.quantities).map(([k,v])=>[k,integer(Object.keys(row.grants).length===1&&Object.keys(edited.quantities).length===1&&Object.hasOwn(row.grants,k)?edited.quantity:v,1)]));
     if (!Array.isArray(edited.looks) || edited.looks.some(v=>typeof v!=='string') || new Set(edited.looks).size!==edited.looks.length) throw Error('Choose valid trainer appearances.');
+    if(category?.kind==='avatars'&&edited.status==='published'&&!edited.looks.length)throw Error('Add at least one Trainer appearance before publishing this collection.');
     const titles=String(edited.bitsTitles||'').split(/\r?\n/).map(x=>x.trim()).filter(Boolean);
     if(next.bits>0&&edited.status==='published'&&!titles.length)throw Error('Add the Twitch Power-Up title for this Bits product.');
     next.status = edited.status; next.visible = edited.visible; next.featured = edited.featured;

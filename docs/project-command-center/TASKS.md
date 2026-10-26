@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-274 | done | Post-change physical backup | SQL272 | Read-only |07:44:28UTC available;no restore/export |
+| CODEX-273 | blocked | Native Account and last-sign-in safeguard | Policy decision | Important owner decision pending |157suites;9SQLgroups;44layouts;no install/publication |
 | CODEX-272 | done | Native five-tool Planning | Full migration | Completed install/publication authorized |156suites;6SQLgroups;120layouts;100+4sources;no hosted estimate |
 | CODEX-271 | done | Empty avatar publication guard | Full migration | Completed install/publication authorized |155suites;7SQLgroups;100+1sources;no actual product action |
 | CODEX-270 | done | Native category creation/all types | Full migration | Completed publication authorized |154suites;5SQLgroups;44layouts;100+3sources;no actual category action |

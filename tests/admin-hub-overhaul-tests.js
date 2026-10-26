@@ -133,7 +133,7 @@ test("Overview dossier no longer repeats ranking, coins, or Twitch", () => {
     pane: "overview"
   }));
   assert(html.includes("Account") && html.includes("Registration"));
-  assert(html.includes("Password login present"));
+  assert(html.includes("Password sign-in"));
   assert(html.includes("admin-next-dossier-jumps"));
   assert(!html.includes("Ranking visible"));
   assert(!html.includes("Primary Twitch"));

@@ -1,5 +1,7 @@
 # Current launch readiness handoff — through CODEX-241
 
+CODEX-274 completed post-change PHYSICAL backup available October26 07:44:28UTC,after latest migration20261026072445. Availability only;no restore/export.62 recovery files. CODEX-273 Account controls and last-sign-in safeguard are locally tested and held for owner decision;production stays CODEX-272. [Backup report](LAUNCH-CODEX274-POST-CHANGE-BACKUP.md).
+
 CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 monitored+4 changed source matches.156 suites,6 real local SQL groups,120 responsive states and full Hub five routes/late-account clearing. Migration20261026072445;62 recovery files;APP unchanged. No hosted estimate or application action. [Report](LAUNCH-CODEX272-NATIVE-PLANNING.md).
 
 CODEX-271 empty-avatar publication guard live at main147dfc27/Pages40284312464 success;100 monitored+1 changed source matches.155 suites,7 real local SQL groups,4 responsive warning states. Migration20261026071051;60 recovery files;APP unchanged. All product/style/category rows and purchase controls unchanged. [Report](LAUNCH-CODEX271-AVATAR-PUBLICATION.md).

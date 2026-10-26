@@ -223,7 +223,7 @@
       { label: "Account id", value: text(user.id) },
       { label: "Role", value: text(user.role || "player") },
       { label: "Starlight Pass", value: yn(user.pass) },
-      { label: "Password login present", value: yn(user.emailLogin) }
+      { label: "Password sign-in", value: yn(user.emailLogin) }
     );
     return rows;
   }
@@ -366,8 +366,7 @@
           { label: "Last seen", value: formatStamp(user.lastSeenAt) }
         ]))}
       </div>
-      <p class="admin-next-dossier-jumps">Level, ranking, and cosmetics are under Progression. Coins and bag are under Inventory. Twitch links are under Connections.</p>
-      <p class="admin-next-unavailable">Email address is not returned. Password login is a boolean only. Recent activity journal is not available.</p>
+      <p class="admin-next-dossier-jumps">Use Progression for levels and unlocks, Inventory for items and PokéCoins, or Account for Twitch connections and ranking visibility.</p>
     `)}`;
   }
 

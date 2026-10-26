@@ -4,6 +4,24 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-274",
+      "status": "done",
+      "scope": "Post-change physical backup availability",
+      "evidence": "LAUNCH-CODEX274-POST-CHANGE-BACKUP.md",
+      "testResults": "20261026074428 PHYSICAL available after migration20261026072445;no restore/export",
+      "nextAction": "Do not poll unchanged completed point",
+      "approval": "Read-only recovery verification"
+    },
+    {
+      "id": "CODEX-273",
+      "status": "blocked",
+      "scope": "Native Account controls and last-sign-in policy decision",
+      "evidence": "LAUNCH-CODEX273-LOCAL-ACCOUNT-TOOLS.md",
+      "testResults": "157 suites;9 real SQL groups;44 layouts;full Hub/keyboard/reset;guarded rollbacks",
+      "nextAction": "Owner important account-policy decision;continue independent work",
+      "approval": "Held;not installed/published"
+    },
+    {
       "id": "CODEX-272",
       "status": "done",
       "scope": "Native five-tool planning with log-free loot estimates",

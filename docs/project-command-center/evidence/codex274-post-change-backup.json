@@ -1,0 +1,26 @@
+{
+  "classification": "READ ONLY Supabase dashboard and migration metadata;no application invocation",
+  "project": "dtflmlbjhttoewqgkujf",
+  "branch": "main production",
+  "observedAt": "2026-10-26T07:54:50.918956+00:00",
+  "recoveryPoint": {
+    "type": "PHYSICAL",
+    "timestamp": "2026-10-26T07:44:28Z",
+    "restoreControlPresent": true,
+    "inProgressLabel": false
+  },
+  "latestMigration": {
+    "version": "20261026072445",
+    "name": "hub_planning"
+  },
+  "postdatesLatestMigration": true,
+  "restoreClicked": false,
+  "exports": 0,
+  "changes": 0,
+  "limits": [
+    "Availability only,not backup-content integrity",
+    "No physical restore/recovery-time or full Auth-service certification",
+    "Storage objects excluded by vendor notice"
+  ],
+  "privateScreenshot": "security/codex274/post-change-backup.png"
+}

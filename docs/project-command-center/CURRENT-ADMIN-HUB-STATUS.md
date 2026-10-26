@@ -17,7 +17,7 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 
 ## Remaining migration work
 
-1. Finish the remaining identity-tool parity audit before the old direct entry cutover.
+1. CODEX-273 native Account controls are locally tested; await the important owner decision on the proposed last-sign-in safeguard before publication.
 2. Planning now covers all five old simulators. Retire obsolete self-grant QA instead of recreating it.
 3. Switch the old direct admin entry to the primary Hub after remaining capabilities are accounted for. The old page is still present; staff navigation already uses the primary Hub.
 4. Prepare an exact obsolete-data/schema cleanup packet for owner review. Destructive execution remains held.
@@ -26,7 +26,7 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 
 Real Chrome linking/subscriber Pass evidence from ShinoTheWolf and Android S25 Ultra checks for Help/Register are retained. They do not establish Firefox, iOS or actual screen-reader acceptance. Keep missing real evidence explicit rather than treating fixtures as devices/provider proof. See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md).
 
-The earlier October25 physical backup was observed after CODEX-215. More SQL has since shipped; the next completed post-change backup is due after approximately October26 07:44UTC. Do not call it verified yet. Sixty-two exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
+The October26 07:44:28UTC physical recovery point is available and follows latest installed migration20261026072445 (CODEX-274). Availability is verified; contents and physical restore are not. CODEX-273 remains unapplied and does not require another backup yet. Sixty-two exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
 
 Current user direction authorizes completing the redesign/migration and publishing tested changes. It does not authorize agent use of the staff mutation controls, protected-account changes, paid provider activation, destructive cleanup, a new APP stamp or final launch declaration. No new automation or parallel runner is in use.
 

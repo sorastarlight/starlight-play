@@ -17,7 +17,7 @@ test("Record header escapes identity and excludes balances", () => {
   const html = ui.profileHtml(view("overview"));
   assert.equal((html.match(/role="tablist"/g) || []).length, 1);
   assert(!html.includes('class="admin-next-trainer-head"'));
-  assert(html.includes("Password login present"));
+  assert(html.includes("Password sign-in"));
 });
 test("Inventory drill-in keeps zero distinct from unavailable", () => {
   const html = ui.profileHtml(view("inventory", { group: "currency", item: "coins" }));
@@ -80,11 +80,11 @@ test("Shiny identity, honest stats and human item labels", () => {
   assert(html.includes("disabled>Edit stats")); assert(html.includes("<dt>Ability</dt><dd>Unavailable</dd>"));
   assert.equal(ui.inventoryGroups(view("inventory")).find(g=>g.id==="balls").items.find(i=>i.id==="masterball").name,"Master Ball");
 });
-test("Connections preserve unknown capabilities and escape provider labels", () => {
+test("Account shell delegates capabilities to the gated account controls without interpolating raw provider labels", () => {
   const accountWithLink = {...account,connections:[{displayName:'<script>bad</script>',login:'test',primary:true,gameplayEnabled:false}]};
   const html=ui.profileHtml(ui.presentProfile({account:accountWithLink,pane:"connections"}));
-  assert(html.includes('&lt;script&gt;bad&lt;/script&gt;'));assert(!html.includes('<script>bad'));
-  assert(html.includes('<dt>Can sign in</dt><dd>Unavailable</dd>'));assert(html.includes('<dt>Gameplay rewards</dt><dd>No</dd>'));
+  assert(html.includes('data-trainer-account-tools'));assert(!html.includes('<script>bad'));
+  assert(!html.includes('current hub'));assert(!html.includes('preview is informational'));
   assert(!html.includes('Linked Twitch rows'));assert(html.includes('data-trainer-diagnostics'));
 });
 test("Stored battle data preserves zero, missing fields and escaped move names", () => {

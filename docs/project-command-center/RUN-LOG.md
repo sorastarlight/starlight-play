@@ -2817,3 +2817,8 @@ Two guarded sign-in function replacements installed as 20261026112826; exact sou
 ## CODEX-273 publication verified — October 26
 
 Main af14ea65, Pages40315434912 succeeded. All100 monitored files and6 versioned Account-control files match exact published source. Four targeted regression suites, build and64-file recovery integrity checks pass. Both installed function definitions and permissions verified without invoking account handlers. No real account data changed by this work; no provider test or destructive cleanup.
+
+## Modal background scroll fix — October 26
+One CSS file adds modal-only root/body scroll locking, dialog scroll containment and stable scrollbar space. REAL LOCAL BROWSER: long reward-dialog scrollTop reached1667 while document stayed0; after Escape document scrolled300; reopening/scrolled boundary/closing preserved300. No authenticated hosted navigation or account action. Build passes. Feature370957c9;scoped main e424270c;Pages40316243750 awaiting source verification.
+
+Modal scroll publication completed: Pages40316243750 succeeded;plain and versioned CSS match exact main e424270c source. No APP stamp or hosted application action.

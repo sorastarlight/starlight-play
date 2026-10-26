@@ -238,3 +238,12 @@ Migration20261026040216;5source/ACLmatches;11controlsunchanged;auditRLStrue/rows
 |Migration|Installpacket|SHA256|
 |---|---|---|
 |20261026040216 hub_special_events|supabase/unapplied/hub-special-events/INSTALL.sql|5bc1496f8cb03f41164eb3b18161668c808c15e87ba33c8b271e2d6cf29fefe0|
+
+
+# CODEX-263 - Expanded shop draft catalogue
+
+Migration 20261026041556;three exact sources verified;five controls unchanged;product count unchanged. Nine local SQL groups including actual READ ONLY catalogue, typed draft persistence, stale-item/role/duplicate refusal, concurrent duplicate lock refusal and byte-exact guarded rollback. No production product creation or application endpoint call. Recovery packets: supabase/unapplied/hub-mart-draft-catalog .
+
+|Migration|Install packet|SHA256|
+|---|---|---|
+|20261026041556 hub_mart_draft_catalog|supabase/unapplied/hub-mart-draft-catalog/INSTALL.sql|26651177f496fe1202b6af872eceba05f1ccc7d6e3047df5b8263aad0c29ea62|

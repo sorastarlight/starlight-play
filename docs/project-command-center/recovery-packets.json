@@ -313,6 +313,19 @@
           "sha256": "1447350cd3eafe05c2809024c2b7d239ae09a72f96df3f352a3b0528a7f9b0e6"
         }
       ]
+    },
+    {
+      "version": "20261026041556",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-mart-draft-catalog/INSTALL.sql",
+          "sha256": "26651177f496fe1202b6af872eceba05f1ccc7d6e3047df5b8263aad0c29ea62"
+        },
+        {
+          "file": "supabase/unapplied/hub-mart-draft-catalog/ROLLBACK.sql",
+          "sha256": "7d37df2a6fe5a1d65644cd01b4ad49c2cc291455b4732cd6ba5a23a67371f446"
+        }
+      ]
     }
   ]
 }

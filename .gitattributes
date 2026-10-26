@@ -77,3 +77,6 @@ supabase/migrations/*_hub_special_product_drafts.sql text eol=lf
 
 supabase/unapplied/hub-avatar-publication/*.sql text eol=lf
 supabase/migrations/*_hub_avatar_publication.sql text eol=lf
+
+supabase/unapplied/hub-planning/*.sql text eol=lf
+supabase/migrations/*_hub_planning.sql text eol=lf

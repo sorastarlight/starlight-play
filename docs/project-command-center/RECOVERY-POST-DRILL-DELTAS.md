@@ -286,3 +286,11 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 |Migration|Guarded install|SHA256|
 |---|---|---|
 |20261026071051 hub_avatar_publication|supabase/unapplied/hub-avatar-publication/INSTALL.sql|5d43a90831b7baf5dcd25d9d5d516137223988adf9e8da78c70e8b8ab9019c01|
+
+## CODEX-272 native planning
+
+|Migration|Guarded install|SHA256|
+|---|---|---|
+|20261026072445 hub_planning|supabase/unapplied/hub-planning/INSTALL.sql|0caebc6fba07fa9efdcd4e72474872692ea771684ccefac44334346845a205b4|
+
+62exact recovery files. Two existing estimate functions replaced;new staff choices handler/private log-free helper. Live gameplay loot helper untouched. Six real local SQL groups include all five estimates in READ ONLY,19 pinned sources,zero-price affordability and exact rollback. No production application/report/estimate called;product/style/config digests unchanged.

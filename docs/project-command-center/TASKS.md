@@ -4,6 +4,12 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-263 | in_progress | Expanded visual shop draft catalogue | Full migration | Owner-authorized completion/publication | Verify Pages/source;continue native authoring |
+| CODEX-262 | done | Native reviewed Special Events | Full migration | Owner-authorized completion/publication | No hosted command;continue migration |
+| CODEX-261 | done | Pure spawn-rate report | Full migration | Owner-authorized completion/publication | No hosted report invocation |
+| CODEX-260 | done | Native image library and reviewed uploads | Full migration | Owner-authorized completion/publication | No hosted upload |
+| CODEX-259 | done | Native evolution-rule inspection | Full migration | Owner-authorized completion/publication | No hosted rule invocation |
+| CODEX-258 | done | Reviewed staff-access editor | Full migration | Owner-authorized completion/publication | No actual role assignment |
 | CODEX-257 | done | Native reviewed Twitch Ads controls | Full migration | Completed go-live authorized | Pages40248494174success;100+4sources;realprovider test pending |
 | CODEX-255 | done | Editor Unicode text correction | Routine maintenance | CODEX78/full migration | Pages40246842618success;100+2sources |
 | CODEX-256 | done | Audited expired trade hold repair | Owner full migration | Legacy replacement authorized | Migration20261025234842;Pages40246446510success;100+3sources |

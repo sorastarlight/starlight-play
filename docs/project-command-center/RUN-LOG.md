@@ -2783,3 +2783,6 @@ CODEX256 LIVE: migration20261025234842;main54e3b3d8;Pages40246446510success;100+
 
 
 CODEX255 LIVE: main89c31c7a;Pages40246842618success;100+2sources;UTF8 restored;noSQL. CODEX257 LIVE: mainda805cae;Pages40248494174success;100+4sources;141suites;12loaded owner/moderator/errorlayouts;simulatedSDKreturnoneuse;heldownerresponsecannotrestorecontrols;TwitchAdsV2JWT/sourceunchanged;6sensitivehelpersserviceonly. No actual provider/Auth setting/credential/ad/notice/gameplay action.42recoveryfiles;post-changephysicalbackupstilldueOct26~07:44UTC. Continue staff access/content/asset parity and primary entry switch;destructivecleanup and paidBitsactivationheld.
+
+
+CODEX-262/263 resumed:Special Events Pages40267239825 source verified100+4;expanded shop draft migration20261026041556 installed,3source/ACLmatches/5unchangedcontrols/productcountunchanged.147 suites,9 local SQL groups,16 responsive states,50 recoveryfiles. Two-file mainc654ecf9 publication queued. No hosted app actions,protected changes,cleanup,APPstamp or new runner. Current matrix reconciled through263.

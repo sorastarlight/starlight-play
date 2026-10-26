@@ -4,6 +4,60 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-263",
+      "status": "in_progress",
+      "scope": "Expanded visual shop draft catalogue",
+      "evidence": "LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md",
+      "testResults": "147 suites;9 real local SQL groups;16 layouts;three deployed SQL sources;five controls unchanged;two-file publication queued",
+      "nextAction": "Verify Pages/source;continue native authoring",
+      "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
+    },
+    {
+      "id": "CODEX-262",
+      "status": "done",
+      "scope": "Native reviewed Special Events",
+      "evidence": "LAUNCH-CODEX262-SPECIAL-EVENTS.md",
+      "testResults": "146 suites;14 local SQL groups;24 layouts;Pages40267239825;100+4 sources",
+      "nextAction": "No hosted command;continue migration",
+      "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
+    },
+    {
+      "id": "CODEX-261",
+      "status": "done",
+      "scope": "Pure spawn-rate report",
+      "evidence": "LAUNCH-CODEX261-SPAWN-REPORT.md",
+      "testResults": "145 suites;8 SQL groups;8 layouts;Pages40250985052;100+3 sources",
+      "nextAction": "No hosted report invocation",
+      "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
+    },
+    {
+      "id": "CODEX-260",
+      "status": "done",
+      "scope": "Native image library and reviewed uploads",
+      "evidence": "LAUNCH-CODEX260-IMAGE-LIBRARY.md",
+      "testResults": "144 suites;12 layouts;local decode/upload-boundary checks;Pages40250505674;100+4 sources",
+      "nextAction": "No hosted upload",
+      "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
+    },
+    {
+      "id": "CODEX-259",
+      "status": "done",
+      "scope": "Native evolution-rule inspection",
+      "evidence": "LAUNCH-CODEX259-EVOLUTION-RULES.md",
+      "testResults": "143 suites;8 layouts;Pages40250026932;100+5 sources",
+      "nextAction": "No hosted rule invocation",
+      "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
+    },
+    {
+      "id": "CODEX-258",
+      "status": "done",
+      "scope": "Reviewed staff-access editor",
+      "evidence": "LAUNCH-CODEX258-STAFF-ACCESS.md",
+      "testResults": "142 suites;12 SQL groups;12 layouts;Pages40249712073;100+5 sources",
+      "nextAction": "No actual role assignment",
+      "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
+    },
+    {
       "id": "CODEX-257",
       "status": "done",
       "scope": "Native reviewed Twitch Ads consent,refresh and snooze controls",
@@ -410,11 +464,11 @@
     {
       "id": "CODEX-216",
       "status": "done",
-      "scope": "Record owner future content-management requirements and verify repository Pok\u00c3\u00a9mon reference-source architecture",
+      "scope": "Record owner future content-management requirements and verify repository PokÃ©mon reference-source architecture",
       "branch": "admin-hub-overhaul",
       "evidence": "FUTURE-CONTENT-MANAGEMENT.md;tools/build-gen9-ref.js;data/gen9-ref/README.md",
       "testResults": "Documentation/source inspection;local links and JSON checked;no runtime or database execution",
-      "nextAction": "Retain Mart all-kind,Pass bundle,page and individual Pok\u00c3\u00a9mon import needs for later scoped design;not a launch blocker",
+      "nextAction": "Retain Mart all-kind,Pass bundle,page and individual PokÃ©mon import needs for later scoped design;not a launch blocker",
       "approvalRequirement": "Requirements recording only;no implementation,publication or content activation authority"
     },
     {
@@ -575,7 +629,7 @@
     {
       "id": "CODEX-200",
       "status": "done",
-      "scope": "Disconnected existing Pok\u00c3\u00a9Coin floor presentation design",
+      "scope": "Disconnected existing PokÃ©Coin floor presentation design",
       "evidence": "ADMIN-HUB-MART-FLOOR-REVIEW.md;design-reset/hub-mart-floor-review.html;evidence/codex200-floor-layouts.json",
       "testResults": "8renderedwidthcases;unavailabledisables;dialogautofocus/Escape;changedfieldsonly;noAuth/backend",
       "nextAction": "Design/local implementation approved and completed in CODEX-201; publication separate",
@@ -823,7 +877,7 @@
     {
       "id": "CODEX-173",
       "status": "done",
-      "scope": "Read-only full Trainer Pok\u00c3\u00a9mon roster design prepared",
+      "scope": "Read-only full Trainer PokÃ©mon roster design prepared",
       "dependencies": [
         "CODEX-168"
       ],
@@ -859,7 +913,7 @@
     {
       "id": "CODEX-170",
       "status": "done",
-      "scope": "Empty-schema recovery extended through Pok\u00c3\u00a9mon gift quantity",
+      "scope": "Empty-schema recovery extended through PokÃ©mon gift quantity",
       "dependencies": [
         "CODEX-168",
         "CODEX-169"
@@ -884,7 +938,7 @@
     {
       "id": "CODEX-168",
       "status": "done",
-      "scope": "Pok\u00c3\u00a9mon gift quantity installed/published/source verified",
+      "scope": "PokÃ©mon gift quantity installed/published/source verified",
       "dependencies": [
         "CODEX-167"
       ],
@@ -1148,7 +1202,7 @@
     {
       "id": "CODEX-146",
       "status": "done",
-      "scope": "GTS picker Pok\u00c3\u00a9dex search and accurate empty states",
+      "scope": "GTS picker PokÃ©dex search and accurate empty states",
       "dependencies": [
         "CODEX-145"
       ],
@@ -1424,7 +1478,7 @@
     {
       "id": "CODEX-123",
       "status": "done",
-      "scope": "Routine Pok\u00c3\u00a9dex navigation failure boundary",
+      "scope": "Routine PokÃ©dex navigation failure boundary",
       "dependencies": [
         "CODEX-122"
       ],
@@ -2263,7 +2317,7 @@
       "branch": "admin-hub-overhaul",
       "commit": "d77bb3b9",
       "evidence": "BOUNDED-ECONOMY-QA.md;evidence/qa50-mart-purchase.json;evidence/qa50-gift-evolution.json",
-      "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpie\u00e2\u2020\u2019Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
+      "testResults": "REAL DOM/SQL Mart purchase and audited15-candy gift PASS;one Caterpieâ†’Metapod evolution PASS;level/IV/EV/nature/moves/stamp retained,15 candy spent once;Caterpie Familiar1 unchanged. Oak0 eligible/last-copy protection;not executed.",
       "nextAction": "Bounded packet complete: actual EmailQA Oak transfer succeeded once,2 Caterpie Candy granted (3 to5),original Familiarity unchanged, gifted level5 copy retained. Continue remaining launch readiness; no more gameplay implied.",
       "approvalRequirement": "One additional ordinary Metapod approved explicitly; original Oak transfer remains approved. No extra catches/evolutions or last-copy bypass."
     },
@@ -2495,7 +2549,7 @@
     {
       "id": "CODEX-33",
       "status": "done",
-      "scope": "Read-only species-wide Familiarity metric in Pok\u00c3\u00a9dex Your Research",
+      "scope": "Read-only species-wide Familiarity metric in PokÃ©dex Your Research",
       "dependencies": [
         "CODEX-32"
       ],
@@ -2621,7 +2675,7 @@
     {
       "id": "CODEX-24",
       "status": "done",
-      "scope": "Read-only stored Pok\u00c3\u00a9mon stats in Trainer record",
+      "scope": "Read-only stored PokÃ©mon stats in Trainer record",
       "dependencies": [
         "CODEX-23"
       ],
@@ -2770,7 +2824,7 @@
       ],
       "branch": "admin-hub-overhaul",
       "commit": "a3a0da20",
-      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested Pok\u00c3\u00a9mon StreamLink reset email naming; signup/email-change and shared sender use game title",
+      "evidence": "ACCOUNT-EMAIL-TEMPLATES.md; supabase/templates/; owner-requested PokÃ©mon StreamLink reset email naming; signup/email-change and shared sender use game title",
       "testResults": "REAL DOM hosted template source matched and saved; rendered previews reviewed. 20 recovery checks and build passed. No live Auth message sent. Owner-authorized EmailQA reset sent once; Resend Delivered. Signup confirmation also Delivered. Pages succeeded. Owner reported successful EmailQA password-reset completion on 2026-10-19.",
       "nextAction": "Resolve staff recovery audit receipt retention/privacy policy and privileged-path verification before activation",
       "approvalRequirement": "Owner explicitly requested friendly emails and continued SMTP/recovery work. User must enter and submit any new password."
@@ -2890,7 +2944,7 @@
     {
       "id": "CODEX-5",
       "status": "done",
-      "scope": "Visual searchable Pok\u00c3\u00a9mon/candy picker, accurate gift labels, modal staff reasons and visual review",
+      "scope": "Visual searchable PokÃ©mon/candy picker, accurate gift labels, modal staff reasons and visual review",
       "dependencies": [
         "CODEX-4"
       ],
@@ -3169,7 +3223,7 @@
     {
       "id": "I9",
       "status": "done",
-      "scope": "GitHub issue #9 Pok\u00c3\u00a9mon collection rows and read-only detail comparison prototype",
+      "scope": "GitHub issue #9 PokÃ©mon collection rows and read-only detail comparison prototype",
       "dependencies": [
         "I8"
       ],
@@ -3211,7 +3265,7 @@
     {
       "id": "I16",
       "status": "done",
-      "scope": "GitHub issue #16 Pok\u00c3\u00a9mon generation/legality source audit and audited owner editor design",
+      "scope": "GitHub issue #16 PokÃ©mon generation/legality source audit and audited owner editor design",
       "dependencies": [
         "epic-11"
       ],
@@ -3219,7 +3273,7 @@
       "commit": "a3004d1",
       "evidence": "docs/project-command-center/POKEMON-LEGALITY-AUDIT-ISSUE-16.md",
       "testResults": "overhaul 17 STATIC PASS; LIVE CATALOG catches columns; no catch-row SELECT",
-      "nextAction": "Superseded by D15\u00e2\u20ac\u201cD17 / issue #19. Keep as current-state evidence.",
+      "nextAction": "Superseded by D15â€“D17 / issue #19. Keep as current-state evidence.",
       "approvalRequirement": "Historical; future work uses A19-* gates"
     },
     {
@@ -3314,7 +3368,7 @@
     {
       "id": "I24A",
       "status": "done",
-      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 \u00e2\u2020\u2019 seed 00\u00e2\u20ac\u201c10 \u00e2\u2020\u2019 002",
+      "scope": "GitHub issue #24 owner GO schema-only A19-APPLY of 001 â†’ seed 00â€“10 â†’ 002",
       "dependencies": [
         "I24",
         "D35"
@@ -3339,7 +3393,7 @@
       "evidence": "docs/project-command-center/GEN-IX-GENVAL-SPEC.md, tests/fixtures/a19-genval/matrix.json, tests/a19-genval-spec-tests.js",
       "testResults": "a19-genval-spec STATIC/LOCAL HARNESS; historical D36 snapshot",
       "nextAction": "Superseded by I25A / D37. Spec file remains the planning snapshot.",
-      "approvalRequirement": "Historical; GV1\u00e2\u20ac\u201cGV7 later locked in D37"
+      "approvalRequirement": "Historical; GV1â€“GV7 later locked in D37"
     },
     {
       "id": "I25A",
@@ -3894,7 +3948,7 @@
       "evidence": "docs/project-command-center/D76-FAMILIARITY-STAMP-SMOKE-GO-PACKET.md",
       "testResults": "READ-ONLY LIVE CATALOG. REAL SQL D76 8/8 on 127.0.0.1:55448. Lifecycle inactive. No hosted catch.",
       "nextAction": "Superseded by I41. Account creation stopped for missing email and password.",
-      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED \u00e2\u20ac\u201d UNSPECIFIED."
+      "approvalRequirement": "The proposed GO is not approved. QA identity is REQUIRED â€” UNSPECIFIED."
     },
     {
       "id": "I41",

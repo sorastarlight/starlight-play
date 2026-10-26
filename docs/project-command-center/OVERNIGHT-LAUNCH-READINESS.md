@@ -1,5 +1,14 @@
 # Current launch readiness handoff — through CODEX-241
 
+## Current migration checkpoint — CODEX-263
+
+Current status is consolidated in [Current Admin Hub status](CURRENT-ADMIN-HUB-STATUS.md). The older entries below are historical and must not be read as current unmigrated-tool or approval requirements.
+
+Special Events is live/source verified at main080e4db9,Pages40267239825. Expanded shop drafts: migration20261026041556 installed;two-file mainc654ecf9 publication verified,Pages40268261941;100+2 source matches.147 regression suites,9 local SQL groups,16 layouts and50 recovery files pass. No hosted application call or product creation occurred. Staff access,evolution inspection,image library and pure spawn reporting were also completed in258–261.
+
+Continue native item/content authoring and remaining appearance tools;then primary-entry cutover. Keep exact destructive cleanup held. Real device/provider gaps remain explicit. The older timed overnight schedules are historical/paused;this continuation creates no new background system. Next post-change backup observation is due after approximately October26 07:44UTC,not certified yet.
+
+
 CODEX-241 tracked delta credential-format review scanned596recognized text files among598changed paths since CODEX106;two unrecognized/binary paths skipped. No selected credential-pattern flags or credential-artifact candidates. No values emitted,private store read or hosted action;production unchanged. [Report](LAUNCH-CODEX241-TRACKED-DELTA-CREDENTIALS.md).
 
 CODEX-240 reconciled real-acceptance/provider/recovery prerequisites and shortened the owner return review. Completed Chrome/Android evidence and published OAuth correction are retained;post-change backup availability no longer reads as pending.17local document links pass. No requirement closed or new authority inferred;production unchanged. [Report](LAUNCH-CODEX240-RETURN-HANDOFF.md).

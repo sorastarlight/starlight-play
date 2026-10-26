@@ -222,3 +222,11 @@ Installed20261026002948;4source/ACLmatches;privateaudit0. Twelve isolated SQL ch
 |Migration|Install packet|SHA256|
 |---|---|---|
 |20261026002948 hub_staff_access|supabase/unapplied/hub-staff-access/INSTALL.sql|7f1b1a7ce1651dc5ec50503d4bc62926ad2b152c9e50fc5894fa4edf7d80b2fd|
+
+## CODEX-261 - Pure spawn report
+
+Migration20261026004548;source/ACL/STABLEattributesmatch;nohostedreportcall. EightSQLgroupsincludingREADONLYandguardedrollback;nochangesinplayer/configurationdata.
+
+|Migration|Installpacket|SHA256|
+|---|---|---|
+|20261026004548 hub_spawn_report|supabase/unapplied/hub-spawn-report/INSTALL.sql|a23ccd0594911623c5b706de202f8493fbbaf74965a13acb971f4b6a7989f180|

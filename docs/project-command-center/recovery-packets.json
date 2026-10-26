@@ -287,6 +287,19 @@
           "sha256": "c73da1667f2902218b420ea22e474c9000e8dd8c86654c96999e96bd429b2313"
         }
       ]
+    },
+    {
+      "version": "20261026004548",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-spawn-report/INSTALL.sql",
+          "sha256": "a23ccd0594911623c5b706de202f8493fbbaf74965a13acb971f4b6a7989f180"
+        },
+        {
+          "file": "supabase/unapplied/hub-spawn-report/ROLLBACK.sql",
+          "sha256": "a3d20523fa409a1b1315c382ff0b2aa20818a017de96a0052eda6bc4dfb3ec54"
+        }
+      ]
     }
   ]
 }

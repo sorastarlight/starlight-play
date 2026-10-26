@@ -1,6 +1,6 @@
 # Berry affinity proposal
 
-Status: mathematically checked design; not a deployed gameplay change.
+Status: historical first draft, superseded by the subsequent owner-accepted specialist/universal discussion. In particular, Sitrus/Razz/Silver Pinap/Golden Razz are proposed universal berries; Wiki is unassigned and Steel needs a specialist. Nine of these catalog berries were not catch-enabled at review. Do not activate this old mapping. See BERRY-DROP-PROGRESSION.md for the new drop model. No gameplay changes deployed.
 
 Every berry retains its current rarity-based catch multiplier. A matching Pokémon type multiplies that result by1.10, once even for dual types. Every type receives the same relative bonus. No mismatch penalty; existing 2% minimum and85% maximum remain, and Master Ball guarantees remain separate. Pinap and Silver Pinap coin effects remain. Prices and inventories stay unchanged.
 

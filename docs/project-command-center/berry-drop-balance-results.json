@@ -1,0 +1,595 @@
+{
+  "model": "proposal, not deployed",
+  "milestones": [
+    {
+      "level": 1,
+      "xp": 0,
+      "chance": 0.9,
+      "watchHoursOnly": 0
+    },
+    {
+      "level": 2,
+      "xp": 100,
+      "chance": 0.8577464788732394,
+      "watchHoursOnly": 5
+    },
+    {
+      "level": 3,
+      "xp": 355,
+      "chance": 0.75,
+      "watchHoursOnly": 17.75
+    },
+    {
+      "level": 5,
+      "xp": 1446,
+      "chance": 0.6,
+      "watchHoursOnly": 72.3
+    },
+    {
+      "level": 8,
+      "xp": 4830,
+      "chance": 0.45,
+      "watchHoursOnly": 241.5
+    },
+    {
+      "level": 10,
+      "xp": 8428,
+      "chance": 0.35,
+      "watchHoursOnly": 421.4
+    },
+    {
+      "level": 15,
+      "xp": 22792,
+      "chance": 0.35,
+      "watchHoursOnly": 1139.6
+    },
+    {
+      "level": 20,
+      "xp": 45742,
+      "chance": 0.35,
+      "watchHoursOnly": 2287.1
+    },
+    {
+      "level": 30,
+      "xp": 121039,
+      "chance": 0.35,
+      "watchHoursOnly": 6051.95
+    },
+    {
+      "level": 50,
+      "xp": 408529,
+      "chance": 0.35,
+      "watchHoursOnly": 20426.45
+    },
+    {
+      "level": 100,
+      "xp": 2107701,
+      "chance": 0.35,
+      "watchHoursOnly": 105385.05
+    }
+  ],
+  "eligibleItems": 60,
+  "pools": [
+    {
+      "bucket": "everyday",
+      "items": [
+        {
+          "key": "aspear",
+          "name": "Aspear Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "cheri",
+          "name": "Cheri Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "chesto",
+          "name": "Chesto Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "nanab",
+          "name": "Nanab Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "berry",
+          "name": "Oran Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "pecha",
+          "name": "Pecha Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "rawst",
+          "name": "Rawst Berry",
+          "unitCost": 60,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "lure",
+          "name": "Poké Radar",
+          "unitCost": 80,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "pokeball",
+          "name": "Poké Ball",
+          "unitCost": 100,
+          "bucket": "everyday",
+          "quantity": 1
+        },
+        {
+          "key": "bait",
+          "name": "Honey",
+          "unitCost": 125,
+          "bucket": "everyday",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "bucket": "better",
+      "items": [
+        {
+          "key": "featherball",
+          "name": "Feather Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "friendball",
+          "name": "Friend Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "healball",
+          "name": "Heal Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "hisuiheavyball",
+          "name": "Hisui Heavy Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "hisuipokeball",
+          "name": "Hisui Poké Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "luxuryball",
+          "name": "Luxury Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "premierball",
+          "name": "Premier Ball",
+          "unitCost": 100,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "oldball",
+          "name": "Old Ball",
+          "unitCost": 110,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "strangeball",
+          "name": "Strange Ball",
+          "unitCost": 110,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "ashball",
+          "name": "Ash's Poké Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "cherishball",
+          "name": "Cherish Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "cloneball",
+          "name": "Clone Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "darkball",
+          "name": "Dark Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "gsball",
+          "name": "GS Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "safariball",
+          "name": "Safari Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "sportball",
+          "name": "Sport Ball",
+          "unitCost": 125,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "lum",
+          "name": "Lum Berry",
+          "unitCost": 150,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "originball",
+          "name": "Origin Ball",
+          "unitCost": 150,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "sitrus",
+          "name": "Sitrus Berry",
+          "unitCost": 150,
+          "bucket": "better",
+          "quantity": 1
+        },
+        {
+          "key": "pinap",
+          "name": "Pinap Berry",
+          "unitCost": 175,
+          "bucket": "better",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "bucket": "rare",
+      "items": [
+        {
+          "key": "razz",
+          "name": "Razz Berry",
+          "unitCost": 200,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "greatball",
+          "name": "Great Ball",
+          "unitCost": 225,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "hisuigreatball",
+          "name": "Hisui Great Ball",
+          "unitCost": 225,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "leadenball",
+          "name": "Leaden Ball",
+          "unitCost": 225,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "wingball",
+          "name": "Wing Ball",
+          "unitCost": 225,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "nestball",
+          "name": "Nest Ball",
+          "unitCost": 275,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "diveball",
+          "name": "Dive Ball",
+          "unitCost": 300,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "levelball",
+          "name": "Level Ball",
+          "unitCost": 300,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "loveball",
+          "name": "Love Ball",
+          "unitCost": 300,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "lureball",
+          "name": "Lure Ball",
+          "unitCost": 300,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "netball",
+          "name": "Net Ball",
+          "unitCost": 300,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "timerball",
+          "name": "Timer Ball",
+          "unitCost": 300,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "duskball",
+          "name": "Dusk Ball",
+          "unitCost": 325,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "fastball",
+          "name": "Fast Ball",
+          "unitCost": 325,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "heavyball",
+          "name": "Heavy Ball",
+          "unitCost": 325,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "moonball",
+          "name": "Moon Ball",
+          "unitCost": 325,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "quickball",
+          "name": "Quick Ball",
+          "unitCost": 350,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "repeatball",
+          "name": "Repeat Ball",
+          "unitCost": 350,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "gigatonball",
+          "name": "Gigaton Ball",
+          "unitCost": 500,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "hisuiultraball",
+          "name": "Hisui Ultra Ball",
+          "unitCost": 500,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "jetball",
+          "name": "Jet Ball",
+          "unitCost": 500,
+          "bucket": "rare",
+          "quantity": 1
+        },
+        {
+          "key": "ultraball",
+          "name": "Ultra Ball",
+          "unitCost": 500,
+          "bucket": "rare",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "bucket": "evolution",
+      "items": [
+        {
+          "key": "firestone",
+          "name": "Fire Stone",
+          "unitCost": 350,
+          "bucket": "evolution",
+          "quantity": 1
+        },
+        {
+          "key": "leafstone",
+          "name": "Leaf Stone",
+          "unitCost": 350,
+          "bucket": "evolution",
+          "quantity": 1
+        },
+        {
+          "key": "thunderstone",
+          "name": "Thunder Stone",
+          "unitCost": 350,
+          "bucket": "evolution",
+          "quantity": 1
+        },
+        {
+          "key": "waterstone",
+          "name": "Water Stone",
+          "unitCost": 350,
+          "bucket": "evolution",
+          "quantity": 1
+        },
+        {
+          "key": "moonstone",
+          "name": "Moon Stone",
+          "unitCost": 450,
+          "bucket": "evolution",
+          "quantity": 1
+        },
+        {
+          "key": "linkingcord",
+          "name": "Linking Cord",
+          "unitCost": 600,
+          "bucket": "evolution",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "bucket": "premium",
+      "items": [
+        {
+          "key": "silverpinap",
+          "name": "Silver Pinap Berry",
+          "unitCost": 400,
+          "bucket": "premium",
+          "quantity": 1
+        },
+        {
+          "key": "goldenrazz",
+          "name": "Golden Razz Berry",
+          "unitCost": 500,
+          "bucket": "premium",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+  "expectedValues": [
+    {
+      "rarity": "common",
+      "perDrop": 98.12878787878788,
+      "perBeginnerCatch": 88.31590909090909,
+      "perVeteranCatch": 34.345075757575756
+    },
+    {
+      "rarity": "uncommon",
+      "perDrop": 129.6219696969697,
+      "perBeginnerCatch": 116.65977272727274,
+      "perVeteranCatch": 45.36768939393939
+    },
+    {
+      "rarity": "rare",
+      "perDrop": 161.93712121212118,
+      "perBeginnerCatch": 145.74340909090907,
+      "perVeteranCatch": 56.67799242424241
+    },
+    {
+      "rarity": "epic",
+      "perDrop": 207.80833333333334,
+      "perBeginnerCatch": 187.0275,
+      "perVeteranCatch": 72.73291666666667
+    }
+  ],
+  "scenarios": [
+    {
+      "catches": 50,
+      "successRate": 0.5,
+      "firstSpecies": 25,
+      "watchHours": 0,
+      "expectedDrops": 33.90923508430369,
+      "endingXp": 1625
+    },
+    {
+      "catches": 100,
+      "successRate": 0.5,
+      "firstSpecies": 50,
+      "watchHours": 0,
+      "expectedDrops": 60.57575154555015,
+      "endingXp": 3250
+    },
+    {
+      "catches": 250,
+      "successRate": 0.5,
+      "firstSpecies": 100,
+      "watchHours": 0,
+      "expectedDrops": 121.93002083522633,
+      "endingXp": 7500
+    },
+    {
+      "catches": 100,
+      "successRate": 0.25,
+      "firstSpecies": 50,
+      "watchHours": 0,
+      "expectedDrops": 57.917102867643024,
+      "endingXp": 4250
+    },
+    {
+      "catches": 100,
+      "successRate": 0.85,
+      "firstSpecies": 50,
+      "watchHours": 0,
+      "expectedDrops": 61.73825045068769,
+      "endingXp": 2838.235294117655
+    },
+    {
+      "catches": 100,
+      "successRate": 0.5,
+      "firstSpecies": 50,
+      "watchHours": 100,
+      "expectedDrops": 49.09758585837682,
+      "endingXp": 5250
+    }
+  ]
+}

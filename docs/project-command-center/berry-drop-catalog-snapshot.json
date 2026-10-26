@@ -1,0 +1,583 @@
+{
+  "checkedAt": "2026-10-26",
+  "source": "Read-only published PokéCoin catalog;no player data",
+  "rows": [
+    {
+      "sku": "aspear5",
+      "name": "Aspear Berry",
+      "cost": 60,
+      "grants": {
+        "aspear": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "cheri5",
+      "name": "Cheri Berry",
+      "cost": 60,
+      "grants": {
+        "cheri": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "chesto5",
+      "name": "Chesto Berry",
+      "cost": 60,
+      "grants": {
+        "chesto": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "nanab5",
+      "name": "Nanab Berry",
+      "cost": 60,
+      "grants": {
+        "nanab": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "berry5",
+      "name": "Oran Berry",
+      "cost": 60,
+      "grants": {
+        "berry": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "pecha5",
+      "name": "Pecha Berry",
+      "cost": 60,
+      "grants": {
+        "pecha": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "rawst5",
+      "name": "Rawst Berry",
+      "cost": 60,
+      "grants": {
+        "rawst": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "radar1",
+      "name": "Poké Radar",
+      "cost": 80,
+      "grants": {
+        "lure": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "feather1",
+      "name": "Feather Ball",
+      "cost": 100,
+      "grants": {
+        "featherball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "friend1",
+      "name": "Friend Ball",
+      "cost": 100,
+      "grants": {
+        "friendball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "heal1",
+      "name": "Heal Ball",
+      "cost": 100,
+      "grants": {
+        "healball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "hisuiheavy1",
+      "name": "Hisui Heavy Ball",
+      "cost": 100,
+      "grants": {
+        "hisuiheavyball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "hisuipoke1",
+      "name": "Hisui Poké Ball",
+      "cost": 100,
+      "grants": {
+        "hisuipokeball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "luxury1",
+      "name": "Luxury Ball",
+      "cost": 100,
+      "grants": {
+        "luxuryball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "poke5",
+      "name": "Poké Ball",
+      "cost": 100,
+      "grants": {
+        "pokeball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "premier1",
+      "name": "Premier Ball",
+      "cost": 100,
+      "grants": {
+        "premierball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "old1",
+      "name": "Old Ball",
+      "cost": 110,
+      "grants": {
+        "oldball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "strange1",
+      "name": "Strange Ball",
+      "cost": 110,
+      "grants": {
+        "strangeball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "pouch10",
+      "name": "Pouch +10",
+      "cost": 120,
+      "grants": {
+        "bag_bonus": 10
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "ash1",
+      "name": "Ash's Poké Ball",
+      "cost": 125,
+      "grants": {
+        "ashball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "cherish1",
+      "name": "Cherish Ball",
+      "cost": 125,
+      "grants": {
+        "cherishball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "clone1",
+      "name": "Clone Ball",
+      "cost": 125,
+      "grants": {
+        "cloneball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "dark1",
+      "name": "Dark Ball",
+      "cost": 125,
+      "grants": {
+        "darkball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "gs1",
+      "name": "GS Ball",
+      "cost": 125,
+      "grants": {
+        "gsball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "bait1",
+      "name": "Honey",
+      "cost": 125,
+      "grants": {
+        "bait": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "safari1",
+      "name": "Safari Ball",
+      "cost": 125,
+      "grants": {
+        "safariball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "sport1",
+      "name": "Sport Ball",
+      "cost": 125,
+      "grants": {
+        "sportball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "avatar-sonic-classic",
+      "name": "Classic Sonic The Hedgehog Premium Avatar Sprite Pack",
+      "cost": 150,
+      "grants": {},
+      "kind": "avatars"
+    },
+    {
+      "sku": "lum3",
+      "name": "Lum Berry",
+      "cost": 150,
+      "grants": {
+        "lum": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "origin1",
+      "name": "Origin Ball",
+      "cost": 150,
+      "grants": {
+        "originball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "sitrus3",
+      "name": "Sitrus Berry",
+      "cost": 150,
+      "grants": {
+        "sitrus": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "pinap5",
+      "name": "Pinap Berry",
+      "cost": 175,
+      "grants": {
+        "pinap": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "razz3",
+      "name": "Razz Berry",
+      "cost": 200,
+      "grants": {
+        "razz": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "avatar-sonic",
+      "name": "Sonic The Hedgehog Premium Avatar Sprite Pack",
+      "cost": 200,
+      "grants": {},
+      "kind": "avatars"
+    },
+    {
+      "sku": "great3",
+      "name": "Great Ball",
+      "cost": 225,
+      "grants": {
+        "greatball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "hisuigreat1",
+      "name": "Hisui Great Ball",
+      "cost": 225,
+      "grants": {
+        "hisuigreatball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "leaden1",
+      "name": "Leaden Ball",
+      "cost": 225,
+      "grants": {
+        "leadenball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "wing1",
+      "name": "Wing Ball",
+      "cost": 225,
+      "grants": {
+        "wingball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "avatar-digimon",
+      "name": "Digimon Adventure Premium Avatar Sprite Pack",
+      "cost": 250,
+      "grants": {},
+      "kind": "avatars"
+    },
+    {
+      "sku": "nest1",
+      "name": "Nest Ball",
+      "cost": 275,
+      "grants": {
+        "nestball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "dive1",
+      "name": "Dive Ball",
+      "cost": 300,
+      "grants": {
+        "diveball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "level1",
+      "name": "Level Ball",
+      "cost": 300,
+      "grants": {
+        "levelball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "love1",
+      "name": "Love Ball",
+      "cost": 300,
+      "grants": {
+        "loveball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "lureball1",
+      "name": "Lure Ball",
+      "cost": 300,
+      "grants": {
+        "lureball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "net1",
+      "name": "Net Ball",
+      "cost": 300,
+      "grants": {
+        "netball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "timer1",
+      "name": "Timer Ball",
+      "cost": 300,
+      "grants": {
+        "timerball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "dusk1",
+      "name": "Dusk Ball",
+      "cost": 325,
+      "grants": {
+        "duskball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "fast1",
+      "name": "Fast Ball",
+      "cost": 325,
+      "grants": {
+        "fastball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "heavy1",
+      "name": "Heavy Ball",
+      "cost": 325,
+      "grants": {
+        "heavyball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "moon1",
+      "name": "Moon Ball",
+      "cost": 325,
+      "grants": {
+        "moonball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "firestone1",
+      "name": "Fire Stone",
+      "cost": 350,
+      "grants": {
+        "firestone": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "leafstone1",
+      "name": "Leaf Stone",
+      "cost": 350,
+      "grants": {
+        "leafstone": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "quick1",
+      "name": "Quick Ball",
+      "cost": 350,
+      "grants": {
+        "quickball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "repeat1",
+      "name": "Repeat Ball",
+      "cost": 350,
+      "grants": {
+        "repeatball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "thunderstone1",
+      "name": "Thunder Stone",
+      "cost": 350,
+      "grants": {
+        "thunderstone": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "waterstone1",
+      "name": "Water Stone",
+      "cost": 350,
+      "grants": {
+        "waterstone": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "silverpinap1",
+      "name": "Silver Pinap Berry",
+      "cost": 400,
+      "grants": {
+        "silverpinap": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "moonstone1",
+      "name": "Moon Stone",
+      "cost": 450,
+      "grants": {
+        "moonstone": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "gigaton1",
+      "name": "Gigaton Ball",
+      "cost": 500,
+      "grants": {
+        "gigatonball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "goldenrazz1",
+      "name": "Golden Razz Berry",
+      "cost": 500,
+      "grants": {
+        "goldenrazz": 1
+      },
+      "kind": "coins"
+    },
+    {
+      "sku": "hisuiultra1",
+      "name": "Hisui Ultra Ball",
+      "cost": 500,
+      "grants": {
+        "hisuiultraball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "jet1",
+      "name": "Jet Ball",
+      "cost": 500,
+      "grants": {
+        "jetball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "avatar-pokemasters-01",
+      "name": "PokéMasters EX Premium Avatar Sprite Pack 01",
+      "cost": 500,
+      "grants": {},
+      "kind": "avatars"
+    },
+    {
+      "sku": "ultra1",
+      "name": "Ultra Ball",
+      "cost": 500,
+      "grants": {
+        "ultraball": 1
+      },
+      "kind": "balls"
+    },
+    {
+      "sku": "linkingcord1",
+      "name": "Linking Cord",
+      "cost": 600,
+      "grants": {
+        "linkingcord": 1
+      },
+      "kind": "coins"
+    }
+  ]
+}

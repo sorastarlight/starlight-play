@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "BERRY-DROP-PROGRESSION",
+      "status": "in_progress",
+      "scope": "XP-scaled berry item drops and missed-throw consolation",
+      "evidence": "BERRY-DROP-PROGRESSION.md",
+      "testResults": "Offline progression/pool model tested;100001XPpoints;60eligible catalog items",
+      "nextAction": "Prepare transactional reward receipt and capacity-safe delivery with local concurrency tests;not deployed",
+      "approval": "Proceed with requested progression analysis;no live gameplay test performed"
+    },
+    {
       "id": "TRAINER-EXPERIENCE",
       "status": "in_progress",
       "scope": "Requested trainer, modal, notifications, Mart and Pass improvements",

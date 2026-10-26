@@ -11,7 +11,7 @@
   const button = (label, action, id = "") => `<button type="button" class="record-hit" data-record-action="${action}" data-record-id="${esc(id)}">${esc(label)}<span aria-hidden="true">›</span></button>`;
   const back = (label, action) => `<button type="button" class="secondary record-back" data-record-action="${action}">← ${esc(label)}</button>`;
   const PANES = [...base.PANES, "pass", "gifts", "corrections", "access", "tickets"];
-  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", corrections: "Corrections", access: "Staff access", tickets: "Tickets" };
+  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Account", pass: "Starlight Pass", gifts: "Gifts", corrections: "Corrections", access: "Staff access", tickets: "Tickets" };
   const stamp = (input) => !input || !Number.isFinite(new Date(input).getTime()) ? "Unavailable" : new Date(input).toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
   function ballName(input) {
     if (input == null || input === "") return input;
@@ -128,7 +128,7 @@
         const trainer = identity.trainer || {};
         body = `<section class="record-surface"><h4>Progression</h4>${rows([["Level", trainer.level], ["XP", trainer.xp], ["Title", trainer.title], ["Ranking visible", yes(identity.rankingVisible)], ["Ranking eligible", yes(identity.rankingEligible)], ["Caught", trainer.caught], ["Seen", trainer.seen], ["Shiny caught", trainer.shinyCaught]])}</section>` + manager(view, "unlocks") + note("Achievement journals, Oak research and evolution history are unavailable here.");
       }
-      if (view.pane === "connections") body = '<section class="record-surface"><h4>Connected Twitch accounts</h4><div class="record-list">' + (view.connections || []).map(row => '<article class="record-surface"><h4>' + esc(row.displayName || row.login || "Twitch account") + '</h4>' + rows([["Login", row.login], ["Primary Twitch", yes(row.primary)], ["Confirmed", yes(row.confirmed)], ["Can sign in", yes(row.loginEnabled)], ["Gameplay rewards", yes(row.gameplayEnabled)], ["Status", row.status], ["Connected on", stamp(row.linkedAt)]]) + '</article>').join('') + (!(view.connections || []).length ? note("No Twitch connections returned.") : "") + '</div></section>' + `<section class="record-surface" data-trainer-diagnostics></section>` + note("Primary: main identity. Confirmed: identity-confirmation flag. Login enabled: may sign in. Gameplay enabled: may earn rewards. Link status does not indicate online presence. Bot/utility links do not classify the trainer as a bot.");
+      if (view.pane === "connections") body = '<section class="record-surface"><h4>Account settings</h4><div data-trainer-account-tools></div></section><section class="record-surface" data-trainer-diagnostics></section>';
     }
     return `${header}<div class="record-body">${body}</div><footer class="record-footer">Need to change this account? <a data-record-support href="./admin-next.html?section=support&amp;trainer=${encodeURIComponent(user.id || "")}">Open Service Desk</a></footer>`;
   }

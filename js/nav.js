@@ -94,6 +94,9 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     status: document.getElementById("auth-status")
   };
 
+  let notificationUser=null,notificationEpoch=0;
+  window.addEventListener("play-notifications-changed",()=>notificationBadge(notificationUser,true));
+  async function notificationBadge(id,force=false){if(id===notificationUser&&!force)return;notificationUser=id;const epoch=++notificationEpoch;document.querySelectorAll('[data-notification-count]').forEach(e=>e.textContent='');document.getElementById('account-notification-dot')?.remove();if(!id)return;try{const result=await window.playCall('play_notifications');if(epoch!==notificationEpoch)return;const count=Number(result?.unread)||0;document.querySelectorAll('[data-notification-count]').forEach(e=>e.textContent=count?`(${count})`:'');if(count&&els.button)els.button.insertAdjacentHTML('beforeend','<span id="account-notification-dot" aria-label="Unread notifications">●</span>');}catch(_){}}
   function readPresentCache() {
     try {
       const raw = JSON.parse(sessionStorage.getItem(PRESENT_KEY) || "null");
@@ -188,6 +191,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       home.textContent = "My Account";
       home.classList.add("account-menu-btn");
     }
+    if(home && !document.getElementById('account-notifications'))home.insertAdjacentHTML('afterend','<a id="account-notifications" class="account-menu-btn" href="./notifications.html" role="menuitem">Notifications <span data-notification-count></span></a>');
     const card = els.card || document.getElementById("account-card");
     if (card) {
       card.textContent = "View My Trainer ID";
@@ -329,6 +333,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     const xpInto = trainer?.xpInto || 0;
     const xpNeed = trainer?.xpNeed || 0;
     const userId = signedIn ? (session?.user?.id || "") : "";
+    notificationBadge(userId || null);
     const signature = [
       signedIn ? "1" : "0",
       userId,
@@ -416,8 +421,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
           : `${trainer.species || 0}/${window.playNationalTotal?.() || "?"}`;
         els.trainer.hidden = false;
         els.trainer.innerHTML = `
-          <strong>Trainer Lv. ${trainer.level}${trainer.title ? ` · ${trainer.title}` : ""}</strong>
-          <div>${national} Pokédex · ${trainer.caught || 0} caught</div>
+          <strong>Trainer Lv. ${trainer.level}</strong>
+          <div>${Number(trainer.xpInto || 0).toLocaleString()} / ${Number(trainer.xpNeed || 0).toLocaleString()} XP to next level</div>
           <div class="xp-bar" aria-hidden="true"><i style="width:${pct}%"></i></div>`;
       } else {
         els.trainer.hidden = true;
@@ -515,3 +520,15 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     setNetBanner("offline", "CONNECTION LOST. We're trying to reconnect.");
   }
 };
+
+// Dismiss only a deliberate left-click on a modal backdrop, never a drag from its content.
+(() => {
+  if (typeof document === "undefined") return;
+  let backdropStart = null;
+  const outside = (event, dialog) => { const r = dialog.getBoundingClientRect(); return event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom; };
+  document.addEventListener('pointerdown', event => { const d = event.target; backdropStart = event.button === 0 && d instanceof HTMLDialogElement && d.matches(':modal') && outside(event,d) ? d : null; });
+  document.addEventListener('click', event => { const d = backdropStart; backdropStart = null; if (!d || event.button !== 0 || event.target !== d || !d.matches(':modal') || !outside(event,d)) return;
+    // Existing cancel handlers retain their unsaved-change and in-flight safeguards.
+    if (d.dispatchEvent(new Event('cancel',{cancelable:true})) && d.open) d.close('cancel');
+  });
+})();

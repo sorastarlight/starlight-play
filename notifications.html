@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Notifications · Unofficial Pokémon StreamLink RPG</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700&family=Nunito:wght@600;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/play.css?v=20261008-rc133">
+<body data-page="notifications">
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a class="topnav-brand" href="./">
+      <img src="images/sora-starlight-logo.png" alt="Sora Starlight">
+    </a>
+    <div class="topnav-end">
+      <button id="nav-toggle" class="nav-toggle" type="button" aria-expanded="false" aria-controls="topnav-panel">
+        <span class="nav-toggle-bars" aria-hidden="true"></span>
+        <span class="visually-hidden">Open menu</span>
+      </button>
+      <div id="topnav-panel" class="topnav-panel">
+        <div id="topnav-links" class="topnav-links"></div>
+      </div>
+      <div class="topnav-actions">
+      <p id="auth-status" class="visually-hidden" role="status">Checking sign-in…</p>
+      <button id="sign-in" class="signin-btn" type="button" hidden>Sign in</button>
+      <div id="account" class="account" data-auth="unknown">
+        <button id="account-button" class="account-button" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="account-menu" aria-busy="true" disabled>
+          <span class="twitch-face twitch-face-nav">
+          <img id="account-avatar" class="avatar" alt="" width="34" height="34" hidden>
+          <span id="account-fallback" class="avatar-fallback" aria-hidden="true">·</span>
+          <i class="twitch-badge" title="Twitch linked" aria-hidden="true"></i>
+        </span>
+          <span class="account-meta">
+            <span id="account-name" class="account-name">Trainer</span>
+            <span id="account-level" class="account-level">Lv. ·</span>
+          </span>
+          <span class="account-caret" aria-hidden="true"></span>
+        </button>
+        <div id="account-menu" class="account-menu" hidden role="menu">
+          <p id="account-handle" class="account-handle"></p>
+          <div id="account-trainer" class="account-trainer" hidden></div>
+          <a id="account-card" href="./trainer.html" role="menuitem">My Trainer ID</a>
+          <a id="account-settings" href="./settings.html" role="menuitem">Settings</a>
+          <a id="account-staff" href="./admin.html" hidden role="menuitem">Admin Hub</a>
+          <button id="sign-out" type="button" role="menuitem">Sign out</button>
+        </div>
+      </div>
+    </div>
+    </div>
+  </div>
+</nav>
+<main class="wrap notifications-wrap"><header><h1>Notifications</h1><p>Announcements, gifts, trades and Service Desk updates.</p><button type="button" id="notifications-refresh">Refresh</button> <button type="button" id="notifications-read" disabled>Mark displayed notifications read</button></header><p id="notifications-status" role="status">Checking sign-in…</p><div id="notifications-list"></div><section id="announcement-composer" hidden><h2>Post an announcement</h2><form id="announcement-form"><label>Title<input name="title" required maxlength="100"></label><label>Message<textarea name="body" required maxlength="2000" rows="5"></textarea></label><button type="submit">Review announcement</button></form></section><dialog id="announcement-review"><h2>Publish to all trainers?</h2><p id="announcement-preview"></p><button id="announcement-cancel" type="button">Cancel</button><button id="announcement-publish" type="button">Publish announcement</button></dialog></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0" integrity="sha384-UagCvVPT5XXA0Hx+nJYUAGBFseHT9zBgpJMSebsAxl9lciTwbT+39j5VfRjdP5Tp" crossorigin="anonymous"></script>
+<script src="js/config.js?v=20261008-rc133"></script>
+<script src="js/play-perf.js?v=20261008-rc133"></script>
+<script src="js/build.js?v=20261008-rc133"></script>
+<script src="js/build-client.js?v=20261008-rc133"></script>
+<script src="js/auth.js?v=20261008-rc133"></script>
+<script src="js/variants.js?v=20261008-rc133"></script>
+<script src="js/forms.js?v=20261008-rc133"></script>
+<script src="js/evolution-candy-png.js?v=20261008-rc133"></script>
+<script src="js/game.js?v=20261008-rc133"></script>
+<script src="js/play-encounter-state.js?v=20261008-rc133"></script>
+<script src="js/ribbon-catalog.js?v=20261008-rc133"></script>
+<script src="js/achievement-ribbon-map.js?v=20261008-rc133"></script>
+<script src="js/play-ribbons.js?v=20261008-rc133"></script>
+<script src="js/play-present.js?v=20261008-rc133"></script>
+<script src="js/nav.js?v=20261008-rc133"></script>
+<script src="js/onboarding.js?v=20261008-rc133"></script>
+<script src="js/notifications.js?v=20261008-rc133"></script>
+</body>

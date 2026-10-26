@@ -21106,3 +21106,15 @@ body[data-page="admin-next"] .wrap { max-width: 1480px; }
 @media(max-width:480px){.play-present-level,.celebration-achievement{padding:23px 17px 19px}.celebration-medallion{width:124px;margin:18px auto}.celebration-medallion strong{font-size:60px}.celebration-achievement h2{font-size:26px}}
 @media(prefers-reduced-motion:reduce){.celebration-medallion,.celebration-seal,.celebration-rewards li{animation:none!important}}
 html[data-reduced-motion="1"] .celebration-medallion,html[data-reduced-motion="1"] .celebration-seal,html[data-reduced-motion="1"] .celebration-rewards li{animation:none!important}
+/* Product controls share fixed rows; messages never shift neighboring actions. */
+.mart-product-quantity{display:grid;grid-template-columns:44px minmax(48px,1fr) 44px;gap:6px;align-items:center}
+.mart-product-quantity input{width:100%;min-width:0;box-sizing:border-box;text-align:center;min-height:44px;border:2px solid #c6d7ef;border-radius:12px;background:white;color:#394866;font:inherit}
+.mart-product-quantity button{min-height:44px}
+.mart-product-feedback{min-height:1.4em;margin:0;text-align:center;font-weight:800;color:#27604c}
+.mart-card-actions .mart-cart-warn,.mart-featured-actions .mart-cart-warn{min-height:2.8em;margin:0;line-height:1.4}
+.mart-card-desc,.mart-featured-desc{display:block;-webkit-line-clamp:unset;max-height:none;overflow:visible;height:auto}
+.mart-featured,.mart-featured-slot{height:auto;min-height:220px;max-height:none}
+.mart-featured-copy{grid-template-rows:auto auto auto auto}
+.mart-featured-name{white-space:normal;overflow:visible;overflow-wrap:anywhere}
+.pass-reward-panels{gap:12px;align-items:stretch}.pass-reward-card{padding:16px;min-height:0}.pass-reward-contents{display:grid;grid-template-columns:repeat(auto-fit,minmax(135px,1fr));gap:6px;max-height:210px;overflow:auto}.pass-reward-contents li{padding:6px;gap:8px}.pass-reward-contents img{width:30px;height:30px}.pass-reward-body{margin:8px 0}.pass-time-note{font-size:.85rem}
+.notifications-wrap{max-width:900px}.notification-card{padding:18px;margin:12px 0;background:#fff;border:1px solid #d6ddef;border-radius:18px}.notification-card.is-unread{border-left:5px solid #9572c4}.notification-card header,.notification-card footer{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.notification-card h2{font-size:1.15rem;margin:0}.notification-card p{white-space:pre-wrap;overflow-wrap:anywhere}.notifications-wrap label{display:grid;gap:6px;margin:12px 0}.notifications-wrap input,.notifications-wrap textarea{font:inherit;padding:12px;border:1px solid #c6d7ef;border-radius:12px}.notifications-wrap button{min-height:44px;padding:8px 14px}#announcement-review{max-width:600px;max-height:85dvh;overflow:auto;border:1px solid #d6ddef;border-radius:20px;padding:24px}#announcement-preview{white-space:pre-wrap;overflow-wrap:anywhere}#account-notification-dot{color:#a73d8d;font-size:18px}

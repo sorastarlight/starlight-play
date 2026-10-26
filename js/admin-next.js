@@ -101,6 +101,8 @@
     session: () => supabase.auth.getSession(), identity: () => analyticsIdentity,
     allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
   }), document.getElementById("next-analytics-health"), () => loadHealth());
+  const assetApi=window.PLAY_ADMIN_ASSETS;
+  const assets=assetApi?.mount(document.getElementById('next-assets'),assetApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),invoke:(name,args)=>supabase.functions.invoke(name,args),encode:file=>new Promise((resolve,reject)=>{const reader=new FileReader();reader.onerror=()=>reject(Error('Image could not be read.'));reader.onload=()=>resolve(String(reader.result).split(',')[1]||'');reader.readAsDataURL(file);})}));
   const mart = window.PLAY_ADMIN_NEXT_MART?.mount(document.getElementById("next-mart"), async (name, args) => {
     if (!["admin_store_get", "admin_store_save_item"].includes(name)) throw new Error("Unsupported Mart operation.");
     const identity = martIdentity;
@@ -588,6 +590,7 @@
     resetOperations();
     martIdentity = "";
     mart?.reset();
+    assets?.reset();
     floorEditor?.reset();
     draftCreator?.reset();
     floorOrder?.reset();
@@ -610,6 +613,7 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+      assets?.reset();
       floorEditor?.reset();
       draftCreator?.reset();
       floorOrder?.reset();
@@ -635,6 +639,7 @@
       staffOpen = false;
       martIdentity = "";
       mart?.reset();
+      assets?.reset();
       floorEditor?.reset();
       draftCreator?.reset();
       floorOrder?.reset();

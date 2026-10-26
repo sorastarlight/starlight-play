@@ -105,6 +105,8 @@
     session: () => supabase.auth.getSession(), identity: () => analyticsIdentity,
     allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
   }), document.getElementById("next-analytics-health"), () => loadHealth());
+  const planningApi=window.PLAY_ADMIN_PLANNING;
+  const planning=planningApi?.mount(document.getElementById('next-planning'),planningApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>analyticsIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}),{species:window.PLAY_SPECIES||[],itemName:key=>window.playItemLabel?.(key)||key});
   const itemDefinitionsApi=window.PLAY_ADMIN_ITEM_DEFINITIONS;
   const itemDefinitions=itemDefinitionsApi?.mount(document.getElementById('next-item-definitions'),itemDefinitionsApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const assetApi=window.PLAY_ADMIN_ASSETS;
@@ -508,6 +510,7 @@
     else history.replaceState({ section: next }, "", href);
     if (next === "support" && staffOpen) window.PLAY_SUPPORT?.mount(document.getElementById("owner-support"),{staff:true,playerId:new URL(location.href).searchParams.get("trainer")||""});
     if (next === "analytics") {
+      if(staffOpen)planning?.open();
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
@@ -536,6 +539,7 @@
     passBundles?.reset();
     analyticsIdentity = "";
     analytics?.reset();
+    planning?.reset();
     healthGeneration++;
     healthLoaded = false;
     healthInFlight = false;

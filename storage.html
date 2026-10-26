@@ -52,6 +52,11 @@
   </div>
 </nav>
 <div class="wrap box-wrap">
+  <div class="pc-mode-tabs" role="tablist" aria-label="PC storage">
+    <button type="button" role="tab" data-pc-mode="pokemon" aria-selected="true" aria-controls="box-app">Pokémon</button>
+    <button type="button" role="tab" data-pc-mode="items" aria-selected="false" aria-controls="pc-item-panel">Items</button>
+  </div>
+  <section id="pc-item-panel" class="card body" aria-label="Item storage" hidden></section>
   <p id="gate" class="notice">Sign in to open your PC boxes.</p>
   <div id="box-app" hidden>
     <section class="pc-terminal" aria-label="Pokémon Storage System">
@@ -143,4 +148,5 @@
 <script src="js/nav.js?v=20261008-rc133"></script>
 <script src="js/species-familiarity.js?v=20261008-rc133"></script>
 <script src="js/storage.js?v=20261008-rc133"></script>
+<script src="js/pc-items.js?v=20261008-rc133"></script>
 </body>

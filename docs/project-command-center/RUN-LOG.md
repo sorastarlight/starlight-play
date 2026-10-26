@@ -2855,3 +2855,4 @@ PC-STORAGE-POLISH publication: main7b90ae50,Pages40397191284;all eight hosted ru
 PC immediate-drag publication complete: main e4ae76f7, Pages40397884225 success, exact hosted js/pc-items.js source match. Feature1ce3661c;APP unchanged;no hosted player calls.
 
 2026-10-26 PC item flash: corrected remaining grid.innerHTML rebuild on layout-only moves.30 existing cells/images retained;real local DOM identity checks passed for drag/auto-arrange;167 suites/build pass. One runtime file;no hosted player calls.
+PC sprite reuse publication: main91abffba,Pages40398920453;exact hosted js/pc-items.js source match confirmed. Actual local drag and auto-arrange retain all original cells/images before and after delayed save. Featureef31dd83;no hosted player calls.

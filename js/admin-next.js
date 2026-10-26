@@ -125,8 +125,7 @@
   const createApi = window.PLAY_ADMIN_CREATE;
   const draftCreator = createApi?.mount(document.getElementById("next-mart-create"), createApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => martIdentity,
-    allowed: () => staffOpen, call: (name, args) => name === "admin_store_get"
-      ? window.playCall("admin_store_get") : window.playCall("admin_store_create_draft", args)
+    allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
   }));
   const boundedApi = window.PLAY_ADMIN_LIMITS_ORDER;
   const floorOrder = boundedApi?.mount(document.getElementById("next-floor-order"), "order", boundedApi.adapter("order", {

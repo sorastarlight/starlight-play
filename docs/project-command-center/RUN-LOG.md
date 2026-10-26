@@ -2790,3 +2790,5 @@ CODEX-262/263 resumed:Special Events Pages40267239825 source verified100+4;expan
 CODEX-263 Pages40268261941 succeeded;mainc654ecf9 exact100+2source matches. No hosted application action. Current matrix publication state updated.
 
 CODEX-264 final mainc9531031/Pages40268845012 verified100+1sources;148suites/fullHubread-and-role-switch. Intermediate cf04 wrong Analytics allowlist corrected in finalsource;do not use intermediate rollback. No hosted app actions.
+
+CODEX-265 migration20261026043859/mainbf7e06be/Pages40270302025success;100+4sources,4SQLsourceACLmatches,7unchangedcontrols,completeballberryhashesunchanged/audit0.149suites/10SQLgroups/40layouts/fullHubreset/52recoveryfiles. No hosted item edit,grant,protected action,cleanup,APPstamp. Continue fuller creation/appearance tools.

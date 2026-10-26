@@ -14,4 +14,4 @@ Ten real schema-only PostgreSQL groups test raw READ ONLY loading,actual permiss
 
 Fifty-two install/rollback files verified. Git recovery packet:supabase/unapplied/hub-item-definitions/ . Private proofs:C:/Users/FET/AppData/Local/PokemonStreamLink/security/codex265/ . Rollback retains every item/audit row and restores the old unaudited writer;it does not reverse deliberate staff item edits.
 
-Publication pending:admin-next.html,js/admin-next.js,js/admin-item-definitions.js,css/admin-item-definitions.css only. APP20261008-rc133 unchanged. No real item edit,product save,purchase,grant,encounter,provider/credential action,protected-account mutation,destructive cleanup or final launch declaration.
+Published at mainbf7e06be,Pages40270302025 succeeded;100 monitored+4 versioned source matches. Exact runtime files:admin-next.html,js/admin-next.js,js/admin-item-definitions.js,css/admin-item-definitions.css only. APP20261008-rc133 unchanged. No real item edit,product save,purchase,grant,encounter,provider/credential action,protected-account mutation,destructive cleanup or final launch declaration.

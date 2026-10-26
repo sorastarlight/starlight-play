@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-265",
+      "status": "done",
+      "scope": "Native item descriptions/default shelf/capture-effect editor",
+      "evidence": "LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md",
+      "testResults": "149 suites;10 isolated SQL groups;40 layouts/fullHubreset;Pages40270302025success;100+4sources;52recoveryfiles",
+      "nextAction": "Fuller product creation and appearance tools;no actual item changes",
+      "approvalRequirement": "Owner full migration/completed publication authorized;destructive cleanup held"
+    },
+    {
       "id": "CODEX-264",
       "status": "done",
       "scope": "Actual full-Hub draft catalogue routing",

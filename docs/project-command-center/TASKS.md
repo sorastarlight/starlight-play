@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-265 | done | Native item descriptions/default shelf/capture effects | Full migration | Completed install/publication authorized | Pages40270302025;149suites;100+4sources;no item changes |
 | CODEX-264 | done | Actual Hub draft routing and Analytics preservation | Full migration | Completed publication authorized | Pages40268845012success;148suites;100+1sources |
 | CODEX-263 | done | Expanded visual shop draft catalogue | Full migration | Owner-authorized completion/publication | Pages40268261941success;100+2sources;continue native authoring |
 | CODEX-262 | done | Native reviewed Special Events | Full migration | Owner-authorized completion/publication | No hosted command;continue migration |

@@ -50,3 +50,6 @@ supabase/migrations/*_trainer_pokemon_quantity.sql text eol=lf
 
 supabase/unapplied/audited-trade-hold-repairs/*.sql text eol=lf
 supabase/migrations/*_audited_trade_hold_repairs.sql text eol=lf
+
+supabase/unapplied/hub-staff-access/*.sql text eol=lf
+supabase/migrations/*_hub_staff_access.sql text eol=lf

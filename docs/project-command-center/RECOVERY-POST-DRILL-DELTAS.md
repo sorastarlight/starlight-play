@@ -214,3 +214,11 @@ Four installed definitions/ACLs match locally tested candidates;correction audit
 | Migration | Install packet | SHA256 |
 |---|---|---|
 |20261025234842 audited_trade_hold_repairs|supabase/unapplied/audited-trade-hold-repairs/INSTALL.sql|7b75c6711531575dc543216960643376b80c0ae9e502348cd3787bec7b872899|
+
+## CODEX-258 - Reviewed staff access
+
+Installed20261026002948;4source/ACLmatches;privateaudit0. Twelve isolated SQL check groups and guarded rollback preserve role/audit data. No hosted role change.
+
+|Migration|Install packet|SHA256|
+|---|---|---|
+|20261026002948 hub_staff_access|supabase/unapplied/hub-staff-access/INSTALL.sql|7f1b1a7ce1651dc5ec50503d4bc62926ad2b152c9e50fc5894fa4edf7d80b2fd|

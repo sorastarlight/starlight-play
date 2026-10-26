@@ -140,6 +140,7 @@
   let trainerPane = "overview";
   let roster = null;
   let corrections = null;
+  let staffAccess = null;
   let trainerListGen = 0;
   let trainerProfileGen = 0;
   let trainerDirLoaded = false;
@@ -230,6 +231,7 @@
   function resetTrainers() {
     roster?.reset(); roster = null;
     corrections?.reset(); corrections = null;
+    staffAccess?.reset(); staffAccess = null;
     window.PLAY_ADMIN_REWARDS?.clear();
     window.PLAY_ADMIN_DIAGNOSTICS?.clear();
     const supportContext = document.getElementById("next-support-context");
@@ -268,6 +270,7 @@
   function renderTrainerProfile(view) {
     roster?.reset(); roster = null;
     corrections?.reset(); corrections = null;
+    staffAccess?.reset(); staffAccess = null;
     if (els.trainerDetailWrap) els.trainerDetailWrap.hidden = !trainerSelectedId;
     if (els.trainerRoot) els.trainerRoot.classList.toggle("is-profile", Boolean(trainerSelectedId));
     if (els.trainerDetailStatus) {
@@ -290,6 +293,7 @@
       }),trainersUi);
       corrections.open(view.user.id);
     }
+    if(view.pane==='access'&&view.user&&window.PLAY_STAFF_ACCESS){const api=window.PLAY_STAFF_ACCESS;staffAccess=api.mount(els.trainerDetail.querySelector('[data-staff-access]'),api.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,call:(name,args)=>window.playCall(name,args)}));staffAccess.open(view.user.id);}
     if (view.pane === "tickets" && view.user) window.PLAY_SUPPORT?.mount(els.trainerDetail?.querySelector("[data-support-trainer]"),{staff:true,playerId:view.user.id});
     if (els.trainerDetail && view.user) window.PLAY_ADMIN_DIAGNOSTICS?.mount(els.trainerDetail,view.user,view.pane,
       targetUuid => window.playSupabase.functions.invoke("owner-account-diagnostics",{body:{targetUuid}}),

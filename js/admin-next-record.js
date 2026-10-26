@@ -10,8 +10,8 @@
   const note = (text) => `<p class="record-note">${esc(text)}</p>`;
   const button = (label, action, id = "") => `<button type="button" class="record-hit" data-record-action="${action}" data-record-id="${esc(id)}">${esc(label)}<span aria-hidden="true">›</span></button>`;
   const back = (label, action) => `<button type="button" class="secondary record-back" data-record-action="${action}">← ${esc(label)}</button>`;
-  const PANES = [...base.PANES, "pass", "gifts", "corrections", "tickets"];
-  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", corrections: "Corrections", tickets: "Tickets" };
+  const PANES = [...base.PANES, "pass", "gifts", "corrections", "access", "tickets"];
+  const labels = { overview: "Overview", pokemon: "Pokémon", inventory: "Inventory", progression: "Progression", connections: "Connections", pass: "Starlight Pass", gifts: "Gifts", corrections: "Corrections", access: "Staff access", tickets: "Tickets" };
   const stamp = (input) => !input || !Number.isFinite(new Date(input).getTime()) ? "Unavailable" : new Date(input).toISOString().replace("T", " ").replace(/\.\d+Z$/, " UTC");
   function ballName(input) {
     if (input == null || input === "") return input;
@@ -115,6 +115,7 @@
     let body;
     if (view.pane === "pokemon") body = `<section data-trainer-roster>${pokemon(view)}</section>`;
     else if (view.pane === "inventory") body = manager(view, "inventory") + note("Open Corrections to adjust existing quantities, balances or capacity. Open Gifts to send additional rewards.");
+    else if (view.pane === "access") body = `<section class="record-surface" data-staff-access><p>Loading staff access…</p></section>`;
     else if (view.pane === "corrections") body = `<section class="record-surface" data-trainer-corrections><p>Loading account corrections…</p></section>`;
     else if (view.pane === "pass" || view.pane === "gifts") body = `<section class="record-surface" data-trainer-rewards><h4>${labels[view.pane]}</h4>${note("Loading staff reward tools…")}</section>`;
     else if (view.pane === "tickets") body = `<section class="record-surface"><h4>Tickets</h4><div data-support-trainer></div></section>`;

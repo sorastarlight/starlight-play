@@ -274,6 +274,19 @@
           "sha256": "2388b57142517e504afb493e9304d505c0083aff46c0424df3ba19349f0daa40"
         }
       ]
+    },
+    {
+      "version": "20261026002948",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-staff-access/INSTALL.sql",
+          "sha256": "7f1b1a7ce1651dc5ec50503d4bc62926ad2b152c9e50fc5894fa4edf7d80b2fd"
+        },
+        {
+          "file": "supabase/unapplied/hub-staff-access/ROLLBACK.sql",
+          "sha256": "c73da1667f2902218b420ea22e474c9000e8dd8c86654c96999e96bd429b2313"
+        }
+      ]
     }
   ]
 }

@@ -5,10 +5,10 @@
   "tasks": [
     {
       "id": "OWNER-SELF-GIFTS",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Owner-only self-gifts and approved PC test assortment",
-      "evidence": "supabase/unapplied/owner-self-gifts/README.md",
-      "nextAction": "Publish UI and deliver exact assortment via owner session"
+      "evidence": "supabase/unapplied/owner-self-gifts/README.md;18 verified real receipts;main e914cac2;Pages40391276577",
+      "nextAction": "Owner can test deposits, withdrawals and organization"
     },
     {
       "id": "PC-ITEM-STORAGE",

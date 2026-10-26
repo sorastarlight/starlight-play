@@ -376,3 +376,5 @@ CODEX255 LIVE: main89c31c7a;Pages40246842618success;100+2sources;UTF8 restored;n
 CODEX258 LIVE: migration20261026002948;mainb7193a0e;Pages40249712073success;100+5sources;142suites;12SQLgroups;12layouts;4source/ACLmatches;audit0. Staffrolepolicyunchanged;noactualrolechange.44recoveryfiles. Continue evolution/content/asset parity and primaryentrymigration;cleanupheld.
 
 CODEX259 LIVE: native searchable evolutionrules/existing read-only validation;main0438ba44;Pages40250026932success;100+5sources;143suites;8layouts;noSQL/hostedvalidation/evolution. CODEX258 staffaccess remainslive,audit0,noactualrolechanges. Continue asset/content parity;primarylegacyentrynotyetretired.
+
+CODEX260 LIVE: native image library/reviewed unique uploads;maina8f3e6ee;Pages40250505674success;100+4sources;144suites;12layouts;decode/invalid/pending/reset/cancelproof. EdgeV5JWTunchanged;noactualupload/catalogapplicationcall. CODEX261 pure spawnreport locallypassed8SQLgroups;notinstalledyet.

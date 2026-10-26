@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-271",
+      "status": "done",
+      "scope": "Empty avatar collection publication validation",
+      "evidence": "LAUNCH-CODEX271-AVATAR-PUBLICATION.md",
+      "testResults": "155 suites;7 local SQL groups;4 layouts;100+1 sources;Pages40284312464success",
+      "nextAction": "Planning/calculator parity and old entry cutover",
+      "approval": "Full migration and tested publication authority"
+    },
+    {
       "id": "CODEX-270",
       "status": "done",
       "scope": "Native category creation and all category presentation editing",

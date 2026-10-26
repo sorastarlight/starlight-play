@@ -2,7 +2,7 @@
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
-CODEX-270 Categories live at main97a36595/Pages40283817849 success;100 monitored+3 changed source matches.154 suites,5 real local SQL groups,44 responsive states/full Hub keyboard/account reset. Creates hidden shop/Twitch/avatar categories and edits all existing category types;no new SQL or actual category action.58 recovery files;APP unchanged. [Report](LAUNCH-CODEX270-NATIVE-CATEGORIES.md).
+CODEX-271 empty-avatar publication guard live at main147dfc27/Pages40284312464 success;100 monitored+1 changed source matches.155 suites,7 real local SQL groups,4 responsive warning states. Migration20261026071051;60 recovery files;APP unchanged. All product/style/category rows and purchase controls unchanged. [Report](LAUNCH-CODEX271-AVATAR-PUBLICATION.md).
 
 | Workspace | Implemented and published | Evidence or remaining work |
 | --- | --- | --- |
@@ -17,7 +17,7 @@ CODEX-270 Categories live at main97a36595/Pages40283817849 success;100 monitored
 
 ## Remaining migration work
 
-1. Audit remaining old tools and catalog validation safeguards.
+1. Complete the remaining planning/calculator migration and remaining old-tool parity audit.
 2. Audit useful calculators/simulations; retire obsolete self-grant QA instead of recreating it.
 3. Switch the old direct admin entry to the primary Hub after remaining capabilities are accounted for. The old page is still present; staff navigation already uses the primary Hub.
 4. Prepare an exact obsolete-data/schema cleanup packet for owner review. Destructive execution remains held.
@@ -26,7 +26,7 @@ CODEX-270 Categories live at main97a36595/Pages40283817849 success;100 monitored
 
 Real Chrome linking/subscriber Pass evidence from ShinoTheWolf and Android S25 Ultra checks for Help/Register are retained. They do not establish Firefox, iOS or actual screen-reader acceptance. Keep missing real evidence explicit rather than treating fixtures as devices/provider proof. See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md).
 
-The earlier October25 physical backup was observed after CODEX-215. More SQL has since shipped; the next completed post-change backup is due after approximately October26 07:44UTC. Do not call it verified yet. Fifty-eight exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
+The earlier October25 physical backup was observed after CODEX-215. More SQL has since shipped; the next completed post-change backup is due after approximately October26 07:44UTC. Do not call it verified yet. Sixty exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
 
 Current user direction authorizes completing the redesign/migration and publishing tested changes. It does not authorize agent use of the staff mutation controls, protected-account changes, paid provider activation, destructive cleanup, a new APP stamp or final launch declaration. No new automation or parallel runner is in use.
 

@@ -71,6 +71,8 @@
     session: () => supabase.auth.getSession(), identity: () => configIdentity,
     allowed: () => staffOpen, call: (command, args) => window.playCall(command, args)
   }));
+  const spawnApi=window.PLAY_ADMIN_SPAWNS;
+  const spawnRules=spawnApi?.mount(document.getElementById('next-spawn-rules'),spawnApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}));
   const evolutionApi=window.PLAY_ADMIN_EVOLUTION;
   const evolutionRules=evolutionApi?.mount(document.getElementById('next-evolution-rules'),evolutionApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:()=>staffOpen,rules:()=>supabase.from('evolution_rules').select('id,from_dex,to_dex,candy_cost,required_item,condition_type,rpg_method,enabled,sort_order').order('sort_order').order('id').limit(501),call:(name,args)=>window.playCall(name,args)}),dex=>window.playSpeciesName?.(dex)||'Pokémon '+dex);
   const progressionApi=window.PLAY_ADMIN_PROGRESSION;
@@ -512,6 +514,7 @@
     config?.reset();
     progression?.reset();
     evolutionRules?.reset();
+    spawnRules?.reset();
     captureRules?.reset();
     supplies?.reset();
     timings?.reset();

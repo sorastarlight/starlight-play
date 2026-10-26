@@ -1,0 +1,39 @@
+/* Item-only presentation: never changes Pokémon slots, tools or inspection. */
+.pc-items-mode .pc-terminal-head > .pc-terminal-meta:not(#pc-item-meta){display:none}
+.pc-items-mode #pc-item-meta{visibility:visible}
+.pc-terminal > #pc-item-panel{padding:0;background:transparent}
+#pc-item-panel .pc-storage{display:flex;flex-direction:column;gap:10px}
+#pc-item-panel .pc-item-box-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-template-rows:repeat(5,auto);gap:8px;min-height:0;align-content:start}
+#pc-item-panel .pc-item-slot{min-width:0;min-height:72px;aspect-ratio:1;padding:4px 2px 20px;box-shadow:inset 0 1px 0 #fff;font:inherit}
+#pc-item-panel .pc-item-slot.is-empty{padding:4px;color:#a8c8dc;font-size:24px}
+#pc-item-panel .pc-slot-art img{width:56px;height:56px;max-width:100%;object-fit:contain;image-rendering:pixelated}
+#pc-item-panel .pc-item-stack{position:absolute;right:5px;top:3px;font-size:12px;font-weight:800;background:#fffdf4;border-radius:6px;padding:1px 4px;max-width:90%;overflow:hidden;text-overflow:ellipsis}
+#pc-item-panel .pc-item-slot-name{position:absolute;bottom:3px;left:3px;right:3px;font-size:10px;font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#pc-item-panel .is-filtered{opacity:.35}
+#pc-item-panel .pc-item-inspector{text-align:center;display:grid;gap:14px}
+#pc-item-panel .pc-item-hero{justify-self:center;object-fit:contain;image-rendering:pixelated;margin-top:14px}
+#pc-item-panel h2{font-size:22px;margin:0}
+#pc-item-panel .pc-item-inspector dl{display:flex;justify-content:center;gap:32px;margin:0}
+#pc-item-panel dd{margin:4px 0;font-size:22px;font-weight:800}
+#pc-item-panel .pc-item-inspector label{text-align:left}
+#pc-item-panel input[data-pc-quantity]{display:block;width:100%;box-sizing:border-box;margin-top:6px;padding:10px 12px;min-height:44px;font:inherit;border:1px solid #b8cde4;border-radius:12px;background:white;color:inherit}
+#pc-item-panel .pc-item-actions{display:flex;gap:8px}
+#pc-item-panel .pc-item-actions button{flex:1;min-height:44px}
+#pc-item-panel .pc-item-bag-space{font-size:13px;text-align:center;padding:10px;border:1px solid #d5e5f6;border-radius:10px;background:#fff;margin:0}
+#pc-item-panel .pc-item-bag,#pc-item-panel .pc-item-waiting{padding:14px;border:1px solid #c6daed;border-radius:14px;background:#ffffffc9}
+#pc-item-panel .pc-item-bag h2,#pc-item-panel .pc-item-waiting h2{font-size:17px;margin-bottom:10px}
+#pc-item-panel [data-bag-list]{display:grid;grid-template-columns:1fr;gap:8px;margin-top:12px;max-height:280px;overflow:auto}
+#pc-item-panel [data-bag-item]{display:flex;align-items:center;gap:8px;min-height:48px;text-align:left;font:inherit;padding:8px;background:#f1f8ff;border:1px solid #bbd9f1;border-radius:10px;box-shadow:none}
+#pc-item-panel [data-bag-item] span{flex:1;overflow-wrap:anywhere}
+#pc-item-panel [data-bag-item] img{object-fit:contain;image-rendering:pixelated}
+#pc-item-panel .pc-item-waiting ul{list-style:none;padding:0;margin:0;display:flex;flex-wrap:wrap;gap:10px}
+#pc-item-panel .pc-item-waiting li{display:flex;align-items:center;gap:6px}
+#pc-item-panel [data-pc-status]:empty{display:none}
+#pc-item-panel .pc-item-message{padding:24px}
+#pc-item-panel button:focus-visible,#pc-item-panel input:focus-visible{outline:3px solid #7559b6;outline-offset:2px}
+@media(max-width:600px){
+ #pc-item-panel .pc-item-box-grid{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:none}
+ #pc-item-panel .pc-item-slot{min-height:64px;max-height:110px}
+ #pc-item-panel [data-bag-list]{grid-template-columns:1fr}
+ #pc-item-panel .pc-inspect{border-top:2px solid #c6e7f5}
+}

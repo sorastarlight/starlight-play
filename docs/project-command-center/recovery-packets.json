@@ -482,6 +482,19 @@
           "sha256": "487abc178aa65ad427a02021a720f620acd03423347d9f1bed495e52c3ea5568"
         }
       ]
+    },
+    {
+      "version": "20261026193431",
+      "files": [
+        {
+          "file": "supabase/unapplied/pc-item-box/INSTALL.sql",
+          "sha256": "1583f42cc459bf463c3871f42d1d415e40baf28d394958b4b63d83dcf9afd7b4"
+        },
+        {
+          "file": "supabase/unapplied/pc-item-box/ROLLBACK.sql",
+          "sha256": "98aa061fea25157c97d6b19fac9af8e2bb7ffa93252e01e288e328a394619b03"
+        }
+      ]
     }
   ]
 }

@@ -24,3 +24,8 @@ Confirmed live: Pages40383961744 succeeded. All10plain/versioned runtime source 
 
 
 2026-10-26: Integrated Pokémon / Items tabs inside the shared My PC terminal, with one persistent header and separate accessible panels. Local rendered pointer and arrow-key switching passed; item-storage regression and build checks passed. Three-file publication main 92a52c13, feature 12bc9eb4. No hosted player calls or SQL changes.
+
+
+## Single item box — 2026-10-26
+
+Owner selected 30 stacked item types, with excess rewards held safely. Items now use the PC sprite grid and selection panel, with server-saved positioning, Auto-arrange, a bag picker and quantity transfers. Pokémon storage.js and its CSS are unchanged. New item CSS is scoped to the item panel. Migration 20261026193431 installed; six source/ACL matches. 19 isolated SQL groups over 68 item types, 164 regression suites, build and rendered desktop/mobile checks passed. No hosted player transfers or grants.

@@ -7,7 +7,7 @@
       "id": "PC-ITEM-STORAGE",
       "status": "done",
       "scope": "My PC item deposits, withdrawals and automatic reward overflow",
-      "evidence": "PC-ITEM-STORAGE.md Integrated terminal tabs: main 92a52c13; local rendered pointer/keyboard checks pass.",
+      "evidence": "PC-ITEM-STORAGE.md Integrated terminal tabs: main 92a52c13; local rendered pointer/keyboard checks pass. Single item box: migration 20261026193431, six source/ACL matches, 19 local SQL groups and rendered item/Pokémon coexistence checks.",
       "testResults": "17 local SQL groups;68 item types;164 regression files;18 function/ACL matches;10 hosted sources;Pages40383961744",
       "nextAction": "Normal player acceptance and later post-change physical backup verification;no hosted transfer test performed",
       "approval": "Owner explicitly requested storage/withdrawal and reward overflow revamp;no destructive cleanup or hosted grants"

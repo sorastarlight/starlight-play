@@ -86,3 +86,6 @@ supabase/migrations/*_berry_catch_rewards_disabled.sql text eol=lf
 
 supabase/unapplied/pc-item-storage/*.sql text eol=lf
 supabase/migrations/*_pc_item_storage_and_reward_overflow.sql text eol=lf
+
+supabase/unapplied/pc-item-box/*.sql text eol=lf
+supabase/migrations/20261026193431_pc_item_box_slots.sql text eol=lf

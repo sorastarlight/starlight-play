@@ -17,3 +17,7 @@ Runtime scope: bag.html, inventory.html, storage.html, js/inventory.js, js/nav.j
 Items now move visually before the save completes, with the same dragging/drop-target classes as Pokemon. A single background writer serializes/coalesces rapid moves using each confirmed layout as the next expected value. Success does not redraw the grid, disable controls or rebuild the inspector. Transfers/refresh wait for arrangement completion. Failure reloads authoritative slots or marks the view stale; account changes discard old completions. Dragging preserves the selected inspector item.
 
 166 suites pass; focused queue/transfer checks rerun after inspector-identity adjustment. Real local pointer test with a deliberate 1.5-second save delay shows the item in its destination while Saving arrangement remains visible and controls stay enabled. No hosted player calls. One-file js/pc-items.js publication.
+
+## Sprite-preserving arrangement correction
+
+The previous immediate-drag change still used grid.innerHTML on drop, recreating all30 cells/images. Layout-only moves now reorder existing nodes and update slot indices without replacing sprites. Confirmed in the actual local browser with pointer drag and auto-arrange: all cell/image identities survive while a1.5-second fictional save is pending.167 regression suites pass, including node identity and ordered save/failure tests. No hosted player mutations.

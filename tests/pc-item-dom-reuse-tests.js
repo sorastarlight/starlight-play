@@ -1,0 +1,16 @@
+const assert=require('node:assert/strict');
+const {cards,reorderCells}=require('../js/pc-items');
+const grid=require('./helpers/pc-grid-dom')();
+const original=['a','b',...Array(28).fill(null)];
+grid.innerHTML=cards({slots:original,stored:{a:3,b:4}},'',k=>k,()=>'/sprite.png');
+const before=grid.children.slice(),images=before.map(n=>n.image),next=original.slice();
+[next[0],next[12]]=[next[12],next[0]];
+reorderCells(grid,next);
+assert.equal(grid.children[12],before[0]);assert.equal(grid.children[12].image,images[0]);
+assert.equal(grid.children[1],before[1]);assert.equal(new Set(grid.children).size,30);
+for(let i=0;i<30;i++)assert.equal(grid.children[i].dataset.slot,String(i));
+reorderCells(grid,original);
+assert.equal(grid.children[0],before[0]);assert.equal(grid.children[1],before[1]);
+assert(before.every(n=>grid.children.includes(n)),'all cells survive both moves');
+const order=grid.children.slice();assert.throws(()=>reorderCells(grid,['unknown',...Array(29).fill(null)]));assert.deepEqual(grid.children,order,'drift refuses before touching DOM');
+console.log('PASS item moves preserve all cell and sprite identities; slot indices and drift refusal');

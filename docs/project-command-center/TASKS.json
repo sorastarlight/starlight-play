@@ -7,7 +7,7 @@
       "id": "PC-STORAGE-POLISH",
       "status": "done",
       "scope": "My Bag naming and stable PC transfers/feedback/layout",
-      "evidence": "PC-STORAGE-POLISH.md;165 suites;local rendered transfers and drag;main7b90ae50;8/8 hosted source matches;immediate drag follow-up:166 suites, delayed-response local pointer check",
+      "evidence": "PC-STORAGE-POLISH.md;165 suites;local rendered transfers and drag;main7b90ae50;8/8 hosted source matches;immediate drag follow-up:166 suites, delayed-response local pointer check;sprite-preserving layout:167 suites, actual DOM identity checks",
       "nextAction": "Owner acceptance in My PC;no additional action required for this request"
     },
     {

@@ -591,3 +591,5 @@ Owner self-gifts: authorized exception installed/tested; scoped UI publication a
 PC-STORAGE-POLISH published main7b90ae50;8/8 hosted sources match. Complete.
 
 PC-STORAGE-POLISH follow-up: immediate item dragging with serialized saves locally complete;166 suites.
+
+PC-STORAGE-POLISH: sprite-preserving arrangement correction validated;167 suites and real DOM identity checks.

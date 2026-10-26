@@ -2853,3 +2853,5 @@ PC-STORAGE-POLISH publication: main7b90ae50,Pages40397191284;all eight hosted ru
 
 2026-10-26 PC dragging follow-up: immediate optimistic arrangement, serialized background saves, no success redraw/disabled flicker, Pokemon-style drag targets.166 suites and delayed-response rendered pointer test pass. No SQL/player writes.
 PC immediate-drag publication complete: main e4ae76f7, Pages40397884225 success, exact hosted js/pc-items.js source match. Feature1ce3661c;APP unchanged;no hosted player calls.
+
+2026-10-26 PC item flash: corrected remaining grid.innerHTML rebuild on layout-only moves.30 existing cells/images retained;real local DOM identity checks passed for drag/auto-arrange;167 suites/build pass. One runtime file;no hosted player calls.

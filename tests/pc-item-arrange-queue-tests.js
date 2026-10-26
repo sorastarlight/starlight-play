@@ -3,7 +3,7 @@ const {create}=require('../js/pc-items');
 const tick=()=>new Promise(r=>setImmediate(r));
 async function run(fail=false){
  let html='',writes=0;const handlers={},calls=[],notices=[];
- const grid={innerHTML:''},node={setAttribute(){},querySelector(){return null}},status={textContent:''};
+ const grid=require('./helpers/pc-grid-dom')(),node={setAttribute(){},querySelector(){return null}},status={textContent:''};
  const el={get innerHTML(){return html},set innerHTML(v){html=v;writes++},addEventListener(n,f){handlers[n]=f},querySelector(s){if(s==='[data-pc-grid]')return html.includes('data-pc-grid')?grid:null;return s==='[data-pc-status]'?status:node},querySelectorAll:()=>[]};
  const data={ok:true,bag:{},stored:{a:2,b:3},used:0,capacity:10,slots:['a','b',...Array(28).fill(null)],waiting:{}};
  const ui=create(el,{client:{auth:{getSession:async()=>({data:{session:{user:{id:'fixture'}}}})}},notify:n=>notices.push(n),call:async(n,a)=>{if(n==='play_pc_items')return structuredClone(data);assert.equal(n,'play_pc_item_arrange');return new Promise((resolve,reject)=>calls.push({args:a,resolve,reject}))}});

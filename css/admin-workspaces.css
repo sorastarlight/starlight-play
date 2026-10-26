@@ -38,3 +38,9 @@
 #owner-support .support-more-filters>div{margin:0}
 @media(max-width:1200px){#owner-support .support-ticket-workspace{grid-template-columns:minmax(0,1fr)}#owner-support .support-ticket-sidebar{display:grid;grid-template-columns:1fr 1fr}#owner-support .support-ticket-sidebar>.support-row{grid-column:1/-1}}
 @media(max-width:600px){#owner-support .support-ticket-sidebar{display:flex}}
+
+/* Keep every native Hub modal scrollable without moving its underlying workspace. */
+html:has(body[data-page="admin-next"] dialog:modal),
+body[data-page="admin-next"]:has(dialog:modal){overflow:hidden;overscroll-behavior:none}
+html:has(body[data-page="admin-next"]){scrollbar-gutter:stable}
+body[data-page="admin-next"] dialog{overscroll-behavior:contain}

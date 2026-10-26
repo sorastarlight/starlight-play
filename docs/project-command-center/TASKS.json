@@ -4,6 +4,13 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PC-STORAGE-POLISH",
+      "status": "done",
+      "scope": "My Bag naming and stable PC transfers/feedback/layout",
+      "evidence": "PC-STORAGE-POLISH.md;165 suites;local rendered transfers and drag",
+      "nextAction": "Scoped publication and hosted source verification"
+    },
+    {
       "id": "OWNER-SELF-GIFTS",
       "status": "done",
       "scope": "Owner-only self-gifts and approved PC test assortment",

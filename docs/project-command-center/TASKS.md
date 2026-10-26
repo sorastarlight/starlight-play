@@ -585,3 +585,5 @@ Berry drop progression:current XP curve and60eligible live-catalog items inspect
 Owner self-gifts: authorized exception installed/tested; scoped UI publication and six Pokemon plus sixty items delivery in progress.
 
 2026-10-26 Owner self-gifts COMPLETE: migration 20261026195430, frontend main e914cac2, Pages40391276577, hosted source match. Real owner UI delivered exactly 18 successful receipts: six ordinary level-5 Pokemon (Bulbasaur,Charmander,Squirtle,Pikachu,Eevee,Dratini) and 5 each of pokeball,greatball,ultraball,premierball,luxuryball,berry,razz,nanab,pinap,firestone,waterstone,linkingcord. Read-only receipt verification confirms 60 items and six specimens. My PC visibly shows six Pokemon; 51 overflow items in 11 stacked slots, nine items fit in bag (now125/125). Normal Pokedex registration/level6 notices appeared and were dismissed. No transfers/withdrawals, other-account gifts, or unrelated writes performed.
+
+2026-10-26 PC-STORAGE-POLISH: local checks complete;165 suites and rendered fictional transfers/drag pass. Scoped publication pending. See PC-STORAGE-POLISH.md.

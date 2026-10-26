@@ -31,7 +31,7 @@ const expected = [
   ["play", "Play", "./"],
   ["storage", "My PC", "./storage.html"],
   ["pokedex", "My Pokédex", "./pokedex.html"],
-  ["inventory", "My Inventory", "./inventory.html"],
+  ["inventory", "My Bag", "./inventory.html"],
   ["trainer", "My Trainer ID", "./trainer.html"],
   ["achievements", "My Achievements", "./achievements.html"],
   ["evolve", "Prof. Oak's Lab", "./evolve.html"],

@@ -580,4 +580,4 @@ Berry drop progression:current XP curve and60eligible live-catalog items inspect
 
 - My PC item storage presentation: integrated terminal tabs published at main 92a52c13; pointer/keyboard local acceptance passed.
 
-- My PC item box: 30 stacked item types; waiting rewards protected; server-saved arrangement and sprite-grid UI complete. Publication verification pending.
+- My PC item box: 30 stacked item types; waiting rewards protected; server-saved arrangement and sprite-grid UI complete. Publication verified: main 57612536, six hosted source matches.

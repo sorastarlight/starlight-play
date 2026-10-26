@@ -29,3 +29,5 @@ Confirmed live: Pages40383961744 succeeded. All10plain/versioned runtime source 
 ## Single item box — 2026-10-26
 
 Owner selected 30 stacked item types, with excess rewards held safely. Items now use the PC sprite grid and selection panel, with server-saved positioning, Auto-arrange, a bag picker and quantity transfers. Pokémon storage.js and its CSS are unchanged. New item CSS is scoped to the item panel. Migration 20261026193431 installed; six source/ACL matches. 19 isolated SQL groups over 68 item types, 164 regression suites, build and rendered desktop/mobile checks passed. No hosted player transfers or grants.
+
+Published main 57612536, Pages 40388312647 succeeded. Six plain/versioned hosted source matches. Private table RLS and postgres-only ACL preserved; unique trainer/slot index verified. APP unchanged. Real player transfer acceptance was not performed.

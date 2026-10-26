@@ -2840,3 +2840,5 @@ Installed migration20261026190657 and published five runtime files at main26cf6f
 2026-10-26: Integrated Pokémon / Items tabs inside the shared My PC terminal, with one persistent header and separate accessible panels. Local rendered pointer and arrow-key switching passed; item-storage regression and build checks passed. Three-file publication main 92a52c13, feature 12bc9eb4. No hosted player calls or SQL changes.
 
 2026-10-26 PC item box: authorized 30-type capacity and pending reward safety installed 20261026193431. Six sources/ACLs match local tests. Grid UI tested with actual Pokémon storage script and fictional data; populated/empty Pokémon boxes still operate. No player writes or gameplay tests.
+
+PC item box publication complete: main 57612536, Pages40388312647, six source matches; no hosted player calls.

@@ -434,3 +434,5 @@ XP-scaled berry drops and one-ball failed-throw rewards are live;mainfc10cffe/Pa
 
 ## 2026-10-26 PC item storage handoff
 Owner-requested overflow/deposit/withdraw workflow is LIVE:main26cf6f7d,Pages40383961744,SQL20261026190657.17local SQL groups cover68itemtypes;164tests;18source/ACL and10hosted-static matches. Stored items remain unavailable to gameplay until withdrawn. No actual player transfers or protected-account writes tested. Recovery preserves stored items/withdrawal API;74recovery files. Physical backup after this migration remains unverified. See PC-ITEM-STORAGE.md.
+
+2026-10-26 My PC Items: single 30-type stacked box and waiting overflow installed migration20261026193431, published main57612536/Pages40388312647. 19 local SQL groups, 164 suites, desktop/mobile item operations and unchanged Pokémon-box navigation verified locally. No player mutation probes.

@@ -4,7 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
-| CODEX-263 | in_progress | Expanded visual shop draft catalogue | Full migration | Owner-authorized completion/publication | Verify Pages/source;continue native authoring |
+| CODEX-263 | done | Expanded visual shop draft catalogue | Full migration | Owner-authorized completion/publication | Pages40268261941success;100+2sources;continue native authoring |
 | CODEX-262 | done | Native reviewed Special Events | Full migration | Owner-authorized completion/publication | No hosted command;continue migration |
 | CODEX-261 | done | Pure spawn-rate report | Full migration | Owner-authorized completion/publication | No hosted report invocation |
 | CODEX-260 | done | Native image library and reviewed uploads | Full migration | Owner-authorized completion/publication | No hosted upload |

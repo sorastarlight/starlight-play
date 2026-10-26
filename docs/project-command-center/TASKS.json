@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "CODEX-263",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Expanded visual shop draft catalogue",
       "evidence": "LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md",
-      "testResults": "147 suites;9 real local SQL groups;16 layouts;three deployed SQL sources;five controls unchanged;two-file publication queued",
-      "nextAction": "Verify Pages/source;continue native authoring",
+      "testResults": "147 suites;9 real local SQL groups;16 layouts;three deployed SQL sources;five controls unchanged;two-file publication queued;Pages40268261941success;100+2sources",
+      "nextAction": "Continue native item authoring and remaining migration",
       "approvalRequirement": "Owner full migration and completed publication authorized;no hosted staff mutations or destructive cleanup"
     },
     {

@@ -365,6 +365,19 @@
           "sha256": "2aa6e181657dc366735115433be3166f94713159e5e366275c24a3c82ef0d85b"
         }
       ]
+    },
+    {
+      "version": "20261026064110",
+      "files": [
+        {
+          "file": "supabase/unapplied/hub-special-product-drafts/INSTALL.sql",
+          "sha256": "1575b1b14f9567853070c72b5e9f77aae4ac2a217760dba9dc19062cbc8c1c2e"
+        },
+        {
+          "file": "supabase/unapplied/hub-special-product-drafts/ROLLBACK.sql",
+          "sha256": "a5e74733f7ea47da8ddb2ff6dd07b561b6ae347c0d50d79b1b23b76d3550ae75"
+        }
+      ]
     }
   ]
 }

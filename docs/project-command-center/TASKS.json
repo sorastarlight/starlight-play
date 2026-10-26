@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CODEX-267",
+      "status": "done",
+      "scope": "Catalogue names in core rewards and player Bag/encounter labels",
+      "evidence": "LAUNCH-CODEX267-CATALOGUE-NAMES.md",
+      "testResults": "151suites;7localSQLgroups;16componentstates;100+4sources;Pages40275184399success",
+      "nextAction": "Native appearance/new product types and entrycutover;destructivecleanupheld",
+      "approvalRequirement": "Owner full migration/completed publication authorized;no actual staff/gameplay edits"
+    },
+    {
       "id": "CODEX-266",
       "status": "done",
       "scope": "Compact product tabs,bounded lists and visual custom reward contents",

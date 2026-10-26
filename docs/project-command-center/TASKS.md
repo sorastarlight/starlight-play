@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| CODEX-267 | done | Canonical item names | Full migration | Completed publication authorized |151suites;7localSQLgroups;100+4sources;no hosted item edit |
 | CODEX-266 | done | Compact product tabs and visual contents | Full migration | Completed publication authorized | Pages40273574587;150suites;100+5sources;no live product save |
 | CODEX-265 | done | Native item descriptions/default shelf/capture effects | Full migration | Completed install/publication authorized | Pages40270302025;149suites;100+4sources;no item changes |
 | CODEX-264 | done | Actual Hub draft routing and Analytics preservation | Full migration | Completed publication authorized | Pages40268845012success;148suites;100+1sources |

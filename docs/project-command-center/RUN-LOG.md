@@ -2794,3 +2794,5 @@ CODEX-264 final mainc9531031/Pages40268845012 verified100+1sources;148suites/ful
 CODEX-265 migration20261026043859/mainbf7e06be/Pages40270302025success;100+4sources,4SQLsourceACLmatches,7unchangedcontrols,completeballberryhashesunchanged/audit0.149suites/10SQLgroups/40layouts/fullHubreset/52recoveryfiles. No hosted item edit,grant,protected action,cleanup,APPstamp. Continue fuller creation/appearance tools.
 
 CODEX-266 maine7af3b22/Pages40273574587success;100+5sources;150suites,5localSQLgroups,48layouts/fullHubrouting/reset/76snapshotrows. No SQL/hostedproductsave,grant,protectedaction,cleanup or APPstamp. Fixed Ball identity preserved;emptyMaster1 remains hidden draft pending exactcleanup review.
+
+CODEX-267 names live main6ebf0480/Pages40275184399;100+4sources;151suites,7localSQLgroups,16componentlayouts. Migration20261026053518;54recoveryfiles. No hosted item/product change,gameplay,protectedaccount or APPstamp.

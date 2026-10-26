@@ -2,7 +2,7 @@
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
-Latest verified production: maine7af3b22,Pages40273574587 succeeded;100 monitored+5 changed source matches. CODEX-266 compact product contents is live;150 suites,5 real isolated SQL groups and48 disconnected layouts pass. The52-file SQL recovery inventory remains unchanged. APP20261008-rc133 unchanged. No hosted application action or product/item edit was used for verification.
+Latest verified production: main6ebf0480,Pages40275184399 succeeded;100 monitored+4changed source matches. CODEX-267 catalogue names are live;151 suites,7localSQLgroups,16rendered component states. SQL recovery inventory54files. APP20261008-rc133 unchanged. No hosted application action or item/product edit used for verification.
 
 | Workspace | Implemented and published | Evidence or remaining work |
 | --- | --- | --- |
@@ -17,7 +17,7 @@ Latest verified production: maine7af3b22,Pages40273574587 succeeded;100 monitore
 
 ## Remaining migration work
 
-1. New Bits/avatar product creation, catalogue name propagation and Trainer appearance/crop management.
+1. New Bits/avatar product creation and Trainer appearance/crop management.
 2. Audit useful calculators/simulations; retire obsolete self-grant QA instead of recreating it.
 3. Switch the old direct admin entry to the primary Hub after remaining capabilities are accounted for. The old page is still present; staff navigation already uses the primary Hub.
 4. Prepare an exact obsolete-data/schema cleanup packet for owner review. Destructive execution remains held.
@@ -26,10 +26,10 @@ Latest verified production: maine7af3b22,Pages40273574587 succeeded;100 monitore
 
 Real Chrome linking/subscriber Pass evidence from ShinoTheWolf and Android S25 Ultra checks for Help/Register are retained. They do not establish Firefox, iOS or actual screen-reader acceptance. Keep missing real evidence explicit rather than treating fixtures as devices/provider proof. See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md).
 
-The earlier October25 physical backup was observed after CODEX-215. More SQL has since shipped; the next completed post-change backup is due after approximately October26 07:44UTC. Do not call it verified yet. Fifty-two exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
+The earlier October25 physical backup was observed after CODEX-215. More SQL has since shipped; the next completed post-change backup is due after approximately October26 07:44UTC. Do not call it verified yet. Fifty-four exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
 
 Current user direction authorizes completing the redesign/migration and publishing tested changes. It does not authorize agent use of the staff mutation controls, protected-account changes, paid provider activation, destructive cleanup, a new APP stamp or final launch declaration. No new automation or parallel runner is in use.
 
-Latest reports: [Product contents](LAUNCH-CODEX266-PRODUCT-CONTENTS.md), [Item effects](LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md), [Special Events](LAUNCH-CODEX262-SPECIAL-EVENTS.md), [shop draft selection](LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md), [staff access](LAUNCH-CODEX258-STAFF-ACCESS.md), [image library](LAUNCH-CODEX260-IMAGE-LIBRARY.md), [spawn report](LAUNCH-CODEX261-SPAWN-REPORT.md).
+Latest reports: [Catalogue names](LAUNCH-CODEX267-CATALOGUE-NAMES.md), [Product contents](LAUNCH-CODEX266-PRODUCT-CONTENTS.md), [Item effects](LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md), [Special Events](LAUNCH-CODEX262-SPECIAL-EVENTS.md), [shop draft selection](LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md), [staff access](LAUNCH-CODEX258-STAFF-ACCESS.md), [image library](LAUNCH-CODEX260-IMAGE-LIBRARY.md), [spawn report](LAUNCH-CODEX261-SPAWN-REPORT.md).
 
 The retained Master Ball listing master1 is an empty hidden draft. It remains unsold;include it in the exact cleanup review. No retirement/deletion was run.

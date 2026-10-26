@@ -1,5 +1,7 @@
 # Launch acceptance matrix
 
+CODEX-267 catalogue names live at main6ebf0480/Pages40275184399success;100+4source matches,151suites,7localSQLgroups,16componentlayouts. Migration20261026053518 source/ACL and unchanged item/product digests verified.54recoveryfiles. Next:appearance/crop tooling,newBits-avatar creation,entrycutover,exactheldcleanup. [Report](LAUNCH-CODEX267-CATALOGUE-NAMES.md).
+
 CODEX-266 current:compact product tabs,bounded76-item list,visual custom contents add/remove and Pass Secret Gifts preserved. Maine7af3b22/Pages40273574587 succeeded;100+5sources,150suites,5localSQLgroups,48layouts/fullHubrouting/reset. No new backend/SQL or actual product/player mutation. Continue name propagation/new Bits-avatar creation/appearance tools/entry cutover. Master1 empty hidden placeholder is cleanup-review scope only. [Report](LAUNCH-CODEX266-PRODUCT-CONTENTS.md).
 
 CODEX-265 current:Native Item effects live at mainbf7e06be/Pages40270302025;100+4source matches.149 suites,10 real isolated SQL groups,40 layouts/fullHubreset;4source/ACLmatches,7unchangedcontrols,allball/berryrowsunchanged,audit0.52recoveryfiles. No actual item or hosted application action. Continue fuller product creation/appearance tooling and primary entry cutover. [Report](LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md).

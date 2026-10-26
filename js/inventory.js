@@ -112,7 +112,7 @@
   function itemCardHtml(row) {
     const key = row.key;
     const qty = row.qty;
-    const name = window.playItemLabel(key);
+    const name = window.playItemLabel(key, lastCapture);
     const blurb = window.playItemPlayerText(key, lastCapture);
     const pocket = TABS.find((t) => t[0] === pocketOf(key))?.[1] || "Items";
     const isNew = window.playIsNewItem?.(key, qty, { recentKeys: lastLedgerOrder.slice(0, 8) });
@@ -168,10 +168,10 @@
       .map((key) => ({ key, qty: Number(bag[key] || 0), pocket: pocketOf(key) }))
       .filter((row) => tab === "all" || row.pocket === tab)
       .filter((row) => showUnowned || row.qty > 0 || pins.includes(row.key))
-      .filter((row) => !query || window.playItemLabel(row.key).toLowerCase().includes(query) || row.key.includes(query));
+      .filter((row) => !query || window.playItemLabel(row.key, lastCapture).toLowerCase().includes(query) || row.key.includes(query));
     rows.sort((a, b) => {
       if (sort === "quantity") return b.qty - a.qty || a.key.localeCompare(b.key);
-      if (sort === "name") return window.playItemLabel(a.key).localeCompare(window.playItemLabel(b.key));
+      if (sort === "name") return window.playItemLabel(a.key, lastCapture).localeCompare(window.playItemLabel(b.key, lastCapture));
       if (sort === "recent") {
         const idx = (key) => {
           const i = lastLedgerOrder.indexOf(key);
@@ -279,7 +279,7 @@
       if (els.ledger) {
         els.ledger.innerHTML = rows.length
           ? `<table class="report-table"><thead><tr><th>Item</th><th>Qty</th><th>Source</th></tr></thead><tbody>${
-            rows.map((row) => `<tr><td>${window.playEscapeAttr(window.playItemLabel(row.item))}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(window.playLedgerLabel?.(row.reason) || row.reason)}</td></tr>`).join("")
+            rows.map((row) => `<tr><td>${window.playEscapeAttr(window.playItemLabel(row.item, lastCapture))}</td><td>${row.amount > 0 ? "+" : ""}${row.amount}</td><td>${window.playEscapeAttr(window.playLedgerLabel?.(row.reason) || row.reason)}</td></tr>`).join("")
           }</tbody></table>`
           : `<p class="muted">No item history yet.</p>`;
       }

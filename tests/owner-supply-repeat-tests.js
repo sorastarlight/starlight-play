@@ -4,7 +4,7 @@ let now=100000,callback=null,calls=[],wallet={ownerRepeat:true,ownerOakNextAt:ne
 const FakeDate=class extends Date{static now(){return now;}};
 const root={},context={window:root,Date:FakeDate,setTimeout:fn=>(callback=fn,1),clearTimeout:()=>{callback=null;}};
 vm.runInNewContext(fs.readFileSync('js/oak-daily.js','utf8'),context);
-const api=root.PLAY_OAK_DAILY.create({host,client:{auth:{getUser:async()=>({data:{user:{id:'fictional'}}})}},call:async name=>{calls.push(name);return name==='play_store'?{wallet}:{ownerRepeat:true,nextClaimAt:new Date(now+30000).toISOString(),grants:{pokeball:1}};}});
+const api=root.PLAY_OAK_DAILY.create({host,client:{auth:{getUser:async()=>({data:{user:{id:'fictional'}}})}},call:async name=>{calls.push(name);return name==='play_oak_checkin_state'?{wallet}:{ownerRepeat:true,nextClaimAt:new Date(now+30000).toISOString(),grants:{pokeball:1}};}});
 await api.load({user:{id:'fictional'}});await api.claim();assert.equal(calls.length,1);assert(host.innerHTML.includes('30 seconds'));
 now+=30001;callback();assert(host.innerHTML.includes('Collect daily gift'));await api.claim();assert.equal(calls.length,2);await api.claim();assert.equal(calls.length,2);
 await api.load(null);assert.equal(callback,null);assert.equal(host.hidden,true);

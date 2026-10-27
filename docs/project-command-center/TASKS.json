@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "ROTATING-SUPPLIES",
+      "status": "blocked",
+      "scope": "Rotating rare Pass daily items, weekly supplies and seven-consecutive-day Oak Candy gifts",
+      "evidence": "ROTATING-SUPPLIES.md",
+      "testResults": "183 suites/build;28 local SQL groups;140 SQL/JS date comparisons;1461 pure dates;30 stone/ball combinations;responsive real DOM",
+      "nextAction": "Alignment mainbc6874b6/source verified. New six-function replacements/three endpoints and six UI files are local only;exact production reward-authority decision held. No live claim/grant."
+    },
+    {
       "id": "OWNER-SUPPLY-REPEAT",
       "status": "done",
       "scope": "Sorastarlight-only 30-second repeat Pass and Oak supplies",

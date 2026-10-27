@@ -100,3 +100,5 @@ supabase/unapplied/supply-bundle-delivery/INSTALL.sql text eol=lf
 supabase/unapplied/supply-bundle-delivery/ROLLBACK.sql text eol=lf
 
 supabase/unapplied/owner-supply-repeat/*.sql text eol=lf
+
+supabase/unapplied/rotating-supplies/*.sql text eol=lf

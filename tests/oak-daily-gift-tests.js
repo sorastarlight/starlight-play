@@ -1,6 +1,6 @@
 const assert=require('node:assert/strict'),{create}=require('../js/oak-daily');
 function fixture(){let actor='a',defer=null;const host={innerHTML:'',hidden:true,addEventListener(){}},calls=[],reveals=[],toasts=[];let wallet={dailySupplyReady:true,dailyClaimed:false,dailyPreview:{pokeball:3,coins:40,berry:'berry',berryQty:1,greatball:1}};
- const api=create({host,client:{auth:{getUser:async()=>({data:{user:{id:actor}}})}},call:async(name)=>{calls.push(name);if(name==='play_store')return{wallet};if(defer)return await new Promise(r=>defer=r);return{grants:{coins:40,pokeball:3,berry:1}};},present:(...a)=>reveals.push(a),toast:o=>toasts.push(o),label:k=>k});
+ const api=create({host,client:{auth:{getUser:async()=>({data:{user:{id:actor}}})}},call:async(name)=>{calls.push(name);if(name==='play_oak_checkin_state')return{wallet};if(defer)return await new Promise(r=>defer=r);return{grants:{coins:40,pokeball:3,berry:1}};},present:(...a)=>reveals.push(a),toast:o=>toasts.push(o),label:k=>k});
  return{api,host,calls,reveals,toasts,setWallet:w=>wallet=w,switch:id=>actor=id,hold:()=>defer=true,finish:r=>defer(r)};
 }
 (async()=>{let n=0,f=fixture();await f.api.load(null);assert(f.host.hidden);assert.equal(f.calls.length,0);n++;

@@ -1,0 +1,14 @@
+[
+  {
+    "file": "INSTALL.sql",
+    "sha256": "9459a7648fc02be6ce703bf037ba9c49f03663d07078af6c1b68ab09305d9310"
+  },
+  {
+    "file": "ROLLBACK.sql",
+    "sha256": "41b5c66fefbfca40729ef8fed387a85bbb20a786bba2aea028af87d81f18df01"
+  },
+  {
+    "file": "RESUME.sql",
+    "sha256": "0cb80d6e809a1b523761cc531888e99207e3b105a2f2ac8401b6742e15b17832"
+  }
+]

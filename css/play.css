@@ -21129,5 +21129,35 @@ html[data-reduced-motion="1"] .celebration-medallion,html[data-reduced-motion="1
 .pc-terminal > .pc-mode-tabs button:focus-visible{outline:3px solid #7188ff;outline-offset:-4px}
 .pc-terminal > .pc-item-panel{padding:24px;background:#f8fbff}
 .pc-items-heading h2{margin:0;font-size:24px}
+.mart-card:not(.is-pack):not(.is-sell){min-height:0;grid-template-rows:56px 1fr auto;gap:10px}
+.mart-card:not(.is-pack):not(.is-sell) .mart-card-media{height:56px}
+.mart-card-body{grid-template-rows:auto auto auto;gap:8px}
+.mart-card-desc{min-height:0}
+.mart-card-owned{margin:0}
+.mart-featured{min-height:0;padding:18px;gap:18px}
+.mart-featured-art{min-height:0}
+.mart-featured-copy{gap:8px;align-content:center}
+.mart-featured-desc{min-height:0}
+.mart-checkout-buttons{display:flex;justify-content:flex-end;gap:12px;flex-wrap:wrap}
+.mart-pass-compact .pass-showcase{padding:18px}
+.pass-compact-heading{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.pass-compact-icon{width:48px;height:48px;object-fit:contain}
+.pass-compact-heading .pass-title{font-size:24px;margin:0}
+.pass-compact-heading .pass-status{margin:4px 0 0;font-size:13px}
+.pass-compact-tools{margin-left:auto;display:grid;gap:4px;text-align:right}
+.pass-compact-tools small{font-size:11px;color:#62687b}
+.mart-pass-compact .pass-reward-panels{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.mart-pass-compact .pass-reward-card{padding:14px;gap:8px;min-height:0}
+.mart-pass-compact .pass-reward-head h3{font-size:17px;margin:0}
+.mart-pass-compact .pass-reward-contents{display:flex;flex-wrap:wrap;gap:8px;max-height:120px;overflow:auto;margin:0;padding:0;list-style:none}
+.mart-pass-compact .pass-reward-contents li{display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 8px;border-radius:10px;background:#ffffffa6}
+.mart-pass-compact .pass-reward-contents img{width:28px;height:28px;object-fit:contain}
+.mart-pass-compact .pass-time-note{font-size:12px;margin:0}
+.trainer-supply-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;margin-top:10px;border:1px solid #d5def0;border-radius:16px;background:#ffffffd9}
+.trainer-supply-bar p{margin:4px 0;font-size:13px}
+.trainer-supply-bar small{font-size:11px;color:#62687b}
+.trainer-supply-bar .pass-reward-chip{margin-left:10px}
+.trainer-supply-bar .pass-claim-btn{width:auto;flex-shrink:0}
+@media(max-width:600px){.pass-compact-heading{flex-wrap:wrap}.pass-compact-tools{margin-left:0;text-align:left}.mart-pass-compact .pass-reward-panels{grid-template-columns:1fr}.trainer-supply-bar{align-items:stretch;flex-direction:column}.mart-featured{padding:14px}.mart-checkout-buttons>button{flex:1}}
 #pc-pokemon-panel > .notice,#box-status{margin:16px 24px}
 @media(max-width:600px){.pc-terminal > .pc-mode-tabs{padding:0 12px}.pc-terminal > .pc-mode-tabs button{flex:1;padding:12px}.pc-terminal > .pc-item-panel{padding:16px}}

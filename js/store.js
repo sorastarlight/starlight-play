@@ -12,6 +12,7 @@
   };
   let lastCatalog = null;
   let lastWallet = null;
+  let ownerRewardTimer = null;
   let lastPass = null;
   let lastPassRewards = null;
   let lastOwned = [];
@@ -553,13 +554,14 @@
     const last = wallet?.[daily ? 'passDailyClaimedAt' : 'passWeeklyClaimedAt'];
     const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString(undefined,wallet?.calendar==='UTC'?{timeZone:'UTC',timeZoneName:'short'}:undefined) : null;
     if(wallet?.calendar==='UTC' && !wallet?.[daily?'passDailyVerified':'passWeeklyVerified']) return 'Check your subscription to unlock this UTC period.';
+    if(wallet?.ownerRepeat) return ready ? 'Owner testing: ready to claim again.' : 'Owner testing: 30 seconds between claims of this reward.';
     const available = ready ? 'Available now.' : date(next) ? `Next supply: ${date(next)}.` : 'Check back for your next supply.';
     return available + (date(last) ? ` Last claimed: ${date(last)}.` : '');
   }
 
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
-    const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.calendar==='UTC'?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
+    const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.ownerRepeat&&wallet?.[kind==='daily'?'passDailyVerified':'passWeeklyVerified']?'30-second wait':wallet?.calendar==='UTC'?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
     return `<div class="mart-pass mart-pass-compact">
       <section class="pass-showcase${info.active ? ' is-active' : ''}" data-pass-hero>
         <header class="pass-compact-heading">
@@ -576,7 +578,7 @@
             <header class="pass-reward-head"><h3>Today’s Pass supply</h3><span class="pass-reward-chip">${passState('daily')}</span></header>
             ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ''}
             <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
-            ${Array.isArray(wallet?.passDays) && wallet.passDays.length===7 && wallet?.dailyReady && info.active ? '<p class="pass-time-note">Claim today’s supply in the calendar above.</p>' : `<button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (wallet?.calendar==='UTC'?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>`}
+            ${!wallet?.ownerRepeat && Array.isArray(wallet?.passDays) && wallet.passDays.length===7 && wallet?.dailyReady && info.active ? '<p class="pass-time-note">Claim today’s supply in the calendar above.</p>' : `<button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (wallet?.calendar==='UTC'?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>`}
           </article>
           <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? ' is-ready' : ''}">
             <header class="pass-reward-head"><h3>Weekly bonus</h3><span class="pass-reward-chip">${passState('weekly')}</span></header>
@@ -1304,6 +1306,37 @@
     }
   }
 
+  function scheduleOwnerRewards() {
+    clearTimeout(ownerRewardTimer);
+    const wallet=lastWallet;
+    if(!wallet?.ownerRepeat)return;
+    const pending=[];
+    for(const kind of ['daily','weekly']){
+      const prefix=kind==='daily'?'passDaily':'passWeekly';
+      if(!wallet[prefix+'Verified'])continue;
+      const wait=Date.parse(wallet[prefix+'NextAt'])-Date.now();
+      if(Number.isFinite(wait)&&wait>0)pending.push(wait);
+    }
+    if(!pending.length)return;
+    ownerRewardTimer=setTimeout(()=>{
+      if(lastWallet!==wallet)return;
+      for(const kind of ['daily','weekly']){
+        const prefix=kind==='daily'?'passDaily':'passWeekly';
+        if(wallet[prefix+'Verified']&&Date.parse(wallet[prefix+'NextAt'])<=Date.now()){
+          wallet[kind==='daily'?'dailyReady':'weeklyReady']=true;
+          const button=document.getElementById('claim-'+kind);
+          if(button&&!claimBusy&&describePass(lastPass,wallet).active){
+            button.disabled=false;button.textContent=kind==='daily'?'Claim daily supply':'Claim weekly bonus';
+            const card=button.closest?.('.pass-reward-card'),chip=card?.querySelector('.pass-reward-chip'),note=card?.querySelector('.pass-time-note');
+            if(chip)chip.textContent='Ready';
+            if(note)note.textContent='Owner testing: ready to claim again.';
+          }
+        }
+      }
+      scheduleOwnerRewards();
+    },Math.min(...pending)+100);
+  }
+
   async function refreshStore() {
     try {
       const data = await window.playCall("play_store");
@@ -1323,6 +1356,7 @@
       fillWallet(wallet);
       await refreshSellShelf();
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
+      scheduleOwnerRewards();
       return data;
     } catch (error) {
       if (els.status) els.status.textContent = window.playRpcError(error, "Mart catalog is not live yet.");

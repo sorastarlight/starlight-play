@@ -12,3 +12,4 @@ Follow-up rendered failure rehearsal found and corrected an existing recovery is
 Rendered full-box/full-bag checks also pass. A blocked transfer keeps focus on the selected sprite; depleted transfer controls return focus to the Bag search. These checks used fictional data only.
 
 Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage files match exact source.173 suites/build and84 recovery packet hashes pass. No production SQL or real item transfer.
+October27 follow-up: clicking transfer/refresh while an arrangement save is pending was correctly blocked, but its feedback was screen-reader-only after the status layout fix. It now also shows the existing warning toast. Regression first reproduced missing visible feedback, then passed with unchanged one-writer protection.173suites/build pass;no live transfer.

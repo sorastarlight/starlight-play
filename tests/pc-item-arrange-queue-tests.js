@@ -10,6 +10,9 @@ async function run(fail=false){
  await ui.load('fixture');const initialWrites=writes;
  const drag=(from,to)=>{const source={dataset:{slot:String(from)},classList:{add(){}}},dest={dataset:{slot:String(to)}};handlers.dragstart({target:{closest:()=>source},dataTransfer:{setData(){}},preventDefault(){}});handlers.drop({target:{closest:()=>dest},preventDefault(){}})};
  drag(0,2);assert(grid.innerHTML.indexOf('data-slot="2" data-select="a"')>=0,'move rendered before response');await tick();assert.equal(calls.length,1);
+ await handlers.click({target:{closest:s=>s==='[data-move]'?{dataset:{move:'withdraw'}}:null}});
+ assert.equal(calls.length,1,'transfer cannot race the arrangement write');
+ assert(notices.some(n=>n.kind==='warning'&&/arrangement/.test(n.body)),'blocked transfer needs visible feedback');
  drag(2,3);await tick();assert.equal(calls.length,1,'one in-flight writer');assert(grid.innerHTML.includes('data-slot="3" data-select="a"'));
  if(fail){calls[0].reject(Error('conflict'));await tick();await tick();assert(grid.innerHTML.includes('data-slot="0" data-select="a"'));assert(notices.some(n=>n.kind==='warning'));}
  else {calls[0].resolve({ok:true});await tick();assert.equal(calls.length,2);assert.deepEqual(calls[1].args.p_expected,calls[0].args.p_slots);assert.equal(calls[1].args.p_slots[3],'a');calls[1].resolve({ok:true});await tick();assert.equal(notices.filter(n=>n.kind==='success').length,1);}

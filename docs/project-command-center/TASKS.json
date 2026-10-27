@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "OWNER-SUPPLY-REPEAT",
+      "status": "blocked",
+      "scope": "Sorastarlight-only 30-second repeat Pass and Oak supplies",
+      "evidence": "OWNER-SUPPLY-REPEAT.md",
+      "testResults": "180 suites/build;11 isolated SQL groups;exact rollback/reinstall;86 recovery files",
+      "nextAction": "Exact three-function install and two-file publication decision;no live claim"
+    },
+    {
       "id": "PC-ARRANGEMENT-WAIT-FEEDBACK",
       "status": "done",
       "scope": "Visible feedback for actions blocked by an in-flight arrangement",

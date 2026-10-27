@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
 (async()=>{let listener,calls=0,noise=0;const host={hidden:true,innerHTML:'',addEventListener(){}};
 const root={document:{getElementById:()=>host},playSupabase:{auth:{onAuthStateChange:fn=>listener=fn,getSession:async()=>({data:{session:{user:{id:'a'}}}})}},playCall:async()=>{calls++;return{wallet:{dailySupplyReady:false,dailyClaimed:true}}},playAuthNoise:()=>{noise++;return false}};
-vm.runInNewContext(fs.readFileSync('js/oak-daily.js','utf8'),{window:root,setTimeout:fn=>fn()});
+vm.runInNewContext(fs.readFileSync('js/oak-daily.js','utf8'),{window:root,setTimeout:fn=>fn(),clearTimeout(){}});
 const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};await flush();assert.equal(calls,1);
 listener('SIGNED_IN',{user:{id:'a'}});await flush();assert.equal(calls,1);
 listener('SIGNED_IN',{user:{id:'b'}});await flush();assert.equal(calls,2);assert.equal(noise,0);

@@ -98,3 +98,5 @@ supabase/unapplied/berry-affinity/*.sql text eol=lf
 supabase/unapplied/pass-week-view/*.sql text eol=lf
 supabase/unapplied/supply-bundle-delivery/INSTALL.sql text eol=lf
 supabase/unapplied/supply-bundle-delivery/ROLLBACK.sql text eol=lf
+
+supabase/unapplied/owner-supply-repeat/*.sql text eol=lf

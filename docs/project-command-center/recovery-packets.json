@@ -560,6 +560,19 @@
           "sha256": "7a1e0b62808423914ead3824cc0147b9e3f21213a88c76b00bfddae59d66126b"
         }
       ]
+    },
+    {
+      "version": "20261027120308",
+      "files": [
+        {
+          "file": "supabase/unapplied/owner-supply-repeat/INSTALL.sql",
+          "sha256": "451a8d7edb004be5da655ca9b43050f616405c0f8bcf65cd1c8b2d0eac46d481"
+        },
+        {
+          "file": "supabase/unapplied/owner-supply-repeat/ROLLBACK.sql",
+          "sha256": "10c1a2ea630dd6c31a8414eec77718bd140443ac1373d946ce40665267f07a18"
+        }
+      ]
     }
   ]
 }

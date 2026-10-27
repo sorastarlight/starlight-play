@@ -1,3 +1,7 @@
+
+## October 27 post-change backup availability — complete
+
+Read-only dashboard observation confirms a PHYSICAL recovery point at **2026-10-27 07:47:17 UTC** for starlight-play, main production, with Restore available and no in-progress label. Catalog-only query confirms latest migration remains `20261027045352 pass_week_claim_history`; the recovery point follows it. All 84 local recovery packet hashes pass. This verifies availability only, not backup contents or a physical restore; Storage objects remain excluded. No restore, export, application RPC, player mutation or settings change occurred. Temporary dashboard tab closed. Do not poll this unchanged completed point again.
 # Latest heartbeat October27 06:48UTC
 
 October27 06:48UTC:PC transfer/refresh while arrangement saves now shows the existing warning toast, instead of screen-reader-only feedback. Reproduced with failing assertion;173suites/build then pass. Maince92ab70,Pages40463445345 succeeded;one hosted source matches. No live transfer,SQL,authority or player change. Next backup check after07:44UTC;hardstop13:18UTC.
@@ -468,3 +472,4 @@ Owner-requested overflow/deposit/withdraw workflow is LIVE:main26cf6f7d,Pages403
 2026-10-26 My PC Items: single 30-type stacked box and waiting overflow installed migration20261026193431, published main57612536/Pages40388312647. 19 local SQL groups, 164 suites, desktop/mobile item operations and unchanged Pokémon-box navigation verified locally. No player mutation probes.
 
 October 27 07:18 UTC — PC account-transition review: added deferred-response tests proving both successful and failed old-account reads cannot replace a newly loaded account workspace, update its counters, or notify it. Both cases pass, alongside existing transfer/account-change and arrangement queue tests. All 84 recovery packet hashes verified; no SQL executed. No runtime change or deployment. Physical backup observation remains due after 07:44 UTC.
+

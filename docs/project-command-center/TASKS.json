@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "PASS-WEEK-VIEW",
-      "status": "blocked",
+      "status": "done",
       "scope": "Unified weekly calendar, sprite reward reveal and premature token-check correction",
-      "approval": "Local requested;exact production SQL/frontend decision held",
+      "approval": "Owner approved exact installation, publication and source verification",
       "testResults": "171 suites;13 SQL checks;four rendered widths;no live provider/claim",
       "evidence": "PASS-WEEK-VIEW.md",
-      "nextAction": "Approve one-function install and five-file publication/source verification"
+      "nextAction": "Owner approved installation, five-file publication and source-only verification. Migration20261027045352;private function source/ACLmatch. Main939f784d;Pages40452285081success;five hosted sources match. No claim, provider check, grant or account mutation ran. APPunchanged."
     },
     {
       "id": "PASS-UTC-CRATES",

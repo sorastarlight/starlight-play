@@ -1,6 +1,6 @@
 # Pass weekly calendar and reward presentation
 
-Status: locally implemented and tested; production installation/publication held for the exact decision.
+Status: installed and published. Owner approved installation, five-file publication and source-only verification. Migration20261027045352;private function source/ACLmatch. Main939f784d;Pages40452285081success;five hosted sources match. No claim, provider check, grant or account mutation ran. APPunchanged.
 
 The Mart presents one outer rewards panel: Monday–Sunday UTC calendar, today's Pass supplies, weekly bonus, and the existing free Trainer supply. Eligible missed days offer a confirmation to visit My PC Items. Crates retain their existing oldest-first opening order and must still be withdrawn into My Bag before use. Their original calendar day becomes claimed after its ledger state becomes opened. Unverified days are not called missed. Browser Back refreshes the restored Mart state.
 

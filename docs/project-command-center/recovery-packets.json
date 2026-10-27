@@ -534,6 +534,19 @@
           "sha256": "227edc6f171062137e570f01f85a7032cb2d4c0a059e84910457c7b8818a980d"
         }
       ]
+    },
+    {
+      "version": "20261027045352",
+      "files": [
+        {
+          "file": "supabase/unapplied/pass-week-view/INSTALL.sql",
+          "sha256": "1cf1d6e57d3bcd640be4739b859c88d8f248c995719838e62b5a8ccbc2110808"
+        },
+        {
+          "file": "supabase/unapplied/pass-week-view/ROLLBACK.sql",
+          "sha256": "7150a8371f4145d85d0a50814e60b408c5d40c86eb8b7bdfb578337317d9c182"
+        }
+      ]
     }
   ]
 }

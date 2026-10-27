@@ -21244,3 +21244,7 @@ html:has(.calendar-item-dialog[open]){overflow:hidden}
 #account-notifications [data-notification-count]:empty{display:none}
 /* Static halo: noticeable without motion or any change to layout geometry. */
 .pc-gift-nav-dot,#account-notification-dot{box-shadow:0 0 5px 2px #ed75bf90,0 0 11px 3px #b62d8340}
+
+/* The inbox shortcut shares the unread signal already shown by its count. */
+.account-menu #account-notifications.account-menu-btn{position:relative}
+#account-notifications:has([data-notification-count]:not(:empty))::after{content:"";position:absolute;top:0;right:0;width:10px;height:10px;border:2px solid #fff;border-radius:50%;background:#b62d83;box-shadow:0 0 5px 2px #ed75bf90,0 0 11px 3px #b62d8340;pointer-events:none}

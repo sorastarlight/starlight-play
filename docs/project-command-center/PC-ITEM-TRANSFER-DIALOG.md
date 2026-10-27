@@ -10,3 +10,5 @@ Publication scope: js/pc-items.js and css/pc-items.css only. Routine frontend/us
 
 Follow-up rendered failure rehearsal found and corrected an existing recovery issue: after a lost response, the confirmed same-request retry left persistent toolbar controls disabled. The retry now receives focus and the toolbar unlocks after confirmation. Added regression assertion and rendered retry/reopen acceptance; no duplicate fictional grant. This is client recovery only.
 Rendered full-box/full-bag checks also pass. A blocked transfer keeps focus on the selected sprite; depleted transfer controls return focus to the Bag search. These checks used fictional data only.
+
+Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage files match exact source.173 suites/build and84 recovery packet hashes pass. No production SQL or real item transfer.

@@ -2,7 +2,7 @@
 
 Status: installed and published. Owner approved installation, five-file publication and source-only verification. Migration20261027045352;private function source/ACLmatch. Main939f784d;Pages40452285081success;five hosted sources match. No claim, provider check, grant or account mutation ran. APPunchanged.
 
-The Mart presents one outer rewards panel: Monday–Sunday UTC calendar, today's Pass supplies, weekly bonus, and the existing free Trainer supply. Eligible missed days offer a confirmation to visit My PC Items. Crates retain their existing oldest-first opening order and must still be withdrawn into My Bag before use. Their original calendar day becomes claimed after its ledger state becomes opened. Unverified days are not called missed. Browser Back refreshes the restored Mart state.
+The Mart presents one outer rewards panel: Monday–Sunday UTC calendar, today's Pass supplies, weekly bonus, and reward claim controls. The free Trainer supply subsequently moved to Professor Oak's Lab; see OAK-DAILY-CHECK-IN.md. Eligible missed days offer a confirmation to visit My PC Items. Crates retain their existing oldest-first opening order and must still be withdrawn into My Bag before use. Their original calendar day becomes claimed after its ledger state becomes opened. Unverified days are not called missed. Browser Back refreshes the restored Mart state.
 
 The single-function SQL replacement adds seven bounded daily states to private.pass_period_wallet(uuid), using the existing trainer-scoped ledger. It changes no eligibility, grants, claim timing, crate handling, permissions or rows. INSTALL guards the captured function hash and ACL; ROLLBACK restores the exact definition with a candidate guard. No new endpoint/table is created.
 

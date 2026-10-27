@@ -1,5 +1,13 @@
 # October 27 autonomous work window
 
+## October27 continuation queue
+
+PC transfer dialog is implemented and tested; final source c188b1ca is live; Pages40455726097 succeeded and both hosted files match. Private evidence/helpers: security/pass-week-view under LOCALAPPDATA/PokemonStreamLink.173 suites, four responsive dialog widths, actual fictional deposit/withdrawal/full box/full bag/lost response/retry/reopen and Escape checks pass. Existing sprite reuse and serialized arrangement remain. Last account reset also restores withdrawal direction; no SQL/player transfer.
+
+84 local recovery packet hashes pass, latest migration20261027045352. Next physical backup observation after07:44UTC; do not poll early or restore/export. Continue useful local My PC/Bag/Pass/Oak cross-page visual and keyboard/error states, then remaining Hub parity/source review. Actual stats editing is still a separate consequential feature; do not imply available. Real iOS/screen-reader/Firefox evidence cannot be replaced with fixtures. Keep exact destructive cleanup held.
+
+Existing local server51642 is fictional-only/CSPconnectnone; picker.html now PC fixture, sizes.html has four dialog widths. Do not restart unnecessarily. Hard stop13:18UTC; pause heartbeat then.
+
 Owner renewed eight hours through 2026-10-27 13:18 UTC (09:18 America/New_York). Pause heartbeat at expiry. Current priority: PC item transfer dialog, then independent local readiness work. No new production SQL, provider tests, hosted grants/claims, owner mutations or final launch.
 
 Latest completed: Pass week view and Oak daily check-in live; production df81f273, Pages40452894231 successful. PC dialog local validation complete; see PC-ITEM-TRANSFER-DIALOG.md. Historical entries below may be superseded; inspect Git/current reports.

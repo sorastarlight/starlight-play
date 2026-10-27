@@ -9,7 +9,7 @@
       "scope": "Compact calendars, truthful gift-box notices and observed PC badge; reward split proposal only",
       "evidence": "COMPACT-SUPPLIES-AND-BALANCE.md",
       "testResults": "187 suites/build;96 recovery files;four local rendered widths;future preview and gift notice",
-      "nextAction": "LIVE main2d55793a;Pages40561429181 SUCCESS;exact CSS source match. Notification label/count stays inline at220/280px for0/1/99/9999;static glow;button height40px unchanged. Prior no-inner-scroll and acknowledge-on-view behavior retained. Build/local DOM pass;no hosted account/application calls. Reward rebalance still proposal only."
+      "nextAction": "LIVE main9802245e;Pages40564753128 SUCCESS;CSS exact source match. Notifications button now shares soft unread glow using existing count;0/12/0 local DOM states retain40px height/252.8px width. Build passes;no hosted application calls. Earlier full-visible rewards/view acknowledgement retained;reward rebalance proposal only."
     },
     {
       "id": "POUCH-CAP-GUARD",

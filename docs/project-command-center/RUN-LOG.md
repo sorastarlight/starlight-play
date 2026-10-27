@@ -2979,3 +2979,5 @@ NOTIFICATION-MENU:Owner requested same-line notification count and subtle glow. 
 
 NOTIFICATION-MENU LIVE:main2d55793aa96a94d607ebf11bd5b73c5b968bd333;Pages40561429181 SUCCESS;CSS exact source match. Eight local menu-count layouts retain40px height/no wrap;soft static overlay glow;build pass. CSS only,no hosted account/notice/application calls,SQL or APPstamp.
 NOTIFICATIONS-BUTTON:Owner requested the same glowing unread indicator on the profile-menu Notifications button. CSS pseudo-element derives visibility from existing count (no new calls);appears with unread count and vanishes atzero. Local DOM40px height/252.8px width unchanged through0/12/0;build passes. One-CSS publication next.
+
+NOTIFICATIONS-BUTTON LIVE:main9802245eee5862ab16672f4c5fe80a1e705212ed;Pages40564753128 SUCCESS;CSS exact source match. Existing unread count controls glowing pseudo-element on Notifications button;no layout shift. Build/local DOM pass;no hosted application calls,SQL or APPstamp.

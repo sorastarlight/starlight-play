@@ -4,6 +4,22 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "SERVICE-DESK-WORDING",
+      "status": "done",
+      "scope": "Use Service Desk naming consistently in player/staff feedback",
+      "evidence": "SERVICE-DESK-WORDING-CONSISTENCY.md",
+      "testResults": "187 selected suites/build;11actual-source boundary checks;28local renderedstates;newdialog/accountclear",
+      "nextAction": "LIVE maine3c039cd/Pages40600967148 SUCCESS;one source matches,no hosted application/ticket action."
+    },
+    {
+      "id": "CAPTURE-CLASSIFICATION-REVIEW",
+      "status": "in_progress",
+      "scope": "Private source finding and isolated classifier preparation",
+      "evidence": "ADMIN-HUB-DIAGNOSTICS-PARITY.md",
+      "testResults": "25private real local SQL checks;generic inventory helper preserved;full refund/caller integration unfinished",
+      "nextAction": "Do not install preliminary candidate. Complete refund compatibility and guarded packet before production decision;no live throw ordatarepair."
+    },
+    {
       "id": "HUB-OWNERSHIP-REVIEW",
       "status": "in_progress",
       "scope": "Review appearance revocation semantics and correct stale ownership guidance",
@@ -32,8 +48,8 @@
       "status": "in_progress",
       "scope": "Audit native tool parity and prepare disconnected read-only transaction component",
       "evidence": "ADMIN-HUB-TRANSACTIONS-LOCAL-INTEGRATION.md",
-      "testResults": "187 selected suites/build;23JSchecks;23earlierSQLgroups;24standalone+16fullHubstates;route/account/late-response and4file replay",
-      "nextAction": "Private1function/4file activation packet held;no production read,installation orpublication. Continue consistency/handoff checks."
+      "testResults": "187 selected suites/build;23JSchecks;30finalSQLgroups;24standalone+16fullHubstates;4file replay",
+      "nextAction": "Concrete1function/4file activation decision ready;source-only verification proposed,no live read ornotice. Packet private;production remains unmounted."
     },
     {
       "id": "TEAM-EDITOR-STABILITY",

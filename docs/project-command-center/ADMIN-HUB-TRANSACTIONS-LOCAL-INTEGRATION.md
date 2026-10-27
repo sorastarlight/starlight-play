@@ -7,7 +7,7 @@ The workspace shows one heading and an explicit **Load transactions** button. Op
 ## Local evidence
 
 - All187 selected non-writing suites and build pass;23 ledger adapter/model checks remain passing.
-- The earlier prepared endpoint passed23 isolated SQL groups with fictional records and controlled role lookup. No SQL changed in this integration batch; this does not certify full production Auth policy.
+- The final private install/rollback packet passed30 isolated SQL groups with fictional records and controlled role lookup. Final review added explicit refusal for changed staff-helper ownership/EXECUTE, profile label schema, dependency owners/RLS and ledger primary key. Rollback also refuses changed endpoint permissions. The read function body is unchanged; this does not certify full production Auth policy.
 - Sixteen full-Hub rendered states at320/390/768/1280 cover populated, empty, read-error and denied cases. No horizontal overflow; denied cases made zero fictional transaction reads.
 - Actual full-Hub interactions confirmed zero automatic reads, one explicit load,40then5-record pages,20-record selection, keyboard loading/focus and clear-on-leaving-Analytics.
 - A held transaction read was released after a simulated switch to an ordinary account. Staff content stayed hidden, transaction rows remained zero, the ledger was reset and no fictional save occurred.
@@ -19,6 +19,6 @@ The full-Hub fixture uses fictional Auth/catalogue/report responses and blocks n
 
 Private candidates, hash manifest, frontend replay and screenshots: `C:\Users\FET\AppData\Local\PokemonStreamLink\security\hub-ledger`.
 
-The proposed production scope is one new read-only function/its reviewed EXECUTE boundary and four frontend files: `admin-next.html`, `js/admin-next.js`, `js/admin-coin-ledger.js`, `css/admin-coin-ledger.css`. The two integration files remain private; the standalone component remains unmounted. Baseline main is `ed8c343c795af7d65525db076a611d63d6af661a`. Recheck function/helper/schema/permission contracts and source hashes before installation; stop on drift. Guarded SQL installation/rollback and frontend source verification remain separate from invoking the report.
+The proposed production scope is one new read-only function/its reviewed EXECUTE boundary and four frontend files: `admin-next.html`, `js/admin-next.js`, `js/admin-coin-ledger.js`, `css/admin-coin-ledger.css`. The two integration files remain private; the standalone component remains unmounted. Current baseline main is `e3c039cda563fe22bec6d26e9cb43cc48c2668c7`. It advanced from ed8c343c only for the separately tested Service Desk wording file; both existing transaction integration target files are byte-identical across that advance, and the four-file rollback replay passed against the new baseline. Recheck function/helper/schema/permission contracts and source hashes before installation; stop on drift. Guarded SQL installation/rollback and frontend source verification remain separate from invoking the report.
 
 No production SQL, permission change, transaction read, authenticated navigation, notice acknowledgement, player mutation, provider call, publication or APP stamp occurred in this batch. Installation/publication remain held for an important owner decision. Do not mistake the standalone module's Git presence for an active production workflow.

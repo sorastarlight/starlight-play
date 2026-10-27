@@ -2,7 +2,7 @@
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
-Latest published maintenance is the ownership detail copy fix at main ed8c343c/Pages40593128854, with one exact hosted source,187 selected non-writing suites/build and8local rendered states. Health summary maintenance is also live at the preceding main de812b76. The earlier team editor correction is owner-confirmed. APP unchanged. The native Planning checkpoint remains documented in [its report](LAUNCH-CODEX272-NATIVE-PLANNING.md). Current parity review and disconnected transaction candidate: [review](ADMIN-HUB-PARITY-AND-TRANSACTIONS.md).
+Latest published maintenance is Service Desk naming at main e3c039cd/Pages40600967148, with one exact hosted source,187 selected non-writing suites/build and28local rendered states. Ownership detail guidance and Health summary maintenance are also live. The earlier team editor correction is owner-confirmed. APP unchanged. The native Planning checkpoint remains documented in [its report](LAUNCH-CODEX272-NATIVE-PLANNING.md). Current parity review and disconnected transaction candidate: [review](ADMIN-HUB-PARITY-AND-TRANSACTIONS.md).
 
 | Workspace | Implemented and published | Evidence or remaining work |
 | --- | --- | --- |

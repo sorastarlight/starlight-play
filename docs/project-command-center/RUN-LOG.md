@@ -2970,3 +2970,5 @@ ROTATING-SUPPLIES LIVE:owner approved exact88543618 install/publication/source-o
 COMPACT-SUPPLIES LOCAL COMPLETE October27:187 suites/build,96 recovery files,4 rendered widths and future preview/gift-notice checks. Compact Pass/Oak, requested labels/header, no Research Notes, new gift art, empty-summary guard and account-scoped observed PC dot. No SQL/reward/provider/account/notice calls. Rebalance proposal only in COMPACT-SUPPLIES-AND-BALANCE.md; hold activation. Scoped eight-file frontend publication next.
 
 COMPACT-SUPPLIES LIVE main370a21bf;Pages40552441282;8/8static source matches.187suites/build,96recovery files. No SQL/live claims/provider/notice writes or APPstamp. Proposal only for future Oak/Pass rebalance.
+
+SUPPLY-VISIBILITY:Owner requested no inner reward scroll, non-shifting nav dots and acknowledge-on-view PC hint. Three runtime files tested locally;187suites/build;24-item/four-width geometry and ordinary 4-item reveal inspected. No SQL/live calls. Scoped publication next.

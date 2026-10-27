@@ -4,12 +4,12 @@ October 27, 2026. The owner requested presentation fixes and a reward-pool recom
 
 ## Presentation implementation
 
-- Smaller Pass/Oak spacing and calendar tiles; reward lists remain independently scrollable and claim footers retain aligned grid rows regardless of reward count.
+- Smaller Pass/Oak spacing and calendar tiles; reward lists expand to show every item without inner scrolling and claim footers remain aligned side by side.
 - Server-designated today has a green border/background and explicit Today label matching Oak's supplies. A future activation date is never relabeled today.
 - Tomorrow's Reward! / Soon~ / Unclaimed tile labels; claimed and saved-to-PC states remain distinct. Future preview action says Not Available Yet and stays disabled.
 - Requested Oak header; Research Notes expanders removed.
 - Empty summaries suppressed. Saved gift-box notices get the provided artwork, an explanation and PC link, without inventing a grant.
-- My PC nav dot is an account-scoped hint from an existing delivery notice or authorized PC response. It clears when a refreshed PC response has no boxes. No new background/materializing endpoint calls. It does not promise a cross-device real-time count; another device updates when its existing notices/PC data arrive.
+- My PC nav dot is an account-scoped hint from an existing delivery notice or authorized PC response. It clears when the trainer views a successfully loaded Items tab, without requiring boxes to be opened. No new background/materializing endpoint calls. It does not promise a cross-device real-time count; another device updates when its existing notices/PC data arrive.
 - New supplied PNG replaces the shared gift-box asset.
 
 LOCAL verification: 187 regression suites, build and 96 recovery-file checks; four rendered widths 320/390/768/1024 with no document overflow; future preview disabled/Close focus return; real reveal engine gift-box notice with art/copy/link. No hosted application calls or live rewards.
@@ -59,3 +59,5 @@ Existing published packs deliver 14–21 physical items and catalog replacement 
 Activation of the rebalance requires an owner decision and exact tested SQL/config migration. Preserve accrued gifts, verified-period policy, whole-bundle Bag-first delivery, overflow boxes and owner-only testing exception.
 
 Publication: main `370a21bf3b2ba5acd07aa4a520cd18f98b49b6c9`, Pages `40552441282`; all eight deployed files match reviewed source. Frontend only; no hosted claims, application calls or SQL. APP unchanged.
+
+Follow-up: no inner reward scrolling; nav/account dots are absolute overlays. Four rendered widths with 24 long reward entries: lists have equal scroll/client heights, no inner scroll; side-by-side claim bottoms match at768/1024. All navigation anchor rectangles are identical before/after dots at320/390/768/1024. Ordinary four-item weekly list also fully visible with aligned claims.187suites/build pass; no live application calls.

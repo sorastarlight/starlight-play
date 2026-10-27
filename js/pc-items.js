@@ -35,7 +35,8 @@
   }
   function grid(){el.querySelector('[data-pc-grid]').innerHTML=cards(data,query,label,sprite,selected);}
   function render(){
-   root.playSetPcGiftCount?.(Array.isArray(data?.giftBoxes)?data.giftBoxes.length:0,uid);
+   // This is an unseen-delivery indicator, not a count of unopened boxes.
+   root.playSetPcGiftCount?.(0,uid);
    if(selected&&!data.bag[selected]&&!data.stored[selected])selected=null;
    const waiting=Object.entries(data.waiting||{}).filter(([,n])=>n>0);
    if(el.querySelector('[data-pc-grid]')){sync();return;}

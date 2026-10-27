@@ -312,3 +312,5 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 |20261026195430 owner_self_gifts|supabase/unapplied/owner-self-gifts/INSTALL.sql|63fffb5fdedbafb7c004278964c9202d70bd3b8ad892971d91a23549e7990413|
 
 |20261027040048 berry_type_affinity|supabase/unapplied/berry-affinity/INSTALL.sql|supabase/unapplied/berry-affinity/ROLLBACK.sql|Owner approved; six function sources/ACLs and 22 catalog rows verified; no live catch.|
+
+|20261027043338 verified_utc_pass_supply_crates|supabase/unapplied/pass-calendar/INSTALL.sql|supabase/unapplied/pass-calendar/ROLLBACK.sql|Owner-approved;9source/ACLmatches;privateRLS/access and trigger verified. Early rollback refuses earned records;STOP.sql retains rewards.|

@@ -5,12 +5,12 @@
   "tasks": [
     {
       "id": "PASS-UTC-CRATES",
-      "status": "blocked",
+      "status": "done",
       "scope": "UTC daily/weekly verified periods, saved supplies in PC and bag crate opening",
-      "approval": "Owner selected UTC periods and verified periods only;exact production packet held for decision",
+      "approval": "Owner approved exact install, six-file publication and source-only verification",
       "testResults": "24 local SQL groups;170 regression suites;four rendered widths;no hosted claim",
       "evidence": "supabase/unapplied/pass-calendar/README.md",
-      "nextAction": "Review install plus six-file publication;source verification only;no claims/provider tests/backfill/scheduler"
+      "nextAction": "Complete:migration20261027043338;mainfacb67ed;9source/ACLmatches;6/6HTTPmatches;no hosted claim"
     },
     {
       "id": "MART-COMPACT-CART",

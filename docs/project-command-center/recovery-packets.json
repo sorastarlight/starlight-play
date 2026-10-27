@@ -521,6 +521,19 @@
           "sha256": "df53e5cd98f9cdc9625a54206467affba70724616d1393bf2aa8bd613b1d4669"
         }
       ]
+    },
+    {
+      "version": "20261027043338",
+      "files": [
+        {
+          "file": "supabase/unapplied/pass-calendar/INSTALL.sql",
+          "sha256": "a2d4880965cc5fb0e3edb7f1956a3d5cfdbcaab01ad05a507caec536750a1645"
+        },
+        {
+          "file": "supabase/unapplied/pass-calendar/ROLLBACK.sql",
+          "sha256": "227edc6f171062137e570f01f85a7032cb2d4c0a059e84910457c7b8818a980d"
+        }
+      ]
     }
   ]
 }

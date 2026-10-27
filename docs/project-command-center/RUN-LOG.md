@@ -2872,3 +2872,7 @@ Compact Mart candidate passes169suites/build. Actual-source fictional rendered c
 ## 2026-10-27 — UTC Pass/crates local packet
 
 Owner chose UTCdaily/Mondayweekly and verified-period-only coverage. Prepared private receipt ledger, trusted-check trigger, bounded lazy crate materialization, atomic Bag opening and six frontend files.24localSQLchecks,170regression suites/build;four rendered widths and fictional opening. No production claim/provider request. Guarded empty-ledger rollback refuses after earned records exist;tested emergency stop preserves records/opening. Packet held for production decision. Compact Mart separately deployed atbe01bdc8,Pages40448527609success,2/2source matches.
+
+## 2026-10-27 — Approved UTC Pass/crates activation
+
+Owner approved installation/publication/source verification. Rechecked eight source/ACL contracts;published exactly six files atmainfacb67ed,all6HTTPsourcesmatch. Appliedmigration20261027043338 verified_utc_pass_supply_crates.9functionhash/ACLmatches;bothprivateRLS tablesdeny anon/authenticated/service directaccess;verificationtriggerenabled. No gameplay/provider/claim/crateopening or historicalbackfill. APPunchanged. Recoverymanifestupdated;post-useSTOPpreservesearnedrecords.

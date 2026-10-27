@@ -1,0 +1,32 @@
+{
+  "classification": "LOCAL schema-only replay with fictional stats only;no player/Auth import,new export,production connection or original retained DB mutation",
+  "status": "PASS",
+  "checks": [
+    "candidate compiles against complete replayed production schema",
+    "one overflowing supply delivery becomes one sealed whole-bundle gift box",
+    "delivery retry neither duplicates nor rerolls gift box",
+    "public box metadata exposes only safe previews, never raw hidden item maps",
+    "Bag-full failure preserves sealed box and every item",
+    "another trainer cannot open the box",
+    "whole-bundle Bag extraction is exactly once and repeat-request safe",
+    "retry cannot change the chosen destination",
+    "PC extraction checks all new item types atomically and retains box on failure",
+    "last box frees its own slot and all contents extract into PC within 30 slots",
+    "full PC safely retains gift boxes waiting for a slot",
+    "Oak shows the exact Berry before claim and actual claim matches preview",
+    "every weekly main daily item is unique and worth at least 250 catalog coins",
+    "current-day preview agrees with actual claim bundle across schedule activation",
+    "all Pass days expose complete safe bundle previews plus coin amounts",
+    "verified missed Pass period becomes one box, extracts coins/items once and marks calendar claimed",
+    "existing pending catch receipts still import and withdraw through the original PC flow",
+    "overlapping box opens grant once and replay the same receipt",
+    "anonymous opening and direct browser box access denied",
+    "data-preserving rollback retains earned boxes and redemption support",
+    "guarded resume retains saved gifts and restores new delivery flow",
+    "exact fresh install and rollback round-trip succeed",
+    "repeat install refuses before partial changes"
+  ],
+  "isolated": true,
+  "runtimeStopped": true,
+  "originalSchemaArchiveUnchanged": true
+}

@@ -1,3 +1,7 @@
+## REWARD-GIFT-BOXES — current owner request
+
+Owner directly requested the new reward-storage flow. Migration20261027155547 installed/source verified:17functions/ACLs,privateRLS,no direct browser access,anonymous denial,index. Ten-file frontend publication pending. Existing item/profile/Pokémon data not rewritten. No live claims,grants,provider check or owner notices. 186suites/build;23isolatedSQLgroups;4responsivewidths;realDOMpreview/errors/cancel/extraction/purchase.94recovery packet files expected. No new automation/background system. Next post-change physical backup dueOct28;do not repoll the old recovery point. Existing loose PC stacks and earned reward snapshots retained.
+
 ## REWARD-CALENDAR-POLISH — complete
 
 LIVE:main8ae4cd6317e56aea0cb32faf4490bcbdc7b6eb22;Pages40520151950 SUCCESS;4/4hostedfiles exact match. SQL20261027141847;3private source/ACLmatches and perks copy verified.184suites/build;12localSQLgroups;92recovery files. No live claims,grants,notices or player mutations. Existing item quantities and purchased capacity retained;over-capacity Bags can spend/deposit and new supplies overflow safely. APP unchanged. Next post-change backup dueOct28;do not repoll old point. Local temporary tabs/cache fixtures removed;private screenshots retained outsideGit. No new automation or background system.

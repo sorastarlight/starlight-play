@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "REWARD-GIFT-BOXES",
+      "status": "doing",
+      "scope": "Sealed PC overflow gifts, complete day previews, rare unique daily rotation and improved Oak/purchase presentation",
+      "evidence": "REWARD-GIFT-BOXES.md",
+      "testResults": "186suites/build;23isolatedSQLgroups;4responsivewidths;realDOMpreview/errors/cancel/extraction/purchase",
+      "nextAction": "Owner directly requested the new reward-storage flow. Migration20261027155547 installed/source verified:17functions/ACLs,privateRLS,no direct browser access,anonymous denial,index. Ten-file frontend publication pending. Existing item/profile/Pokémon data not rewritten. No live claims,grants,provider check or owner notices."
+    },
+    {
       "id": "REWARD-CALENDAR-POLISH",
       "status": "done",
       "scope": "Clickable reward details, local reset times, compact Oak calendar, confirmed Empty Cart and removal of Pass bag capacity",

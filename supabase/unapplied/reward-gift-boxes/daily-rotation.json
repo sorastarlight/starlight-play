@@ -1,0 +1,103 @@
+{
+  "version": 1,
+  "status": "local-proposal-not-active",
+  "dailyCoins": 50,
+  "weeklyCoins": 150,
+  "weeks": [
+    {
+      "daily": [
+        "figy",
+        "moonball",
+        "firestone",
+        "silverpinap",
+        "ultraball",
+        "wiki",
+        "quickball"
+      ],
+      "weekly": {
+        "greatball": 2,
+        "lum": 2,
+        "bait": 1,
+        "lure": 1,
+        "moonball": 1
+      }
+    },
+    {
+      "daily": [
+        "mago",
+        "hisuiultraball",
+        "waterstone",
+        "silverpinap",
+        "duskball",
+        "aguav",
+        "jetball"
+      ],
+      "weekly": {
+        "hisuigreatball": 2,
+        "sitrus": 2,
+        "bait": 1,
+        "lure": 1,
+        "cherishball": 1
+      }
+    },
+    {
+      "daily": [
+        "iapapa",
+        "gigatonball",
+        "thunderstone",
+        "silverpinap",
+        "heavyball",
+        "figy",
+        "moonball"
+      ],
+      "weekly": {
+        "wingball": 2,
+        "persim": 2,
+        "bait": 1,
+        "lure": 1,
+        "gsball": 1
+      }
+    },
+    {
+      "daily": [
+        "wiki",
+        "ultraball",
+        "leafstone",
+        "mago",
+        "repeatball",
+        "aguav",
+        "goldenrazz"
+      ],
+      "weekly": {
+        "leadenball": 2,
+        "lum": 2,
+        "bait": 1,
+        "lure": 1,
+        "ashball": 1
+      }
+    }
+  ],
+  "oak": {
+    "candyQuantity": 10,
+    "coins": 150,
+    "stones": [
+      "firestone",
+      "waterstone",
+      "thunderstone",
+      "leafstone",
+      "moonstone"
+    ],
+    "rareBalls": [
+      "moonball",
+      "cherishball",
+      "gsball",
+      "ashball",
+      "cloneball",
+      "darkball"
+    ],
+    "exclude": [
+      "masterball"
+    ],
+    "eligibility": "seven-consecutive-daily-check-ins"
+  }
+}

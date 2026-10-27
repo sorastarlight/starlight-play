@@ -1,0 +1,97 @@
+{
+  "verifiedAt": "2026-10-27T15:56:09.450Z",
+  "migration": "20261027155547",
+  "functions": [
+    {
+      "signature": "play_claim_daily_supply()",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.pc_item_location(text)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_store_items(uuid,text,integer,text)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_deliver_items(uuid,jsonb,text)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "play_pc_items()",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "play_pc_item_transfer(uuid,text,text,integer)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.materialize_pass_crates(uuid)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pass_schedule_calendar(uuid)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.oak_calendar_projection(uuid)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "play_oak_checkin_state()",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "play_reward_box_open(uuid,uuid,text)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.calendar_reward_details(jsonb)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.oak_berry_preview(uuid,date)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.queue_reward_gift_box(uuid,jsonb,text)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.reward_gift_boxes_json(uuid)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pc_store_loose_items(uuid,text,integer,text)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pass_calendar_bundle(text,timestamp with time zone)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    }
+  ],
+  "rls": true,
+  "directRead": false,
+  "anonRPC": false,
+  "authRPC": true,
+  "pendingIndex": true,
+  "verification": "Source/catalog only; no live claim, extraction, grant or protected-account write"
+}

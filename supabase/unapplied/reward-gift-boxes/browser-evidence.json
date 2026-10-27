@@ -1,0 +1,36 @@
+{
+  "classification": "LOCAL FICTIONAL REAL DOM; no hosted calls",
+  "widths": {
+    "320": {
+      "width": 320,
+      "pageWidth": 305
+    },
+    "390": {
+      "width": 390,
+      "pageWidth": 375
+    },
+    "768": {
+      "width": 768,
+      "pageWidth": 753
+    },
+    "1024": {
+      "width": 1024,
+      "pageWidth": 1009
+    }
+  },
+  "scenarios": [
+    "future day full preview with disabled claim state",
+    "day7 Candy pack and three sprites",
+    "Bag-full error keeps box",
+    "PC-full error keeps box",
+    "Cancel preserves box",
+    "successful extraction refreshes grid and inventory count",
+    "nonredundant purchase reveal"
+  ],
+  "clientCases": [
+    "ambiguous-response UUID replay",
+    "double-submit guard",
+    "account change invalidates UI",
+    "safe text/sprites and Secret Gift masking"
+  ]
+}

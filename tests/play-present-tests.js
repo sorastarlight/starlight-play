@@ -300,6 +300,10 @@ async function run() {
     window.PLAY_ROUND = null;
   });
 
+  test('Supply claims always show the reward card, even for one item', () => {
+    const event=window.playPresentNormalize({id:'small-supply-check',type:'item',kind:'supply-claim',title:'Gift box opened!',rewards:[{type:'pokeball',amount:1}]});
+    assert(event.tier==='card',event.tier);
+  });
   const failed = results.filter((row) => !row.passed);
   console.log(`play-present tests: ${results.filter((row) => row.passed).length} passed, ${failed.length} failed`);
   failed.forEach((row) => console.log(`  FAIL ${row.name}: ${row.detail}`));

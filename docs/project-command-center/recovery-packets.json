@@ -599,6 +599,19 @@
           "sha256": "230bbc861915bfbe0fbc6cf534ed9b94db27870e9102422a0ee9fdb1fbc03f65"
         }
       ]
+    },
+    {
+      "version": "20261027155547",
+      "files": [
+        {
+          "file": "supabase/unapplied/reward-gift-boxes/INSTALL.sql",
+          "sha256": "cd6bb710d9d43a26c0c9fb4b26906f39aec63734e8600f55fbe060df049d6221"
+        },
+        {
+          "file": "supabase/unapplied/reward-gift-boxes/ROLLBACK.sql",
+          "sha256": "af2e34df255de3c2f944c2625c6bd3367b0f3919dd9e796747d9a9f2e3d8d078"
+        }
+      ]
     }
   ]
 }

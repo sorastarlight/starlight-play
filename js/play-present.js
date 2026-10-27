@@ -210,6 +210,7 @@
     if (event?.tier === TIER.toast || event?.tier === TIER.card || event?.tier === TIER.moment) {
       return event.tier;
     }
+    if (event?.kind === "supply-claim") return TIER.card;
     if (type === "pokedex" || type === "level" || type === "evolution" || type === "legendary" || type === "mythical" || type === "special-event") return TIER.moment;
     if (type === "support") {
       const round = root.playCurrentRound?.() || root.PLAY_ROUND;
@@ -860,7 +861,7 @@
     }).join("");
     await runPanel(event, `<article class="play-present-card supply-reveal" data-present-panel>
       ${fxHtml()}<div class="celebration-rays" aria-hidden="true"></div>
-      <p class="play-present-kicker">A little boost for your adventure</p>
+      <p class="play-present-kicker">${esc(event.kicker||"A little boost for your adventure")}</p>
       <h2>${esc(event.title)}</h2>
       <ul class="supply-reveal-grid">${cards}</ul>
       <p class="play-present-sub">${esc(event.body)}</p>${continueHtml()}</article>`);

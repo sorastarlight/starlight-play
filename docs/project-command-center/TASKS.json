@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "OWNER-SUPPLY-REPEAT",
-      "status": "blocked",
+      "status": "done",
       "scope": "Sorastarlight-only 30-second repeat Pass and Oak supplies",
       "evidence": "OWNER-SUPPLY-REPEAT.md",
-      "testResults": "180 suites/build;11 isolated SQL groups;exact rollback/reinstall;86 recovery files",
-      "nextAction": "Exact three-function install and two-file publication decision;no live claim"
+      "testResults": "180 suites/build;11 isolated SQL groups;guarded rollback/reinstall;88 recovery files",
+      "nextAction": "OWNER-SUPPLY-REPEAT LIVE:SQL20261027120308,mainc9f78b9a1ea2df47a1ae529149728dfdf011d026,Pages40500887556 SUCCESS.3server source/ACL matches and2exact hosted JS matches.180suites/build;11SQLgroups;88recovery files. Only pinned sorastarlight plus current owner role;separate30-second cooldown per reward;Pass verification still required;Oak streak not accelerated. No live claim,grant,provider action or player mutation. Post-change physical backup remains due next daily point;do not repoll old backup."
     },
     {
       "id": "PC-ARRANGEMENT-WAIT-FEEDBACK",
@@ -131,7 +131,7 @@
       "scope": "Requested trainer, modal, notifications, Mart and Pass improvements",
       "evidence": "TRAINER-EXPERIENCE-UPDATE.md",
       "testResults": "161 suites;29 local SQL groups;70 recovery files;two Pages deployments/source verified",
-      "nextAction": "Separate berry type-affinity implementation and trainer stat-editing remain;XP-scaled drops are live.",
+      "nextAction": "Berry type affinity and full local drop/PC integration completed;actual trainer stat editing remains read-only and requires a concrete validated editor",
       "approval": "User requested changes;existing Pass timing retained;destructive cleanup held",
       "commit": "d6953be0 production;36d1e636 feature"
     },

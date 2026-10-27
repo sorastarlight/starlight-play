@@ -125,6 +125,7 @@
   };
 
   root.playItemPlayerText = function playItemPlayerText(key, captureItems) {
+    if (key === "starlight_pass_crate") return "Saved Starlight Pass supplies from a verified period. Withdraw into your bag, then open to receive the rewards.";
     if (key === "bait") {
       return (captureItems?.honey?.description)
         || "Honey is community catch support. It helps the shared encounter, does not replace your Poké Ball, and does not guarantee a catch.";

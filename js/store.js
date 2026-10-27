@@ -140,7 +140,6 @@
   }
 
   function presentClaim(title, data, source) {
-    if (typeof window.playPresentEnqueue !== "function") return;
     const grants = data?.grants || {};
     const revealed = window.PLAY_PASS_REWARDS?.rows(data?.revealedRewards) || [];
     const rewards = revealed.length ? revealed.map(r=>({type:r.name,amount:r.quantity||1,label:window.PLAY_PASS_REWARDS.text(r),sprite:r.sprite})) : Object.entries(grants)
@@ -159,13 +158,21 @@
         : /supply/i.test(String(title))
           ? "Daily Trainer Supply claimed!"
           : String(title || "Rewards claimed!");
+    const delivery = data?.delivery;
+    const stored = Object.values(delivery?.stored || {}).some(n => Number(n) > 0);
+    const inBag = Object.values(delivery?.inBag || {}).some(n => Number(n) > 0);
+    const destination = stored
+      ? (inBag ? "Items arrived in Your Bag and My PC." : "Your item bundle was saved in My PC. Withdraw it into Your Bag before using it.")
+      : inBag ? "Your item bundle was added to Your Bag." : "Your rewards have arrived.";
+    window.playToast?.({kind:"success",title:claimTitle,body:destination});
+    if (typeof window.playPresentEnqueue !== "function") return;
     window.playPresentEnqueue([{
-      id: `${source}:claim:${claimTitle}:${lines.join("|")}`.slice(0, 160),
+      id: `${source}:claim:${data?.receiptId || newOrderId()}`,
       type: "item",
       tier: "card",
       kind: "supply-claim",
       title: claimTitle,
-      body: "Ready for your next adventure. Items that do not fit in your bag are saved in My PC.",
+      body: destination,
       rewards,
       severity: "success",
       source

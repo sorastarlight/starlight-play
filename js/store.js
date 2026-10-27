@@ -23,6 +23,7 @@
   const CART_MAX_QTY = 99;
   let cart = loadCart();
   let checkoutNote = "";
+  let checkoutBusy = false;
   let lastPurchase = null;
   let lastLinkedLogin = "";
   let lastSupport = { events: [], bitsTotal: 0, pending: false };
@@ -183,13 +184,9 @@
 
   function addButton(sku, { avatar } = {}) {
     const item = findSku(sku);
-    const cost = Number(item?.cost || 0);
-    const coins = Number(lastWallet?.coins || 0);
-    const short = Boolean(lastWallet) && coins < cost;
-    const need = short ? `You need ${money(cost - coins)} more PokéCoins.` : "";
     const count = cart.find(row => row.sku === sku)?.qty || 0;
     const qty = `<div class="mart-product-quantity" data-product-quantity="${esc(sku)}"><button type="button" class="secondary" data-product-step="-1" data-product-sku="${esc(sku)}" aria-label="Remove one ${esc(displayName(item))} from cart">−</button><input type="number" min="0" max="${item?.pack ? 1 : CART_MAX_QTY}" step="1" value="${count}" data-product-count="${esc(sku)}" aria-label="${esc(displayName(item))} quantity in cart"><button type="button" class="secondary" data-product-step="1" data-product-sku="${esc(sku)}" aria-label="Add one ${esc(displayName(item))} to cart">+</button></div>`;
-    return `${qty}<p class="mart-product-feedback" role="status" data-product-feedback="${esc(sku)}">${count ? `${count} in cart` : "Not in cart"}</p><p class="mart-cart-warn" data-product-warning="${esc(sku)}">${need || "&nbsp;"}</p>`;
+    return qty;
   }
 
   function cartIconHtml(className) {
@@ -553,74 +550,39 @@
 
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
-    const perks = ["25 extra inventory spaces while your Pass is active", "Daily and weekly Pass supplies"];
-    const title = floor.name || "Starlight Pass";
-    const day = Math.max(1, Math.min(7, Number(wallet?.dailyStreakDay || 1)));
     const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
-    const supplyClaimed = wallet?.dailyClaimed || wallet?.dailySupplyReady === false;
     const supplyCooldown = !supplyReady && !wallet?.dailyClaimed;
-    const trackHtml = typeof window.playDailyStreakHtml === "function"
-      ? window.playDailyStreakHtml(wallet)
-      : `<div class="pass-day-track" aria-label="Seven-day reward track">${Array.from({ length: 7 }, (_, i) => {
-        const n = i + 1;
-        const cls = n < day ? "is-claimed" : n === day ? "is-current" : "is-locked";
-        return `<span class="pass-day-pip ${cls}">${n}</span>`;
-      }).join("")}<p class="muted">Day ${day} of 7</p></div>`;
-    return `
-      <div class="mart-pass">
-        <section class="pass-showcase${info.active ? " is-active" : ""}" data-pass-hero>
-          <div class="pass-hero-row">
-            <div class="pass-icon-wrap" aria-hidden="true">
-              <img class="pass-sprite" src="${esc(window.playItemSprite(floor.icon || "rainbow-pass.png"))}" alt="">
-              <span class="pass-icon-spark"></span>
-            </div>
-            <div class="pass-hero-copy">
-              <p class="pass-kicker">${esc(floor.blurb || "Twitch subscriber perk")}</p>
-              <h2 class="pass-title">${esc(title)} <span data-pass-state class="pass-state ${info.active ? "on" : "off"}">${info.active ? "Active" : "Inactive"}</span></h2>
-              <p data-pass-status class="pass-status">${esc(info.note)}</p>
-              <p class="pass-meta">${lastLinkedLogin || pass?.login || pass?.twitchLogin ? `Linked: @${esc(lastLinkedLogin || pass.login || pass.twitchLogin)}` : "Connect Twitch on My Account to verify your subscription."}${pass?.checkedAt ? ` · Checked ${esc(new Date(pass.checkedAt).toLocaleString())}` : ""}</p>
-            </div>
-          </div>
-          <ul class="pass-perk-list">${perks.map((line) => `<li>${esc(line)}</li>`).join("")}</ul>
-          <div class="pass-reward-panels">
-            <article class="pass-reward-card pass-supply-card${supplyReady ? " is-ready" : ""}${supplyClaimed ? " is-claimed" : ""}">
-              <header class="pass-reward-head">
-                <p class="eyebrow">Daily Trainer Supply</p>
-                <span class="pass-reward-chip">${supplyReady ? "Ready" : supplyCooldown ? "Cooldown" : "Claimed"}</span>
-              </header>
-              <p class="pass-reward-body">${wallet?.dailyClaimed
-                ? "Today's supply has been claimed. Check back after the daily reset and claim cooldown."
-                : supplyCooldown ? "Your next supply is not ready yet. Please check back later."
-                : `Poké Ball ×${Number(wallet?.dailyPreview?.pokeball ?? 3)} · ${window.playItemLabel(wallet?.dailyPreview?.berry || "berry")} ×${Number(wallet?.dailyPreview?.berryQty ?? wallet?.dailyPreview?.berryCount ?? 1)} · ${Number(wallet?.dailyPreview?.coins ?? 40)} PokéCoins${dailyBonusLine(wallet)}`}</p>
-              ${trackHtml}
-              <p class="pass-time-note">Daily supplies reset at midnight Eastern. A cooldown also applies between claims.</p>
-              <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? "" : " disabled"}>${supplyReady ? "Claim Supply" : supplyCooldown ? "On cooldown" : "Claimed"}</button>
-            </article>
-            <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? " is-ready" : ""}${info.active && !wallet?.dailyReady ? " is-cooldown" : ""}${!info.active ? " is-locked" : ""}">
-              <header class="pass-reward-head">
-                <p class="eyebrow">Pass Daily Supply</p>
-                <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.dailyReady ? "Ready" : "Cooldown"}</span>
-              </header>
-              <p class="pass-reward-body">Daily subscriber supplies.</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ""}
-              <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
-              <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? "" : " disabled"}>${info.active && !wallet?.dailyReady ? "On cooldown" : "Claim Daily Supply"}</button>
-            </article>
-            <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? " is-ready" : ""}${info.active && !wallet?.weeklyReady ? " is-cooldown" : ""}${!info.active ? " is-locked" : ""}">
-              <header class="pass-reward-head">
-                <p class="eyebrow">Pass Weekly Supply</p>
-                <span class="pass-reward-chip">${!info.active ? "Pass needed" : wallet?.weeklyReady ? "Ready" : "Cooldown"}</span>
-              </header>
-              <p class="pass-reward-body">Weekly subscriber supplies.</p>${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ""}
-              <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'weekly'))}</p>
-              <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? "" : " disabled"}>${info.active && !wallet?.weeklyReady ? "On cooldown" : "Claim Weekly Supply"}</button>
-            </article>
-          </div>
-          <div class="pass-footer-row">
-            <button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
-            <p class="pass-subscribe">Want the Starlight Pass? <a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a></p>
-          </div>
-        </section>
-      </div>`;
+    return `<div class="mart-pass mart-pass-compact">
+      <section class="pass-showcase${info.active ? ' is-active' : ''}" data-pass-hero>
+        <header class="pass-compact-heading">
+          <img class="pass-compact-icon" src="${esc(window.playItemSprite(floor.icon || 'rainbow-pass.png'))}" alt="">
+          <div><h2 class="pass-title">Starlight Pass <span data-pass-state class="pass-state ${info.active ? 'on' : 'off'}">${info.active ? 'Active' : 'Inactive'}</span></h2>
+          <p data-pass-status class="pass-status">${info.active ? '+25 bag spaces · Daily supplies · Weekly bonus' : esc(info.note)}</p></div>
+          <div class="pass-compact-tools"><button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
+          ${pass?.checkedAt ? `<small>Checked ${esc(new Date(pass.checkedAt).toLocaleString())}</small>` : ''}</div>
+        </header>
+        <div class="pass-reward-panels">
+          <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? ' is-ready' : ''}">
+            <header class="pass-reward-head"><h3>Daily supply</h3><span class="pass-reward-chip">${!info.active ? 'Pass needed' : wallet?.dailyReady ? 'Ready' : 'Cooldown'}</span></header>
+            ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ''}
+            <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
+            <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? 'On cooldown' : 'Claim daily supply'}</button>
+          </article>
+          <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? ' is-ready' : ''}">
+            <header class="pass-reward-head"><h3>Weekly bonus</h3><span class="pass-reward-chip">${!info.active ? 'Pass needed' : wallet?.weeklyReady ? 'Ready' : 'Cooldown'}</span></header>
+            ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ''}
+            <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'weekly'))}</p>
+            <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? '' : ' disabled'}>${info.active && !wallet?.weeklyReady ? 'On cooldown' : 'Claim weekly bonus'}</button>
+          </article>
+        </div>
+        ${!info.active ? '<p class="pass-subscribe"><a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a> · Connect Twitch in My Account.</p>' : ''}
+      </section>
+      <section class="trainer-supply-bar" aria-label="Free daily Trainer supply">
+        <div><strong>Daily Trainer supply</strong><span class="pass-reward-chip">${supplyReady ? 'Ready' : supplyCooldown ? 'Cooldown' : 'Claimed'}</span>
+        <p>${wallet?.dailyClaimed ? 'Claimed. Come back for your next supply.' : supplyCooldown ? 'Your next supply is not ready yet.' : `Poké Ball ×${Number(wallet?.dailyPreview?.pokeball ?? 3)} · ${window.playItemLabel(wallet?.dailyPreview?.berry || 'berry')} ×${Number(wallet?.dailyPreview?.berryQty ?? wallet?.dailyPreview?.berryCount ?? 1)} · ${Number(wallet?.dailyPreview?.coins ?? 40)} PokéCoins${dailyBonusLine(wallet)}`}</p><small>Free for every Trainer. Resets at midnight Eastern; a claim cooldown applies.</small></div>
+        <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? '' : ' disabled'}>${supplyReady ? 'Claim Supply' : supplyCooldown ? 'On cooldown' : 'Claimed'}</button>
+      </section>
+    </div>`;
   }
 
   function featuredCard(item, mode, ownedPacks) {
@@ -1109,7 +1071,7 @@
            ${typeof window.playPremierPreview === "function" && window.playPremierPreview(cart, findSku) > 0
              ? `<p class="mart-cart-fanfare-kicker">Bonus: Premier Ball ×${window.playPremierPreview(cart, findSku)}</p>`
              : ""}
-           <button type="button" class="gold" data-checkout-buy${short ? " disabled" : ""}>Purchase</button>
+           <div class="mart-checkout-buttons"><button type="button" class="secondary" data-cart-empty${checkoutBusy ? " disabled" : ""}>Empty cart</button><button type="button" class="gold" data-checkout-buy${short || checkoutBusy ? " disabled" : ""}>Purchase</button></div>
          </div>`
       : `<div class="mart-cart-empty is-compact">
            ${cartIconHtml("mart-cart-empty-icon")}
@@ -1155,8 +1117,6 @@
 
   function syncCheckoutUi({ bump } = {}) {
     document.querySelectorAll('[data-product-count]').forEach(input => { const count=cart.find(row=>row.sku===input.dataset.productCount)?.qty||0; if(document.activeElement!==input)input.value=count; });
-    document.querySelectorAll('[data-product-feedback]').forEach(el=>{const count=cart.find(row=>row.sku===el.dataset.productFeedback)?.qty||0;el.textContent=count?`${count} in cart`:'Not in cart';});
-    document.querySelectorAll('[data-product-warning]').forEach(el=>{const sku=el.dataset.productWarning,item=findSku(sku),count=cart.find(row=>row.sku===sku)?.qty||1,short=Number(item?.cost||0)*count-Number(lastWallet?.coins||0);el.textContent=lastWallet&&short>0?`You need ${money(short)} more PokéCoins.`:'\u00a0';});
     const tab = els.floors?.querySelector(".mart-tab-checkout");
     if (tab) {
       tab.innerHTML = checkoutTabLabel();
@@ -1177,27 +1137,46 @@
   }
 
   function addToCheckout(sku) {
-    if (!sku) return;
-    const item = findSku(sku);
-    if (!item || Number(item.bits || 0) > 0) return;
-    if (item.pack && (lastOwned || []).includes(item.pack)) return;
-    checkoutNote = "";
+    setCartQty(sku, (cart.find(row => row.sku === sku)?.qty || 0) + 1);
+  }
+
+  function cartFeedback(body, kind = 'success') {
+    window.playToast?.({ kind, title: kind === 'error' ? 'Cannot add item' : 'Cart updated', body });
+  }
+
+  function emptyCart() {
+    if (checkoutBusy || !cart.length) return;
+    cart = [];
+    checkoutNote = '';
     lastPurchase = null;
-    const row = cart.find((entry) => entry.sku === sku);
-    if (item.pack) {
-      if (!row) cart.push({ sku, qty: 1 });
-    } else if (row) {
-      row.qty = Math.min(CART_MAX_QTY, row.qty + 1);
-    } else {
-      cart.push({ sku, qty: 1 });
-    }
     saveCart();
-    syncCheckoutUi({ bump: true });
+    syncCheckoutUi();
+    cartFeedback('Your cart is empty.');
   }
 
   function setCartQty(sku, qty) {
+    if (checkoutBusy) return;
     const item = findSku(sku);
-    const next = Math.trunc(Number(qty) || 0);
+    if (!Number.isSafeInteger(Number(qty)) || Number(qty) < 0) return;
+    const previous = cart.find(row => row.sku === sku)?.qty || 0;
+    const next = Math.min(item?.pack ? 1 : CART_MAX_QTY, Number(qty));
+    if (next === previous) return;
+    if (next > previous) {
+      if (!item || Number(item.bits) > 0 || (item.pack && lastOwned.includes(item.pack))) return;
+      const coins = Number(lastWallet?.coins);
+      const cost = Number(item.cost);
+      const total = cart.reduce((sum, row) => sum + (row.sku === sku ? 0 : Number(findSku(row.sku)?.cost || 0) * row.qty), 0) + cost * next;
+      if (!lastWallet || !Number.isFinite(coins) || !Number.isFinite(cost) || cost < 0) {
+        cartFeedback('Sign in and wait for your balance to load.', 'error');
+        syncCheckoutUi();
+        return;
+      }
+      if (total > coins) {
+        cartFeedback('You do not have enough PokéCoins to add that quantity.', 'error');
+        syncCheckoutUi();
+        return;
+      }
+    }
     checkoutNote = "";
     lastPurchase = null;
     if (next < 1) {
@@ -1209,7 +1188,8 @@
       else if(item && !Number(item.bits) && !(item.pack && (lastOwned||[]).includes(item.pack))) cart.push({sku,qty:Math.min(cap,next)});
     }
     saveCart();
-    syncCheckoutUi();
+    syncCheckoutUi({ bump: next > previous });
+    cartFeedback(next > previous ? `${next - previous} × ${displayName(item)} added to your cart.` : `${previous - next} × ${displayName(item || {name:sku})} removed from your cart.`);
   }
 
   function renderFloors(catalog, wallet, pass, ownedPacks) {
@@ -1377,7 +1357,9 @@
   }
 
   async function purchaseCart(button) {
-    if (!cart.length) return;
+    if (!cart.length || checkoutBusy) return;
+    checkoutBusy = true;
+    try {
     const { data: sessionData } = await supabase.auth.getSession();
     if (!sessionData.session) {
       checkoutNote = "Sign in first.";
@@ -1385,7 +1367,6 @@
       return;
     }
     if (button) button.disabled = true;
-    try {
       const receipt = {
         total: cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0),
         lines: cart.map((row) => {
@@ -1423,7 +1404,7 @@
           : window.playRpcError(error, "Could not complete your purchase.");
       syncCheckoutUi();
       if (button && button.isConnected) button.disabled = false;
-    }
+    } finally { checkoutBusy = false; syncCheckoutUi(); }
   }
 
   let claimBusy = false;
@@ -1435,6 +1416,7 @@
   });
 
   els.floors?.addEventListener("click", async (event) => {
+    if (event.target.closest('[data-cart-empty]')) { emptyCart(); return; }
     const modeBtn = event.target.closest("[data-mart-mode]");
     if (modeBtn) {
       await switchMartMode(modeBtn.dataset.martMode === "sell" ? "sell" : "buy");

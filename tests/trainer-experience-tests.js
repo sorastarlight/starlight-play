@@ -1,7 +1,7 @@
 const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
 const source=fs.readFileSync('js/store.js','utf8');
 const start=source.indexOf('  function setCartQty('),end=source.indexOf('\n  function renderFloors',start);
-const fixture=`let cart=[],checkoutNote='',lastPurchase=null;const CART_MAX_QTY=99,lastOwned=['owned'];const items={ball:{},pack:{pack:'new'},owned:{pack:'owned'},bits:{bits:50}};const findSku=k=>items[k];let saves=0,renders=0;const saveCart=()=>saves++,syncCheckoutUi=()=>renders++;${source.slice(start,end)};globalThis.change=setCartQty;globalThis.rows=()=>JSON.parse(JSON.stringify(cart));`;
+const fixture=`let cart=[],checkoutNote='',lastPurchase=null,checkoutBusy=false;const lastWallet={coins:100000},cartFeedback=()=>{},displayName=x=>x?.name||"item";const CART_MAX_QTY=99,lastOwned=['owned'];const items={ball:{cost:1},pack:{pack:'new',cost:1},owned:{pack:'owned',cost:1},bits:{bits:50,cost:1}};const findSku=k=>items[k];let saves=0,renders=0;const saveCart=()=>saves++,syncCheckoutUi=()=>renders++;${source.slice(start,end)};globalThis.change=setCartQty;globalThis.rows=()=>JSON.parse(JSON.stringify(cart));`;
 const ctx=vm.createContext({});vm.runInContext(fixture,ctx);
 ctx.change('ball',7);assert.deepEqual(JSON.parse(JSON.stringify(ctx.rows())),[{sku:'ball',qty:7}]);ctx.change('ball',1000);assert.equal(ctx.rows()[0].qty,99);ctx.change('ball',0);assert.equal(ctx.rows().length,0);
 ctx.change('pack',5);assert.equal(ctx.rows()[0].qty,1);ctx.change('owned',1);ctx.change('bits',1);ctx.change('missing',1);assert.equal(ctx.rows().length,1);

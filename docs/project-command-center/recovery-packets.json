@@ -508,6 +508,19 @@
           "sha256": "c32372daa24431385fbc609651fd9c25778dc4e68c15ba58d458b825fa440cf8"
         }
       ]
+    },
+    {
+      "version": "20261027040048",
+      "files": [
+        {
+          "file": "supabase/unapplied/berry-affinity/INSTALL.sql",
+          "sha256": "584c7a0f08195f9f3e3985c83969839ca30a82cf45694fb33c0ce954e70b7e86"
+        },
+        {
+          "file": "supabase/unapplied/berry-affinity/ROLLBACK.sql",
+          "sha256": "df53e5cd98f9cdc9625a54206467affba70724616d1393bf2aa8bd613b1d4669"
+        }
+      ]
     }
   ]
 }

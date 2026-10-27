@@ -2862,3 +2862,9 @@ PC sprite reuse publication: main91abffba,Pages40398920453;exact hosted js/pc-it
 PLAYER-ADDRESS-COPY live:main91d56460,Pages40444136291 success;8/8 hosted source matches.
 
 2026-10-26 BERRY-AFFINITY: local candidate complete;18 specialists plus4universal berries,canonical form context,22 catch-enabled choices,descriptions tied to server mechanics.37 isolated PostgreSQL groups pass including actual WIRE settlement,success/escape rewards,all60drop types,30-slot overflow/promotion and guarded rollback;168 regression suites/build pass. No production SQL,publication,hosted encounter or protected-account mutation. Packet:supabase/unapplied/berry-affinity/.
+
+## 2026-10-27 — Berry production and compact Mart
+
+Owner-approved berry migration20261027040048 installed after exact drift checks. Six function definitions/ACLs and22berry rows verified read-only. Description adapters published at8ace08e3,Pages40447439581success,2/2HTTPsources match. No live catch. Recovery packet inventory/hashes updated.
+
+Compact Mart candidate passes169suites/build. Actual-source fictional rendered cards, additions, budget rejection and empty cart checked;320/390/768/1024iframe layouts show no horizontal overflow or broken sprites;cards273px. No hosted purchase/claim. Pass UI retains server-provided current timing until calendar migration. Owner selected UTC days/Monday weeks and only periods containing successful verification;offline unverified days excluded.

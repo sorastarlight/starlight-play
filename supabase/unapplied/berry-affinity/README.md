@@ -1,6 +1,6 @@
-# Berry affinity — tested local candidate
+# Berry affinity — installed
 
-Status: **local implementation and integration tests complete; not installed in production.** Owner authorized local completion and tests. Production activation requires its own decision.
+Status: **installed with explicit owner approval**, migration `20261027040048` (`berry_type_affinity`). Read-only verification matched all six tested function definitions and permissions and all 22 berry descriptions/eligibility flags. No live catch was run.
 
 ## Scope
 
@@ -24,7 +24,7 @@ Coverage includes all 236 pinned forms × 22 berries; base/regional/dual/missing
 
 Successful and escaped catches were settled with both bag and PC full. Their drop and consolation Poké Ball remain safely pending. Deterministic RNG exists only inside the disposable fixture; no hosted outcome was forced.
 
-168 JavaScript regression suites and build validation pass. `tests/berry-affinity-tests.js` verifies server descriptions take precedence over generic Mart summaries. The two frontend edits are **local only** and should ship with the mechanics: `js/play-ux.js` and `js/store.js`. They do not hard-code an uninstalled bonus.
+168 JavaScript regression suites and build validation pass. `tests/berry-affinity-tests.js` verifies server descriptions take precedence over generic Mart summaries. The two description adapters were published at main `8ace08e3` (Pages run `40447439581`): `js/play-ux.js` and `js/store.js`. They do not hard-code an uninstalled bonus.
 
 Safe results: `local-evidence.json`. Full private runner, fixtures and diagnostics: `%LOCALAPPDATA%/PokemonStreamLink/security/berry-affinity/`. Run `node <that directory>/schema-test.cjs` from the canonical checkout. It refuses hosted database environment targets and never reads the protected production database password. The retained schema-only archive and reviewed recovery packet hashes are prerequisites.
 

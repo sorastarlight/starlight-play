@@ -4,13 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "MART-COMPACT-CART",
+      "status": "done",
+      "scope": "Compact Pass and product presentation, aggregate cart budget, green/red feedback and Empty cart",
+      "testResults": "169 regression suites;build;fictional rendered additions/rejection/empty;four widths without overflow",
+      "nextAction": "Publish exact js/store.js and css/play.css;UTC calendar/crates separate"
+    },
+    {
       "id": "BERRY-AFFINITY",
       "status": "done",
-      "scope": "Local berry type bonuses and full berry/drop/PC integration",
+      "scope": "Installed berry type bonuses and full berry/drop/PC integration",
       "evidence": "BERRY-AFFINITY-DESIGN.md;supabase/unapplied/berry-affinity/local-evidence.json",
       "testResults": "37 local SQL groups;236 forms x22berries;60 drop types;168 regression suites;build pass",
-      "nextAction": "Production installation and two-file frontend publication held;no hosted catch test authorized",
-      "approval": "Owner authorized local implementation and integration tests only"
+      "nextAction": "Complete: migration20261027040048;main8ace08e3;Pages40447439581 success;2/2 hosted source matches;no live catch",
+      "approval": "Owner explicitly approved installation and description publication;source verification only"
     },
     {
       "id": "PLAYER-ADDRESS-COPY",

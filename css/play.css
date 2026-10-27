@@ -21147,7 +21147,9 @@ html[data-reduced-motion="1"] .celebration-medallion,html[data-reduced-motion="1
 .pass-compact-tools{margin-left:auto;display:grid;gap:4px;text-align:right}
 .pass-compact-tools small{font-size:11px;color:#62687b}
 .mart-pass-compact .pass-reward-panels{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.mart-pass-compact .pass-reward-card{padding:14px;gap:8px;min-height:0}
+.mart-pass-compact .pass-reward-card{padding:14px;gap:8px;min-height:0;grid-template-rows:minmax(28px,auto) 112px minmax(34px,1fr) 48px;align-content:stretch}
+.mart-pass-compact .pass-reward-card>.pass-reward-contents{height:112px;min-height:0;max-height:112px;overflow:auto;align-content:start;margin:0;overscroll-behavior:contain}
+.mart-pass-compact .pass-reward-card>.pass-claim-btn{height:48px;align-self:end}
 .mart-pass-compact .pass-reward-head h3{font-size:17px;margin:0}
 .mart-pass-compact .pass-reward-contents{display:flex;flex-wrap:wrap;gap:8px;max-height:120px;overflow:auto;margin:0;padding:0;list-style:none}
 .mart-pass-compact .pass-reward-contents li{display:flex;align-items:center;gap:5px;font-size:12px;padding:4px 8px;border-radius:10px;background:#ffffffa6}

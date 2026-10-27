@@ -4390,6 +4390,14 @@
       "testResults": "not run",
       "nextAction": "Hold live privileged writes until an exact bounded owner authorization;continue independent local work",
       "approvalRequirement": "required"
+    },
+    {
+      "id": "PC-ITEM-TRANSFER-DIALOG",
+      "status": "in_progress",
+      "scope": "Visual Bag transfer dialog and compact PC item inspector",
+      "evidence": "PC-ITEM-TRANSFER-DIALOG.md",
+      "testResults": "173 suites/build; fictional transfers and four responsive views pass",
+      "nextAction": "Scoped publication and hosted source verification"
     }
   ]
 }

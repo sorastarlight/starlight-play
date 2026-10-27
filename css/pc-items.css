@@ -67,3 +67,23 @@
 #pc-item-panel [data-pc-status]{font-size:13px;margin:0;overflow-wrap:anywhere}
 @media(max-width:600px){.pc-terminal > .pc-mode-tabs button{flex:1;padding:9px 12px}}
 #pc-item-panel .pc-search{width:100%}
+/* Visual Bag transfer dialog; scoped to item storage. */
+html:has(#pc-item-panel dialog[open]){overflow:hidden;scrollbar-gutter:stable}
+#pc-item-panel .pc-bag-dialog{box-sizing:border-box;width:min(940px,calc(100vw - 24px));max-height:calc(100dvh - 32px);margin:auto;padding:24px;border:1px solid #bbd6eb;border-radius:24px;background:#f8fcff;color:#424e70;overflow:auto;overscroll-behavior:contain;box-shadow:0 20px 80px #27334b55}
+#pc-item-panel .pc-bag-dialog::backdrop{background:#30364e99;backdrop-filter:blur(3px)}
+#pc-item-panel .pc-bag-transfer-layout{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:20px;align-items:start}
+#pc-item-panel .pc-bag-transfer-layout>*{min-width:0}
+#pc-item-panel .pc-bag-dialog [data-bag-list]{grid-template-columns:repeat(3,minmax(0,1fr));max-height:410px;padding:4px}
+#pc-item-panel .pc-bag-dialog [data-bag-item]{display:flex;flex-direction:column;justify-content:center;text-align:center;gap:5px;padding:12px 6px;min-height:110px;font-size:13px}
+#pc-item-panel .pc-bag-dialog [data-bag-item] img{width:48px;height:48px}
+#pc-item-panel .pc-bag-dialog [data-bag-item] span{flex:0}
+#pc-item-panel .pc-item-detail-heading{display:flex;align-items:center;gap:14px;text-align:left}
+#pc-item-panel .pc-item-detail-heading>div{min-width:0;overflow-wrap:anywhere}
+#pc-item-panel .pc-item-detail-heading .pc-item-hero{width:64px;height:64px;flex:none}
+#pc-item-panel .pc-detail-eyebrow{margin:0 0 5px;font-size:12px;font-weight:800;color:#78829b}
+#pc-item-panel .pc-item-inspector .pc-item-counts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+#pc-item-panel .pc-item-counts>div{background:#edf5fc;border-radius:12px;padding:10px}
+#pc-item-panel .pc-item-counts dt{font-size:12px}
+#pc-item-panel .pc-item-inspector .muted{font-size:13px;line-height:1.5;margin:4px 0 0;text-align:left}
+@media(max-width:650px){#pc-item-panel .pc-bag-dialog{padding:16px}#pc-item-panel .pc-bag-transfer-layout{grid-template-columns:1fr;gap:12px}#pc-item-panel .pc-bag-dialog [data-bag-list]{max-height:220px}#pc-item-panel .pc-bag-heading h2{font-size:19px}}
+#pc-item-panel .pc-bag-status{min-height:2.8em;margin:12px 0 0;color:#356b59;font-size:14px;line-height:1.4;overflow-wrap:anywhere}

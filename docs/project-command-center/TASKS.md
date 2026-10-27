@@ -600,3 +600,5 @@ PC-STORAGE-POLISH follow-up: immediate item dragging with serialized saves local
 PC-STORAGE-POLISH: sprite-preserving arrangement correction validated;167 suites and real DOM identity checks.
 
 PLAYER-ADDRESS-COPY: reviewed personal feature names versus direct-address wording across runtime pages/modules;copy-only cleanup validated.
+
+2026-10-27 PC-ITEM-TRANSFER-DIALOG: visual Bag dialog and compact inspector implemented; move-to-slot option removed; 173 suites/build and four responsive layouts pass. Scoped publication follows source verification. See PC-ITEM-TRANSFER-DIALOG.md.

@@ -1,3 +1,9 @@
+# October 27 autonomous work window
+
+Owner renewed eight hours through 2026-10-27 13:18 UTC (09:18 America/New_York). Pause heartbeat at expiry. Current priority: PC item transfer dialog, then independent local readiness work. No new production SQL, provider tests, hosted grants/claims, owner mutations or final launch.
+
+Latest completed: Pass week view and Oak daily check-in live; production df81f273, Pages40452894231 successful. PC dialog local validation complete; see PC-ITEM-TRANSFER-DIALOG.md. Historical entries below may be superseded; inspect Git/current reports.
+
 # Current launch readiness handoff — through CODEX-241
 
 Continuation:CODEX-275 entry bridge privately prepared/unit+rendered tested,not published;CODEX-276 exact one-product archive/removal/selective-restore packet passes6localSQLgroups,execution held;CODEX-277 current legacy-stat audit confirms CP/AV columns already retired and identifies active ecology helpers that must stay. CODEX-273 remains the important pending decision;production stays CODEX-272/main9b852266. No destructive cleanup or provider test.

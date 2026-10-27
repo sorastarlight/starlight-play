@@ -2888,3 +2888,5 @@ Owner approved installation, five-file publication and source-only verification.
 ## 2026-10-27 — Oak daily check-in
 
 Published at main df81f273; Pages40452894231 succeeded; all four hosted runtime files match.173 regression suites/build pass, including independent Auth listener coverage. No hosted claim, provider test or SQL change. Existing free supply moved out of Mart/Pass;clock,rewards,streak extras and overflow preserved.
+
+2026-10-27: PC item transfer dialog local acceptance complete. Fictional deposit/withdrawal, keyboard close/focus, four widths, existing concurrency/retry/DOM identity checks;173 suites/build pass. No player mutation or SQL.

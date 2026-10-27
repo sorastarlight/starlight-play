@@ -21214,3 +21214,19 @@ html:has(.calendar-item-dialog[open]){overflow:hidden}
 
 .pc-gift-boxes>button{display:flex;align-items:center;gap:12px;min-height:64px;width:100%;margin:8px 0;padding:8px;text-align:left}.pc-gift-boxes>button span{flex:1}.pc-box-destinations{display:grid;gap:8px;margin:12px 0}.pc-reward-box-dialog [data-box-status]{color:#a12f49;min-height:1.5em}.pc-reward-box-dialog{overscroll-behavior:contain}html:has(.pc-reward-box-dialog[open]){overflow:hidden}
 .pc-gift-boxes>button small{display:block;margin-top:4px;font-size:12px;line-height:1.4;font-weight:400;color:#67657b}.calendar-day-preview strong{font-weight:700}
+
+/* Compact calendars retain full previews, readable labels and aligned claims. */
+.mart-pass-compact .pass-showcase{padding:14px;gap:6px}
+.mart-pass-compact .pass-reward-card{padding:10px;gap:6px;grid-template-rows:minmax(24px,auto) 64px minmax(28px,1fr) 44px}
+.mart-pass-compact .pass-reward-card>.pass-reward-contents{height:64px;max-height:64px}
+.mart-pass-compact .pass-reward-card>.pass-claim-btn{height:44px}
+.pass-day .calendar-day-preview,.oak-pass-card .calendar-day-preview{min-height:138px;gap:3px}
+.calendar-day-preview .calendar-item-name{font-size:11px;line-height:1.2}
+.pass-day.is-today{background:#ddf5ed;border:2px solid #4ba88d;box-shadow:0 0 0 2px #4ba88d20}
+.pass-day.is-today .pass-day-name{color:#176c55;font-weight:800}
+.oak-today{background:#e7f8f0;border:2px solid #4ba88d;padding:10px}
+.oak-daily-gift:has(.oak-pass-card){padding:14px}
+.oak-pass-card .oak-checkin-calendar{margin:8px 0}
+.oak-streak-prize{padding:7px 0}.oak-claim-status{margin:5px 0}
+.pc-gift-nav-dot{display:inline-block;margin-left:4px;color:#b62d83;font-size:10px;vertical-align:top;line-height:1}
+@media(max-width:600px){.pass-day .calendar-day-preview,.oak-pass-card .calendar-day-preview{min-height:146px}.mart-pass-compact .pass-showcase{padding:12px}.calendar-day-preview .pass-day-name{font-size:12px}}

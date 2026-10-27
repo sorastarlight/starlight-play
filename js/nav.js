@@ -95,6 +95,21 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   };
 
   let notificationUser=null,notificationEpoch=0;
+  function pcGiftBadge(){
+    document.querySelectorAll('[data-pc-gift-dot]').forEach(e=>e.remove());
+    if(!notificationUser)return;
+    let count=0;try{count=Number(localStorage.getItem('pc-gifts:'+notificationUser))||0;}catch(_){}
+    const link=document.querySelector('[data-nav="storage"]');
+    if(count>0&&link)link.insertAdjacentHTML('beforeend','<span data-pc-gift-dot class="pc-gift-nav-dot" role="img" aria-label="Gift boxes available in My PC">●</span>');
+  }
+  // A hint from an existing delivery notice or an already-authorized PC response;
+  // this never polls the materializing PC endpoint from navigation.
+  window.playSetPcGiftCount=function(count,id=notificationUser){
+    if(!id||id!==notificationUser)return;
+    try{const key='pc-gifts:'+id,previous=Number(localStorage.getItem(key))||0;localStorage.setItem(key,String(count===null?Math.max(1,previous):Math.max(0,Number(count)||0)));}catch(_){}
+    pcGiftBadge();
+  };
+  window.addEventListener('storage',e=>{if(e.key==='pc-gifts:'+notificationUser)pcGiftBadge();});
   window.addEventListener("play-notifications-changed",()=>notificationBadge(notificationUser,true));
   async function notificationBadge(id,force=false){if(id===notificationUser&&!force)return;notificationUser=id;const epoch=++notificationEpoch;document.querySelectorAll('[data-notification-count]').forEach(e=>e.textContent='');document.getElementById('account-notification-dot')?.remove();if(!id)return;try{const result=await window.playCall('play_notifications');if(epoch!==notificationEpoch)return;const count=Number(result?.unread)||0;document.querySelectorAll('[data-notification-count]').forEach(e=>e.textContent=count?`(${count})`:'');if(count&&els.button)els.button.insertAdjacentHTML('beforeend','<span id="account-notification-dot" aria-label="Unread notifications">●</span>');}catch(_){}}
   function readPresentCache() {
@@ -334,6 +349,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     const xpNeed = trainer?.xpNeed || 0;
     const userId = signedIn ? (session?.user?.id || "") : "";
     notificationBadge(userId || null);
+    pcGiftBadge();
     const signature = [
       signedIn ? "1" : "0",
       userId,
@@ -356,6 +372,7 @@ window.playBindAccountNav = function playBindAccountNav(options) {
       window.playSetTipUser(signedIn ? session?.user?.id : "");
     }
     renderLinks(isAdmin);
+    pcGiftBadge();
 
     if (!signedIn) {
       setAuthState("out");

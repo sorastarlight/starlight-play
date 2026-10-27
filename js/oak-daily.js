@@ -38,8 +38,10 @@
   const host=root.document?.getElementById('oak-daily-gift'),client=root.playSupabase;
   if(host&&client){
     const controller=create({host,client,call:(...a)=>root.playCall(...a),present:(...a)=>root.playPresentEnqueue?.(...a),toast:o=>root.playToast?.(o),label:k=>root.playItemLabel?.(k)||k});
-    let changed=false;
-    client.auth.onAuthStateChange((event,session)=>{if(root.playAuthNoise?.(event,session))return;changed=true;setTimeout(()=>controller.load(session),0);});
-    client.auth.getSession().then(r=>{if(!changed)controller.load(r.data?.session);}).catch(()=>{host.hidden=true;});
+    let changed=false,lastId;
+    // Keep this module's deduplication local; the Lab owns its page-level Auth listener.
+    const accept=session=>{const id=session?.user?.id||null;if(id===lastId)return;lastId=id;controller.load(session);};
+    client.auth.onAuthStateChange((event,session)=>{if(event==='TOKEN_REFRESHED'||event==='USER_UPDATED')return;changed=true;setTimeout(()=>accept(session),0);});
+    client.auth.getSession().then(r=>{if(!changed)accept(r.data?.session);}).catch(()=>{host.hidden=true;});
   }
 })(typeof window==='undefined'?globalThis:window);

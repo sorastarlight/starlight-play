@@ -2860,3 +2860,5 @@ PC sprite reuse publication: main91abffba,Pages40398920453;exact hosted js/pc-it
 2026-10-26 player-address copy: use your bag/your PC/your account in instructions, errors, confirmations and gates;retain My Bag/My PC/My Account feature labels and navigation references. Eight focused suites and build validation pass. Copy-only, no authority or player changes.
 
 PLAYER-ADDRESS-COPY live:main91d56460,Pages40444136291 success;8/8 hosted source matches.
+
+2026-10-26 BERRY-AFFINITY: local candidate complete;18 specialists plus4universal berries,canonical form context,22 catch-enabled choices,descriptions tied to server mechanics.37 isolated PostgreSQL groups pass including actual WIRE settlement,success/escape rewards,all60drop types,30-slot overflow/promotion and guarded rollback;168 regression suites/build pass. No production SQL,publication,hosted encounter or protected-account mutation. Packet:supabase/unapplied/berry-affinity/.

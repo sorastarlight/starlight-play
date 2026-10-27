@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| BERRY-AFFINITY | done (local) | Type bonuses and berry/drop/PC integration | Existing drops and PC box | Local work authorized; production held |37 SQL groups, 236 forms × 22 berries, 60 drop types, 168 suites; guarded install/rollback ready |
 | CODEX-277 | done | Legacy-stat dependency audit | Existing retirement | Read-only |CP/AV already gone;active ecology kept |
 | CODEX-276 | blocked | Exact one-product cleanup/restore | Scope review | Destructive hold |6SQLgroups;no production action |
 | CODEX-275 | blocked | Old entry bridge preparation | CODEX273/parity | Full migration;dependency held |Unit/rendered redirect passed;entries untouched |

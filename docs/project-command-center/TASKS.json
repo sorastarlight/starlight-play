@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "BERRY-AFFINITY",
+      "status": "done",
+      "scope": "Local berry type bonuses and full berry/drop/PC integration",
+      "evidence": "BERRY-AFFINITY-DESIGN.md;supabase/unapplied/berry-affinity/local-evidence.json",
+      "testResults": "37 local SQL groups;236 forms x22berries;60 drop types;168 regression suites;build pass",
+      "nextAction": "Production installation and two-file frontend publication held;no hosted catch test authorized",
+      "approval": "Owner authorized local implementation and integration tests only"
+    },
+    {
       "id": "PLAYER-ADDRESS-COPY",
       "status": "done",
       "scope": "Natural second-person instructions while preserving personal feature names",

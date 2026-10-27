@@ -35,7 +35,7 @@
     twitchWarn: document.getElementById("twitch-warn")
   };
 
-  const GATE_COPY = "Sign in to open My Account.";
+  const GATE_COPY = "Sign in to open your account.";
   const SAVE_FAIL = "Could not save your Trainer ID. Please try again.";
   const PROFILE_TABS = ["identity", "avatar", "card-style", "titles", "showcase", "team"];
 

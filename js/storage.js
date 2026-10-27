@@ -185,7 +185,7 @@
       try {
         const next = await window.playCall("play_save_pc", { p_layout: data.layout });
         if (next?.layout) data.layout = next.layout;
-        if (message) window.playToast?.({ kind: "success", title: "My PC updated", body: message });
+        if (message) window.playToast?.({ kind: "success", title: "Your PC updated", body: message });
       } catch (error) {
         if (els.status) els.status.textContent = window.playRpcError(error);
         window.playToast?.({ kind: "error", title: "Could not save your box", body: "Your arrangement was not confirmed. Refresh before moving more Pokémon." });

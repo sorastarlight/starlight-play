@@ -51,7 +51,7 @@
   window.playBindAccountNav({
     onSignOut() {
       invalidateInventory();
-      window.playRestoreGate(els.gate, "Sign in to open your inventory.");
+      window.playRestoreGate(els.gate, "Sign in to open your bag.");
     }
   });
 
@@ -242,7 +242,7 @@
     const session = sessionData.session;
     if (!session) {
       els.trainer.hidden = true;
-      window.playRestoreGate(els.gate, "Sign in to open your inventory.");
+      window.playRestoreGate(els.gate, "Sign in to open your bag.");
       window.playSetAccountNav(null);
       return;
     }
@@ -317,8 +317,8 @@
     } catch (_) {
       if (!current()) return;
       els.trainer.hidden = true;
-      window.playRestoreGate(els.gate, "We couldn’t load your inventory. Please try again.");
-      els.gate.innerHTML = 'We couldn’t load your inventory. Please try again. <button type="button" data-inventory-retry>Try again</button>';
+      window.playRestoreGate(els.gate, "We couldn’t load your bag. Please try again.");
+      els.gate.innerHTML = 'We couldn’t load your bag. Please try again. <button type="button" data-inventory-retry>Try again</button>';
     }
   }
   els.gate.addEventListener("click", event => { if (event.target.closest("[data-inventory-retry]")) load(); });

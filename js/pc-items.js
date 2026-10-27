@@ -22,7 +22,7 @@
   async function request(name,args,g,id){const before=await client.auth.getSession();if(g!==generation||before.data?.session?.user?.id!==id)throw Error('Account changed');const result=await call(name,args);const after=await client.auth.getSession();if(g!==generation||after.data?.session?.user?.id!==id)throw Error('Account changed');return result;}
   const activePane=()=>el.querySelector(direction==='deposit'?'[data-bag-detail]':'[data-pc-detail]');
   const quantityInput=()=>activePane()?.querySelector('[data-pc-quantity]');
-  function closeBag(){const dialog=el.querySelector('[data-bag-panel]');bagOpen=false;dialog?.close?.();dialog?.removeAttribute?.('open');direction='withdraw';if(data)detail();el.querySelector('[data-bag-toggle]')?.setAttribute('aria-expanded','false');el.querySelector('[data-bag-toggle]')?.focus({preventScroll:true});}
+  function closeBag(){const dialog=el.querySelector('[data-bag-panel]');bagOpen=false;dialog?.close?.();dialog?.removeAttribute?.('open');direction='withdraw';if(selected&&!Number(data?.stored?.[selected]))selected=null;if(data)detail();el.querySelector('[data-bag-toggle]')?.setAttribute('aria-expanded','false');el.querySelector('[data-bag-toggle]')?.focus({preventScroll:true});}
   function openBag(){const dialog=el.querySelector('[data-bag-panel]');bagOpen=true;direction='deposit';selected=null;say('');bagList(bagQuery);detail();if(dialog.showModal)dialog.showModal();else dialog.setAttribute('open','');el.querySelector('[data-bag-toggle]').setAttribute('aria-expanded','true');el.querySelector('[data-bag-search]').focus({preventScroll:true});}
   function detail(){
    const pane=activePane();if(!pane)return;

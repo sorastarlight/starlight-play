@@ -537,3 +537,5 @@ ROTATING-SUPPLIES LIVE:owner approved exact88543618 install/publication/source-o
 COMPACT-SUPPLIES: Owner requested smaller panels, truthful calendar labels, gift icon/notice and PC nav hint.187 suites/build/96 recovery files and four local rendered widths pass. Reward split is proposal only; do not activate from heartbeat. No new SQL or live claims/application calls. Automation remains deleted.
 
 COMPACT-SUPPLIES LIVE main370a21bf;8/8static files match;Pages40552441282.187suites/build;no hosted application calls. Owner asked for a proposed reward list, not activation; hold rebalance. PC nav dot follows observed deliveries/PC refresh, with no new polling.
+
+SUPPLY-VISIBILITY LIVE:main5b91f8cb631297bc636d3a15965c207f811ca8d6;Pages40556923371 SUCCESS;3/3static files exactly match.187suites/build;four-width overlay/no-inner-scroll checks;24-item stress plus regular four-item layout. PC unseen-delivery dot clears on loaded Items view, not box opening;later deliveries re-light it. No SQL,hosted claims,notice calls or APPstamp.

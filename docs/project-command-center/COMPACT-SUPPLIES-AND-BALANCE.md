@@ -61,3 +61,5 @@ Activation of the rebalance requires an owner decision and exact tested SQL/conf
 Publication: main `370a21bf3b2ba5acd07aa4a520cd18f98b49b6c9`, Pages `40552441282`; all eight deployed files match reviewed source. Frontend only; no hosted claims, application calls or SQL. APP unchanged.
 
 Follow-up: no inner reward scrolling; nav/account dots are absolute overlays. Four rendered widths with 24 long reward entries: lists have equal scroll/client heights, no inner scroll; side-by-side claim bottoms match at768/1024. All navigation anchor rectangles are identical before/after dots at320/390/768/1024. Ordinary four-item weekly list also fully visible with aligned claims.187suites/build pass; no live application calls.
+
+SUPPLY-VISIBILITY LIVE:main5b91f8cb631297bc636d3a15965c207f811ca8d6;Pages40556923371 SUCCESS;3/3static files exactly match.187suites/build;four-width overlay/no-inner-scroll checks;24-item stress plus regular four-item layout. PC unseen-delivery dot clears on loaded Items view, not box opening;later deliveries re-light it. No SQL,hosted claims,notice calls or APPstamp.

@@ -143,7 +143,7 @@
     if (typeof window.playPresentEnqueue !== "function") return;
     const grants = data?.grants || {};
     const revealed = window.PLAY_PASS_REWARDS?.rows(data?.revealedRewards) || [];
-    const rewards = revealed.length ? revealed.map(r=>({type:r.name,amount:r.quantity||1,label:window.PLAY_PASS_REWARDS.text(r)})) : Object.entries(grants)
+    const rewards = revealed.length ? revealed.map(r=>({type:r.name,amount:r.quantity||1,label:window.PLAY_PASS_REWARDS.text(r),sprite:r.sprite})) : Object.entries(grants)
       .filter(([, amount]) => Number(amount) > 0)
       .map(([type, amount]) => ({ type, amount: Number(amount) || 0 }));
     const lines = rewards.map((row) => {
@@ -162,9 +162,10 @@
     window.playPresentEnqueue([{
       id: `${source}:claim:${claimTitle}:${lines.join("|")}`.slice(0, 160),
       type: "item",
-      tier: "toast",
+      tier: "card",
+      kind: "supply-claim",
       title: claimTitle,
-      body: lines.join("\n") || "Inventory updated.",
+      body: "Ready for your next adventure. Items that do not fit in your bag are saved in My PC.",
       rewards,
       severity: "success",
       source
@@ -563,12 +564,14 @@
           <div class="pass-compact-tools"><button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
           ${pass?.checkedAt ? `<small>Checked ${esc(new Date(pass.checkedAt).toLocaleString())}</small>` : ''}</div>
         </header>
+        <div class="pass-calendar-heading"><h3>Your week of supplies</h3><small>Monday–Sunday · UTC</small></div>
+        ${window.PLAY_PASS_CALENDAR?.html(wallet, info.active) || ''}
         <div class="pass-reward-panels">
           <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? ' is-ready' : ''}">
-            <header class="pass-reward-head"><h3>Daily supply</h3><span class="pass-reward-chip">${passState('daily')}</span></header>
+            <header class="pass-reward-head"><h3>Today’s Pass supply</h3><span class="pass-reward-chip">${passState('daily')}</span></header>
             ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ''}
             <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
-            <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (wallet?.calendar==='UTC'?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>
+            ${Array.isArray(wallet?.passDays) && wallet.passDays.length===7 && wallet?.dailyReady && info.active ? '<p class="pass-time-note">Claim today’s supply in the calendar above.</p>' : `<button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (wallet?.calendar==='UTC'?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>`}
           </article>
           <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? ' is-ready' : ''}">
             <header class="pass-reward-head"><h3>Weekly bonus</h3><span class="pass-reward-chip">${passState('weekly')}</span></header>
@@ -579,11 +582,11 @@
         </div>
         ${wallet?.calendar==='UTC'?'<p class="pass-time-note">Daily reset: 00:00 UTC · Weekly reset: Monday. Missed verified supplies wait as crates in <a href="storage.html#items">My PC</a>.</p>':''}
         ${!info.active ? '<p class="pass-subscribe"><a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a> · Connect Twitch in My Account.</p>' : ''}
-      </section>
       <section class="trainer-supply-bar" aria-label="Free daily Trainer supply">
         <div><strong>Daily Trainer supply</strong><span class="pass-reward-chip">${supplyReady ? 'Ready' : supplyCooldown ? 'Cooldown' : 'Claimed'}</span>
         <p>${wallet?.dailyClaimed ? 'Claimed. Come back for your next supply.' : supplyCooldown ? 'Your next supply is not ready yet.' : `Poké Ball ×${Number(wallet?.dailyPreview?.pokeball ?? 3)} · ${window.playItemLabel(wallet?.dailyPreview?.berry || 'berry')} ×${Number(wallet?.dailyPreview?.berryQty ?? wallet?.dailyPreview?.berryCount ?? 1)} · ${Number(wallet?.dailyPreview?.coins ?? 40)} PokéCoins${dailyBonusLine(wallet)}`}</p><small>Free for every Trainer. Resets at midnight Eastern; a claim cooldown applies.</small></div>
         <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? '' : ' disabled'}>${supplyReady ? 'Claim Supply' : supplyCooldown ? 'On cooldown' : 'Claimed'}</button>
+      </section>
       </section>
     </div>`;
   }
@@ -1271,21 +1274,21 @@
         if (note) note.textContent = "Sign in first.";
         return;
       }
-      if (!session.provider_token) {
-        if (note) note.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
-        return;
-      }
+      // The server decides whether a provider token is required (the channel owner does not need one).
       if (note) note.textContent = "Checking Twitch…";
       const { data, error } = await supabase.functions.invoke("refresh-pass", {
-        body: { accessToken: session.provider_token }
+        body: { accessToken: session.provider_token || "" }
       });
       if (error) {
         if (note) note.textContent = await functionMessage(error, fallback);
         return;
       }
-      if (note) note.textContent = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
+      const resultMessage = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
+      if (note) note.textContent = resultMessage;
       try {
         await load();
+        const refreshedNote = document.querySelector("[data-pass-status]") || note;
+        if (refreshedNote) refreshedNote.textContent = resultMessage;
       } catch (_) {
         if (note) note.textContent += " The Mart could not refresh. Reload the page for the latest display.";
       }
@@ -1502,6 +1505,12 @@
       else els.ballModal?.setAttribute("open", "");
       return;
     }
+    if (event.target.closest("[data-pass-missed]")) {
+      const body = "Your missed supplies are saved as crates in My PC → Items. Withdraw a crate into your bag, then open it. Crates open oldest first; the matching day will be marked claimed when you return here.";
+      const go = window.playPresentConfirm ? await window.playPresentConfirm({title:"Collect your saved supplies?",body,confirmLabel:"Go to My PC",cancelLabel:"Stay here"}) : window.confirm(body);
+      if (go) window.location.assign("storage.html#items");
+      return;
+    }
     const passButton = event.target.closest("#check-pass");
     if (passButton) {
       await checkPass(passButton);
@@ -1631,5 +1640,7 @@
 
   document.addEventListener('change',event=>{const input=event.target.closest('[data-product-count]');if(!input)return;const n=Number(input.value);if(!Number.isSafeInteger(n)||n<0){input.value=cart.find(row=>row.sku===input.dataset.productCount)?.qty||0;return;}setCartQty(input.dataset.productCount,n);input.value=cart.find(row=>row.sku===input.dataset.productCount)?.qty||0;});
   supabase.auth.onAuthStateChange((event, session) => { if (window.playAuthNoise(event, session)) return; load(); });
+  // A browser Back navigation can restore the Mart before a crate was opened in My Bag.
+  window.addEventListener('pageshow', event => { if (event.persisted) refreshStore(); });
   load();
 })();

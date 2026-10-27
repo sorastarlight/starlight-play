@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "OAK-DAILY-CHECK-IN",
+      "status": "done",
+      "scope": "Move existing free supply from Mart to Professor Oak daily gift",
+      "approval": "Owner requested move;reward rules unchanged",
+      "testResults": "173 suites;four responsive widths;fictional claim and account-switch checks",
+      "evidence": "OAK-DAILY-CHECK-IN.md",
+      "nextAction": "Published at main df81f273; Pages40452894231 succeeded; all four hosted runtime files match.173 regression suites/build pass, including independent Auth listener coverage. No hosted claim, provider test or SQL change."
+    },
+    {
       "id": "PASS-WEEK-VIEW",
       "status": "done",
       "scope": "Unified weekly calendar, sprite reward reveal and premature token-check correction",

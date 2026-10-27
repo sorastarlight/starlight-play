@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| OAK-DAILY-CHECK-IN | done | Free daily gift moved to Oak Lab | Existing claim rules | Owner requested |Main df81f273;4/4source matches;173suites;no live claim |
 | PASS-WEEK-VIEW | done | Unified Pass calendar, reward reveal and browser check correction | UTC ledger | Owner approved production |Migration20261027045352;main939f784d;5/5hostedmatches;no live claim/provider check |
 | PASS-UTC-CRATES | done | UTC verified-period supplies and PC crates | Mart/PC | Owner approved production |Migration20261027043338;mainfacb67ed;9source/ACL and6frontendmatches;no live claim |
 | MART-COMPACT-CART | done | Compact Pass/cards and cart feedback | Existing Mart | User authorized |Mainbe01bdc8;Pages40448527609success;2/2source matches |

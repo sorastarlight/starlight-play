@@ -4,6 +4,8 @@ The free Trainer supply has moved from the Mart into Professor Oak's Lab, direct
 
 The optional standalone Lab module loads the existing wallet projection without blocking the transfer/evolution stations. It fails closed on unavailable eligibility, prevents duplicate clicks, verifies the current user before and after claiming, and discards stale account responses. Success uses the new sprite-card reveal and bottom-right feedback.
 
-Validation:172 regression suites and build pass; six focused fictional claim/session cases; rendered ready/collected/reveal states and responsive320/390/768/1024views. No hosted claim, owner notice, reward grant or SQL change was performed.
+Validation:173 regression suites and build pass; six focused fictional claim/session cases; rendered ready/collected/reveal states and responsive320/390/768/1024views. No hosted claim, owner notice, reward grant or SQL change was performed.
 
 Publication scope:css/play.css,evolve.html,js/oak-daily.js,js/store.js. Authorized by the owner's request to move the existing perk; no new reward policy.
+
+Published at main df81f273; Pages40452894231 succeeded; all four hosted runtime files match.173 regression suites/build pass, including independent Auth listener coverage. No hosted claim, provider test or SQL change.

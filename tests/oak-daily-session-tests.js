@@ -1,0 +1,11 @@
+const fs=require('fs'),vm=require('vm'),assert=require('node:assert/strict');
+(async()=>{let listener,calls=0,noise=0;const host={hidden:true,innerHTML:'',addEventListener(){}};
+const root={document:{getElementById:()=>host},playSupabase:{auth:{onAuthStateChange:fn=>listener=fn,getSession:async()=>({data:{session:{user:{id:'a'}}}})}},playCall:async()=>{calls++;return{wallet:{dailySupplyReady:false,dailyClaimed:true}}},playAuthNoise:()=>{noise++;return false}};
+vm.runInNewContext(fs.readFileSync('js/oak-daily.js','utf8'),{window:root,setTimeout:fn=>fn()});
+const flush=async()=>{for(let i=0;i<8;i++)await Promise.resolve();};await flush();assert.equal(calls,1);
+listener('SIGNED_IN',{user:{id:'a'}});await flush();assert.equal(calls,1);
+listener('SIGNED_IN',{user:{id:'b'}});await flush();assert.equal(calls,2);assert.equal(noise,0);
+listener('SIGNED_OUT',null);await flush();assert.equal(host.hidden,true);
+listener('SIGNED_IN',{user:{id:'b'}});await flush();assert.equal(calls,3);
+console.log('Oak session bootstrap, same-user dedupe, account switch and sign-out pass without consuming Lab listener');
+})().catch(e=>{console.error(e);process.exitCode=1});

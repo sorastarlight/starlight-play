@@ -25,6 +25,7 @@
   let cart = loadCart();
   let checkoutNote = "";
   let checkoutBusy = false;
+  let emptyCartBusy = false;
   let lastPurchase = null;
   let lastLinkedLogin = "";
   let lastSupport = { events: [], bitsTotal: 0, pending: false };
@@ -342,10 +343,8 @@
         icon: "rainbow-pass.png",
         extra: {
           perks: [
-            "+25 bag space while active",
-            "Daily Trainer Supply is free for every signed-in Trainer",
-            "Daily Pass: 2 Berries, 1 Honey, 20 PokéCoins",
-            "Weekly Pass: 5 Poké Balls, 3 Berries, 1 Poké Radar, 150 PokéCoins"
+            "Daily: one rotating item and 50 PokéCoins",
+            "Weekly: rotating supplies and 150 PokéCoins"
           ]
         },
         items: []
@@ -552,8 +551,8 @@
     const daily = kind === 'daily', ready = wallet?.[daily ? 'dailyReady' : 'weeklyReady'];
     const next = wallet?.[daily ? 'passDailyNextAt' : 'passWeeklyNextAt'];
     const last = wallet?.[daily ? 'passDailyClaimedAt' : 'passWeeklyClaimedAt'];
-    const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString(undefined,wallet?.calendar==='UTC'?{timeZone:'UTC',timeZoneName:'short'}:undefined) : null;
-    if(wallet?.calendar==='UTC' && !wallet?.[daily?'passDailyVerified':'passWeeklyVerified']) return 'Check your subscription to unlock this UTC period.';
+    const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString(undefined,{timeZoneName:'short'}) : null;
+    if(wallet?.calendar==='UTC' && !wallet?.[daily?'passDailyVerified':'passWeeklyVerified']) return 'Check your subscription to unlock these supplies.';
     if(wallet?.ownerRepeat) return ready ? 'Owner testing: ready to claim again.' : 'Owner testing: 30 seconds between claims of this reward.';
     const available = ready ? 'Available now.' : date(next) ? `Next supply: ${date(next)}.` : 'Check back for your next supply.';
     return available + (date(last) ? ` Last claimed: ${date(last)}.` : '');
@@ -561,13 +560,14 @@
 
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
+    const resets=window.PLAY_PASS_CALENDAR?.resets?.(wallet)||{};
     const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.ownerRepeat&&wallet?.[kind==='daily'?'passDailyVerified':'passWeeklyVerified']?'30-second wait':wallet?.calendar==='UTC'?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
     return `<div class="mart-pass mart-pass-compact">
       <section class="pass-showcase${info.active ? ' is-active' : ''}" data-pass-hero>
         <header class="pass-compact-heading">
           <img class="pass-compact-icon" src="${esc(window.playItemSprite(floor.icon || 'rainbow-pass.png'))}" alt="">
           <div><h2 class="pass-title">Starlight Pass <span data-pass-state class="pass-state ${info.active ? 'on' : 'off'}">${info.active ? 'Active' : 'Inactive'}</span></h2>
-          <p data-pass-status class="pass-status">${info.active ? '+25 bag spaces · Daily supplies · Weekly bonus' : esc(info.note)}</p></div>
+          <p data-pass-status class="pass-status">${info.active ? 'Daily supplies · Weekly bonus' : esc(info.note)}</p></div>
           <div class="pass-compact-tools"><button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
           ${pass?.checkedAt ? `<small>Checked ${esc(new Date(pass.checkedAt).toLocaleString())}</small>` : ''}</div>
         </header>
@@ -587,7 +587,7 @@
             <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? '' : ' disabled'}>${info.active && !wallet?.weeklyReady ? (wallet?.calendar==='UTC'?passState('weekly'):'On cooldown') : 'Claim weekly bonus'}</button>
           </article>
         </div>
-        ${wallet?.calendar==='UTC'?'<p class="pass-time-note">Daily reset: 00:00 UTC · Weekly reset: Monday. Missed verified supplies wait as crates in <a href="storage.html#items">My PC</a>.</p>':''}
+        ${wallet?.calendar==='UTC'?`<p class="pass-time-note">${resets.daily?'Daily reset: '+esc(resets.daily)+'. ':''}${resets.weekly?'Weekly reset: '+esc(resets.weekly)+'. ':''}Times are local to your device. Saved supplies wait in <a href="storage.html#items">My PC</a>.</p>`:''}
         ${!info.active ? '<p class="pass-subscribe"><a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a> · Connect Twitch in My Account.</p>' : ''}
 
       </section>
@@ -1084,8 +1084,7 @@
          </div>`
       : `<div class="mart-cart-empty is-compact">
            ${cartIconHtml("mart-cart-empty-icon")}
-           <p><strong>Checkout is empty</strong></p>
-           <p class="muted">Add items from any Buy department, then return here.</p>
+           <p><strong>Your Cart Is Empty</strong></p>
          </div>`;
     const fanfare = lastPurchase ? purchaseFanfareHtml(lastPurchase) : "";
     return `<section class="mart-floor mart-checkout-floor${lastPurchase ? " is-fanfare" : ""}${count ? "" : " is-empty-cart"}" id="${CHECKOUT_TAB}" role="tabpanel" aria-labelledby="mart-tab-${CHECKOUT_TAB}" data-mart-panel="${CHECKOUT_TAB}" hidden>
@@ -1161,6 +1160,18 @@
     saveCart();
     syncCheckoutUi();
     cartFeedback('Your cart is empty.');
+  }
+
+  async function confirmEmptyCart() {
+    if(checkoutBusy||emptyCartBusy||!cart.length)return;
+    const snapshot=JSON.stringify(cart);emptyCartBusy=true;
+    try{
+      const body='Remove all items from Your Cart?';
+      const yes=window.playPresentConfirm?await window.playPresentConfirm({title:'Empty Your Cart?',body,confirmLabel:'Empty cart',cancelLabel:'Keep items'}):window.confirm(body);
+      if(!yes)return;
+      if(checkoutBusy||JSON.stringify(cart)!==snapshot){window.playToast?.({kind:'warning',title:'Your cart changed',body:'Review Your Cart before emptying it.'});return;}
+      emptyCart();
+    }finally{emptyCartBusy=false;}
   }
 
   function setCartQty(sku, qty) {
@@ -1457,7 +1468,7 @@
   });
 
   els.floors?.addEventListener("click", async (event) => {
-    if (event.target.closest('[data-cart-empty]')) { emptyCart(); return; }
+    if (event.target.closest('[data-cart-empty]')) { await confirmEmptyCart(); return; }
     const modeBtn = event.target.closest("[data-mart-mode]");
     if (modeBtn) {
       await switchMartMode(modeBtn.dataset.martMode === "sell" ? "sell" : "buy");

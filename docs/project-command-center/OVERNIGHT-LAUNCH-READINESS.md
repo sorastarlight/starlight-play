@@ -543,3 +543,5 @@ SUPPLY-VISIBILITY LIVE:main5b91f8cb631297bc636d3a15965c207f811ca8d6;Pages4055692
 NOTIFICATION-MENU LIVE:main2d55793aa96a94d607ebf11bd5b73c5b968bd333;Pages40561429181 SUCCESS;CSS exact source match. Eight local menu-count layouts retain40px height/no wrap;soft static overlay glow;build pass. CSS only,no hosted account/notice/application calls,SQL or APPstamp.
 
 NOTIFICATIONS-BUTTON LIVE:main9802245eee5862ab16672f4c5fe80a1e705212ed;Pages40564753128 SUCCESS;CSS exact source match. Existing unread count controls glowing pseudo-element on Notifications button;no layout shift. Build/local DOM pass;no hosted application calls,SQL or APPstamp.
+
+PROFILE-MENU-ORDER LIVE:main9942c2db579f6be07d6bb557bc8cad12ddfb6e17;Pages40567242632 SUCCESS;shared nav exact source match. MyAccount,Notifications,ViewMyTrainerID,AdminHub(existingstaffvisibility);Signoutlast. Actual-source localDOMordinary/staff,6focuschecks,navharness andbuildpass. No hosted application/notice calls,permissionchanges,SQL orAPPstamp.

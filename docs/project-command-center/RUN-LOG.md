@@ -2982,3 +2982,5 @@ NOTIFICATIONS-BUTTON:Owner requested the same glowing unread indicator on the pr
 
 NOTIFICATIONS-BUTTON LIVE:main9802245eee5862ab16672f4c5fe80a1e705212ed;Pages40564753128 SUCCESS;CSS exact source match. Existing unread count controls glowing pseudo-element on Notifications button;no layout shift. Build/local DOM pass;no hosted application calls,SQL or APPstamp.
 PROFILE-MENU-ORDER:Owner requested My Account,Notifications,View My Trainer ID,Admin Hub(owner/staff). Existing nodes reordered in DOM beforeSignout;counts/listeners and role visibility retained. Actual shared-nav local browser confirmsordinary3links/staff4links andSignoutlast;6focuschecks,calendar/navharness andbuildpass. No hosted account/application calls. One-JS publication next.
+
+PROFILE-MENU-ORDER LIVE:main9942c2db579f6be07d6bb557bc8cad12ddfb6e17;Pages40567242632 SUCCESS;shared nav exact source match. MyAccount,Notifications,ViewMyTrainerID,AdminHub(existingstaffvisibility);Signoutlast. Actual-source localDOMordinary/staff,6focuschecks,navharness andbuildpass. No hosted application/notice calls,permissionchanges,SQL orAPPstamp.

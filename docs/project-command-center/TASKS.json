@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "HEALTH-SUMMARY-PARITY",
+      "status": "done",
+      "scope": "Show existing subsystem statuses and reject unsuccessful health payloads",
+      "evidence": "HEALTH-SUMMARY-PARITY.md",
+      "testResults": "187 selected non-writing suites/build;16 responsive states;keyboard focus and96recovery files",
+      "nextAction": "LIVE mainde812b76/Pages40584742773 SUCCESS;one source matches. No hosted application calls or SQL."
+    },
+    {
       "id": "HUB-PARITY-TRANSACTIONS",
       "status": "in_progress",
       "scope": "Audit native tool parity and prepare disconnected read-only transaction component",

@@ -72,10 +72,10 @@
       close();const busy=s.phase==='loading';
       find('[data-ledger-results]').innerHTML=results(s.report);
       find('[data-ledger-status]').textContent=busy?'Loading transactions…':s.phase==='denied'?'Staff access could not be confirmed. Reopen the workspace after signing in.':s.phase==='error'?'Transactions could not load. Refresh to try again.':s.report?'Retrieved '+stamp(s.observed)+'. Times are local to your device.':'No transaction report loaded.';
-      find('[data-ledger-results]').setAttribute('aria-busy',String(busy));find('[data-ledger-refresh]').disabled=busy||s.phase==='closed';find('[data-ledger-size]').disabled=busy||s.phase==='closed';find('[data-ledger-size]').value=String(s.limit);
+      find('[data-ledger-results]').setAttribute('aria-busy',String(busy));find('[data-ledger-refresh]').disabled=busy;find('[data-ledger-refresh]').textContent=s.phase==='closed'?'Load transactions':'Refresh';find('[data-ledger-size]').disabled=busy||s.phase==='closed';find('[data-ledger-size]').value=String(s.limit);
       find('[data-ledger-newer]').disabled=busy||!s.history.length;find('[data-ledger-older]').disabled=busy||!s.report?.hasMore;find('[data-ledger-count]').textContent=s.report?s.report.rows.length+' shown':'';
     });
-    find('[data-ledger-refresh]').onclick=()=>model.refresh();find('[data-ledger-older]').onclick=()=>model.older();find('[data-ledger-newer]').onclick=()=>model.newer();find('[data-ledger-size]').onchange=e=>model.size(Number(e.target.value));
+    find('[data-ledger-refresh]').onclick=()=>model.state.phase==='closed'?model.open():model.refresh();find('[data-ledger-older]').onclick=()=>model.older();find('[data-ledger-newer]').onclick=()=>model.newer();find('[data-ledger-size]').onchange=e=>model.size(Number(e.target.value));
     host.addEventListener('click',e=>{
       const button=e.target.closest('[data-ledger-detail]');if(!button||!host.contains(button)||dialog)return;
       const row=model.state.report?.rows.find(r=>r.id===button.dataset.ledgerDetail);if(!row)return;opener=button;

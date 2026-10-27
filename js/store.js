@@ -543,7 +543,8 @@
     const daily = kind === 'daily', ready = wallet?.[daily ? 'dailyReady' : 'weeklyReady'];
     const next = wallet?.[daily ? 'passDailyNextAt' : 'passWeeklyNextAt'];
     const last = wallet?.[daily ? 'passDailyClaimedAt' : 'passWeeklyClaimedAt'];
-    const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString() : null;
+    const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString(undefined,wallet?.calendar==='UTC'?{timeZone:'UTC',timeZoneName:'short'}:undefined) : null;
+    if(wallet?.calendar==='UTC' && !wallet?.[daily?'passDailyVerified':'passWeeklyVerified']) return 'Check your subscription to unlock this UTC period.';
     const available = ready ? 'Available now.' : date(next) ? `Next supply: ${date(next)}.` : 'Check back for your next supply.';
     return available + (date(last) ? ` Last claimed: ${date(last)}.` : '');
   }
@@ -552,6 +553,7 @@
     const info = describePass(pass, wallet);
     const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
     const supplyCooldown = !supplyReady && !wallet?.dailyClaimed;
+    const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.calendar==='UTC'?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
     return `<div class="mart-pass mart-pass-compact">
       <section class="pass-showcase${info.active ? ' is-active' : ''}" data-pass-hero>
         <header class="pass-compact-heading">
@@ -563,18 +565,19 @@
         </header>
         <div class="pass-reward-panels">
           <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? ' is-ready' : ''}">
-            <header class="pass-reward-head"><h3>Daily supply</h3><span class="pass-reward-chip">${!info.active ? 'Pass needed' : wallet?.dailyReady ? 'Ready' : 'Cooldown'}</span></header>
+            <header class="pass-reward-head"><h3>Daily supply</h3><span class="pass-reward-chip">${passState('daily')}</span></header>
             ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ''}
             <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
-            <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? 'On cooldown' : 'Claim daily supply'}</button>
+            <button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (wallet?.calendar==='UTC'?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>
           </article>
           <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? ' is-ready' : ''}">
-            <header class="pass-reward-head"><h3>Weekly bonus</h3><span class="pass-reward-chip">${!info.active ? 'Pass needed' : wallet?.weeklyReady ? 'Ready' : 'Cooldown'}</span></header>
+            <header class="pass-reward-head"><h3>Weekly bonus</h3><span class="pass-reward-chip">${passState('weekly')}</span></header>
             ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ''}
             <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'weekly'))}</p>
-            <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? '' : ' disabled'}>${info.active && !wallet?.weeklyReady ? 'On cooldown' : 'Claim weekly bonus'}</button>
+            <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? '' : ' disabled'}>${info.active && !wallet?.weeklyReady ? (wallet?.calendar==='UTC'?passState('weekly'):'On cooldown') : 'Claim weekly bonus'}</button>
           </article>
         </div>
+        ${wallet?.calendar==='UTC'?'<p class="pass-time-note">Daily reset: 00:00 UTC · Weekly reset: Monday. Missed verified supplies wait as crates in <a href="storage.html#items">My PC</a>.</p>':''}
         ${!info.active ? '<p class="pass-subscribe"><a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a> · Connect Twitch in My Account.</p>' : ''}
       </section>
       <section class="trainer-supply-bar" aria-label="Free daily Trainer supply">

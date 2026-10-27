@@ -1,0 +1,98 @@
+{
+  "classification": "Local schema-only PostgreSQL17;fictional users and rewards;no production connection or gameplay",
+  "checks": [
+    "guarded install against replayed production source",
+    "empty-ledger rollback and reinstall",
+    "browser-context profile writes cannot establish verification",
+    "trusted successful check snapshots daily and weekly periods",
+    "repeat verification preserves original bundle",
+    "UTC boundaries survive DST and ISO year changes",
+    "one claim delivers snapshot and duplicate is denied",
+    "expired verified period produces exactly one PC crate",
+    "stored-only crate cannot be opened",
+    "earned crate survives lapse and same request cannot duplicate rewards",
+    "opening consumes bag crate",
+    "actual PC and Mart endpoints execute locally",
+    "stale provider timestamp creates no backfill",
+    "full box keeps missed crate safely waiting",
+    "full bag and waiting slot block withdrawal without loss",
+    "free slot promotes pending crate",
+    "failed bundle delivery preserves crate and entitlement",
+    "concurrent openings deliver once and replay one receipt",
+    "crate contents respect bag capacity and overflow safely",
+    "transition respects already-claimed daily and weekly supplies",
+    "another trainer cannot replay someone else’s crate request",
+    "rollback refuses to remove earned entitlements",
+    "private ledger and opening access restrictions",
+    "emergency stop pauses issuance and claims without deleting earned records"
+  ],
+  "installed": [
+    {
+      "signature": "private.pass_period_start(text,timestamp with time zone)",
+      "hash": "b9b1890636b517b26f4ab799f3c1cbab",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.record_pass_verification()",
+      "hash": "1f30e81762d7f8b35f7fee7c9a157743",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.materialize_pass_crates(uuid)",
+      "hash": "dc2036e60ff03257d1ea481540157b89",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.pass_period_wallet(uuid)",
+      "hash": "d2f7f1de0edeece5557cae1b2d29b26e",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "play_open_pass_crate(uuid)",
+      "hash": "d62edcb75b09b6ce745e4a18513c3937",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.pc_item_location(text)",
+      "hash": "7237bb7dfbeb6b1a020cce948abe7126",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "play_pc_items()",
+      "hash": "4666cfa23eb92a848e66cfc003ff594c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "play_store()",
+      "hash": "127fa7a644860ffbf45f61edcd0bd844",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "play_claim_pass(text)",
+      "hash": "c560ef01e9c864c1df34c54408386192",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    }
+  ],
+  "afterStop": [
+    {
+      "signature": "play_claim_pass(text)",
+      "hash": "fcfa6c55e323ab1109a7ad70db734747",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "play_store()",
+      "hash": "127fa7a644860ffbf45f61edcd0bd844",
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    },
+    {
+      "signature": "private.pc_item_location(text)",
+      "hash": "7237bb7dfbeb6b1a020cce948abe7126",
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "play_pc_items()",
+      "hash": "4666cfa23eb92a848e66cfc003ff594c",
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}"
+    }
+  ]
+}

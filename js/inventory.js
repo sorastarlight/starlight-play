@@ -24,8 +24,17 @@
   let tab = "all";
   let selectedKey = "";
   let loadGeneration = 0;
+  let crateUser = null;
+  const crates = window.PLAY_PASS_CRATES?.create({client:supabase,call:(name,args)=>window.playCall(name,args),storage:{getItem:k=>window.sessionStorage.getItem(k),setItem:(k,v)=>window.sessionStorage.setItem(k,v),removeItem:k=>window.sessionStorage.removeItem(k)},generation:()=>loadGeneration,notify:n=>window.playToast?.(n),refresh:async()=>{await load();}});
+  function crateAction(key,qty) { return key==='starlight_pass_crate' && qty>0 ? '<button type="button" data-pass-crate-open'+(crates?'':' disabled')+'>Open supply crate</button>' : ''; }
+  function crateRetry() {
+    const old=document.getElementById('pass-crate-retry');if(old)old.remove();
+    if(crateUser && crates?.pending(crateUser)){const button=document.createElement('button');button.id='pass-crate-retry';button.type='button';button.dataset.passCrateOpen='';button.textContent='Check crate opening';els.bag.before(button);}
+  }
+  document.addEventListener('click',async event=>{if(!event.target.closest('[data-pass-crate-open]'))return;const button=event.target.closest('button');button.disabled=true;await crates?.open();if(button.isConnected)button.disabled=false;crateRetry();});
   function invalidateInventory() {
     loadGeneration++;
+    crateUser=null;document.getElementById("pass-crate-retry")?.remove();
     els.trainer.hidden = true;
     if (els.detail?.open) els.detail.close();
     if (invChannel) { supabase.removeChannel(invChannel); invChannel = null; }
@@ -143,6 +152,7 @@
     const qty = Number(bag[key] || 0);
     return `<aside class="bag-detail" aria-label="Item detail">
       ${window.playItemDetailHtml(key, qty, lastCapture)}
+      ${crateAction(key,qty)}
       <div class="links">
         <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
         <a class="button secondary" href="./store.html">Open Mart</a>
@@ -219,7 +229,7 @@
     window.playMarkItemSeen?.(key);
     renderBag(lastBag);
     if (els.detail && els.detailBody && window.matchMedia("(max-width: 780px)").matches) {
-      els.detailBody.innerHTML = `${window.playItemDetailHtml(key, lastBag[key] || 0, lastCapture)}
+      els.detailBody.innerHTML = `${window.playItemDetailHtml(key, lastBag[key] || 0, lastCapture)}${crateAction(key,lastBag[key]||0)}
         <div class="links">
           <button type="button" class="secondary" data-pin-item="${key}">${(window.playBagPins?.() || []).includes(key) ? "Unpin" : "Pin in Bag"}</button>
           <a class="button secondary" href="./store.html">Open Mart</a>
@@ -288,6 +298,7 @@
       if (!current()) return;
       if (els.ledger) els.ledger.innerHTML = '<p class="muted">Item history is temporarily unavailable. Reload to try again.</p>';
     }
+    crateUser=session.user.id;crateRetry();
     els.gate.hidden = true;
     els.trainer.hidden = false;
     if (invChannel) supabase.removeChannel(invChannel);

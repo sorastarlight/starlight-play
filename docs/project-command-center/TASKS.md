@@ -4,6 +4,8 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| PASS-UTC-CRATES | blocked | UTC verified-period supplies and PC crates | Mart/PC | Production decision pending |24localSQLgroups;170suites;safe stop/rollback;no hosted claim |
+| MART-COMPACT-CART | done | Compact Pass/cards and cart feedback | Existing Mart | User authorized |Mainbe01bdc8;Pages40448527609success;2/2source matches |
 | BERRY-AFFINITY | done (local) | Type bonuses and berry/drop/PC integration | Existing drops and PC box | Local work authorized; production held |37 SQL groups, 236 forms × 22 berries, 60 drop types, 168 suites; guarded install/rollback ready |
 | CODEX-277 | done | Legacy-stat dependency audit | Existing retirement | Read-only |CP/AV already gone;active ecology kept |
 | CODEX-276 | blocked | Exact one-product cleanup/restore | Scope review | Destructive hold |6SQLgroups;no production action |

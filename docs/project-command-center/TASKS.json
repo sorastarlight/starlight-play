@@ -4,11 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PASS-UTC-CRATES",
+      "status": "blocked",
+      "scope": "UTC daily/weekly verified periods, saved supplies in PC and bag crate opening",
+      "approval": "Owner selected UTC periods and verified periods only;exact production packet held for decision",
+      "testResults": "24 local SQL groups;170 regression suites;four rendered widths;no hosted claim",
+      "evidence": "supabase/unapplied/pass-calendar/README.md",
+      "nextAction": "Review install plus six-file publication;source verification only;no claims/provider tests/backfill/scheduler"
+    },
+    {
       "id": "MART-COMPACT-CART",
       "status": "done",
       "scope": "Compact Pass and product presentation, aggregate cart budget, green/red feedback and Empty cart",
       "testResults": "169 regression suites;build;fictional rendered additions/rejection/empty;four widths without overflow",
-      "nextAction": "Publish exact js/store.js and css/play.css;UTC calendar/crates separate"
+      "nextAction": "Complete:mainbe01bdc8;Pages40448527609success;2/2hosted source matches;no purchase/claim"
     },
     {
       "id": "BERRY-AFFINITY",

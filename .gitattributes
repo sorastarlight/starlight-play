@@ -92,3 +92,6 @@ supabase/migrations/20261026193431_pc_item_box_slots.sql text eol=lf
 
 supabase/unapplied/owner-self-gifts/*.sql text eol=lf
 supabase/migrations/20261026195430_owner_self_gifts.sql text eol=lf
+
+supabase/unapplied/pass-calendar/*.sql text eol=lf
+supabase/unapplied/berry-affinity/*.sql text eol=lf

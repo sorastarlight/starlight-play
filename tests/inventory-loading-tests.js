@@ -4,10 +4,10 @@ const flush=async()=>{for(let i=0;i<16;i++)await Promise.resolve();};
 const A={user:{id:'fictional-a'}},B={user:{id:'fictional-b'}};
 function fixture(initial=A){
  let session=initial,authChange,navOptions;const nodes={},calls=[],timers=[],paints=[],channels=[];
- const node=id=>nodes[id]||(nodes[id]={hidden:id==='trainer',open:false,value:'',style:{},dataset:{},innerHTML:'',textContent:'',events:{},addEventListener(k,f){this.events[k]=f;},close(){this.open=false;}});
+ const node=id=>nodes[id]||(nodes[id]={hidden:id==='trainer',open:false,value:'',style:{},dataset:{},innerHTML:'',textContent:'',events:{},addEventListener(k,f){this.events[k]=f;},close(){this.open=false;},remove(){delete nodes[id];}});
  const client={auth:{getSession:async()=>({data:{session}}),onAuthStateChange:fn=>authChange=fn},from:()=>({select:()=>({eq:()=>({maybeSingle:async()=>({data:{display_name:session?.user.id}})})})}),removeChannel:c=>{c.removed=true;},channel:()=>{const c={on(k,filter,cb){this.cb=cb;return this;},subscribe(){return this;}};channels.push(c);return c;}};
  const window={playSupabase:client,setTimeout:fn=>timers.push(fn),playBindAccountNav:o=>navOptions=o,playAuthNoise:e=>e==='TOKEN_REFRESHED',playSetAccountNav:()=>{},playSetLoadingGate:(g,t)=>{g.hidden=false;t.hidden=true;},playRestoreGate:(g,text)=>{g.hidden=false;g.textContent=text;},playCall:rpc=>new Promise((resolve,reject)=>calls.push({rpc,resolve,reject})),playBindLureButton:()=>{},playFillBagMeter:bag=>paints.push({...bag}),playFillLurePanel:()=>{},playItemCategory:()=> 'special',playItemLabel:k=>k,playItemPlayerText:()=>'',playItemSprite:()=>'',playEscapeAttr:x=>String(x),playSeedSeenBag:()=>{}};
- vm.runInNewContext(source,{window,document:{getElementById:node,body:node('body')}});
+ vm.runInNewContext(source,{window,document:{getElementById:node,body:node('body'),addEventListener(){}}});
  return{nodes,calls,paints,channels,change(next){session=next;authChange(next?'SIGNED_IN':'SIGNED_OUT',next);},runTimers(){while(timers.length)timers.shift()();},signOut(){navOptions.onSignOut();},retry(){node('gate').events.click({target:{closest:()=>true}});}};
 }
 async function resolveLoad(f,coins=12,items={linkingcord:1}){

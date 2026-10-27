@@ -2868,3 +2868,7 @@ PLAYER-ADDRESS-COPY live:main91d56460,Pages40444136291 success;8/8 hosted source
 Owner-approved berry migration20261027040048 installed after exact drift checks. Six function definitions/ACLs and22berry rows verified read-only. Description adapters published at8ace08e3,Pages40447439581success,2/2HTTPsources match. No live catch. Recovery packet inventory/hashes updated.
 
 Compact Mart candidate passes169suites/build. Actual-source fictional rendered cards, additions, budget rejection and empty cart checked;320/390/768/1024iframe layouts show no horizontal overflow or broken sprites;cards273px. No hosted purchase/claim. Pass UI retains server-provided current timing until calendar migration. Owner selected UTC days/Monday weeks and only periods containing successful verification;offline unverified days excluded.
+
+## 2026-10-27 — UTC Pass/crates local packet
+
+Owner chose UTCdaily/Mondayweekly and verified-period-only coverage. Prepared private receipt ledger, trusted-check trigger, bounded lazy crate materialization, atomic Bag opening and six frontend files.24localSQLchecks,170regression suites/build;four rendered widths and fictional opening. No production claim/provider request. Guarded empty-ledger rollback refuses after earned records exist;tested emergency stop preserves records/opening. Packet held for production decision. Compact Mart separately deployed atbe01bdc8,Pages40448527609success,2/2source matches.

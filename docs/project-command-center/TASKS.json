@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PASS-HISTORY-UNAVAILABLE-GUARD",
+      "status": "done",
+      "scope": "Keep Mart rendering when calendar day records are malformed",
+      "evidence": "PASS-HISTORY-UNAVAILABLE-GUARD.md",
+      "testResults": "173 suites/build;five malformed history cases",
+      "nextAction": "Published main575b45bb; Pages40457482920 succeeded; exact hosted js/pass-calendar.js matches.173suites/build pass;no live application call."
+    },
+    {
       "id": "READINESS-OCT27-CONTINUATION",
       "status": "done",
       "scope": "Published source integrity, PC arrangement stress, reward/UI module and Admin entry preparation review",

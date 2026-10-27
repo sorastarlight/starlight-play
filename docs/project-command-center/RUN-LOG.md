@@ -2894,3 +2894,7 @@ Published at main df81f273; Pages40452894231 succeeded; all four hosted runtime 
 Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage files match exact source.173 suites/build and84 recovery packet hashes pass. No production SQL or real item transfer.
 
 October27 continuation:166/166 hosted static sources match c188b1ca;711localreferences resolve;1500seeded item arrangements preserve sprites/cells;84recoveryfiles match. Account/Planning/entry,Passcrate/calendar andOak cases pass. Oldstore entry baseline drift is category copy only;separate reviewed private baseline prepared,original retained. No runtime/SQL/player/provider action. See READINESS-OCT27-CONTINUATION.md.
+
+October27 05:48UTC heartbeat:confirmed null-day TypeError in Pass history renderer;guarded existing unavailable state for malformed records.173suites/build pass;exact one-file main575b45bb;Pages40457482920 pending verification. No application RPC or player mutation.
+
+Published main575b45bb; Pages40457482920 succeeded; exact hosted js/pass-calendar.js matches.173suites/build pass;no live application call.

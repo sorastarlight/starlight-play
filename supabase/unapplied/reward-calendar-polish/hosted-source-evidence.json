@@ -1,0 +1,28 @@
+{
+  "commit": "8ae4cd6317e56aea0cb32faf4490bcbdc7b6eb22",
+  "run": 40520151950,
+  "verifiedAt": "2026-10-27T14:22:21.235Z",
+  "classification": "HOSTED STATIC SOURCE only; no authenticated navigation or application calls",
+  "files": [
+    {
+      "file": "css/play.css",
+      "match": true,
+      "sha256": "9773c8aa58f872a01a00eb69a45f7dd750de5d7d1b3e7cc6bcf2f15b01cfe97e"
+    },
+    {
+      "file": "js/oak-daily.js",
+      "match": true,
+      "sha256": "b02271be5d5cf1c3d0029b59e2ae83818842e8f10b4422886307cc4a5630f306"
+    },
+    {
+      "file": "js/pass-calendar.js",
+      "match": true,
+      "sha256": "7db5e97d60e4044daa17e653f37ed1090c02fcf0682cb297addb548b5f011712"
+    },
+    {
+      "file": "js/store.js",
+      "match": true,
+      "sha256": "0e602ff591b894f772926b833c68fe363135f79f55580d1bcec7c41d47383e76"
+    }
+  ]
+}

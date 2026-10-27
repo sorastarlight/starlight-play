@@ -1,3 +1,7 @@
+## REWARD-CALENDAR-POLISH — complete
+
+LIVE:main8ae4cd6317e56aea0cb32faf4490bcbdc7b6eb22;Pages40520151950 SUCCESS;4/4hostedfiles exact match. SQL20261027141847;3private source/ACLmatches and perks copy verified.184suites/build;12localSQLgroups;92recovery files. No live claims,grants,notices or player mutations. Existing item quantities and purchased capacity retained;over-capacity Bags can spend/deposit and new supplies overflow safely. APP unchanged. Next post-change backup dueOct28;do not repoll old point. Local temporary tabs/cache fixtures removed;private screenshots retained outsideGit. No new automation or background system.
+
 ## REWARD-CALENDAR-POLISH — October27
 
 Owner-requested Pass capacity removal and calendar/Mart/Oak polish:184 suites/build,12 isolated SQL groups,4 responsive real DOM states and actual cart confirmation/dialog checks pass. Migration20261027141847 installed;3source/ACL and category copy matches. Four-file publication pending. No live claim/grant,notice,provider check or item mutation;APP unchanged.

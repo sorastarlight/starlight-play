@@ -32,7 +32,7 @@
     {
       id: "after",
       title: "PC, Pokédex, and supplies",
-      body: "Caught Pokémon are stored in My PC. Your Pokédex records the species. An escape leaves no Pokémon. Restock Balls, Berries, and Honey at the Mart, from Daily Trainer Supply, or by playing.",
+      body: "Caught Pokémon are stored in your PC. Your Pokédex records the species. An escape leaves no Pokémon. Restock Balls, Berries, and Honey at the Mart, from Daily Trainer Supply, or by playing.",
       links: [
         { href: "./storage.html", label: "My PC" },
         { href: "./pokedex.html", label: "My Pokédex" },

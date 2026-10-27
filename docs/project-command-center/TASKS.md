@@ -593,3 +593,5 @@ PC-STORAGE-POLISH published main7b90ae50;8/8 hosted sources match. Complete.
 PC-STORAGE-POLISH follow-up: immediate item dragging with serialized saves locally complete;166 suites.
 
 PC-STORAGE-POLISH: sprite-preserving arrangement correction validated;167 suites and real DOM identity checks.
+
+PLAYER-ADDRESS-COPY: reviewed personal feature names versus direct-address wording across runtime pages/modules;copy-only cleanup validated.

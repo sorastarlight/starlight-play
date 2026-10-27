@@ -2856,3 +2856,5 @@ PC immediate-drag publication complete: main e4ae76f7, Pages40397884225 success,
 
 2026-10-26 PC item flash: corrected remaining grid.innerHTML rebuild on layout-only moves.30 existing cells/images retained;real local DOM identity checks passed for drag/auto-arrange;167 suites/build pass. One runtime file;no hosted player calls.
 PC sprite reuse publication: main91abffba,Pages40398920453;exact hosted js/pc-items.js source match confirmed. Actual local drag and auto-arrange retain all original cells/images before and after delayed save. Featureef31dd83;no hosted player calls.
+
+2026-10-26 player-address copy: use your bag/your PC/your account in instructions, errors, confirmations and gates;retain My Bag/My PC/My Account feature labels and navigation references. Eight focused suites and build validation pass. Copy-only, no authority or player changes.

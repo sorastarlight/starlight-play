@@ -4,6 +4,13 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PLAYER-ADDRESS-COPY",
+      "status": "done",
+      "scope": "Natural second-person instructions while preserving personal feature names",
+      "evidence": "8 focused suites and build validation;copy-only diff",
+      "nextAction": "Scoped publication/source check"
+    },
+    {
       "id": "PC-STORAGE-POLISH",
       "status": "done",
       "scope": "My Bag naming and stable PC transfers/feedback/layout",

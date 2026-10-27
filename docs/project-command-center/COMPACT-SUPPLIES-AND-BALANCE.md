@@ -57,3 +57,5 @@ Oak's proposed basic daily package has about 280 coins of replacement value (2x1
 Existing published packs deliver 14–21 physical items and catalog replacement value starts at 1,540. Proposed weekly Pass drops stay below the smallest existing Bits pack by both bulk and listed value. Bits should remain immediate larger bundles. A month of earned subscription supplies naturally exceeds a single small Bits purchase; do not imply every Bits pack exceeds a month of Pass. No Bits price/provider changes proposed. Long-term inflation and item usefulness still need player observation; catalog math is an initial guardrail.
 
 Activation of the rebalance requires an owner decision and exact tested SQL/config migration. Preserve accrued gifts, verified-period policy, whole-bundle Bag-first delivery, overflow boxes and owner-only testing exception.
+
+Publication: main `370a21bf3b2ba5acd07aa4a520cd18f98b49b6c9`, Pages `40552441282`; all eight deployed files match reviewed source. Frontend only; no hosted claims, application calls or SQL. APP unchanged.

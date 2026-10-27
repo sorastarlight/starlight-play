@@ -106,6 +106,8 @@ window.playBindAccountNav = function playBindAccountNav(options) {
   // this never polls the materializing PC endpoint from navigation.
   window.playSetPcGiftCount=function(count,id=notificationUser){
     if(!id||id!==notificationUser)return;
+    // A delivery arriving while the loaded Items tab is visible is already seen.
+    if(count===null&&document.body?.classList?.contains('pc-items-mode')&&document.querySelector('[data-pc-grid]'))count=0;
     try{const key='pc-gifts:'+id,previous=Number(localStorage.getItem(key))||0;localStorage.setItem(key,String(count===null?Math.max(1,previous):Math.max(0,Number(count)||0)));}catch(_){}
     pcGiftBadge();
   };

@@ -21230,3 +21230,10 @@ html:has(.calendar-item-dialog[open]){overflow:hidden}
 .oak-streak-prize{padding:7px 0}.oak-claim-status{margin:5px 0}
 .pc-gift-nav-dot{display:inline-block;margin-left:4px;color:#b62d83;font-size:10px;vertical-align:top;line-height:1}
 @media(max-width:600px){.pass-day .calendar-day-preview,.oak-pass-card .calendar-day-preview{min-height:146px}.mart-pass-compact .pass-showcase{padding:12px}.calendar-day-preview .pass-day-name{font-size:12px}}
+
+/* Show every supply; let the larger reward list determine both card heights. */
+.mart-pass-compact .pass-reward-card{grid-template-rows:auto minmax(min-content,1fr) auto 44px}
+.mart-pass-compact .pass-reward-card>.pass-reward-contents{height:auto;max-height:none;overflow:visible;align-content:start}
+/* Badges overlay their anchors and never participate in navigation layout. */
+.topnav-link,.account-button{position:relative}
+.pc-gift-nav-dot,#account-notification-dot{position:absolute;top:0;right:0;margin:0;width:10px;height:10px;min-width:0;padding:0;border:2px solid #fff;border-radius:50%;background:#b62d83;color:transparent;font-size:0;line-height:0;pointer-events:none}

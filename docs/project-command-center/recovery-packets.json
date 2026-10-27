@@ -547,6 +547,19 @@
           "sha256": "7150a8371f4145d85d0a50814e60b408c5d40c86eb8b7bdfb578337317d9c182"
         }
       ]
+    },
+    {
+      "version": "20261027113546",
+      "files": [
+        {
+          "file": "supabase/unapplied/supply-bundle-delivery/INSTALL.sql",
+          "sha256": "3509b79834678585b56e79eb5d729f1b249a74da60ff3197a32174ec1a379218"
+        },
+        {
+          "file": "supabase/unapplied/supply-bundle-delivery/ROLLBACK.sql",
+          "sha256": "7a1e0b62808423914ead3824cc0147b9e3f21213a88c76b00bfddae59d66126b"
+        }
+      ]
     }
   ]
 }

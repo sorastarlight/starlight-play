@@ -316,3 +316,4 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 |20261027043338 verified_utc_pass_supply_crates|supabase/unapplied/pass-calendar/INSTALL.sql|supabase/unapplied/pass-calendar/ROLLBACK.sql|Owner-approved;9source/ACLmatches;privateRLS/access and trigger verified. Early rollback refuses earned records;STOP.sql retains rewards.|
 
 |20261027045352 pass_week_claim_history|supabase/unapplied/pass-week-view/INSTALL.sql|supabase/unapplied/pass-week-view/ROLLBACK.sql|One private read helper;source and ACLverified;no reward mutation.|
+|20261027113546 supply_bundle_delivery|supabase/unapplied/supply-bundle-delivery/INSTALL.sql|supabase/unapplied/supply-bundle-delivery/ROLLBACK.sql|

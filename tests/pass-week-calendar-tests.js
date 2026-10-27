@@ -7,3 +7,6 @@ assert(!calendar.html({passDays:days},false).includes('id="claim-daily"'));asser
 assert(calendar.html({},true).includes('history is unavailable'));assert(!calendar.html({},true).includes('data-pass-missed'));
 assert(!calendar.html({passDays:days.map(d=>({...d,state:'<script>bad</script>',start:'invalid'}))},true).includes('<script>'));
 console.log('Calendar rendering: seven days, claimed/missed/unverified/upcoming, lapse, missing history and invalid input pass');
+
+for(const bad of [Array(7).fill(null),Array(7).fill(undefined),Array(7),Array(7).fill("ready"),Array(7).fill([])]){const output=calendar.html({passDays:bad},true);assert(output.includes("history is unavailable"));assert(!output.includes("claim-daily"));assert(!output.includes("data-pass-missed"));}
+console.log("Malformed/sparse day records fail closed without blocking the Mart render");

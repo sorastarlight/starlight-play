@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "HUB-PRODUCT-COPY-PREPARATION",
+      "status": "in_progress",
+      "scope": "Prepare product-copy semantics without wiring legacy mutations",
+      "evidence": "ADMIN-HUB-PRODUCT-COPY-PREPARATION.md",
+      "testResults": "21 private local planning checks;four rendered widths;actual quantity/review/cancel/account-clear checks",
+      "nextAction": "Ordinary product copy proposed;Bits mapping and shared avatar collection decisions held. No server/frontend activation."
+    },
+    {
       "id": "HEALTH-SUMMARY-PARITY",
       "status": "done",
       "scope": "Show existing subsystem statuses and reject unsuccessful health payloads",

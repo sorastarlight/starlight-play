@@ -1,3 +1,7 @@
+# Latest heartbeat October27 06:18UTC
+
+Source inventory recorded in ADMIN-ENTRY-PARITY-OCT27.md;32root pages have no duplicate static IDs. No runtime change. Native product/category deletion and duplication remain explicit parity questions;do not retire old entries based only on RPC-name counts. Backup observation due after07:44UTC. Production575b45bb unchanged.
+
 # Latest heartbeat October27 05:48UTC
 
 Published main575b45bb; Pages40457482920 succeeded; exact hosted js/pass-calendar.js matches.173suites/build pass;no live application call. Malformed history records now use the existing unavailable message. Continue independent checks;next backup after07:44UTC,hardstop13:18UTC.

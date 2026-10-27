@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "ADMIN-ENTRY-PARITY-OCT27",
+      "status": "done",
+      "scope": "Loaded-script endpoint inventory and static HTML identity audit",
+      "evidence": "ADMIN-ENTRY-PARITY-OCT27.md",
+      "testResults": "32pages no duplicate static IDs;source replacement mapping only",
+      "nextAction": "Complete feature parity;do not treat endpoint counts as full migration proof"
+    },
+    {
       "id": "PASS-HISTORY-UNAVAILABLE-GUARD",
       "status": "done",
       "scope": "Keep Mart rendering when calendar day records are malformed",

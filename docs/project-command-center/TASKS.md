@@ -608,3 +608,5 @@ Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage fil
 - READINESS-OCT27-CONTINUATION done:166hostedsources,711references,1500arrangements,84recoveryhashes;private entry baseline refreshed after inspected copy-only drift. No new deployment or hosted application action.
 
 PASS-HISTORY-UNAVAILABLE-GUARD:173suites/build pass;null/sparse record crash corrected;one-file main575b45bb deployment in progress. No SQL/reward/provider action.
+
+ADMIN-ENTRY-PARITY-OCT27:source inventory and32page static-ID audit complete;remaining capability review held before old-entry retirement. No runtime or production change.

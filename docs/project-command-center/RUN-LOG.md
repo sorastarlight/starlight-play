@@ -2898,3 +2898,5 @@ October27 continuation:166/166 hosted static sources match c188b1ca;711localrefe
 October27 05:48UTC heartbeat:confirmed null-day TypeError in Pass history renderer;guarded existing unavailable state for malformed records.173suites/build pass;exact one-file main575b45bb;Pages40457482920 pending verification. No application RPC or player mutation.
 
 Published main575b45bb; Pages40457482920 succeeded; exact hosted js/pass-calendar.js matches.173suites/build pass;no live application call.
+
+October27 06:18UTC:32root HTMLpages have no duplicate static IDs. Admin entry source inventory distinguishes87old/65native literal RPCnames and verified replacement wrappers;50old-onlynames are not automatically feature gaps. Product/category deletion/duplication remain explicit parity items;no cutover or destructive action. See ADMIN-ENTRY-PARITY-OCT27.md.

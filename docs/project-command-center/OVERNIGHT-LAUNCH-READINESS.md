@@ -1,3 +1,7 @@
+## Pouch checkout guard — owner approved and verified
+
+LIVE:owner approved checkout guard installation and source-only verification. Migration20261027164355;public.play_buy_cart(jsonb,uuid) exactly matches tested candidate;ACL unchanged.12localSQLgroups previously passed;reviewed install/rollback bytes match. No hosted purchase,refund,balance/history repair,notice,frontend publication or APPstamp. Main1ad755ab unchanged. Next post-change physical backup dueOct28;do not repoll old point. Approval spent.
+
 ## Reward boxes and calendar polish — final verified handoff
 
 LIVE main1ad755ab3afa859d44e69c38ad34a163c6110b63;Pages40537904926 SUCCESS;10/10hostedfiles exact matches. SQL20261027155547;17function/ACLmatches andprivateRLS/denials/index verified.186suites/build;23localSQLgroups;94recovery files. Owner repeat usesone main claim panel,without duplicateclaimIDs. New sealed overflow gifts and missed verified supplies are active;existing looseitems,legacy pending catchreceipt redemption and earned reward snapshots retained. No live claim/extraction/grant,provider call,notice,balance repair or APPstamp. Separate Pouch-cap correction is HELD:12SQLgroups,guarded one-function install/rollback published for ownerdecision;no refund or purchase test. Next post-change backup dueOct28;no automation. Temporary local tabs/files closed/removed;private screenshots andfictional rehearsals remain outsideGit.

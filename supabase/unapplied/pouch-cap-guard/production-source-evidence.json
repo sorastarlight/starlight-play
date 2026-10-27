@@ -1,0 +1,8 @@
+{
+  "migration": "20261027164355",
+  "verifiedAt": "2026-10-27T16:44:15.063Z",
+  "signature": "play_buy_cart(jsonb,uuid)",
+  "sourceMatches": true,
+  "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+  "classification": "PRODUCTION SOURCE ONLY; no purchases, refunds, player-data edits or notices"
+}

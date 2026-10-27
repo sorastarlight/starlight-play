@@ -612,6 +612,19 @@
           "sha256": "af2e34df255de3c2f944c2625c6bd3367b0f3919dd9e796747d9a9f2e3d8d078"
         }
       ]
+    },
+    {
+      "version": "20261027164355",
+      "files": [
+        {
+          "file": "supabase/unapplied/pouch-cap-guard/INSTALL.sql",
+          "sha256": "eec3c795d2c8660bb25381e96d81f3f088679420654e33db69108712470a05d8"
+        },
+        {
+          "file": "supabase/unapplied/pouch-cap-guard/ROLLBACK.sql",
+          "sha256": "502ca9956dbf8997d916be43f4ea93c8d8ba6e45446943ce12571392083a0271"
+        }
+      ]
     }
   ]
 }

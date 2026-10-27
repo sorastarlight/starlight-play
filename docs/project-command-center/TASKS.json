@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "POUCH-CAP-GUARD",
-      "status": "blocked",
+      "status": "done",
       "scope": "Reject Pouch orders that would charge for clipped capacity",
       "evidence": "../../supabase/unapplied/pouch-cap-guard/README.md",
       "testResults": "12 local SQL groups;no production installation/purchase/refund",
-      "nextAction": "Owner decision required for extra production economy correction;existing source and fictional reproduction confirm8pouches960coins can deliver only50spaces nearcap. Exact guarded install/rollback prepared."
+      "nextAction": "LIVE:owner approved checkout guard installation and source-only verification. Migration20261027164355;public.play_buy_cart(jsonb,uuid) exactly matches tested candidate;ACL unchanged.12localSQLgroups previously passed;reviewed install/rollback bytes match. No hosted purchase,refund,balance/history repair,notice,frontend publication or APPstamp. Main1ad755ab unchanged. Next post-change physical backup dueOct28;do not repoll old point. Approval spent."
     },
     {
       "id": "REWARD-GIFT-BOXES",

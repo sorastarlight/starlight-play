@@ -539,3 +539,5 @@ COMPACT-SUPPLIES: Owner requested smaller panels, truthful calendar labels, gift
 COMPACT-SUPPLIES LIVE main370a21bf;8/8static files match;Pages40552441282.187suites/build;no hosted application calls. Owner asked for a proposed reward list, not activation; hold rebalance. PC nav dot follows observed deliveries/PC refresh, with no new polling.
 
 SUPPLY-VISIBILITY LIVE:main5b91f8cb631297bc636d3a15965c207f811ca8d6;Pages40556923371 SUCCESS;3/3static files exactly match.187suites/build;four-width overlay/no-inner-scroll checks;24-item stress plus regular four-item layout. PC unseen-delivery dot clears on loaded Items view, not box opening;later deliveries re-light it. No SQL,hosted claims,notice calls or APPstamp.
+
+NOTIFICATION-MENU LIVE:main2d55793aa96a94d607ebf11bd5b73c5b968bd333;Pages40561429181 SUCCESS;CSS exact source match. Eight local menu-count layouts retain40px height/no wrap;soft static overlay glow;build pass. CSS only,no hosted account/notice/application calls,SQL or APPstamp.

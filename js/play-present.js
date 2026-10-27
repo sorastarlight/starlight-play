@@ -210,7 +210,7 @@
     if (event?.tier === TIER.toast || event?.tier === TIER.card || event?.tier === TIER.moment) {
       return event.tier;
     }
-    if (event?.kind === "supply-claim") return TIER.card;
+    if (event?.kind === "supply-claim" || event?.kind === "gift-box-saved") return TIER.card;
     if (type === "pokedex" || type === "level" || type === "evolution" || type === "legendary" || type === "mythical" || type === "special-event") return TIER.moment;
     if (type === "support") {
       const round = root.playCurrentRound?.() || root.PLAY_ROUND;
@@ -271,7 +271,7 @@
     const event = {
       id,
       type,
-      kind: String(raw.kind || type),
+      kind: payload.destination === "storage.html#items" && payload.stored && /gift box/i.test(raw.title || "") ? "gift-box-saved" : String(raw.kind || type),
       title: String(raw.title || defaultTitle(type, shiny)),
       subtitle: String(raw.subtitle || raw.body || payload.name || payload.description || ""),
       body: String(raw.body || payload.description || ""),
@@ -380,7 +380,7 @@
   }
 
   function summaryEvent(events, opts) {
-    const rows = asArray(events).filter((row) => row && row.type !== "summary" && row.type !== "error");
+    const rows = asArray(events).filter((row) => row && row.type !== "summary" && row.type !== "error" && row.kind !== "gift-box-saved");
     if (rows.length < 2) return null;
     if (opts?.source === "evolution") return null;
     const rewards = [];
@@ -392,6 +392,8 @@
       if (row.type === "level") news.push(`Trainer Level ${row.to || ""}`.trim());
       if (row.type === "item" && row.item) news.push(`${itemLabel(row.item)}${row.qty ? ` ×${row.qty}` : ""}`);
     });
+    // Operational notices are not reward grants. Never reveal an empty summary.
+    if (!rewards.length && !news.length) return null;
     return normalize({
       id: `summary:${opts?.source || "batch"}:${rows.map((row) => row.id).join("+")}`.slice(0, 180),
       type: "summary",
@@ -861,14 +863,14 @@
     }).join("");
     await runPanel(event, `<article class="play-present-card supply-reveal" data-present-panel>
       ${fxHtml()}<div class="celebration-rays" aria-hidden="true"></div>
-      <p class="play-present-kicker">${esc(event.kicker||"A little boost for your adventure")}</p>
+      <p class="play-present-kicker">${esc(event.kicker||(event.kind==="gift-box-saved"?"Saved rewards":"A little boost for your adventure"))}</p>
       <h2>${esc(event.title)}</h2>
-      <ul class="supply-reveal-grid">${cards}</ul>
+      ${event.kind === "gift-box-saved" ? '<img class="calendar-detail-art" src="images/items/poke-gift-box.png" alt="Reward gift box"><p><a href="./storage.html#items">View gift boxes in My PC</a></p>' : `<ul class="supply-reveal-grid">${cards}</ul>`}
       <p class="play-present-sub">${esc(event.body)}</p>${continueHtml()}</article>`);
   }
 
   async function presentCard(event) {
-    if (event.kind === "supply-claim") return presentSupply(event);
+    if (event.kind === "supply-claim" || event.kind === "gift-box-saved") return presentSupply(event);
     if (event.type === "achievement") return presentAchievement(event);
     if (event.type === "achievement") cue("achievement.unlock");
     else if (event.type === "support") cue("support.thankyou");
@@ -1013,6 +1015,7 @@
     const extra = context.noSummary ? null : summaryEvent(incoming, context);
     const events = extra ? incoming.concat(extra) : incoming;
     events.forEach((event) => {
+      if (event.kind === "gift-box-saved") root.playSetPcGiftCount?.(null);
       markSeen(event.id);
       if (event.tier === TIER.toast) toastQ.push(event);
       else blocking.push(event);

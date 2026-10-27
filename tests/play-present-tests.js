@@ -304,6 +304,14 @@ async function run() {
     const event=window.playPresentNormalize({id:'small-supply-check',type:'item',kind:'supply-claim',title:'Gift box opened!',rewards:[{type:'pokeball',amount:1}]});
     assert(event.tier==='card',event.tier);
   });
+  await test('Saved gift boxes show a clear illustrated card, never an empty rewards summary', () => {
+    const event=window.playPresentNormalize({id:'saved-box-review',kind:'loot',title:'Gift box sent to My PC',body:'Your gift box is ready in PC item storage.',payload:{stored:{pokeball:3},destination:'storage.html#items'}});
+    assert(event.kind==='gift-box-saved');assert(event.tier==='card');
+    const source=require('fs').readFileSync('js/play-present.js','utf8');
+    const start=source.indexOf('  function summaryEvent('),end=source.indexOf('\n  function liveHost',start);
+    const summary=require('vm').runInNewContext(source.slice(start,end)+'; summaryEvent', {asArray:v=>Array.isArray(v)?v:[],normalize:v=>v});
+    assert(summary([event,{type:'info',id:'other'}],{})===null);
+  });
   const failed = results.filter((row) => !row.passed);
   console.log(`play-present tests: ${results.filter((row) => row.passed).length} passed, ${failed.length} failed`);
   failed.forEach((row) => console.log(`  FAIL ${row.name}: ${row.detail}`));

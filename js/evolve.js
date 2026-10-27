@@ -224,7 +224,7 @@
         setOakBubble("Excellent! These Pokémon are ready for transfer.");
         return;
       }
-      setOakBubble("Send me Pokémon and I'll study their Evolution Line!");
+      setOakBubble("Send me your Pokémon! I'll study their Evolution Lines and reward you with Evolution Candy!");
       return;
     }
     if (activeTab === "research") {

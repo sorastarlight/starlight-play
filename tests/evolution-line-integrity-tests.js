@@ -31,13 +31,9 @@ test("family rebuild migration exists and asserts Pikachu/Sandshrew", () => {
   assert(fixMig.includes("evolution_rules"));
 });
 
-test("approved Oak research copy is exact", () => {
-  assert(evoHtml.includes("Send Pokémon to <strong>Professor Oak</strong> to earn <strong>Evolution Candy</strong> for their <strong>Evolution Line</strong>."));
-  assert(evoHtml.includes("<strong>Evolution transforms that Pokémon into its evolved form—it does not create an additional copy.</strong>"));
-  assert(evoHtml.includes("<strong>Evolution Stones</strong> and <strong>Linking Cords</strong>"));
-  assert(evoHtml.includes('href="./store.html#evolution"'));
-  assert(evoHtml.includes("<strong>Mart</strong>"));
-  assert(evoHtml.includes("While <strong>Kanto</strong> is the active region"));
+test("Oak instructions use the requested direct header", () => {
+  assert(fs.readFileSync('js/evolve.js','utf8').includes("Send me your Pokémon! I'll study their Evolution Lines and reward you with Evolution Candy!"));
+  assert(!evoHtml.includes('Research Notes'));
 });
 
 test("page is Prof. Oak's Lab with Send + Evolve tabs", () => {

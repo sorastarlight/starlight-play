@@ -78,12 +78,9 @@ test("Counters live in Evolution workspace / stations, not floating header chip"
   assert(js.includes("eligibleTransferMons"), "authoritative eligibility filter missing");
 });
 
-test("Research notes are collapsed by default", () => {
-  assert(html.includes("evo-research-notes"), "research notes missing");
-  assert(html.includes("<details class=\"evo-research-notes\">"), "details element missing");
-  assert(!/<section class="evo-research evo-station-card"/.test(html), "large instruction card must leave main flow");
-  assert(html.includes("evo-station-context"), "contextual sentence missing");
-  assert(html.includes("Research Notes ▸") || html.includes("Research Notes"), "research notes summary missing");
+test("Research notes are removed at owner request", () => {
+  assert(!html.includes('evo-research-notes'));
+  assert(html.includes('evo-station-context'));
 });
 
 test("Collection toolbar is cohesive", () => {
@@ -94,7 +91,7 @@ test("Collection toolbar is cohesive", () => {
 });
 
 test("Oak contextual messages cover transfer, evolution, and research tracks", () => {
-  assert(js.includes("Send me Pokémon and I'll study their Evolution Line!"), "transfer idle missing");
+  assert(js.includes("Send me your Pokémon! I'll study their Evolution Lines and reward you with Evolution Candy!"), "transfer idle missing");
   assert(js.includes("Excellent! These Pokémon are ready for transfer."), "transfer selection missing");
   assert(js.includes("Let's see what your Pokémon can become!"), "evolution idle missing");
   assert(js.includes("Ah! One of your Pokémon is ready to evolve!"), "evolution ready missing");

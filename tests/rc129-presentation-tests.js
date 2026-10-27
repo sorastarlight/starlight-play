@@ -81,13 +81,13 @@ test("Sort option wording is standardized and Ready first stays Evolution-only",
   assert(evolveJs.includes('els.sort?.value || "dex-asc"'), "default dex-asc must remain");
 });
 
-test("Research-tab Notes are gone; Transfer and Evolution notes remain", () => {
+test("Research Notes are removed across all Lab tabs", () => {
   assert(!researchTab.includes("evo-research-notes"), "research-tab notes must leave");
   assert(!researchFn.includes("oak-research-notes"), "research renderer must not inject notes");
   assert(!historyFn.includes("oak-research-notes"), "history must not inject notes");
   assert(!evolveJs.includes("researchNotesHtml"), "research notes helper must leave");
-  assert(sendTab.includes("evo-research-notes"), "transfer notes must remain");
-  assert(evolveTab.includes("evo-research-notes"), "evolution notes must remain");
+  assert(!sendTab.includes("evo-research-notes"), "transfer notes must leave");
+  assert(!evolveTab.includes("evo-research-notes"), "evolution notes must leave");
 });
 
 test("Shared progress presentation uses tokens without changing authority math", () => {

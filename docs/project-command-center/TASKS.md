@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| COMPACT-SUPPLIES | done | Compact Pass/Oak, gift notice/PC hint, balance proposal | Existing calendars | Owner requested/routine frontend | 187 suites; four local widths; reward activation held |
 | POUCH-CAP-GUARD | done | Prevent charging for clipped Pouch upgrades | Existing checkout | Owner approved/install verified | SQL20261027164355;source/ACL match;12local checks;no purchase or refund |
 | REWARD-GIFT-BOXES | done | Sealed overflow gifts, full day previews, rare rotation, Oak/purchase polish | Existing PC/Pass | Owner requested | SQL20261027155547;main1ad755ab;10/10source matches;186suites;23SQLgroups |
 | REWARD-CALENDAR-POLISH | done | Clickable supplies, local reset times, compact Oak, confirmed cart and no Pass capacity perk | Existing calendars/PC | Owner requested | SQL20261027141847;main8ae4cd63;Pages40520151950success;3SQL+4hostedmatches;no claims |

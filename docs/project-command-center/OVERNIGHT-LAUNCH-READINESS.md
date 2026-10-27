@@ -473,3 +473,5 @@ Owner-requested overflow/deposit/withdraw workflow is LIVE:main26cf6f7d,Pages403
 
 October 27 07:18 UTC — PC account-transition review: added deferred-response tests proving both successful and failed old-account reads cannot replace a newly loaded account workspace, update its counters, or notify it. Both cases pass, alongside existing transfer/account-change and arrangement queue tests. All 84 recovery packet hashes verified; no SQL executed. No runtime change or deployment. Physical backup observation remains due after 07:44 UTC.
 
+
+October 27 08:18 UTC — LOCAL HARNESS: added eight grid keyboard boundary/Home/End cases plus native Tab and non-grid-input checks. All pass; transfer response-loss/stale-count recovery and late-account-read suites also pass. No runtime edit or deployment. These tests do not replace actual assistive-device evidence. Post-change backup availability is already complete; no repeat observation needed. Next: deeper rejected-transfer/account-transition review and remaining local rendered checks.

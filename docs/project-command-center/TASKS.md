@@ -5,7 +5,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
 | POUCH-CAP-GUARD | blocked | Prevent charging for clipped Pouch upgrades | Existing checkout | Separate owner decision |12SQLgroups;guarded install/rollback ready;no refund or production mutation |
-| REWARD-GIFT-BOXES | done | Sealed overflow gifts, full day previews, rare rotation, Oak/purchase polish | Existing PC/Pass | Owner requested | SQL20261027155547;main7581e1d5;10/10source matches;owner-repeat tinyfollowup pending |
+| REWARD-GIFT-BOXES | done | Sealed overflow gifts, full day previews, rare rotation, Oak/purchase polish | Existing PC/Pass | Owner requested | SQL20261027155547;main1ad755ab;10/10source matches;186suites;23SQLgroups |
 | REWARD-CALENDAR-POLISH | done | Clickable supplies, local reset times, compact Oak, confirmed cart and no Pass capacity perk | Existing calendars/PC | Owner requested | SQL20261027141847;main8ae4cd63;Pages40520151950success;3SQL+4hostedmatches;no claims |
 | ROTATING-SUPPLIES | done | Pass rotation and Oak streak gifts | Existing rewards/PC | Owner approved/installed/source verified | SQL20261027131755;main7dea2ff3;15SQL+6hostedmatches;no claim |
 | OWNER-SUPPLY-REPEAT | done | Sorastarlight-only 30-second repeat claims | Pass/Oak | Owner instructed proceeding | SQL20261027120308;mainc9f78b9a;180suites;11SQLgroups;2hosted matches |

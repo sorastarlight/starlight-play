@@ -1,5 +1,7 @@
 # Mart calendars, Oak and saved reward boxes
 
+Current status: LIVE main1ad755ab3afa859d44e69c38ad34a163c6110b63;Pages40537904926 SUCCESS;10/10hostedfiles exact matches. SQL20261027155547;17function/ACLmatches andprivateRLS/denials/index verified.186suites/build;23localSQLgroups;94recovery files. Owner repeat usesone main claim panel,without duplicateclaimIDs. New sealed overflow gifts and missed verified supplies are active;existing looseitems,legacy pending catchreceipt redemption and earned reward snapshots retained. No live claim/extraction/grant,provider call,notice,balance repair or APPstamp. Separate Pouch-cap correction is HELD:12SQLgroups,guarded one-function install/rollback published for ownerdecision;no refund or purchase test. Next post-change backup dueOct28;no automation.
+
 # Saved reward gift boxes and full-day previews
 
 Owner requested whole-delivery gift boxes in My PC using the supplied PNG, all-or-nothing unpacking to either Your Bag or the PC item box, exact advance Oak items, a Candy pack on Day7, complete clickable day previews and a clearer purchase reveal.
@@ -14,7 +16,7 @@ Oak keeps the same weighted common-Berry pool and quantities. A deterministic pe
 
 ROLLBACK stops new box creation and restores the previous schedule/claim preview functions, preserving the table, unopened boxes, read/redemption support and original PC quantities. RESUME restores this exact tested candidate. Neither packet deletes earned objects. LOCAL evidence:23 SQL check groups, full dependency replay,186 regression suites, build, real rendered day/purchase/box interactions and320/390/768/1024 layouts. Source-only production acceptance is intended; no hosted gameplay or protected-account writes.
 
-SQL installed: 20261027155547;17source/ACLmatches and private-access/index contract verified. Frontend publication pending. APP unchanged.
+SQL installed: 20261027155547;17source/ACLmatches and private-access/index contract verified. Frontend publication complete; see hosted-source-evidence.json. APP unchanged.
 
 Runtime scope:css/play.css,images/items/poke-gift-box.png,js/game.js,js/oak-daily.js,js/pass-calendar.js,js/pc-items.js,js/play-present.js,js/reward-boxes.js,js/store.js,storage.html.
 

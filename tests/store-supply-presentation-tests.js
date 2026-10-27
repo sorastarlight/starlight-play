@@ -13,23 +13,8 @@ const context = {
 vm.createContext(context);
 vm.runInContext(['describePass', 'dailyBonusLine', 'passSupplyTiming', 'passFloor'].map(extract).join('\n'), context);
 const render = (wallet, pass = { active: true }) => context.passFloor({ name: 'Starlight Pass' }, pass, wallet);
-const supplyButton = html => html.match(/<button id="claim-supply"([^>]*)>([^<]*)<\/button>/).slice(1);
-for (const [wallet, label, disabled] of [
-  [{ dailySupplyReady: true, dailyClaimed: false }, 'Claim Supply', false],
-  [{ dailySupplyReady: false, dailyClaimed: false }, 'On cooldown', true],
-  [{ dailySupplyReady: false, dailyClaimed: true }, 'Claimed', true],
-  [{ dailySupplyReady: true, dailyClaimed: true }, 'Claimed', true],
-  [{}, 'Claim Supply', false],
-  [null, 'Claim Supply', false]
-]) {
-  const [attributes, text] = supplyButton(render(wallet));
-  assert.equal(text, label);
-  assert.equal(/disabled/.test(attributes), disabled);
-}
-const cooldown = render({ dailySupplyReady: false, dailyClaimed: false });
-assert(cooldown.includes('not ready yet'));
-assert(cooldown.includes('>Cooldown</span>'));
-assert(!cooldown.includes('>Claimed</button>'));
+assert(!render({dailySupplyReady:true}).includes('claim-supply'));
+assert(!render({dailySupplyReady:true}).includes('Daily Trainer supply'));
 const checked = render({}, { active: true, source: 'twitch-sub', checkedAt: '2026-10-22T12:00:00Z' });
 assert.equal((checked.match(/Last checked|Checked /g) || []).length, 1, 'duplicate check timestamp');
 const off = render({}, { active: false });

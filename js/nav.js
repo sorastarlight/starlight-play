@@ -216,6 +216,10 @@ window.playBindAccountNav = function playBindAccountNav(options) {
     }
     const staff = els.staff || document.getElementById("account-staff");
     if (staff) { staff.classList.add("account-menu-btn", "account-staff-action"); staff.href = "./admin-next.html"; }
+    const notifications = document.getElementById("account-notifications");
+    const end = els.signOut?.parentElement === els.menu ? els.signOut : null;
+    // Move existing controls so visual and keyboard order agree; retain counts/listeners.
+    [home, notifications, card, staff].filter(Boolean).forEach(link => els.menu.insertBefore(link, end));
     document.getElementById("account-connections")?.remove();
     els.home = home;
     els.settings = null;

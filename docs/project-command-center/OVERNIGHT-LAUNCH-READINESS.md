@@ -1,5 +1,9 @@
 # October 27 autonomous work window
 
+## Latest October27 continuation
+
+166/166 published sources match c188b1ca;711localreferences resolve;1500seeded arrangements and84recoveryhashes pass. Focused Pass/Oak/Hub suites pass. CODEX275 original store baseline has category-copy drift; separate reviewed private baseline is prepared. No runtime changes this batch. See READINESS-OCT27-CONTINUATION.md.
+
 ## October27 continuation queue
 
 PC transfer dialog is implemented and tested; final source c188b1ca is live; Pages40455726097 succeeded and both hosted files match. Private evidence/helpers: security/pass-week-view under LOCALAPPDATA/PokemonStreamLink.173 suites, four responsive dialog widths, actual fictional deposit/withdrawal/full box/full bag/lost response/retry/reopen and Escape checks pass. Existing sprite reuse and serialized arrangement remain. Last account reset also restores withdrawal direction; no SQL/player transfer.

@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "READINESS-OCT27-CONTINUATION",
+      "status": "done",
+      "scope": "Published source integrity, PC arrangement stress, reward/UI module and Admin entry preparation review",
+      "evidence": "READINESS-OCT27-CONTINUATION.md",
+      "testResults": "166 sources;711 references;1500 arrangements;84 recovery hashes;focused module suites pass",
+      "nextAction": "Continue local UI checks;post-change backup after07:44UTC;hold critical cutover/cleanup"
+    },
+    {
       "id": "OAK-DAILY-CHECK-IN",
       "status": "done",
       "scope": "Move existing free supply from Mart to Professor Oak daily gift",
@@ -119,7 +127,7 @@
       "scope": "Old Admin/Store direct-entry cutover preparation",
       "evidence": "ADMIN-HUB-ENTRY-CUTOVER-PREPARATION.md",
       "testResults": "Pure URL cases and disconnected rendered callback-preserving redirect",
-      "nextAction": "Resolve CODEX273 and final parity before canonical entry changes",
+      "nextAction": "CODEX273 resolved. Reviewed baseline copy prepared October27 after category-copy drift; finish capability parity before entry cutover.",
       "approval": "Full migration;dependency held"
     },
     {

@@ -11,13 +11,13 @@
       if(message!==undefined)notice=message;
       if(giftDialog?.open)return;
       const ready=readyNow(),p=wallet?.dailyPreview;
-      const status=wallet?.dailyClaimed?'You’ve collected today’s gift.':wallet?'Your next gift is not ready yet.':'Checking your daily gift…';
-      host.innerHTML=`<div><p class="oak-daily-eyebrow">A gift from Professor Oak</p><h2>Daily check-in</h2><p role="status">${esc(notice || (ready?'Good to see you! Take these supplies on your next adventure.':status))}</p>
-        ${ready&&p?`<p class="oak-daily-rewards">${esc(label('pokeball'))} ×${Number(p.pokeball??3)} · ${esc(p.randomBerry?'Random common Berry':label(p.berry||'berry'))} ×${Number(p.berryQty??p.berryCount??1)} · ${Number(p.coins??40)} PokéCoins${['greatball','bait','razz','ultraball'].filter(k=>Number(p[k])>0).map(k=>' · '+esc(label(k))+' ×'+Number(p[k])).join('')}</p>`:''}
-        <small>${wallet?.ownerRepeat?'Owner testing: you can collect again 30 seconds after each check-in.':'Free for every Trainer. Resets at midnight Eastern, with a cooldown between gifts.'}</small>
-        ${Array.isArray(wallet?.oakDays)?`<div class="oak-checkin-calendar"><div class="pass-calendar-heading"><h3>Your seven-day streak</h3><strong>${Math.min(7,Math.max(0,Number(wallet.oakStreak)||0))} / 7 check-ins</strong></div>${root.PLAY_PASS_CALENDAR?.html(wallet,readyNow(),{scope:'oak'})||''}<p>${wallet.oakNotStarted?'New streak rewards begin on '+esc(wallet.oakStartsOn)+' (Eastern). ':''}${wallet.oakRewardsPaused?'New seven-day gifts are paused. Gifts you have already earned remain available.':'Check in on seven consecutive days to earn 10 Evolution Candy of your choice, 150 PokéCoins, an Evolution Stone and a rare Poké Ball.'}</p><small>A missed day starts a new streak.${wallet.ownerRepeat?' Repeat test claims count once per day.':''}</small></div>`:''}
-        ${wallet?.oakGift?'<button type="button" data-oak-completion>Choose your Evolution Candy gift</button>':''}</div>
-        <button type="button" data-oak-daily${!ready||busy?' disabled':''}>${busy?'Collecting…':ready?'Collect daily gift':wallet?.dailyClaimed?'Collected':'Not ready'}</button>`;
+      const status=wallet?.dailyClaimed?'Today’s gift collected.':wallet?'Your next gift is not ready yet.':'Checking your daily gift…';
+      const reset=root.PLAY_PASS_CALENDAR?.localTime?.(wallet?.oakResetAt);
+      host.innerHTML=`<div class="oak-pass-card"><header class="oak-pass-heading"><div><p class="oak-daily-eyebrow">Professor Oak’s Lab</p><h2>Daily check-in</h2></div><strong class="oak-streak-count">${Math.min(7,Math.max(0,Number(wallet?.oakStreak)||0))} / 7 days</strong></header>
+        ${Array.isArray(wallet?.oakDays)?`<div class="oak-checkin-calendar">${root.PLAY_PASS_CALENDAR?.html(wallet,ready,{scope:'oak'})||''}</div>`:''}
+        <div class="oak-today"><div><h3>Today’s supplies</h3>${p?`<div class="oak-daily-rewards"><span><img src="${esc(sprite('pokeball'))}" alt="">${esc(label('pokeball'))} ×${Number(p.pokeball??3)}</span><span><img src="images/items/secret-gift.svg" alt="">${esc(p.randomBerry?'Random common Berry':label(p.berry||'berry'))} ×${Number(p.berryQty??p.berryCount??1)}</span><span>${Number(p.coins??40)} PokéCoins</span>${['greatball','bait','razz','ultraball'].filter(k=>Number(p[k])>0).map(k=>'<span>'+esc(label(k))+' ×'+Number(p[k])+'</span>').join('')}</div>`:''}<p class="oak-claim-status" role="status">${esc(notice||(ready?'Ready for your next adventure.':status))}</p></div><button type="button" data-oak-daily${!ready||busy?' disabled':''}>${busy?'Collecting…':ready?'Collect daily gift':wallet?.dailyClaimed?'Collected':'Not ready'}</button></div>
+        <div class="oak-streak-prize"><span>${wallet?.oakRewardsPaused?'New streak gifts are paused. Earned gifts remain available.':'Seven days: 10 chosen Evolution Candy, 150 PokéCoins, an Evolution Stone and a rare Poké Ball.'}</span>${wallet?.oakGift?'<button type="button" data-oak-completion>Choose your Candy gift</button>':''}</div>
+        <small class="oak-reset-note">${reset?'Next daily reset: '+esc(reset)+'. Times are local to your device.':'Daily reset: midnight Eastern.'} A missed day restarts your streak.${wallet?.oakNotStarted?' Streak rewards begin '+esc(wallet.oakStartsOn)+'.':''}${wallet?.ownerRepeat?' Owner testing: collect every 30 seconds; repeats count once per day.':''}</small></div>`;
     }
     async function load(session){
       clearTimeout(cooldownTimer);
@@ -82,7 +82,7 @@
   root.PLAY_OAK_DAILY={create};if(typeof module==='object')module.exports={create};
   const host=root.document?.getElementById('oak-daily-gift'),client=root.playSupabase;
   if(host&&client){
-    const controller=create({host,client,call:(...a)=>root.playCall(...a),present:(...a)=>root.playPresentEnqueue?.(...a),toast:o=>root.playToast?.(o),label:k=>root.playItemLabel?.(k)||k});
+    const controller=create({host,client,call:(...a)=>root.playCall(...a),present:(...a)=>root.playPresentEnqueue?.(...a),toast:o=>root.playToast?.(o),label:k=>root.playItemLabel?.(k)||k,sprite:k=>root.playItemSprite?.(k)||'images/items/secret-gift.svg'});
     let changed=false,lastId;
     // Keep this module's deduplication local; the Lab owns its page-level Auth listener.
     const accept=session=>{const id=session?.user?.id||null;if(id===lastId)return;lastId=id;controller.load(session);};

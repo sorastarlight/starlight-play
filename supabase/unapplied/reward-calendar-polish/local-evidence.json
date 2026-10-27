@@ -1,0 +1,21 @@
+{
+  "classification": "LOCAL schema-only replay with fictional stats only;no player/Auth import,new export,production connection or original retained DB mutation",
+  "status": "PASS",
+  "checks": [
+    "Pass capacity removed without changing any existing inventory value",
+    "Pass status no longer affects capacity; purchased capacity retained",
+    "catalog copy cleaned while unrelated category data preserved",
+    "all seven Oak days include projected supplies and server-derived reset instant",
+    "claimed Oak calendar shows actual recorded items rather than a new random Berry",
+    "calendar day labels remain stable across database session timezones",
+    "calendar detail metadata available without exposing Secret Gift contents",
+    "each rotating Pass week contains seven distinct daily items",
+    "over-capacity Bag keeps its contents; new whole supply bundle safely goes to PC",
+    "over-capacity Bags still support normal spending and deposits to PC",
+    "guarded rollback and reinstall preserve inventory",
+    "repeat install refuses source drift"
+  ],
+  "isolationVerified": true,
+  "runtimeStopped": true,
+  "originalSchemaArchiveUnchanged": true
+}

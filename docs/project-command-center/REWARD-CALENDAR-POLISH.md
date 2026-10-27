@@ -1,0 +1,11 @@
+# Pass, Mart and Oak presentation
+
+Owner requested clickable Pass calendar items, no repeated daily item in a week, removal of the Pass bag perk and mentions, client-local reset times, confirmed Empty Cart, concise empty-cart copy, and compact Oak daily supplies.
+
+Implemented: native item-details dialog with safe sprites/text, Secret Gift masking, keyboard/backdrop dismissal and focus return; local-time resets from server period instants; compact seven-day Oak card with actual recorded grants for collected days and configured daily previews for upcoming days; sideways calendar scrolling on narrow phones; cart confirmation that preserves contents on cancel or concurrent cart changes. Daily automatic rotation already contains seven distinct items per week. Existing earned records and explicit custom staff bundles stay intact.
+
+The requested capacity removal updates only private.bag_capacity and Pass category copy. All existing item quantities and purchased capacity stay intact. Over-capacity Bags can spend and deposit; incoming whole supply bundles safely use PC overflow. Existing reward timing, cooldowns, permissions and owner-only repeat testing are unchanged. Oak forecast extras assume continued daily check-ins; its random common Berry is not chosen until collection.
+
+LOCAL:184 regression suites and build pass.12 SQL groups pass in a fresh isolated schema-only PostgreSQL17 fixture, in addition to prior dependency suites. Tests cover capacity preservation, over-capacity spend/deposit and reward overflow, actual Oak grants, timezone-stable calendar labels, safe secret previews, weekly uniqueness, guarded rollback/reinstall and drift refusal. Browser:320/390/768/1024 no horizontal page overflow, details via keyboard/Escape/backdrop with focus return; actual cart confirm/cancel flow.
+
+PRODUCTION: migration20261027141847 installed;3private function definitions/ACLs match local candidate exactly;Pass category copy verified. No live claims, grants, provider tests, notices or player-data mutations. Frontend publication pending. APP unchanged. Recovery install/rollback: ../../supabase/unapplied/reward-calendar-polish/.

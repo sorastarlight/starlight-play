@@ -1,3 +1,7 @@
+# Current owner task — Reward calendar polish
+
+Owner directly requested clickable Pass items, no repeated daily calendar item, removal of actual Pass25capacity, local reset times, compact Oak and confirmed Empty Cart. Migration20261027141847 installed and3sources/ACLs/category copy verified.184suites/build;12local SQL groups;92recovery packet files;responsive DOM and confirmation tests pass. Four runtime files ready for scoped publication. No live claims or protected-account mutation. Overnight automation remains deleted;do not recreate. Post-change physical backup dueOct28,do not repoll old point.
+
 
 ## October 27 post-change backup availability — complete
 

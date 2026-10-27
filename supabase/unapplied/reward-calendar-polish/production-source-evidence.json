@@ -1,0 +1,26 @@
+{
+  "migration": "20261027141847",
+  "verifiedAt": "2026-10-27T14:19:37.423Z",
+  "functions": [
+    {
+      "signature": "private.bag_capacity(uuid)",
+      "sourceMatches": true,
+      "acl": null
+    },
+    {
+      "signature": "private.pass_daily_item_preview(jsonb)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    },
+    {
+      "signature": "private.oak_calendar_projection(uuid)",
+      "sourceMatches": true,
+      "acl": "{postgres=X/postgres}"
+    }
+  ],
+  "perks": [
+    "Daily: one rotating item and 50 PokéCoins",
+    "Weekly: rotating supplies and 150 PokéCoins"
+  ],
+  "verification": "Source only; no live claim or player mutation"
+}

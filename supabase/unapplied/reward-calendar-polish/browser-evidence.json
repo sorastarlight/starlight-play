@@ -1,0 +1,25 @@
+{
+  "classification": "LOCAL FICTIONAL REAL DOM; claims disabled",
+  "widths": [
+    320,
+    390,
+    768,
+    1024
+  ],
+  "horizontalPageOverflow": false,
+  "itemDetails": [
+    "safe sprite and description",
+    "Escape close with focus return",
+    "backdrop close with focus return"
+  ],
+  "cart": [
+    "Keep items preserves contents",
+    "Empty cart confirms then shows Your Cart Is Empty"
+  ],
+  "localResetExample": {
+    "utc": "2026-11-02T00:00:00Z",
+    "newYork": "Nov 1, 7 PM EST",
+    "tokyo": "Nov 2, 9 AM GMT+9"
+  },
+  "hostedApplicationCalls": 0
+}

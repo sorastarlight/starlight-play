@@ -320,3 +320,5 @@ Migration20261026071051 replaces one existing staff function. Empty avatar colle
 |20261027120308 owner_supply_repeat|supabase/unapplied/owner-supply-repeat/INSTALL.sql|supabase/unapplied/owner-supply-repeat/ROLLBACK.sql|Three source/ACL matches;no live claims.|
 
 |20261027131755 rotating_pass_supplies_and_oak_streaks|supabase/unapplied/rotating-supplies/INSTALL.sql|supabase/unapplied/rotating-supplies/ROLLBACK.sql|15source/ACLmatches;privateRLS/grants and3indexes verified;no claim.|
+
+|20261027141847 reward_calendar_polish_remove_pass_capacity|supabase/unapplied/reward-calendar-polish/INSTALL.sql|supabase/unapplied/reward-calendar-polish/ROLLBACK.sql|Three private source/ACL matches and perks copy verified; no claim, inventory row change or player mutation.|

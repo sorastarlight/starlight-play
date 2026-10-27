@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "REWARD-CALENDAR-POLISH",
+      "status": "done",
+      "scope": "Clickable reward details, local reset times, compact Oak calendar, confirmed Empty Cart and removal of Pass bag capacity",
+      "evidence": "REWARD-CALENDAR-POLISH.md",
+      "testResults": "184 suites/build;12 local SQL groups;4 responsive layouts;actual dialog keyboard/backdrop and cart cancel/confirm",
+      "nextAction": "Installed migration20261027141847;3source/ACLmatches and category copy verified. Four-file publication/source verification pending. No live claims or item mutations."
+    },
+    {
       "id": "ROTATING-SUPPLIES",
       "status": "done",
       "scope": "Rotating rare Pass daily items, weekly supplies and seven-consecutive-day Oak Candy gifts",

@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| REWARD-CALENDAR-POLISH | done | Clickable supplies, local reset times, compact Oak, confirmed cart and no Pass capacity perk | Existing calendars/PC | Owner requested | SQL20261027141847;3source/ACLmatches;4file publication pending |
 | ROTATING-SUPPLIES | done | Pass rotation and Oak streak gifts | Existing rewards/PC | Owner approved/installed/source verified | SQL20261027131755;main7dea2ff3;15SQL+6hostedmatches;no claim |
 | OWNER-SUPPLY-REPEAT | done | Sorastarlight-only 30-second repeat claims | Pass/Oak | Owner instructed proceeding | SQL20261027120308;mainc9f78b9a;180suites;11SQLgroups;2hosted matches |
 | OAK-DAILY-CHECK-IN | done | Free daily gift moved to Oak Lab | Existing claim rules | Owner requested |Main df81f273;4/4source matches;173suites;no live claim |

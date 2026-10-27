@@ -24,6 +24,6 @@ assert(off.includes('id="claim-weekly" class="pass-claim-btn is-weekly" type="bu
 console.log('9 LOCAL actual Mart presentation scenarios passed; no claims or RPCs');
 
 
-const utcUnverified=render({calendar:'UTC',dailyReady:false,weeklyReady:false});assert(utcUnverified.includes('Verify Pass'));assert(utcUnverified.includes('Check your subscription to unlock this UTC period.'));
-const utcClaimed=render({calendar:'UTC',dailyReady:false,weeklyReady:false,passDailyVerified:true,passWeeklyVerified:true,passDailyDelivered:true,passWeeklyDelivered:true,passWeeklyNextAt:'2026-11-02T00:00:00Z'});assert(utcClaimed.includes('>Claimed</button>'));assert(utcClaimed.includes('UTC'));assert(utcClaimed.includes('storage.html#items'));
+const utcUnverified=render({calendar:'UTC',dailyReady:false,weeklyReady:false});assert(utcUnverified.includes('Verify Pass'));assert(utcUnverified.includes('Check your subscription to unlock these supplies.'));
+const utcClaimed=render({calendar:'UTC',dailyReady:false,weeklyReady:false,passDailyVerified:true,passWeeklyVerified:true,passDailyDelivered:true,passWeeklyDelivered:true,passWeeklyNextAt:'2026-11-02T00:00:00Z'});assert(utcClaimed.includes('>Claimed</button>'));assert(utcClaimed.includes('Times are local to your device'));assert(utcClaimed.includes('storage.html#items'));
 console.log('UTC verified, unverified and claimed presentation checks passed');

@@ -1,3 +1,7 @@
+## REWARD-CALENDAR-POLISH — October27
+
+Owner-requested Pass capacity removal and calendar/Mart/Oak polish:184 suites/build,12 isolated SQL groups,4 responsive real DOM states and actual cart confirmation/dialog checks pass. Migration20261027141847 installed;3source/ACL and category copy matches. Four-file publication pending. No live claim/grant,notice,provider check or item mutation;APP unchanged.
+
 ## CODEX-241 — Tracked delta credential review
 
 CODEX-241 tracked delta credential-format review scanned596recognized text files among598changed paths since CODEX106;two unrecognized/binary paths skipped. No selected credential-pattern flags or credential-artifact candidates. No values emitted,private store read or hosted action;production unchanged. No new critical finding or request for approval;hard stop remains14:22UTC.

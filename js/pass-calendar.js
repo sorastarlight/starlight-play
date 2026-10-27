@@ -21,7 +21,7 @@
    const rewards=(Array.isArray(d.rewards)?d.rewards:(d.reward?[d.reward]:[])).map(publicReward),main=d.reward||rewards[0],candyGift=oak&&i===6;
    const icon=candyGift?'<span class="calendar-candy-art" aria-hidden="true"><img src="images/items/evolution-candy/1.png" alt=""><img src="images/items/evolution-candy/4.png" alt=""><img src="images/items/evolution-candy/7.png" alt=""></span><span class="calendar-item-name">Evolution Candy gift pack</span>':main?visual(main):'<span class="pass-day-icon" aria-hidden="true">★</span>';
    const payload={scope:oak?'oak':'pass',title:(oak?'Day '+(i+1):['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'][i])+' · '+label,rewards,coins:d.coins,status,candyGift};
-   const action=!oak&&state==='missed'?'<button type="button" data-pass-missed>Open My PC</button>':!oak&&state==='ready'&&active?'<button id="claim-daily" class="pass-claim-btn" type="button">Claim</button>':'';
+   const action=!oak&&state==='missed'?'<button type="button" data-pass-missed>Open My PC</button>':!oak&&state==='ready'&&active&&!wallet?.ownerRepeat?'<button id="claim-daily" class="pass-claim-btn" type="button">Claim</button>':'';
    return `<li class="pass-day is-${state}${d.today?' is-today':''}"${d.today?' aria-current="date"':''}><button type="button" class="calendar-day-preview" data-calendar-day="${esc(JSON.stringify(payload))}" aria-label="Preview ${esc(payload.title)} rewards"><span class="pass-day-name">${oak?'Day '+(i+1):['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}</span><small>${esc(label)}</small>${icon}<strong>${status}</strong></button>${action}</li>`;
   }).join('')+'</ol>';
  }

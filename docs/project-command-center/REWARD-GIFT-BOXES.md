@@ -17,3 +17,5 @@ ROLLBACK stops new box creation and restores the previous schedule/claim preview
 SQL installed: 20261027155547;17source/ACLmatches and private-access/index contract verified. Frontend publication pending. APP unchanged.
 
 Runtime scope:css/play.css,images/items/poke-gift-box.png,js/game.js,js/oak-daily.js,js/pass-calendar.js,js/pc-items.js,js/play-present.js,js/reward-boxes.js,js/store.js,storage.html.
+
+LIVE:SQL20261027155547;17source/ACLmatches,privateRLS/direct browser denial,anonymous denial andpendingindex. Main7581e1d5fbef875e15f4ce125f74fc3f8d1b019b,Pages40536324688 SUCCESS;10/10hostedfiles match,including suppliedPNG.186suites/build;23SQLgroups;94recovery files. No live claim,extraction,grant,notice or player-data repair. Existing loose PC items and snapshotted rewards retained. Owner-repeat duplicate-calendar-button followup prepared and focused tests pass. Separate Pouch-cap defect reproduced;one-function guard/rollback passes12localSQLgroups and remains HELD for owner decision. No refunds. APP unchanged;nextphysicalbackupdueOct28.

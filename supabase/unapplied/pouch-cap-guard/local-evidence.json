@@ -1,0 +1,21 @@
+{
+  "classification": "LOCAL schema-only replay with fictional stats only;no player/Auth import,new export,production connection or original retained DB mutation",
+  "status": "PASS",
+  "checks": [
+    "reproduced original: eight paid Pouches cost960 but award only50 of80 advertised spaces",
+    "oversized purchase rejected before charging or granting",
+    "exactly five allowed Pouches cost600 and deliver all50 spaces",
+    "order replay does not charge twice",
+    "purchase at cap rejected",
+    "ordinary item purchase behavior preserved",
+    "split SKU rows cannot bypass total space validation",
+    "overlapping orders cannot charge for clipped space",
+    "original function permissions preserved",
+    "guarded rollback restores exact original definition",
+    "exact guarded installation succeeds",
+    "repeat install refuses source drift"
+  ],
+  "productionApplied": false,
+  "playerDataRepair": false,
+  "runtimeStopped": true
+}

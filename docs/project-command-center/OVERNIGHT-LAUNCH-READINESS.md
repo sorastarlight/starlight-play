@@ -1,3 +1,7 @@
+## Reward gifts published; extra checkout finding held
+
+LIVE:SQL20261027155547;17source/ACLmatches,privateRLS/direct browser denial,anonymous denial andpendingindex. Main7581e1d5fbef875e15f4ce125f74fc3f8d1b019b,Pages40536324688 SUCCESS;10/10hostedfiles match,including suppliedPNG.186suites/build;23SQLgroups;94recovery files. No live claim,extraction,grant,notice or player-data repair. Existing loose PC items and snapshotted rewards retained. Owner-repeat duplicate-calendar-button followup prepared and focused tests pass. Separate Pouch-cap defect reproduced;one-function guard/rollback passes12localSQLgroups and remains HELD for owner decision. No refunds. APP unchanged;nextphysicalbackupdueOct28.
+
 ## REWARD-GIFT-BOXES — current owner request
 
 Owner directly requested the new reward-storage flow. Migration20261027155547 installed/source verified:17functions/ACLs,privateRLS,no direct browser access,anonymous denial,index. Ten-file frontend publication pending. Existing item/profile/Pokémon data not rewritten. No live claims,grants,provider check or owner notices. 186suites/build;23isolatedSQLgroups;4responsivewidths;realDOMpreview/errors/cancel/extraction/purchase.94recovery packet files expected. No new automation/background system. Next post-change physical backup dueOct28;do not repoll the old recovery point. Existing loose PC stacks and earned reward snapshots retained.

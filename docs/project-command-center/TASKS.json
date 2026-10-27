@@ -4,12 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "POUCH-CAP-GUARD",
+      "status": "blocked",
+      "scope": "Reject Pouch orders that would charge for clipped capacity",
+      "evidence": "../../supabase/unapplied/pouch-cap-guard/README.md",
+      "testResults": "12 local SQL groups;no production installation/purchase/refund",
+      "nextAction": "Owner decision required for extra production economy correction;existing source and fictional reproduction confirm8pouches960coins can deliver only50spaces nearcap. Exact guarded install/rollback prepared."
+    },
+    {
       "id": "REWARD-GIFT-BOXES",
-      "status": "doing",
+      "status": "done",
       "scope": "Sealed PC overflow gifts, complete day previews, rare unique daily rotation and improved Oak/purchase presentation",
       "evidence": "REWARD-GIFT-BOXES.md",
       "testResults": "186suites/build;23isolatedSQLgroups;4responsivewidths;realDOMpreview/errors/cancel/extraction/purchase",
-      "nextAction": "Owner directly requested the new reward-storage flow. Migration20261027155547 installed/source verified:17functions/ACLs,privateRLS,no direct browser access,anonymous denial,index. Ten-file frontend publication pending. Existing item/profile/Pokémon data not rewritten. No live claims,grants,provider check or owner notices."
+      "nextAction": "LIVE:SQL20261027155547;17source/ACLmatches,privateRLS/direct browser denial,anonymous denial andpendingindex. Main7581e1d5fbef875e15f4ce125f74fc3f8d1b019b,Pages40536324688 SUCCESS;10/10hostedfiles match,including suppliedPNG.186suites/build;23SQLgroups;94recovery files. No live claim,extraction,grant,notice or player-data repair. Existing loose PC items and snapshotted rewards retained. Owner-repeat duplicate-calendar-button followup prepared and focused tests pass. Separate Pouch-cap defect reproduced;one-function guard/rollback passes12localSQLgroups and remains HELD for owner decision. No refunds. APP unchanged;nextphysicalbackupdueOct28."
     },
     {
       "id": "REWARD-CALENDAR-POLISH",

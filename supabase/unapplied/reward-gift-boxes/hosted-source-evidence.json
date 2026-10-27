@@ -1,0 +1,58 @@
+{
+  "commit": "7581e1d5fbef875e15f4ce125f74fc3f8d1b019b",
+  "run": 40536324688,
+  "verifiedAt": "2026-10-27T16:00:25.544Z",
+  "classification": "HOSTED STATIC SOURCE only; no authenticated navigation or application calls",
+  "files": [
+    {
+      "file": "css/play.css",
+      "match": true,
+      "sha256": "b6169ff7471f9333a3ce888a6d1df1070e56980d6f4da3a6ab536a44449c95a3"
+    },
+    {
+      "file": "images/items/poke-gift-box.png",
+      "match": true,
+      "sha256": "07aec3f432e0433f04f52698488c1fffd7e1a214aa1dc91397868d62d0eb7beb"
+    },
+    {
+      "file": "js/game.js",
+      "match": true,
+      "sha256": "c19852d2d1a4d2349490b0789b397d972ef0f220016c8b1f1da220bc1d5ed7de"
+    },
+    {
+      "file": "js/oak-daily.js",
+      "match": true,
+      "sha256": "2138998cd43fbb0163f3e414c0bbe7e910b5df041dc9efe4d13b4f71de6933ab"
+    },
+    {
+      "file": "js/pass-calendar.js",
+      "match": true,
+      "sha256": "68610393130137fc4e5f801c0b02ab2e0ae69198301689ab1c14eaa1427c3507"
+    },
+    {
+      "file": "js/pc-items.js",
+      "match": true,
+      "sha256": "6ed0b69157acff2434d8f32c24769fb659cc694e4350771ebf6e1fceef9e9a26"
+    },
+    {
+      "file": "js/play-present.js",
+      "match": true,
+      "sha256": "7ba8e5f693e3e5042faea5e7bc5cb8bf0d6965783cf9263e8519420a37ac8ca7"
+    },
+    {
+      "file": "js/reward-boxes.js",
+      "match": true,
+      "sha256": "7dd875e27a8135ee2d33154eff0d1de65748881ee7101b5cd6c1c626ab13110a"
+    },
+    {
+      "file": "js/store.js",
+      "match": true,
+      "sha256": "3f802af343f714d7256139fb27a598ff7bcaa0139281c8a8da79fae15e25fc66"
+    },
+    {
+      "file": "storage.html",
+      "match": true,
+      "sha256": "d618c771019493143a37cb2bec11c57dc894cd45eff01cb9dbf0a925e4eebcf7"
+    }
+  ]
+}

@@ -552,8 +552,6 @@
 
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
-    const supplyReady = wallet?.dailySupplyReady !== false && !wallet?.dailyClaimed;
-    const supplyCooldown = !supplyReady && !wallet?.dailyClaimed;
     const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.calendar==='UTC'?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
     return `<div class="mart-pass mart-pass-compact">
       <section class="pass-showcase${info.active ? ' is-active' : ''}" data-pass-hero>
@@ -582,11 +580,7 @@
         </div>
         ${wallet?.calendar==='UTC'?'<p class="pass-time-note">Daily reset: 00:00 UTC · Weekly reset: Monday. Missed verified supplies wait as crates in <a href="storage.html#items">My PC</a>.</p>':''}
         ${!info.active ? '<p class="pass-subscribe"><a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a> · Connect Twitch in My Account.</p>' : ''}
-      <section class="trainer-supply-bar" aria-label="Free daily Trainer supply">
-        <div><strong>Daily Trainer supply</strong><span class="pass-reward-chip">${supplyReady ? 'Ready' : supplyCooldown ? 'Cooldown' : 'Claimed'}</span>
-        <p>${wallet?.dailyClaimed ? 'Claimed. Come back for your next supply.' : supplyCooldown ? 'Your next supply is not ready yet.' : `Poké Ball ×${Number(wallet?.dailyPreview?.pokeball ?? 3)} · ${window.playItemLabel(wallet?.dailyPreview?.berry || 'berry')} ×${Number(wallet?.dailyPreview?.berryQty ?? wallet?.dailyPreview?.berryCount ?? 1)} · ${Number(wallet?.dailyPreview?.coins ?? 40)} PokéCoins${dailyBonusLine(wallet)}`}</p><small>Free for every Trainer. Resets at midnight Eastern; a claim cooldown applies.</small></div>
-        <button id="claim-supply" class="pass-claim-btn" type="button"${supplyReady ? '' : ' disabled'}>${supplyReady ? 'Claim Supply' : supplyCooldown ? 'On cooldown' : 'Claimed'}</button>
-      </section>
+
       </section>
     </div>`;
   }
@@ -1534,28 +1528,6 @@
           ? window.playPresentError(error, "Could not claim that reward. Please try again.")
           : window.playRpcError(error, "Could not claim that reward. Please try again.");
         if (note) note.textContent = msg;
-      } finally {
-        claimBusy = false;
-      }
-      return;
-    }
-    if (event.target.closest("#claim-supply")) {
-      if (claimBusy) return;
-      const note = document.querySelector("[data-pass-status]") || els.status;
-      const btn = document.getElementById("claim-supply");
-      claimBusy = true;
-      if (btn) btn.disabled = true;
-      try {
-        const data = await window.playCall("play_claim_daily_supply", {});
-        if (note) note.textContent = data.message;
-        presentClaim("Daily Trainer Supply", data, "daily");
-        await refreshStore();
-      } catch (error) {
-        const msg = window.playPresentError
-          ? window.playPresentError(error, "Could not claim Daily Trainer Supply. Please try again.")
-          : window.playRpcError(error, "Could not claim Daily Trainer Supply. Please try again.");
-        if (note) note.textContent = msg;
-        if (btn && btn.isConnected) btn.disabled = false;
       } finally {
         claimBusy = false;
       }

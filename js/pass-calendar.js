@@ -3,7 +3,7 @@
   const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   function html(wallet,active){
     const days=wallet?.passDays;
-    if(!Array.isArray(days)||days.length!==7)return '<p class="pass-history-note">Your weekly claim history is unavailable. Today’s supply is shown below.</p>';
+    if(!Array.isArray(days)||days.length!==7||Array.from(days).some(day=>!day||typeof day!=='object'||Array.isArray(day)))return '<p class="pass-history-note">Your weekly claim history is unavailable. Today’s supply is shown below.</p>';
     return '<ol class="pass-week" aria-label="Daily Pass supplies, Monday to Sunday">'+days.map((d,i)=>{
       const state=['ready','claimed','missed','unverified','upcoming'].includes(d.state)?d.state:'unverified';
       const date=new Date(d.start);const label=Number.isFinite(date.getTime())?date.toLocaleDateString(undefined,{month:'short',day:'numeric',timeZone:'UTC'}):'';

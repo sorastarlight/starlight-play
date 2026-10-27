@@ -2974,3 +2974,5 @@ COMPACT-SUPPLIES LIVE main370a21bf;Pages40552441282;8/8static source matches.187
 SUPPLY-VISIBILITY:Owner requested no inner reward scroll, non-shifting nav dots and acknowledge-on-view PC hint. Three runtime files tested locally;187suites/build;24-item/four-width geometry and ordinary 4-item reveal inspected. No SQL/live calls. Scoped publication next.
 
 SUPPLY-VISIBILITY LIVE:main5b91f8cb631297bc636d3a15965c207f811ca8d6;Pages40556923371 SUCCESS;3/3static files exactly match.187suites/build;four-width overlay/no-inner-scroll checks;24-item stress plus regular four-item layout. PC unseen-delivery dot clears on loaded Items view, not box opening;later deliveries re-light it. No SQL,hosted claims,notice calls or APPstamp.
+
+NOTIFICATION-MENU:Owner requested same-line notification count and subtle glow. CSS-only;realDOM empty/1/99/9999 counts at220/280px retain40px buttonheight,no overflow,and same-line label/count;build passes. Static glow adds no motion/layout space. Scoped publication next;no hosted account/application calls.

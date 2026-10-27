@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| TEAM-EDITOR-STABILITY | done | Stable team edits and synchronized stage | Existing shared editor | Owner bug report/routine frontend | 188 suites; local delayed save and rendered add/reorder; no live team change |
 | COMPACT-SUPPLIES | done | Compact Pass/Oak, gift notice/PC hint, balance proposal | Existing calendars | Owner requested/routine frontend | 187 suites; four local widths; reward activation held |
 | POUCH-CAP-GUARD | done | Prevent charging for clipped Pouch upgrades | Existing checkout | Owner approved/install verified | SQL20261027164355;source/ACL match;12local checks;no purchase or refund |
 | REWARD-GIFT-BOXES | done | Sealed overflow gifts, full day previews, rare rotation, Oak/purchase polish | Existing PC/Pass | Owner requested | SQL20261027155547;main1ad755ab;10/10source matches;186suites;23SQLgroups |

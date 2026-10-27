@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "TEAM-EDITOR-STABILITY",
+      "status": "done",
+      "scope": "Prevent competing team saves and refresh live stage/count with confirmed slots",
+      "evidence": "TEAM-EDITOR-STABILITY.md",
+      "testResults": "188 suites/build;old-source race reproduced;actual-handler delayed write/retry/picker checks;rendered reorder/add",
+      "nextAction": "Scoped two-file routine frontend publication pending;no hosted team saves or player-data changes."
+    },
+    {
       "id": "COMPACT-SUPPLIES",
       "status": "done",
       "scope": "Compact calendars, truthful gift-box notices and observed PC badge; reward split proposal only",

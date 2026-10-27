@@ -1775,11 +1775,22 @@
       () => ({ team: card?.team || [], pcStorage }),
       async (ids) => {
         const data = await window.playCall("play_set_team", { p_catch_ids: ids });
-        if (data?.trainer) card = data.trainer;
-        else if (data?.team && card) card.team = data.team;
+        const nextTeam = data?.team || data?.trainer?.team;
+        if (!Array.isArray(nextTeam)) throw new Error("Your team could not be confirmed. Refresh before trying again.");
+        if (card) card = { ...card, team: nextTeam };
         if (savedCard) savedCard = { ...savedCard, team: card.team };
         const teamEl = document.getElementById("team-slots");
         if (teamEl) window.playRenderTeamSlots(teamEl, card?.team, { mine: true });
+        const stage = els.workspace.querySelector("#team-bg-live-preview");
+        if (stage) {
+          const view = previewCard();
+          view.editor = true;
+          stage.innerHTML = window.playRenderTrainerPartyHtml(view);
+          // Updating an existing party should not replay its staggered entrance.
+          stage.querySelector?.('.tid-team-showcase')?.classList.remove('is-fanfare', 'is-fanfare-soft');
+        }
+        const count = els.workspace.querySelector(".scc-team-count");
+        if (count) count.textContent = `${(card?.team || []).filter(Boolean).length} / 6`;
         const party = els.workspace.querySelector(".scc-contextual-team");
         if (party) {
           party.innerHTML = window.playRenderTrainerPartyHtml(previewCard());

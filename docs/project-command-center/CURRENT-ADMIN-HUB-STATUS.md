@@ -17,7 +17,7 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 
 ## Remaining migration work
 
-1. CODEX-273 native Account controls are locally tested; await the important owner decision on the proposed last-sign-in safeguard before publication.
+1. CODEX-273 native Account controls and last-sign-in safeguard are installed and published: migration20261026112826, mainaf14ea65, Pages40315434912 succeeded; exact source/ACL and six frontend files verified. No actual account mutation was performed.
 2. Planning now covers all five old simulators. Retire obsolete self-grant QA instead of recreating it.
 3. The old direct entry bridge is privately prepared and unit/rendered tested (CODEX-275). Publish after the Account controls/policy dependency and final parity review. Staff navigation already uses the native Hub.
 4. Exact one-product catalog cleanup/selective restore is prepared and passes six local SQL groups (CODEX-276); destructive execution remains held. CP/AV schema retirement is already complete. Active ecology helpers are not cleanup targets (CODEX-277).
@@ -26,9 +26,9 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 
 Real Chrome linking/subscriber Pass evidence from ShinoTheWolf and Android S25 Ultra checks for Help/Register are retained. They do not establish Firefox, iOS or actual screen-reader acceptance. Keep missing real evidence explicit rather than treating fixtures as devices/provider proof. See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md).
 
-The October26 07:44:28UTC physical recovery point is available and follows latest installed migration20261026072445 (CODEX-274). Availability is verified; contents and physical restore are not. CODEX-273 remains unapplied and does not require another backup yet. Sixty-two exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
+The October26 07:44:28UTC physical recovery point is available and follows latest installed migration20261026072445 (CODEX-274). Availability is verified; contents and physical restore are not. Subsequent approved migrations include the Account safeguard, PC/berry rewards and Pass calendar/history; the newest recorded migration is20261027045352. The next completed physical backup after that change still needs observation (approximately October27 07:44UTC). Sixty-two exact install/rollback files are integrity-checked; no new export, production restore or destructive cleanup has run.
 
-Current user direction authorizes completing the redesign/migration and publishing tested changes. It does not authorize agent use of the staff mutation controls, protected-account changes, paid provider activation, destructive cleanup, a new APP stamp or final launch declaration. No new automation or parallel runner is in use.
+Current user direction authorizes completing the redesign/migration and publishing tested changes. It does not authorize agent use of the staff mutation controls, protected-account changes, paid provider activation, destructive cleanup, a new APP stamp or final launch declaration. The owner renewed the existing bounded heartbeat through October27 13:18UTC; no parallel runner is in use.
 
 Latest reports: [Product types](LAUNCH-CODEX269-SPECIAL-PRODUCT-DRAFTS.md), [Trainer styles](LAUNCH-CODEX268-TRAINER-STYLES.md), [Catalogue names](LAUNCH-CODEX267-CATALOGUE-NAMES.md), [Product contents](LAUNCH-CODEX266-PRODUCT-CONTENTS.md), [Item effects](LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md), [Special Events](LAUNCH-CODEX262-SPECIAL-EVENTS.md), [shop draft selection](LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md), [staff access](LAUNCH-CODEX258-STAFF-ACCESS.md), [image library](LAUNCH-CODEX260-IMAGE-LIBRARY.md), [spawn report](LAUNCH-CODEX261-SPAWN-REPORT.md).
 

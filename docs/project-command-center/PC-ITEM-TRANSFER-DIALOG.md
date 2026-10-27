@@ -7,3 +7,5 @@ The native dialog contains keyboard focus, closes with Escape, Close or an outsi
 Validation: 173 regression suites and build pass; fictional rendered deposit and withdrawal update both counts; Escape restores focus; 320/390/768/1024 dialog layouts have no horizontal overflow and lock the page. Existing sprite DOM identity, rapid arrangement queue, stale read and uncertain retry tests pass. No live transfer or SQL was performed. Pokémon storage code is untouched.
 
 Publication scope: js/pc-items.js and css/pc-items.css only. Routine frontend/user-requested presentation authorization. Rollback is restoring those two files from production parent df81f273.
+
+Follow-up rendered failure rehearsal found and corrected an existing recovery issue: after a lost response, the confirmed same-request retry left persistent toolbar controls disabled. The retry now receives focus and the toolbar unlocks after confirmation. Added regression assertion and rendered retry/reopen acceptance; no duplicate fictional grant. This is client recovery only.

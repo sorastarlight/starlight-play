@@ -61,8 +61,8 @@
     const message=result.quantity.toLocaleString()+' × '+label(result.item)+(result.direction==='deposit'?' transferred to your PC.':' transferred to your bag.');pending=null;remember();toast(message);
     try{await refresh(g,id);if(g===generation)say(message);}catch(_){if(g===generation)refreshFailed('Transfer completed. Refresh to update the quantities before another transfer.');}
    }catch(error){if(g!==generation)return;if(/^[0-9A-Z]{5}$/.test(error.code||'')){pending=null;remember();say(error.message||'That transfer could not be completed.');toast(error.message||'That transfer could not be completed.','error');try{await refresh(g,id);}catch(_){refreshFailed('Refresh your item box before trying again.');}}
-    else{if(bagOpen)closeBag();say('The transfer could not be confirmed. Check it before moving more items.');toast('Delivery is not confirmed. Use Check transfer; do not submit a new transfer.','warning');const retry=el.querySelector('[data-pc-retry]');retry.hidden=false;retry.disabled=false;}
-   }finally{if(g===generation){busy=false;unlock();if(pending){el.querySelectorAll('button,input').forEach(x=>x.disabled=true);el.querySelector('[data-pc-retry]').disabled=false;}else el.querySelector('[data-pc-retry]').hidden=true;}}
+    else{if(bagOpen){selected=null;closeBag();}say('The transfer could not be confirmed. Check it before moving more items.');toast('Delivery is not confirmed. Use Check transfer; do not submit a new transfer.','warning');const retry=el.querySelector('[data-pc-retry]');retry.hidden=false;retry.disabled=false;}
+   }finally{if(g===generation){busy=false;unlock();if(pending){el.querySelectorAll('button,input').forEach(x=>x.disabled=true);const retry=el.querySelector('[data-pc-retry]');retry.disabled=false;retry.focus({preventScroll:true});}else{el.querySelector('[data-pc-retry]').hidden=true;el.querySelectorAll('[data-bag-toggle],[data-sort],[data-pc-refresh],[data-pc-search],[data-bag-search],[data-bag-close]').forEach(control=>control.disabled=false);}}}
   }
   async function arrange(next){
    if(busy||pending||stale||!data)return;

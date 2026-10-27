@@ -137,7 +137,7 @@
       "scope": "Native Account controls and last-sign-in policy decision",
       "evidence": "LAUNCH-CODEX273-LOCAL-ACCOUNT-TOOLS.md",
       "testResults": "157 suites;9 real SQL groups;44 layouts;full Hub/keyboard/reset;guarded rollbacks;production migration20261026112826;Pages40315434912 success;100+6 source matches",
-      "nextAction": "Continue remaining migration parity; destructive cleanup remains held",
+      "nextAction": "Installed20261026112826 and publishedmainaf14ea65; source verified; no actual account mutation",
       "approval": "Owner explicitly approved safeguards and six-file publication October 26"
     },
     {

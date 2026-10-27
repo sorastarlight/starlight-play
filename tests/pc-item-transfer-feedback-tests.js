@@ -6,7 +6,8 @@ async function scenario(mode) {
   const input={value:'2',max:'3',disabled:false,focus(){}};
   const node={disabled:false,hidden:true,focus(){},setAttribute(){},querySelector:()=>input};
   const status={textContent:''};
-  const el={get innerHTML(){return html},set innerHTML(v){html=v;writes++},addEventListener(n,f){if(n==='click')click=f},querySelector(s){if(s==='[data-pc-grid]'&&!html.includes('data-pc-grid'))return null;return s==='[data-pc-status]'?status:s==='[data-pc-quantity]'?input:node},querySelectorAll:()=>[]};
+  const toolbar=[{disabled:false},{disabled:false}];
+  const el={get innerHTML(){return html},set innerHTML(v){html=v;writes++},addEventListener(n,f){if(n==='click')click=f},querySelector(s){if(s==='[data-pc-grid]'&&!html.includes('data-pc-grid'))return null;return s==='[data-pc-status]'?status:s==='[data-pc-quantity]'?input:node},querySelectorAll:()=>toolbar};
   const data={ok:true,bag:{pokeball:3},stored:{pokeball:4},used:3,capacity:20,slots:['pokeball',...Array(29).fill(null)],waiting:{}};
   const api=create(el,{client:{auth:{getSession:async()=>({data:{session:{user:{id:'fixture'}}}})}},uuid:()=> 'same-request',notify:n=>notices.push(n),call:async(name,args)=>{
     if(name==='play_pc_items'){reads++;if(failRead)throw Error('offline');return structuredClone(data)}
@@ -20,6 +21,7 @@ async function scenario(mode) {
   if(mode==='uncertain'){
     await act('[data-move]',{move:'deposit'});assert.equal(transfers,1,'new transfers blocked while uncertain');
     await act('[data-pc-retry]');assert.deepEqual(requests,['same-request','same-request']);
+    assert(toolbar.every(control=>!control.disabled),'confirmed retry must unlock the existing toolbar');
   } else if(mode==='refresh-failure') {
     assert.match(status.textContent,/Transfer completed/);await act('[data-move]',{move:'deposit'});assert.equal(transfers,1,'stale counts cannot cause another transfer');
     failRead=false;await act('[data-pc-refresh]');assert.match(status.textContent,/updated/);

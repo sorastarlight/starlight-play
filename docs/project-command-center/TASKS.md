@@ -13,7 +13,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 | CODEX-276 | blocked | Exact one-product cleanup/restore | Scope review | Destructive hold |6SQLgroups;no production action |
 | CODEX-275 | blocked | Old entry bridge preparation | CODEX273/parity | Full migration;dependency held |Unit/rendered redirect passed;entries untouched |
 | CODEX-274 | done | Post-change physical backup | SQL272 | Read-only |07:44:28UTC available;no restore/export |
-| CODEX-273 | blocked | Native Account and last-sign-in safeguard | Policy decision | Important owner decision pending |157suites;9SQLgroups;44layouts;no install/publication |
+| CODEX-273 | done | Native Account and last-sign-in safeguard | Owner approved | Installed/source verified; no actual account changes | Migration20261026112826;mainaf14ea65;Pages40315434912 |
 | CODEX-272 | done | Native five-tool Planning | Full migration | Completed install/publication authorized |156suites;6SQLgroups;120layouts;100+4sources;no hosted estimate |
 | CODEX-271 | done | Empty avatar publication guard | Full migration | Completed install/publication authorized |155suites;7SQLgroups;100+1sources;no actual product action |
 | CODEX-270 | done | Native category creation/all types | Full migration | Completed publication authorized |154suites;5SQLgroups;44layouts;100+3sources;no actual category action |

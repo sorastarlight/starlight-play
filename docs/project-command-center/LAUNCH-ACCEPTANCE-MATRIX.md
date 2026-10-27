@@ -1,5 +1,10 @@
 # Launch acceptance matrix
 
+## October27 current checkpoint
+
+Account controls CODEX273 are live (migration20261026112826/mainaf14ea65); older blocked statements below are historical. Latest approved database change is Pass history20261027045352. Pass calendar/week view and Oak daily check-in are live with173 local suites; PC transfer-dialog publication is in progress. Real acceptance gaps remain: Firefox symptom retest, iOS and screen-reader evidence, and broader hosted acceptance of expanded workflows. No local fixture is counted as real-device/provider proof. Next post-change physical backup observation is due after approximately07:44UTC; no restore/export authorized.
+
+
 Continuation:CODEX-275 entry bridge privately prepared/unit+rendered tested,not published;CODEX-276 exact one-product archive/removal/selective-restore packet passes6localSQLgroups,execution held;CODEX-277 current legacy-stat audit confirms CP/AV columns already retired and identifies active ecology helpers that must stay. CODEX-273 remains the important pending decision;production stays CODEX-272/main9b852266. No destructive cleanup or provider test.
 
 CODEX-274 completed post-change PHYSICAL backup available October26 07:44:28UTC,after latest migration20261026072445. Availability only;no restore/export.62 recovery files. CODEX-273 Account controls and last-sign-in safeguard are locally tested and held for owner decision;production stays CODEX-272. [Backup report](LAUNCH-CODEX274-POST-CHANGE-BACKUP.md).

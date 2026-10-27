@@ -2,7 +2,7 @@
 
 October 27, 2026: claim-button alignment is LIVE at main `bc6874b6` / Pages `40503751151`; exact hosted CSS verified. A one-item list and a 24-item list have identical button top/bottom positions, with reward lists constrained to their own scroll area.
 
-The reward redesign below is implemented and tested LOCALLY; production activation remains held for the final reward-authority decision. It uses the existing verified-period Pass policy and whole-bundle Bag-first/PC overflow delivery.
+The owner approved the exact reward-authority packet. Installed 20261027131755;all15sources/ACLs and private-table access verified. Six-file publication at main 7dea2ff35078b2183afde0c3166a043baad3d1b3 is deployed: Pages40510990734 succeeded and all six hosted files match exact reviewed source. It uses the existing verified-period Pass policy and whole-bundle Bag-first/PC overflow delivery.
 
 ## Pass daily rotation
 
@@ -48,5 +48,5 @@ The native Pass editor clearly identifies the automatic calendar and supports re
 
 LOCAL: 183 regression suites, build, 28 SQL groups, 1,461 pure date checks and 140 SQL/JS schedule comparisons pass. SQL covers all 30 stone/rare-ball combinations, duplicate/concurrent claims, retained gifts, missing days, activation cutoff, owner-repeat exclusion, permissions, mode switching and guarded rollback/resume. Rendered calendars fit 320/390/768/1024; the narrow Candy dialog and real reward reveal were inspected.
 
-Review/install/recovery: [rotating-supplies packet](../../supabase/unapplied/rotating-supplies/README.md). No live claim, grant, provider check, account mutation or cleanup was performed. APP remains `20261008-rc133`.
+Review/install/recovery: [rotating-supplies packet](../../supabase/unapplied/rotating-supplies/README.md). Production verification used source/metadata only. No live claim, grant, provider check, account mutation or cleanup was performed. APP remains `20261008-rc133`.
 

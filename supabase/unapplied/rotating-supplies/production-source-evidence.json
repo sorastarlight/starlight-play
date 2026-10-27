@@ -1,0 +1,108 @@
+{
+  "tables": [
+    {
+      "acl": "{postgres=arwdDxtm/postgres}",
+      "rls": true,
+      "name": "supply_rotation_config",
+      "anonRead": false,
+      "trainerRead": false
+    },
+    {
+      "acl": "{postgres=arwdDxtm/postgres}",
+      "rls": true,
+      "name": "oak_completion_gifts",
+      "anonRead": false,
+      "trainerRead": false
+    }
+  ],
+  "indexes": [
+    "CREATE UNIQUE INDEX oak_completion_gifts_pkey ON private.oak_completion_gifts USING btree (user_id, completed_on)",
+    "CREATE UNIQUE INDEX oak_completion_gifts_user_id_request_id_key ON private.oak_completion_gifts USING btree (user_id, request_id)",
+    "CREATE INDEX oak_completion_pending ON private.oak_completion_gifts USING btree (user_id, completed_on) WHERE (claimed_at IS NULL)"
+  ],
+  "version": "20261027131755",
+  "functions": [
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "079ce33fd1d25e1e541252a64230c888",
+      "signature": "admin_pass_rewards_read()"
+    },
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "630c07bcf67ca7204bcfac55732149fe",
+      "signature": "admin_pass_rewards_save(uuid,text,jsonb,jsonb)"
+    },
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "77ee0365d0c667161daf877d1e4e5048",
+      "signature": "admin_pass_rotation_mode(uuid,text,boolean)"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "474b636c55a90eb3213471455ff6de32",
+      "signature": "private.oak_calendar_progress(uuid,date)"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "3e8649fe27f748612f15a2f4f0f651a7",
+      "signature": "private.oak_calendar_projection(uuid)"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "4f852051b4cd79bb072ff047e93c33df",
+      "signature": "private.oak_mark_completion(uuid,date)"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "974a09a86d7a472fe521f414786a0681",
+      "signature": "private.pass_daily_item_preview(jsonb)"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "6ebe93bac5865f3cca32f67f2f24bb6a",
+      "signature": "private.pass_period_wallet(uuid)"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "400ce1c63c7a9f5ee378da5b61a369ba",
+      "signature": "private.pass_schedule_calendar(uuid)"
+    },
+    {
+      "acl": "{postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "1866110951fef370b3200c4f22b942e8",
+      "signature": "play_claim_daily_supply()"
+    },
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "46784c61943ac1e08c96acb4697dd434",
+      "signature": "play_claim_oak_completion(uuid,date,integer)"
+    },
+    {
+      "acl": "{postgres=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "c461a90e0d06ccfd098ffe74d46cbee7",
+      "signature": "play_oak_checkin_state()"
+    },
+    {
+      "acl": "{=X/postgres,postgres=X/postgres,anon=X/postgres,authenticated=X/postgres,service_role=X/postgres}",
+      "hash": "fe70e86e529372e10c5688d2258c1788",
+      "signature": "play_store()"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "f134f26cec67ab237a70e7a8e50f6ecb",
+      "signature": "private.record_pass_verification()"
+    },
+    {
+      "acl": "{postgres=X/postgres}",
+      "hash": "9bc85b4094c845aa94eb7a1d0edcb0d2",
+      "signature": "private.scheduled_pass_bundle(text,timestamp with time zone)"
+    }
+  ],
+  "activation": {
+    "enabled": true,
+    "oakFrom": "2026-10-28",
+    "passFrom": "2026-10-28T00:00:00+00:00",
+    "planHash": "d033512de1017804237de1ed8d1aec96",
+    "oakEnabled": true
+  }
+}

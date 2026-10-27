@@ -573,6 +573,19 @@
           "sha256": "10c1a2ea630dd6c31a8414eec77718bd140443ac1373d946ce40665267f07a18"
         }
       ]
+    },
+    {
+      "version": "20261027131755",
+      "files": [
+        {
+          "file": "supabase/unapplied/rotating-supplies/INSTALL.sql",
+          "sha256": "9459a7648fc02be6ce703bf037ba9c49f03663d07078af6c1b68ab09305d9310"
+        },
+        {
+          "file": "supabase/unapplied/rotating-supplies/ROLLBACK.sql",
+          "sha256": "41b5c66fefbfca40729ef8fed387a85bbb20a786bba2aea028af87d81f18df01"
+        }
+      ]
     }
   ]
 }

@@ -1,6 +1,6 @@
 # Rotating Pass supplies and Oak streak gifts
 
-LOCAL ONLY. Not installed. Owner approved the direction and any seven consecutive days for Oak; exact production installation/publication remains held.
+Owner approved the exact packet at commit88543618. Installed 20261027131755;all15functionsource/ACLs,private table access and3indexes verified. Six-file main 7dea2ff35078b2183afde0c3166a043baad3d1b3 publication is deployed and source verified: Pages40510990734 SUCCESS,6/6matches. No live claim or grant.
 
 See [reward design](../../../docs/project-command-center/ROTATING-SUPPLIES.md) and [schedule](../../../data/supply-rotation-proposal.json).
 
@@ -20,5 +20,5 @@ LOCAL SQL: 28 check groups, including 140 schedule dates compared with the pure 
 
 Frontend: 183 regression suites and build validation pass. REAL LOCAL DOM: 320/390/768/1024 calendar widths, narrow Candy dialog, choice/confirmation, real reveal engine and native Admin reward-mode review. The reward arithmetic checks use listed in-game item values, not real-money conversion or long-term economic proof.
 
-After owner approval: recheck contracts, apply only this packet, verify all function/ACL/table/index contracts and publish only the six files. Verify deployed source without invoking claims, gifts, provider checks, owner notices or authenticated navigation. No scheduler, purchase, live gameplay test, destructive cleanup or APP stamp is included.
+Completed under the exact owner approval: contracts checked, packet installed, all function/ACL/table/index contracts verified and six frontend files published/source verified. No claims, gifts, provider checks, owner notices or authenticated navigation were invoked. Any subsequent rollback/resume or hosted gameplay test needs its own appropriate authority. No scheduler, purchase, live gameplay test, destructive cleanup or APP stamp is included.
 

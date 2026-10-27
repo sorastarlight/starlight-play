@@ -153,6 +153,7 @@
   };
 
   root.playItemPurpose = function playItemPurpose(key, captureItems, identity) {
+    if (identity?.category === "berries" && identity.playerText) return identity.playerText;
     if (identity?.bestUse) return identity.bestUse;
     if (key === "bait") return "Community catch support for the whole encounter. Does not replace your Poké Ball.";
     if (key === "bag_bonus") return "Permanently add bag slots.";

@@ -426,6 +426,7 @@
       }
       return n > 0 ? `Permanently add +${n} bag slots.` : "Permanently add bag slots.";
     }
+    if (row.identity?.category === "berries" && row.identity.playerText) return row.identity.playerText;
     if (row.identity?.bestUse) return row.identity.bestUse;
     if (typeof window.playItemPurpose === "function") {
       const purpose = window.playItemPurpose(key, null, row.identity);

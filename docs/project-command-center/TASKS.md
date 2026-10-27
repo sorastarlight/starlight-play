@@ -1,3 +1,6 @@
+## October 27 autonomous Hub parity review
+
+HUB-PARITY-TRANSACTIONS in progress: exact50-name disposition inventory;disconnected candidate passes23JSchecks,23localSQLgroups and24rendered states.187 non-writing regression suites and build pass in this batch (two artifact-writing suites excluded). No production activation. See ADMIN-HUB-PARITY-AND-TRANSACTIONS.md. Current continuation ends23:34:50UTC.
 # Task queue
 
 Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy: [TASKS.json](./TASKS.json).
@@ -50,7 +53,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 | CODEX-245 | done | Audited direct trainer corrections | Owner expanded Hub | Implementation/install/go-live authorized | Live;100+5sources;remaining tools next |
 | CODEX-244 | done | Expanded Pass rewards and atomic delivery | Owner Oct25 continuation | Implementation/migration/go-live authorized | Live;direct corrections next |
 | CODEX-243 | done | Ticket workspace and native product editing | Owner Oct25 direction | Implementation/go-live authorized | Live;76products compatible;remaining integration CODEX242 |
-| CODEX-242 | in_progress | Hub redesign, shared rewards and direct corrections | Owner Oct25 request | Destructive production scope held | Pass/direct corrections and configuration live;System/Director next |
+| CODEX-242 | in_progress | Hub redesign, shared rewards and direct corrections | Owner Oct25 request | Destructive production scope held | System/Director migrated;transaction history,cosmetic revoke,product duplication and diagnostics parity remain;cleanup held |
 | CODEX-241 | done | Tracked delta credential review | CODEX-106/240 | STATIC only | 596texts;0selected flags/artifacts;2skipped |
 | CODEX-240 | done | Real acceptance and return handoff | CODEX-164/171/229/239 | Docs only | 4documents;17links;no requirements changed |
 | CODEX-239 | done | Mounted Pass draft departure | CODEX-219/227 | LOCAL only | 16cases;native keys;2suites;no runtime change |

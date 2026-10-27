@@ -1,0 +1,358 @@
+{
+  "date": "2026-10-27",
+  "classification": "STATIC source/capability disposition;not proof of full behavior or hosted execution",
+  "oldLiteralRpcNames": 87,
+  "nativeLiteralRpcNames": 66,
+  "dispositions": [
+    {
+      "rpc": "admin_advance_phase",
+      "status": "retired",
+      "workspace": "Legacy QA",
+      "evidence": "docs/project-command-center/CURRENT-ADMIN-HUB-STATUS.md",
+      "note": "Do not recreate old phase stepping/self-grant QA as normal staff tools. Local test harnesses remain separate."
+    },
+    {
+      "rpc": "admin_cancel_round",
+      "status": "replacement",
+      "workspace": "Operations",
+      "evidence": "js/admin-next-operations.js",
+      "note": "Reviewed cancel/pause/resume/start actions use admin_hub_operations_command;no live commands tested."
+    },
+    {
+      "rpc": "admin_capture_health",
+      "status": "partial",
+      "workspace": "Diagnostics",
+      "evidence": "js/admin-next-analytics.js",
+      "note": "Native health/report/config views exist but do not prove every old diagnostic invariant/field. Field-level diagnostic reconciliation remains."
+    },
+    {
+      "rpc": "admin_clear_console",
+      "status": "held",
+      "workspace": "Legacy maintenance",
+      "evidence": "docs/project-command-center/ADMIN-HUB-ENTRY-CUTOVER-PREPARATION.md",
+      "note": "No native equivalent verified. Clearing/resetting/hiding production state is not authorized;review exact need or retire explicitly."
+    },
+    {
+      "rpc": "admin_clear_round",
+      "status": "held",
+      "workspace": "Legacy maintenance",
+      "evidence": "docs/project-command-center/ADMIN-HUB-ENTRY-CUTOVER-PREPARATION.md",
+      "note": "No native equivalent verified. Clearing/resetting/hiding production state is not authorized;review exact need or retire explicitly."
+    },
+    {
+      "rpc": "admin_coin_ledger",
+      "status": "held",
+      "workspace": "Analytics",
+      "evidence": "js/admin-coin-ledger.js",
+      "note": "Old endpoint absent in current public pg_proc. Prepared new bounded read and standalone component locally;no SQL or production integration activated."
+    },
+    {
+      "rpc": "admin_content_health",
+      "status": "partial",
+      "workspace": "Diagnostics",
+      "evidence": "js/admin-next-analytics.js",
+      "note": "Native health/report/config views exist but do not prove every old diagnostic invariant/field. Field-level diagnostic reconciliation remains."
+    },
+    {
+      "rpc": "admin_content_picker",
+      "status": "replacement",
+      "workspace": "Items & Economy",
+      "evidence": "js/admin-next-create.js",
+      "note": "Native selectable reward/item catalogues replace the legacy standalone picker."
+    },
+    {
+      "rpc": "admin_content_studio",
+      "status": "replacement",
+      "workspace": "Items & Economy",
+      "evidence": "js/admin-next.js",
+      "note": "Native product/category/Pass/style/event workspaces replace the combined old studio;deletion/duplication remain separately listed."
+    },
+    {
+      "rpc": "admin_economy_health",
+      "status": "partial",
+      "workspace": "Diagnostics",
+      "evidence": "js/admin-next-analytics.js",
+      "note": "Native health/report/config views exist but do not prove every old diagnostic invariant/field. Field-level diagnostic reconciliation remains."
+    },
+    {
+      "rpc": "admin_gift_catalog",
+      "status": "replacement",
+      "workspace": "Trainer Gifts",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Native admin_trainer_rewards catalogue drives actual gift choices."
+    },
+    {
+      "rpc": "admin_gift_joined",
+      "status": "held",
+      "workspace": "Bulk reward shortcuts",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "No matching native bulk joined-participant or Bits-pack staff gift shortcut. Individual gifts are not identical;do not add mass/paid-entitlement grants silently."
+    },
+    {
+      "rpc": "admin_grant_badge",
+      "status": "replacement",
+      "workspace": "Trainer Gifts & Pass",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Audited action wrapper covers Ribbons,Candy,individual/batch Pokemon,titles,Pass override and reviewed daily/weekly regrant."
+    },
+    {
+      "rpc": "admin_grant_bag",
+      "status": "replacement",
+      "workspace": "Trainer Gifts",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Item/currency/capacity gift actions replace bag grant shortcuts;normal capacity and protected-account checks remain server-owned."
+    },
+    {
+      "rpc": "admin_grant_bits_pack",
+      "status": "held",
+      "workspace": "Bulk reward shortcuts",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "No matching native bulk joined-participant or Bits-pack staff gift shortcut. Individual gifts are not identical;do not add mass/paid-entitlement grants silently."
+    },
+    {
+      "rpc": "admin_grant_candy",
+      "status": "replacement",
+      "workspace": "Trainer Gifts & Pass",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Audited action wrapper covers Ribbons,Candy,individual/batch Pokemon,titles,Pass override and reviewed daily/weekly regrant."
+    },
+    {
+      "rpc": "admin_grant_cosmetic",
+      "status": "partial",
+      "workspace": "Trainer Gifts",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Native gift selector supports background/team-background kinds;retired frames are excluded. Not every historical cosmetic/paid pack entitlement is exposed."
+    },
+    {
+      "rpc": "admin_grant_pokemon",
+      "status": "replacement",
+      "workspace": "Trainer Gifts & Pass",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Audited action wrapper covers Ribbons,Candy,individual/batch Pokemon,titles,Pass override and reviewed daily/weekly regrant."
+    },
+    {
+      "rpc": "admin_grant_title",
+      "status": "replacement",
+      "workspace": "Trainer Gifts & Pass",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Audited action wrapper covers Ribbons,Candy,individual/batch Pokemon,titles,Pass override and reviewed daily/weekly regrant."
+    },
+    {
+      "rpc": "admin_hide_round",
+      "status": "held",
+      "workspace": "Legacy maintenance",
+      "evidence": "docs/project-command-center/ADMIN-HUB-ENTRY-CUTOVER-PREPARATION.md",
+      "note": "No native equivalent verified. Clearing/resetting/hiding production state is not authorized;review exact need or retire explicitly."
+    },
+    {
+      "rpc": "admin_item_library",
+      "status": "replacement",
+      "workspace": "Items & Economy",
+      "evidence": "js/admin-item-definitions.js",
+      "note": "Native item definitions read/save expose names,descriptions,sprites and capture effects through reviewed contracts."
+    },
+    {
+      "rpc": "admin_live_dashboard",
+      "status": "replacement",
+      "workspace": "Operations",
+      "evidence": "js/admin-next-ops.js",
+      "note": "Native snapshot plus reviewed encounter controls replace old dashboard refresh/polling."
+    },
+    {
+      "rpc": "admin_loot_overview",
+      "status": "partial",
+      "workspace": "Diagnostics",
+      "evidence": "js/admin-next-analytics.js",
+      "note": "Native health/report/config views exist but do not prove every old diagnostic invariant/field. Field-level diagnostic reconciliation remains."
+    },
+    {
+      "rpc": "admin_loot_self_test",
+      "status": "retired",
+      "workspace": "Legacy QA",
+      "evidence": "docs/project-command-center/CURRENT-ADMIN-HUB-STATUS.md",
+      "note": "Do not recreate old phase stepping/self-grant QA as normal staff tools. Local test harnesses remain separate."
+    },
+    {
+      "rpc": "admin_oak_qa",
+      "status": "retired",
+      "workspace": "Legacy QA",
+      "evidence": "docs/project-command-center/CURRENT-ADMIN-HUB-STATUS.md",
+      "note": "Do not recreate old phase stepping/self-grant QA as normal staff tools. Local test harnesses remain separate."
+    },
+    {
+      "rpc": "admin_oak_research_reset",
+      "status": "held",
+      "workspace": "Legacy maintenance",
+      "evidence": "docs/project-command-center/ADMIN-HUB-ENTRY-CUTOVER-PREPARATION.md",
+      "note": "No native equivalent verified. Clearing/resetting/hiding production state is not authorized;review exact need or retire explicitly."
+    },
+    {
+      "rpc": "admin_overview",
+      "status": "partial",
+      "workspace": "Hub shared reads",
+      "evidence": "js/admin-next.js",
+      "note": "Native bounded reads intentionally avoid known write-risk overview. Do not invoke old overview;remaining diagnostic fields are listed separately."
+    },
+    {
+      "rpc": "admin_pause_round",
+      "status": "replacement",
+      "workspace": "Operations",
+      "evidence": "js/admin-next-operations.js",
+      "note": "Reviewed cancel/pause/resume/start actions use admin_hub_operations_command;no live commands tested."
+    },
+    {
+      "rpc": "admin_qa_grant_pass_reward",
+      "status": "replacement",
+      "workspace": "Trainer Gifts & Pass",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Audited action wrapper covers Ribbons,Candy,individual/batch Pokemon,titles,Pass override and reviewed daily/weekly regrant."
+    },
+    {
+      "rpc": "admin_queue_stream_command",
+      "status": "replacement",
+      "workspace": "Operations",
+      "evidence": "js/admin-next-session.js",
+      "note": "Explicit reviewed session Start/End replace the old free-form queue path. Other queue/mode controls are in admin-next-operations.js."
+    },
+    {
+      "rpc": "admin_remove_pokemon",
+      "status": "replacement",
+      "workspace": "Trainer Inventory",
+      "evidence": "js/admin-trainer-corrections.js",
+      "note": "Exact specimen removal,coin balances and expired trade-hold repair use audited correction requests/revisions. Personal locks/favorites remain protected."
+    },
+    {
+      "rpc": "admin_resume_round",
+      "status": "replacement",
+      "workspace": "Operations",
+      "evidence": "js/admin-next-operations.js",
+      "note": "Reviewed cancel/pause/resume/start actions use admin_hub_operations_command;no live commands tested."
+    },
+    {
+      "rpc": "admin_revoke_cosmetic",
+      "status": "held",
+      "workspace": "Trainer unlocks",
+      "evidence": "js/admin-next-record.js",
+      "note": "Native unlock ownership remains view-only. Legacy revoke is not an audited/retry-safe replacement and must not be wired directly without a reviewed correction design."
+    },
+    {
+      "rpc": "admin_save_channel",
+      "status": "replacement",
+      "workspace": "Connections",
+      "evidence": "js/admin-next-system.js",
+      "note": "Native admin_system_channel_save replaces the old combined channel handler;secret/provider outcomes remain independent."
+    },
+    {
+      "rpc": "admin_save_game_settings",
+      "status": "partial",
+      "workspace": "Configuration",
+      "evidence": "js/admin-next.js",
+      "note": "Native scoped editors cover rewards,XP,capture rules,supplies,timings and Operations. All arbitrary legacy game-setting keys are not certified editable."
+    },
+    {
+      "rpc": "admin_save_item_identity",
+      "status": "replacement",
+      "workspace": "Items & Economy",
+      "evidence": "js/admin-item-definitions.js",
+      "note": "Native item definitions read/save expose names,descriptions,sprites and capture effects through reviewed contracts."
+    },
+    {
+      "rpc": "admin_save_look_portrait",
+      "status": "replacement",
+      "workspace": "Trainer styles",
+      "evidence": "js/admin-trainer-styles.js",
+      "note": "Native metadata/portrait/crop/upload workflows use admin_trainer_style_save and reviewed image transport."
+    },
+    {
+      "rpc": "admin_save_pass_rewards",
+      "status": "replacement",
+      "workspace": "Starlight Pass",
+      "evidence": "js/admin-pass-editor.js",
+      "note": "Native typed daily/weekly editing and automatic rotation mode replace the legacy grants-only saver;new calendar claim behavior is separately tested."
+    },
+    {
+      "rpc": "admin_set_coins",
+      "status": "replacement",
+      "workspace": "Trainer Inventory",
+      "evidence": "js/admin-trainer-corrections.js",
+      "note": "Exact specimen removal,coin balances and expired trade-hold repair use audited correction requests/revisions. Personal locks/favorites remain protected."
+    },
+    {
+      "rpc": "admin_set_pass",
+      "status": "replacement",
+      "workspace": "Trainer Gifts & Pass",
+      "evidence": "js/admin-next-rewards.js",
+      "note": "Audited action wrapper covers Ribbons,Candy,individual/batch Pokemon,titles,Pass override and reviewed daily/weekly regrant."
+    },
+    {
+      "rpc": "admin_set_role",
+      "status": "replacement",
+      "workspace": "Trainer Staff access",
+      "evidence": "js/admin-staff-access.js",
+      "note": "Reviewed native access editor uses current source/revision checks;no actual role assignment by agent."
+    },
+    {
+      "rpc": "admin_special_event_analytics",
+      "status": "partial",
+      "workspace": "Operations Events",
+      "evidence": "js/admin-special-events.js",
+      "note": "Native events read/history exists;per-event legacy analytics-field parity still needs reconciliation."
+    },
+    {
+      "rpc": "admin_special_event_command",
+      "status": "replacement",
+      "workspace": "Operations Events",
+      "evidence": "js/admin-special-events.js",
+      "note": "Native admin_hub_events_command covers supported draft/schedule/cancel/live actions with reviews."
+    },
+    {
+      "rpc": "admin_special_event_health",
+      "status": "partial",
+      "workspace": "Diagnostics",
+      "evidence": "js/admin-next-analytics.js",
+      "note": "Native health/report/config views exist but do not prove every old diagnostic invariant/field. Field-level diagnostic reconciliation remains."
+    },
+    {
+      "rpc": "admin_start_round",
+      "status": "replacement",
+      "workspace": "Operations",
+      "evidence": "js/admin-next-operations.js",
+      "note": "Reviewed cancel/pause/resume/start actions use admin_hub_operations_command;no live commands tested."
+    },
+    {
+      "rpc": "admin_store_delete_category",
+      "status": "held",
+      "workspace": "Items & Economy",
+      "evidence": "docs/project-command-center/CATALOG-CLEANUP-EXACT-SCOPE.md",
+      "note": "Native deletion not implemented;destructive scope remains held. Hiding a product is not the same as deletion."
+    },
+    {
+      "rpc": "admin_store_delete_item",
+      "status": "held",
+      "workspace": "Items & Economy",
+      "evidence": "docs/project-command-center/CATALOG-CLEANUP-EXACT-SCOPE.md",
+      "note": "Native deletion not implemented;destructive scope remains held. Hiding a product is not the same as deletion."
+    },
+    {
+      "rpc": "admin_store_duplicate_item",
+      "status": "held",
+      "workspace": "Items & Economy",
+      "evidence": "js/admin-product-create.js",
+      "note": "Hidden draft creation exists,but no full copy workflow. Existing duplicate endpoint lacks reviewed request receipt/revision flow;prepare before integration."
+    },
+    {
+      "rpc": "admin_store_save_look",
+      "status": "replacement",
+      "workspace": "Trainer styles",
+      "evidence": "js/admin-trainer-styles.js",
+      "note": "Native metadata/portrait/crop/upload workflows use admin_trainer_style_save and reviewed image transport."
+    },
+    {
+      "rpc": "admin_unlock_catch",
+      "status": "replacement",
+      "workspace": "Trainer Inventory",
+      "evidence": "js/admin-trainer-corrections.js",
+      "note": "Exact specimen removal,coin balances and expired trade-hold repair use audited correction requests/revisions. Personal locks/favorites remain protected."
+    }
+  ]
+}

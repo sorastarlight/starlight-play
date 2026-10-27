@@ -2,7 +2,7 @@
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
-CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 monitored+4 changed source matches.156 suites,6 real local SQL groups,120 responsive states and full Hub five routes/late-account clearing. Migration20261026072445;62 recovery files;APP unchanged. No hosted estimate or application action. [Report](LAUNCH-CODEX272-NATIVE-PLANNING.md).
+Latest published maintenance is the owner-confirmed team editor correction at main61c6f5d/Pages40569172976, with exact two-file hosted source verification and 188 prior regression suites. APP unchanged. The native Planning checkpoint remains documented in [its report](LAUNCH-CODEX272-NATIVE-PLANNING.md). Current parity review and disconnected transaction candidate: [review](ADMIN-HUB-PARITY-AND-TRANSACTIONS.md).
 
 | Workspace | Implemented and published | Evidence or remaining work |
 | --- | --- | --- |
@@ -26,10 +26,9 @@ CODEX-272 native Planning live at main9b852266/Pages40285801248 success;100 moni
 
 Real Chrome linking/subscriber Pass evidence from ShinoTheWolf and Android S25 Ultra checks for Help/Register are retained. They do not establish Firefox, iOS or actual screen-reader acceptance. Keep missing real evidence explicit rather than treating fixtures as devices/provider proof. See [acceptance matrix](LAUNCH-ACCEPTANCE-MATRIX.md).
 
-The October26 07:44:28UTC physical recovery point is available and follows latest installed migration20261026072445 (CODEX-274). Availability is verified; contents and physical restore are not. Subsequent approved migrations include the Account safeguard, PC/berry rewards and Pass calendar/history; the newest recorded migration is20261027045352. The next completed physical backup after that change still needs observation (approximately October27 07:44UTC). Eighty-four exact install/rollback files are integrity-checked (October27 local SHA256 check); no new export, production restore or destructive cleanup has run.
+The October27 07:47:17UTC physical recovery point was observed available. It predates subsequent October27 migrations; latest installed migration is `20261027164355`. The next post-change physical backup is due October28. Availability does not prove contents or a physical restore. Ninety-six reviewed recovery packet files were integrity-checked before this continuation; no new export, production restore or destructive cleanup ran.
 
-Current user direction authorizes completing the redesign/migration and publishing tested changes. It does not authorize agent use of the staff mutation controls, protected-account changes, paid provider activation, destructive cleanup, a new APP stamp or final launch declaration. The owner renewed the existing bounded heartbeat through October27 13:18UTC; no parallel runner is in use.
-
+Current user direction authorizes continuing local redesign/migration and tested routine maintenance. It does not authorize use of staff mutation controls, paid provider activation, destructive cleanup, a new APP stamp or final launch. The owner renewed a three-hour continuation through October27 19:34:50 America/New_York (23:34:50UTC); no parallel runner is in use. New SQL and privileged workflows remain prepared for review rather than silently activated.
 Latest reports: [Product types](LAUNCH-CODEX269-SPECIAL-PRODUCT-DRAFTS.md), [Trainer styles](LAUNCH-CODEX268-TRAINER-STYLES.md), [Catalogue names](LAUNCH-CODEX267-CATALOGUE-NAMES.md), [Product contents](LAUNCH-CODEX266-PRODUCT-CONTENTS.md), [Item effects](LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md), [Special Events](LAUNCH-CODEX262-SPECIAL-EVENTS.md), [shop draft selection](LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md), [staff access](LAUNCH-CODEX258-STAFF-ACCESS.md), [image library](LAUNCH-CODEX260-IMAGE-LIBRARY.md), [spawn report](LAUNCH-CODEX261-SPAWN-REPORT.md).
 
 The retained Master Ball listing master1 is an empty hidden draft. It remains unsold;include it in the exact cleanup review. No retirement/deletion was run.

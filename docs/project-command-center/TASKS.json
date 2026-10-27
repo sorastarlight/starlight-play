@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "HUB-PARITY-TRANSACTIONS",
+      "status": "in_progress",
+      "scope": "Audit native tool parity and prepare disconnected read-only transaction component",
+      "evidence": "ADMIN-HUB-PARITY-AND-TRANSACTIONS.md",
+      "testResults": "187 non-writing suites/build;23 focused JS checks;23 local SQL groups;24 responsive states",
+      "nextAction": "Endpoint and UI activation held;continue diagnostic/source parity and local acceptance. No production calls or SQL installation."
+    },
+    {
       "id": "TEAM-EDITOR-STABILITY",
       "status": "done",
       "scope": "Prevent competing team saves and refresh live stage/count with confirmed slots",
@@ -496,7 +504,7 @@
       "branch": "admin-hub-overhaul",
       "evidence": "ADMIN-HUB-REDESIGN-OCT25.md;LAUNCH-CODEX242-ADMIN-REDESIGN.md;evidence/codex242-regressions.json",
       "testResults": "130 suites;27 local SQL cases;4 picker widths;draft/keyboard browser checks;10-file rollback;Pages40229491912 success;100+10 source matches",
-      "nextAction": "Pass/direct corrections and configuration live;System/Director migration in progress",
+      "nextAction": "System and Director are migrated;remaining exact parity includes transaction history,cosmetic revoke,product duplicate,diagnostics and held destructive cleanup. See ADMIN-HUB-PARITY-AND-TRANSACTIONS.md.",
       "approvalRequirement": "Owner requested implementation; exact destructive production migration remains held"
     },
     {

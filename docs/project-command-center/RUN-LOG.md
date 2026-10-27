@@ -2876,3 +2876,7 @@ Owner chose UTCdaily/Mondayweekly and verified-period-only coverage. Prepared pr
 ## 2026-10-27 — Approved UTC Pass/crates activation
 
 Owner approved installation/publication/source verification. Rechecked eight source/ACL contracts;published exactly six files atmainfacb67ed,all6HTTPsourcesmatch. Appliedmigration20261027043338 verified_utc_pass_supply_crates.9functionhash/ACLmatches;bothprivateRLS tablesdeny anon/authenticated/service directaccess;verificationtriggerenabled. No gameplay/provider/claim/crateopening or historicalbackfill. APPunchanged. Recoverymanifestupdated;post-useSTOPpreservesearnedrecords.
+
+## 2026-10-27 — Pass week view and subscription-check investigation
+
+Prepared unified calendar and sprite reveal. Confirmed premature browser provider-token rejection conflicts with the deployed broadcaster path; removed locally and retained refreshed feedback.13SQLchecks,171suites/build and four rendered widths pass. One private history-only function and five runtime files held for exact production decision. No live provider or reward action. See PASS-WEEK-VIEW.md.

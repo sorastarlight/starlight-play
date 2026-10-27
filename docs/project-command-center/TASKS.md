@@ -4,6 +4,7 @@ Statuses: `todo` · `doing` / `in_progress` · `done` · `blocked`. Machine copy
 
 | ID | Status | Scope | Deps | Approval | Next action |
 |---|---|---|---|---|---|
+| PASS-WEEK-VIEW | blocked | Unified Pass calendar, claim reveal and browser subscription-check correction | Existing UTC ledger | Local complete; exact install/publication decision held |171 suites;13 SQL checks;four layouts;see PASS-WEEK-VIEW.md |
 | PASS-UTC-CRATES | done | UTC verified-period supplies and PC crates | Mart/PC | Owner approved production |Migration20261027043338;mainfacb67ed;9source/ACL and6frontendmatches;no live claim |
 | MART-COMPACT-CART | done | Compact Pass/cards and cart feedback | Existing Mart | User authorized |Mainbe01bdc8;Pages40448527609success;2/2source matches |
 | BERRY-AFFINITY | done (local) | Type bonuses and berry/drop/PC integration | Existing drops and PC box | Local work authorized; production held |37 SQL groups, 236 forms × 22 berries, 60 drop types, 168 suites; guarded install/rollback ready |

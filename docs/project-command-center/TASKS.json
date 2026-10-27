@@ -4,6 +4,15 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PASS-WEEK-VIEW",
+      "status": "blocked",
+      "scope": "Unified weekly calendar, sprite reward reveal and premature token-check correction",
+      "approval": "Local requested;exact production SQL/frontend decision held",
+      "testResults": "171 suites;13 SQL checks;four rendered widths;no live provider/claim",
+      "evidence": "PASS-WEEK-VIEW.md",
+      "nextAction": "Approve one-function install and five-file publication/source verification"
+    },
+    {
       "id": "PASS-UTC-CRATES",
       "status": "done",
       "scope": "UTC daily/weekly verified periods, saved supplies in PC and bag crate opening",

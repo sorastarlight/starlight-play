@@ -1,0 +1,17 @@
+{
+  "checks": [
+    "guarded history-only install",
+    "exact rollback",
+    "seven ordered Monday–Sunday UTC days",
+    "exactly one server-defined today",
+    "missing verification never becomes missed",
+    "available today is ready",
+    "claimed state is shown",
+    "opened crate becomes claimed",
+    "history scoped to requested trainer by private caller",
+    "missed saved day changes to claimed after opening",
+    "UTC calendar uses timestamp boundaries",
+    "repeat install refuses source drift",
+    "private permissions unchanged"
+  ]
+}

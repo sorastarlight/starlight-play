@@ -21155,6 +21155,23 @@ html[data-reduced-motion="1"] .celebration-medallion,html[data-reduced-motion="1
 .mart-pass-compact .pass-time-note{font-size:12px;margin:0}
 .trainer-supply-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 18px;margin-top:10px;border:1px solid #d5def0;border-radius:16px;background:#ffffffd9}
 .trainer-supply-bar p{margin:4px 0;font-size:13px}
+.pass-calendar-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:20px 0 10px}
+.mart-pass-compact .pass-showcase{gap:8px}.mart-pass-compact .pass-showcase> *{position:relative;z-index:1}
+.mart-pass-compact .pass-calendar-heading{margin:8px 0 0}.mart-pass-compact .pass-week{margin:0 0 6px}
+.mart-pass-compact .pass-day{padding:8px 5px;gap:3px}.mart-pass-compact .pass-day strong{min-height:24px}
+.pass-calendar-heading h3{margin:0;font-size:17px}.pass-calendar-heading small,.pass-history-note{color:#62687b;font-size:12px}
+.pass-week{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;list-style:none;padding:0;margin:0 0 16px}
+.pass-day{display:flex;flex-direction:column;align-items:center;gap:5px;min-width:0;padding:12px 5px;border:1px solid #d8dced;border-radius:14px;background:#fff9;text-align:center;font-size:11px}
+.pass-day-name{font-size:14px;font-weight:800}.pass-day small{color:#62687b}.pass-day-icon{font-size:26px;line-height:1.2;color:#7e70a6}.pass-day strong{min-height:30px;display:grid;place-items:center}
+.pass-day.is-claimed{background:#eaf8f0;border-color:#b5dcc5}.pass-day.is-claimed .pass-day-icon{color:#25815a}
+.pass-day.is-missed{background:#f4edff;border-color:#d1bde5}.pass-day.is-today{outline:2px solid #8b78c7;outline-offset:1px}.pass-day.is-ready{background:#fff4d1}
+.pass-day button{font-size:11px;line-height:1.25;min-height:36px;width:100%;padding:6px 4px;margin-top:auto;white-space:normal}
+.mart-pass-compact .trainer-supply-bar{margin:14px 0 0;background:#fff8;border:0;border-top:1px solid #ded9e7;border-radius:0;padding:14px 0 0}
+.supply-reveal{isolation:isolate}.supply-reveal h2{position:relative;font-size:clamp(23px,4vw,32px);margin:12px 0 24px}
+.supply-reveal-grid{position:relative;display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:12px;list-style:none;padding:0;margin:0 0 20px;max-height:45vh;overflow:auto}
+.supply-reveal-grid li{display:flex;flex-direction:column;align-items:center;gap:12px;padding:18px 10px;border:1px solid #e0d2ed;border-radius:18px;background:#ffffffda;font-size:15px}
+.supply-reveal-grid img{object-fit:contain;image-rendering:pixelated;filter:drop-shadow(0 5px 4px #62508b22)}.supply-reveal .play-present-sub{font-size:13px;line-height:1.5}
+@media(max-width:640px){.pass-week{grid-template-columns:repeat(4,minmax(0,1fr))}.pass-calendar-heading{align-items:flex-start;flex-direction:column;gap:3px}.pass-day{padding:9px 4px}.supply-reveal-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .trainer-supply-bar small{font-size:11px;color:#62687b}
 .trainer-supply-bar .pass-reward-chip{margin-left:10px}
 .trainer-supply-bar .pass-claim-btn{width:auto;flex-shrink:0}

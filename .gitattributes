@@ -95,3 +95,4 @@ supabase/migrations/20261026195430_owner_self_gifts.sql text eol=lf
 
 supabase/unapplied/pass-calendar/*.sql text eol=lf
 supabase/unapplied/berry-affinity/*.sql text eol=lf
+supabase/unapplied/pass-week-view/*.sql text eol=lf

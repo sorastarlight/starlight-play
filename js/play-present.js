@@ -177,7 +177,7 @@
         if (!row || typeof row !== "object") return null;
         const type = String(row.type || row.key || "");
         const amount = row.amount != null ? Number(row.amount) : row.qty != null ? Number(row.qty) : 0;
-        return type ? { type, amount: Number.isFinite(amount) ? amount : 0, label: row.label || "" } : null;
+        return type ? { type, amount: Number.isFinite(amount) ? amount : 0, label: row.label || "", sprite: /^images\/[a-zA-Z0-9_./-]+\.(png|svg|webp)$/.test(row.sprite || "") && !row.sprite.includes("..") ? row.sprite : "" } : null;
       }).filter(Boolean);
     }
     if (raw && typeof raw === "object") {
@@ -852,7 +852,22 @@
     });
   }
 
+  async function presentSupply(event) {
+    cue("reward.major");
+    const cards = asArray(event.rewards).map(row => {
+      const sprite = row.sprite || (row.type === "coins" ? "images/items/pokecoin.png" : root.playItemSprite?.(row.type)) || "images/items/secret-gift.svg";
+      return `<li><img src="${esc(sprite)}" alt="" width="56" height="56"><strong>${esc(rewardLine(row))}</strong></li>`;
+    }).join("");
+    await runPanel(event, `<article class="play-present-card supply-reveal" data-present-panel>
+      ${fxHtml()}<div class="celebration-rays" aria-hidden="true"></div>
+      <p class="play-present-kicker">A little boost for your adventure</p>
+      <h2>${esc(event.title)}</h2>
+      <ul class="supply-reveal-grid">${cards}</ul>
+      <p class="play-present-sub">${esc(event.body)}</p>${continueHtml()}</article>`);
+  }
+
   async function presentCard(event) {
+    if (event.kind === "supply-claim") return presentSupply(event);
     if (event.type === "achievement") return presentAchievement(event);
     if (event.type === "achievement") cue("achievement.unlock");
     else if (event.type === "support") cue("support.thankyou");

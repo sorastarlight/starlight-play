@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "PC-ARRANGEMENT-WAIT-FEEDBACK",
+      "status": "done",
+      "scope": "Visible feedback for actions blocked by an in-flight arrangement",
+      "evidence": "PC-ITEM-TRANSFER-DIALOG.md",
+      "testResults": "173suites/build;one-writer and visible-feedback regression",
+      "nextAction": "October27 06:48UTC:PC transfer/refresh while arrangement saves now shows the existing warning toast, instead of screen-reader-only feedback. Reproduced with failing assertion;173suites/build then pass. Maince92ab70,Pages40463445345 succeeded;one hosted source matches. No live transfer,SQL,authority or player change."
+    },
+    {
       "id": "ADMIN-ENTRY-PARITY-OCT27",
       "status": "done",
       "scope": "Loaded-script endpoint inventory and static HTML identity audit",

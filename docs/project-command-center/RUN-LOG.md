@@ -2900,3 +2900,5 @@ October27 05:48UTC heartbeat:confirmed null-day TypeError in Pass history render
 Published main575b45bb; Pages40457482920 succeeded; exact hosted js/pass-calendar.js matches.173suites/build pass;no live application call.
 
 October27 06:18UTC:32root HTMLpages have no duplicate static IDs. Admin entry source inventory distinguishes87old/65native literal RPCnames and verified replacement wrappers;50old-onlynames are not automatically feature gaps. Product/category deletion/duplication remain explicit parity items;no cutover or destructive action. See ADMIN-ENTRY-PARITY-OCT27.md.
+
+October27 06:48UTC:PC transfer/refresh while arrangement saves now shows the existing warning toast, instead of screen-reader-only feedback. Reproduced with failing assertion;173suites/build then pass. Maince92ab70,Pages40463445345 succeeded;one hosted source matches. No live transfer,SQL,authority or player change.

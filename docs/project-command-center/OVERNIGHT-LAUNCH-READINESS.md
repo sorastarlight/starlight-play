@@ -1,3 +1,7 @@
+# Latest heartbeat October27 06:48UTC
+
+October27 06:48UTC:PC transfer/refresh while arrangement saves now shows the existing warning toast, instead of screen-reader-only feedback. Reproduced with failing assertion;173suites/build then pass. Maince92ab70,Pages40463445345 succeeded;one hosted source matches. No live transfer,SQL,authority or player change. Next backup check after07:44UTC;hardstop13:18UTC.
+
 # Latest heartbeat October27 06:18UTC
 
 Source inventory recorded in ADMIN-ENTRY-PARITY-OCT27.md;32root pages have no duplicate static IDs. No runtime change. Native product/category deletion and duplication remain explicit parity questions;do not retire old entries based only on RPC-name counts. Backup observation due after07:44UTC. Production575b45bb unchanged.

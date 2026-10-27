@@ -13,3 +13,5 @@ Rendered full-box/full-bag checks also pass. A blocked transfer keeps focus on t
 
 Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage files match exact source.173 suites/build and84 recovery packet hashes pass. No production SQL or real item transfer.
 October27 follow-up: clicking transfer/refresh while an arrangement save is pending was correctly blocked, but its feedback was screen-reader-only after the status layout fix. It now also shows the existing warning toast. Regression first reproduced missing visible feedback, then passed with unchanged one-writer protection.173suites/build pass;no live transfer.
+
+October27 06:48UTC:PC transfer/refresh while arrangement saves now shows the existing warning toast, instead of screen-reader-only feedback. Reproduced with failing assertion;173suites/build then pass. Maince92ab70,Pages40463445345 succeeded;one hosted source matches. No live transfer,SQL,authority or player change.

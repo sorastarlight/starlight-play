@@ -610,3 +610,5 @@ Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage fil
 PASS-HISTORY-UNAVAILABLE-GUARD:173suites/build pass;null/sparse record crash corrected;one-file main575b45bb deployment in progress. No SQL/reward/provider action.
 
 ADMIN-ENTRY-PARITY-OCT27:source inventory and32page static-ID audit complete;remaining capability review held before old-entry retirement. No runtime or production change.
+
+October27 06:48UTC:PC transfer/refresh while arrangement saves now shows the existing warning toast, instead of screen-reader-only feedback. Reproduced with failing assertion;173suites/build then pass. Maince92ab70,Pages40463445345 succeeded;one hosted source matches. No live transfer,SQL,authority or player change.

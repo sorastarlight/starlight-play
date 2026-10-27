@@ -572,6 +572,20 @@
 
   window.playBindTeamSlots = function playBindTeamSlots(el, getState, saveTeam, statusEl, bindOptions) {
     if (!el) return;
+    let saving = false;
+    async function persist(ids) {
+      if (saving) return;
+      saving = true;
+      const controls = Array.from(el.querySelectorAll('[data-add], [data-remove], [data-move]')).map(node => ({ node, disabled: node.disabled }));
+      controls.forEach(({ node }) => { node.disabled = true; });
+      el.setAttribute('aria-busy', 'true');
+      try { return await saveTeam(ids); }
+      finally {
+        saving = false;
+        el.removeAttribute('aria-busy');
+        controls.forEach(({ node, disabled }) => { if (node.isConnected) node.disabled = disabled; });
+      }
+    }
     el.addEventListener("click", async (event) => {
       const inspect = event.target.closest("[data-inspect-catch]");
       if (inspect && !event.target.closest("[data-move], [data-remove], [data-add]")) {
@@ -588,6 +602,7 @@
       const remove = event.target.closest("[data-remove]");
       const move = event.target.closest("[data-move]");
       if (!add && !remove && !move) return;
+      if (saving) return;
       const state = getState();
       const team = (state.team || []).slice();
       const ids = () => team.map((row) => row.id).filter(Boolean);
@@ -600,11 +615,15 @@
           }
           const slotIndex = Number(add.dataset.add);
           const pickHandler = async (row) => {
+            if (saving) return;
             try {
+              // The picker can remain open while the team changes elsewhere.
+              team.splice(0, team.length, ...(getState().team || []));
+              if (team.length >= 6 || team.some(mon => String(mon.id) === String(row.id))) return;
               const at = Number.isFinite(slotIndex) ? Math.min(Math.max(slotIndex, 0), team.length) : team.length;
               team.splice(at, 0, row);
               if (team.length > 6) team.length = 6;
-              await saveTeam(ids());
+              await persist(ids());
               if (statusEl) statusEl.textContent = "";
             } catch (error) {
               if (statusEl) statusEl.textContent = window.playRpcError(error);
@@ -632,7 +651,7 @@
         }
         if (remove) {
           team.splice(Number(remove.dataset.remove), 1);
-          await saveTeam(ids());
+          await persist(ids());
           if (statusEl) statusEl.textContent = "";
           return;
         }
@@ -643,7 +662,7 @@
           const swap = team[index];
           team[index] = team[next];
           team[next] = swap;
-          await saveTeam(ids());
+          await persist(ids());
           if (statusEl) statusEl.textContent = "";
         }
       } catch (error) {

@@ -31,9 +31,9 @@
       "id": "HUB-PARITY-TRANSACTIONS",
       "status": "in_progress",
       "scope": "Audit native tool parity and prepare disconnected read-only transaction component",
-      "evidence": "ADMIN-HUB-PARITY-AND-TRANSACTIONS.md",
-      "testResults": "187 non-writing suites/build;23 focused JS checks;23 local SQL groups;24 responsive states",
-      "nextAction": "Endpoint and UI activation held;continue diagnostic/source parity and local acceptance. No production calls or SQL installation."
+      "evidence": "ADMIN-HUB-TRANSACTIONS-LOCAL-INTEGRATION.md",
+      "testResults": "187 selected suites/build;23JSchecks;23earlierSQLgroups;24standalone+16fullHubstates;route/account/late-response and4file replay",
+      "nextAction": "Private1function/4file activation packet held;no production read,installation orpublication. Continue consistency/handoff checks."
     },
     {
       "id": "TEAM-EDITOR-STABILITY",

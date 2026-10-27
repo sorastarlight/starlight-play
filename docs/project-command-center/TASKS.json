@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "HUB-OWNERSHIP-REVIEW",
+      "status": "in_progress",
+      "scope": "Review appearance revocation semantics and correct stale ownership guidance",
+      "evidence": "ADMIN-HUB-APPEARANCE-CORRECTION-REVIEW.md",
+      "testResults": "187 selected suites/build;8local layouts;keyboard/account clearing",
+      "nextAction": "Copy fix LIVE main ed8c343c/Pages40593128854;one source matches. New revocation authority remains held;no hosted changes."
+    },
+    {
       "id": "HUB-PRODUCT-COPY-PREPARATION",
       "status": "in_progress",
       "scope": "Prepare product-copy semantics without wiring legacy mutations",

@@ -11,6 +11,10 @@ Health summary now shows the four subsystem statuses already returned by existin
 
 Product-copy source review and disconnected planner complete:21fictional checks,no SQL implementation/installation. Ordinary items/bundles proposal preserves metadata/new hidden identity;Bits mappings and shared avatar collection semantics remain separate decisions. See ADMIN-HUB-PRODUCT-COPY-PREPARATION.md. Existing actual Mart DOM quantity5to9 review/cancel/focus,4widths and account data clearing passed without saves. Incomplete form mock suggested a false quantity issue;real DOM disproved it and speculative patch/test removed before commit. No runtime change ornewproductioncall. Productionmainde812b76 unchanged. Continue cosmetic revocation semantics/local Hub acceptance around held scopes;hardstop23:34:50UTC.
 
+## October27 22:18UTC ownership review
+
+Routine single-file copy fix live main ed8c343c795af7d65525db076a611d63d6af661a;Pages40593128854 SUCCESS;hosted admin-next-record.js exactly matches. Ownership details no longer point at removed Corrections tab.187 selected suites/build,8local layouts,Escape focus/account denial clearing. No hosted application calls oraccount mutation. Current revocation/helper metadata reviewed:row removal is not a durable restriction on starter,earned orstaff-derived entitlements;new native revocation remains a policy/implementation hold. Consolidated return handoff ADMIN-HUB-EVENING-HANDOFF.md;next usefullocalwork:full-Hub local transaction integration/late-account checks. Hardstop23:34:50UTC unchanged.
+
 ## Pouch checkout guard — owner approved and verified
 
 LIVE:owner approved checkout guard installation and source-only verification. Migration20261027164355;public.play_buy_cart(jsonb,uuid) exactly matches tested candidate;ACL unchanged.12localSQLgroups previously passed;reviewed install/rollback bytes match. No hosted purchase,refund,balance/history repair,notice,frontend publication or APPstamp. Main1ad755ab unchanged. Next post-change physical backup dueOct28;do not repoll old point. Approval spent.

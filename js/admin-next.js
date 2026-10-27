@@ -567,11 +567,12 @@
     els.health.innerHTML = "";
     if (els.healthStatus) els.healthStatus.textContent = "Loading health…";
     try {
-      const [build, game] = await Promise.all([
+      const responses = await Promise.all([
         readCall("admin_build_health").catch(() => null),
         readCall("admin_game_health").catch(() => null)
       ]);
       if (generation !== healthGeneration || !staffOpen) return;
+      const [build, game] = responses.map(value => value && !Array.isArray(value) && typeof value === "object" && value.ok === true ? value : null);
       healthLoaded = Boolean(build && game);
       const bits = [];
       if (build) {
@@ -583,6 +584,11 @@
         const twitch = game.twitch || {};
         const appStatus = app.status || game.status || game.appStatus || "UNKNOWN";
         bits.push(metric("Application", appStatus, ["HEALTHY", "OK"].includes(String(appStatus).toUpperCase()) ? "active" : "unknown"));
+        for (const [key, label] of [["database", "Database"], ["encounters", "Encounter records"], ["economy", "Economy balances"], ["rankings", "Rankings"]]) {
+          const status = String(game[key]?.status || "UNKNOWN").toUpperCase();
+          const known = { HEALTHY: "Healthy", OK: "Healthy", WARNING: "Check needed", "ACTION NEEDED": "Needs attention", UNKNOWN: "Not verified" };
+          bits.push(metric(label, known[status] || "Not verified", ["HEALTHY", "OK"].includes(status) ? "active" : "unknown"));
+        }
         const liveKnown = typeof twitch.live === "boolean";
         const twitchLabel = liveKnown ? (twitch.live ? "LIVE" : "OFFLINE") : "UNKNOWN";
         bits.push(metric("Twitch stream", twitchLabel, liveKnown ? (twitch.live ? "active" : "inactive") : "unknown"));

@@ -8,7 +8,7 @@ function fixture(read) {
   context.els.healthRefresh.setAttribute = function(key, value) { this.attrs[key] = value; };
   vm.createContext(context); vm.runInContext(actual, context); return { context, calls, tones };
 }
-const both = name => Promise.resolve(name === "admin_build_health" ? { clientBuild: "fixture-build", dbMigration: "fixture-migration" } : { application: { status: "OK" }, twitch: { live: false } });
+const both = name => Promise.resolve(name === "admin_build_health" ? { ok:true, clientBuild: "fixture-build", dbMigration: "fixture-migration" } : { ok:true, application: { status: "OK" }, twitch: { live: false } });
 (async () => {
   const none = fixture(() => Promise.reject(Error("fictional unavailable"))); await none.context.loadHealth();
   assert(none.context.els.healthStatus.textContent.includes("unavailable")); assert.equal(none.context.healthLoaded, false); assert.equal(none.context.els.health.innerHTML, ""); assert.equal(none.context.els.healthRefresh.disabled, false);
@@ -17,7 +17,7 @@ const both = name => Promise.resolve(name === "admin_build_health" ? { clientBui
   full.context.staffOpen = true; await full.context.loadHealth(); assert.equal(full.context.healthLoaded, true); assert(full.context.els.health.innerHTML.includes("Twitch stream:OFFLINE"));
   await full.context.loadHealth(); assert.equal(full.calls.length, 2); await full.context.loadHealth(true); assert.equal(full.calls.length, 4);
   assert.equal(full.tones.find(x=>x.label==='Application').state,'active');
-  const unknown=fixture(name=>Promise.resolve(name==='admin_build_health'?{clientBuild:'fictional'}:{application:{status:'UNKNOWN'},twitch:{live:null}}));await unknown.context.loadHealth();assert.equal(unknown.tones.find(x=>x.label==='Application').state,'unknown');assert.equal(unknown.tones.find(x=>x.label==='Twitch stream').state,'unknown');assert(unknown.context.els.health.innerHTML.includes('Twitch stream:UNKNOWN'));
+  const unknown=fixture(name=>Promise.resolve(name==='admin_build_health'?{ok:true,clientBuild:'fictional'}:{ok:true,application:{status:'UNKNOWN'},twitch:{live:null}}));await unknown.context.loadHealth();assert.equal(unknown.tones.find(x=>x.label==='Application').state,'unknown');assert.equal(unknown.tones.find(x=>x.label==='Twitch stream').state,'unknown');assert(unknown.context.els.health.innerHTML.includes('Twitch stream:UNKNOWN'));
   const partial = fixture(name => name === "admin_build_health" ? Promise.reject(Error("fictional")) : both(name)); await partial.context.loadHealth(); assert(partial.context.els.healthStatus.textContent.includes("Partial")); assert.equal(partial.context.healthLoaded, false); assert(partial.context.els.health.innerHTML.includes("Application:OK"));
   const wait = deferred(), pending = fixture(() => wait.promise); const first = pending.context.loadHealth();
   assert.equal(pending.context.els.healthRefresh.attrs["aria-disabled"], "true"); assert.equal(pending.context.els.healthRefresh.disabled, false); assert.equal(pending.context.els.healthStatus.textContent, "Loading health…"); await pending.context.loadHealth(true); assert.equal(pending.calls.length, 2);
@@ -25,5 +25,11 @@ const both = name => Promise.resolve(name === "admin_build_health" ? { clientBui
   const old = deferred(), race = fixture((name, count) => count <= 2 ? old.promise : both(name)); const stale = race.context.loadHealth(); race.context.resetHealth(); await race.context.loadHealth(); const newest = race.context.els.health.innerHTML; old.resolve({ clientBuild: "obsolete" }); await stale; assert.equal(race.context.els.health.innerHTML, newest); assert(!newest.includes("obsolete"));
   const unexpected = fixture(() => { throw Error("fictional synchronous failure"); }); await unexpected.context.loadHealth(); assert.equal(unexpected.context.els.healthStatus.textContent, "Could not load health."); assert.equal(unexpected.context.els.healthRefresh.disabled, false);
   assert.deepEqual([...new Set(full.calls)], ["admin_build_health", "admin_game_health"]);
+  const warnings=fixture(name=>Promise.resolve(name==='admin_build_health'?{ok:true,clientBuild:'fictional'}:{ok:true,application:{status:'HEALTHY'},database:{status:'UNKNOWN'},encounters:{status:'ACTION NEEDED'},economy:{status:'ACTION NEEDED'},rankings:{status:'WARNING'},twitch:{live:false}}));await warnings.context.loadHealth();
+  assert(warnings.context.els.health.innerHTML.includes('Encounter records:Needs attention'));
+  assert(warnings.context.els.health.innerHTML.includes('Economy balances:Needs attention'));
+  assert(warnings.context.els.health.innerHTML.includes('Rankings:Check needed'));
+  assert(warnings.context.els.health.innerHTML.includes('Database:Not verified'));
+  for(const malformed of [{ok:false,application:{status:'HEALTHY'}},[],42,'HEALTHY',{}]){const bad=fixture(()=>Promise.resolve(malformed));await bad.context.loadHealth();assert.equal(bad.context.healthLoaded,false);assert(bad.context.els.healthStatus.textContent.includes('unavailable'));assert.equal(bad.context.els.health.innerHTML,'');}
   console.log("Actual health loader: unavailable retry, partial/full states, existing reads only, staff gate, single flight and reset/stale result protection pass.");
 })().catch(error => { console.error(error); process.exitCode = 1; });

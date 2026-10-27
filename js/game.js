@@ -216,6 +216,7 @@
   }
 
   window.playItemLabel = function playItemLabel(item, captureItems) {
+    if (item === "reward_gift_box") return "Reward Gift Box";
     if (item === "starlight_pass_crate") return "Starlight Pass Supply Crate";
     return liveItemName(item, captureItems) || ITEM_LABELS[item] || item;
   };
@@ -958,7 +959,7 @@
   const ITEM_RAW_BASE = "https://raw.githubusercontent.com/sorastarlight/starlight-play/main/images/items/";
 
   window.playItemSprite = function playItemSprite(key) {
-    if (key === "starlight_pass_crate") return "images/items/secret-gift.svg";
+    if (key === "reward_gift_box" || key === "starlight_pass_crate") return "images/items/poke-gift-box.png";
     const raw = String(key || "").trim();
     if (!raw) return "images/items/poke-ball.png";
     // Evolution Candy is line-keyed (species-{familyId}). Prefer dedicated candy art,

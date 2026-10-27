@@ -109,36 +109,12 @@
   }
 
   function showPurchasePop(purchase, bag) {
-    const first = purchase?.lines?.[0];
-    const added = (purchase?.lines || []).map((row) => `${row.name} ×${row.qty}`).join(", ");
-    const coins = bag?.coins != null ? `Bag now: ${Number(bag.coins).toLocaleString()} PokéCoins` : "";
-    if (typeof window.playPresentEnqueue !== "function") return;
-    const packLines = (purchase?.lines || []).flatMap((row) => {
-      const item = findSku(row.sku);
-      if (!isPackProduct(item)) return [];
-      return (typeof window.playGrantLines === "function" ? window.playGrantLines(item.grants) : []).map((line) => ({
-        type: line.key,
-        amount: line.n,
-        label: line.label
-      }));
-    });
-    const cosmetic = (purchase?.lines || []).some((row) => findSku(row.sku)?.pack);
-    window.playPresentEnqueue([{
-      id: `purchase:${purchase?.orderId || added}`,
-      type: cosmetic ? "unlock" : "item",
-      kind: packLines.length ? "loot" : "loot",
-      rare: Boolean(packLines.length || cosmetic),
-      title: purchase?.premierBonus
-        ? "Bonus! Premier Ball ×1"
-        : (packLines.length ? "Pack purchased!" : (cosmetic ? "Look unlocked!" : "Purchase complete!")),
-      body: packLines.length
-        ? (purchase?.lines?.[0]?.name || "Guaranteed contents")
-        : [added, coins].filter(Boolean).join(" · "),
-      item: first?.sku || "",
-      qty: Number(first?.qty || 0),
-      rewards: packLines.length ? packLines : undefined,
-      source: "store"
-    }], { source: "store", noSummary: true });
+    if(typeof window.playPresentEnqueue!=='function')return;
+    const rewards=(purchase?.lines||[]).map(row=>({type:row.sku,amount:Number(row.qty),label:row.name+' ×'+row.qty,sprite:row.sprite}));
+    if(purchase?.premierBonus)rewards.push({type:'premierball',amount:1,label:'Bonus Premier Ball ×1'});
+    const totals=['Spent '+money(purchase?.total||0)+' PokéCoins',bag?.coins!=null?'Balance: '+money(bag.coins)+' PokéCoins':''].filter(Boolean).join(' · ');
+    const pack=(purchase?.lines||[]).some(row=>isPackProduct(findSku(row.sku)));
+    window.playPresentEnqueue([{id:'purchase:'+purchase?.orderId,type:'item',kind:'supply-claim',tier:'card',title:pack?'Pack purchased!':'Purchase complete!',kicker:'Thank you for shopping',body:totals,rewards,source:'store'}],{source:'store',noSummary:true});
   }
 
   function presentClaim(title, data, source) {

@@ -18,7 +18,7 @@
   function say(text,focus=false){const feedback=el.querySelector('[data-bag-status]');if(feedback)feedback.textContent=text;const s=status();if(s){s.textContent=text;if(focus)s.focus();}}
   function toast(body,kind='success'){notify({kind,title:kind==='success'?'Your PC updated':'Item transfer',body});}
   function remember(){if(root.sessionStorage&&uid){if(pending)root.sessionStorage.setItem(cacheKey(uid),JSON.stringify(pending));else root.sessionStorage.removeItem(cacheKey(uid));}}
-  function reset(){el.querySelector('[data-bag-panel]')?.close?.();generation++;arranging=false;uid=null;data=null;pending=null;busy=false;selected=null;query='';dragFrom=null;bagOpen=false;bagQuery='';stale=false;el.innerHTML='';onState(null);}
+  function reset(){el.querySelector('[data-bag-panel]')?.close?.();generation++;arranging=false;uid=null;data=null;pending=null;busy=false;selected=null;query='';dragFrom=null;bagOpen=false;bagQuery='';direction='withdraw';stale=false;el.innerHTML='';onState(null);}
   async function request(name,args,g,id){const before=await client.auth.getSession();if(g!==generation||before.data?.session?.user?.id!==id)throw Error('Account changed');const result=await call(name,args);const after=await client.auth.getSession();if(g!==generation||after.data?.session?.user?.id!==id)throw Error('Account changed');return result;}
   const activePane=()=>el.querySelector(direction==='deposit'?'[data-bag-detail]':'[data-pc-detail]');
   const quantityInput=()=>activePane()?.querySelector('[data-pc-quantity]');

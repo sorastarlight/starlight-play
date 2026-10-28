@@ -1,6 +1,8 @@
-# Admin Hub parity and prepared transactions view
+# Admin Hub parity and transaction history
 
-October 27, 2026. The native Hub remains the primary staff destination. This review does not establish full functional parity or authorize retiring the old entry pages.
+October28 current update: Transactions andcapture validation are installed/source verified;the earlier preparation-only sections below are historical. Analytics Checks andordinary-product copying now have separate locally tested activation packets held for owner review. See [current return review](OWNER-RETURN-REVIEW-OCT28.md). Production mainb10fac2b andSQL20261028040347;post-change backup availability is verified.
+
+Historical inventory,October27,2026. The native Hub remains the primary staff destination. This review does not establish full functional parity or authorize retiring the old entry pages.
 
 ## What remains
 

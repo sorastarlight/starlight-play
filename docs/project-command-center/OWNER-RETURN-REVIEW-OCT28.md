@@ -1,27 +1,22 @@
-# October28 consolidated owner review
+# Owner return review - October 28
 
-Overnight continuation is bounded through08:18Eastern/12:18UTC. Routine Analytics wording/date maintenance is live and source verified. New Checks/statistics UI is disconnected and locally tested;no production report,notice,claim,grant or additional SQL was run.
+Production remains main **b10fac2b**, with successful Pages run **40631484865** and verified Analytics wording updates. The saved-timezone reward system is installed at migration **20261028040347**. APP remains **20261008-rc133**. No overnight production SQL,staff action,claim,grant or protected-account change was performed.
 
-## Prepared decision for return
+## Two prepared decisions
 
-Capture diagnostic compatibility:one private self-test function still assumes Figy is unavailable and uses an old fixed numeric example against current configured tiers. Both were reproduced in a disposable reference-only local database. The diagnostic-only correction passes14local SQL groups and32self-test rows,with18source/authority guards and replayed rollback. It changes no gameplay helper,balance configuration,permissions or player record. Private exact packet:security/hub-diagnostics-parity/SELFTEST-README.md under the owner's local PokemonStreamLink directory. No installation is authorized by this preparation.
+| Decision | What would change | Evidence and exact scope |
+|---|---|---|
+| Activate Analytics **Checks** | Replace the stale diagnostic-only self-test, add one bounded staff read endpoint, and publish four frontend files. | [Checks review](ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md). Private security/hub-diagnostics-parity/COMBINED-README.md.20 PostgreSQL source and recovery groups, 30 facade checks with fictional reports, and 16 full Hub layouts passed; delayed account responses stayed cleared. No gameplay helper or balance change. |
+| Add **Make a copy** to ordinary shop products | Add three SQL functions and five scoped frontend files. Copies start hidden and unfeatured, with a new code and staff reason. Originals stay unchanged. | [Copy review](ADMIN-HUB-PRODUCT-COPY-LOCAL-REVIEW.md). Private security/hub-product-copy/RECOVERY-README.md.53 local PostgreSQL groups, 8 exact source and schema recovery groups, 195 regression suites and build validation, and 20 scoped rendered states passed. Bits, appearance collections, capacity upgrades, currency rewards and Master Balls are excluded. |
 
-## Continue independently
+Both are **held**, ready for review. Proposed post-install verification is deployed-source only: no hosted report,copy,catalogue read,notice or reward action. Each packet has its own rollback and exact publication tree. They share admin-next.html and js/admin-next.js; do not overwrite one with the other's older baseline. After either publication, rebuild and review the other scoped patch on the new main and verify its source. Stop on unexpected drift. Approval for one does not approve the other.
 
-Prepare the bounded native Checks server projection and strict read adapter locally;retain source contracts and typed warning/partial/information behavior. Complete integrated layouts before any publication review. Product duplication,cosmetic revocation,legacy entry retirement and destructive cleanup retain their existing exact-scope holds. Do not ask routine questions during the overnight window.
+## Recovery evidence completed
 
-The next completed physical backup must postdate migration20261028040347;check when due after roughly07:44UTC. Existing points are not evidence for later migrations. Real device/provider acceptance and final launch remain separate from local tests and source verification.
+The dashboard lists a completed **PHYSICAL backup at October28 07:47:23UTC**, later than the timezone migration. This closes the pending backup-availability check. It does not certify a physical restore, full Auth recovery or Storage objects. No export or restore ran.96 tracked recovery files and 13 additional private manifest files matched;the five frozen SQL and candidate files in the two held activation packets also match. [Backup evidence](POST-TIMEZONE-BACKUP-OCT28.md). Do not repoll the unchanged backup.
 
-## Consolidated Checks activation packet
+## Still required before launch
 
-The local workflow is now integrated and recovery-tested. Review can cover the one diagnostic-only self-test replacement,one new bounded staff read endpoint andfourfrontend files together. Private exact review:security/hub-diagnostics-parity/COMBINED-README.md.34/35source guards,20source/recovery SQL groups,30mocked-report facade SQL groups,193suites/build,16full-Hub layouts andheld-account response checks pass. Proposed activation verification would inspect deployed source only;no hosted report,notice or player action. Production remains unchanged while held.
+Real iOS Safari and screen-reader/desktop zoom evidence remain missing. The Android S25 Ultra Help/Register check and ShinoTheWolf's positive Chrome subscription result remain recorded;they do not cover Firefox retry,subscription expiry or non-subscriber denial. [Real acceptance checklist](REAL-ACCEPTANCE-CHECKLIST.md). Local fixtures do not close those gaps.
 
-Ordinary-product copy now has a disconnected local form/review controller and32rendered states,34fictional groups/194suites. No new owner decision is needed overnight: next prepare the actual server revision/create contract locally. Linked appearance/Bits semantics and all activation remain held. This is not a live copy tool.
-
-October28 07:49UTC recovery cycle:completed PHYSICAL backup28Oct07:47:23UTC observed after SQL20261028040347;availability only,no restore/export/application call.96tracked recovery files and13additional private manifest files match;noSQL executed. Pending backup observation closed;do not repoll unchanged point. See POST-TIMEZONE-BACKUP-OCT28.md.
-
-Ordinary-product copy has progressed to a local native dialog and privately tested atomic SQL/recovery pair.53local PG groups plus8exact source/schema recovery groups pass;195suites and16feature-Hub layouts passed earlier. A separate5file copy-only publication candidate excludes queued Checks. Render that exact scoped candidate next;hold activation for consolidated return review. Copies remain hidden drafts and preserve original products;Bits/appearance copies and cleanup are excluded.
-
-## Ordinary-product copy decision prepared
-
-The copy packet is now ready for review: [scope and evidence](ADMIN-HUB-PRODUCT-COPY-LOCAL-REVIEW.md),private security/hub-product-copy/RECOVERY-README.md. Proposed authority is only3newSQLfunctions and5scoped frontend files,source-only verification;no actual copy/catalogue read.53localPG+8exact recovery groups,195suites/build and20exact scoped rendered states pass. Bits/appearance copies,cleanup andother queued work remain excluded. Hold this decision for the owner’s return;continue independent work.
+Appearance-gift revocation policy, linked Bits/appearance duplication,old-entry retirement and destructive catalogue cleanup retain their prior holds. Reward rebalancing remains a proposal. Final launch and APP changes remain separate decisions. The overnight window ends **08:18Eastern /12:18UTC**;this does not extend it.

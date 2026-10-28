@@ -1,3 +1,7 @@
+## October 28 final overnight review checkpoint
+
+Two local activation packets are ready and held: Analytics Checks and ordinary-product copying. Production remains mainb10fac2b/SQL20261028040347.195selected suites/build and20copy-only scoped layouts passed. Backup availability is complete;real acceptance gaps remain. [Consolidated owner review](OWNER-RETURN-REVIEW-OCT28.md). Earlier checkpoints below are historical.
+
 ## October 28 current checkpoint
 
 Production mainb10fac2b/Pages40631484865 is source verified; latest installed SQL20261028040347. Completed PHYSICAL backup28Oct07:47:23UTC postdates it; availability verified without restore/export.96tracked plus13additional private recovery files match recorded hashes. Local Checks activation is held; ordinary-product copy has a disconnected local interface, with server implementation unfinished.194selected suites/build passed in the prior cycle. Real device/provider and hosted privileged-action acceptance gaps remain. Historical checkpoints below do not supersede this one. [Backup evidence](POST-TIMEZONE-BACKUP-OCT28.md).

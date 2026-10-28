@@ -1,3 +1,7 @@
+## October 28 current checkpoint
+
+Production mainb10fac2b/Pages40631484865 is source verified; latest installed SQL20261028040347. Completed PHYSICAL backup28Oct07:47:23UTC postdates it; availability verified without restore/export.96tracked plus13additional private recovery files match recorded hashes. Local Checks activation is held; ordinary-product copy has a disconnected local interface, with server implementation unfinished.194selected suites/build passed in the prior cycle. Real device/provider and hosted privileged-action acceptance gaps remain. Historical checkpoints below do not supersede this one. [Backup evidence](POST-TIMEZONE-BACKUP-OCT28.md).
+
 ## October 27 autonomous Hub parity review
 
 HUB-PARITY-TRANSACTIONS in progress: exact50-name disposition inventory;disconnected candidate passes23JSchecks,23localSQLgroups and24rendered states.187 non-writing regression suites and build pass in this batch (two artifact-writing suites excluded). No production activation. See ADMIN-HUB-PARITY-AND-TRANSACTIONS.md. Current continuation ends23:34:50UTC.

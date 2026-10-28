@@ -1,3 +1,7 @@
+## October 28 current checkpoint
+
+Production mainb10fac2b/Pages40631484865 is source verified; latest installed SQL20261028040347. Completed PHYSICAL backup28Oct07:47:23UTC postdates it; availability verified without restore/export.96tracked plus13additional private recovery files match recorded hashes. Local Checks activation is held; ordinary-product copy has a disconnected local interface, with server implementation unfinished.194selected suites/build passed in the prior cycle. Real device/provider and hosted privileged-action acceptance gaps remain. Historical checkpoints below do not supersede this one. [Backup evidence](POST-TIMEZONE-BACKUP-OCT28.md).
+
 ## Latest checkpoint — October 27 evening
 
 Latest routine maintenance live main e3c039cd/Pages40600967148;Service Desk source matches,187 selected suites/build,28local states. Earlier Health/ownership corrections remain live. The earlier team fix is owner-confirmed. Latest SQL20261027164355;96 recovery packet files verified. Next completed post-change physical backup dueOct28. Hub parity inventory and disconnected transaction candidate: ADMIN-HUB-PARITY-AND-TRANSACTIONS.md.187 selected non-writing suites/build,23JSchecks,30final localSQLgroups,24standalone and16full-Hub states passed. These do not close real-device/provider or hosted privileged-action acceptance. Earlier checkpoints below remain historical.

@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "POST-TIMEZONE-BACKUP-OCT28",
+      "status": "done",
+      "scope": "Completed backup availability after installed timezone migration",
+      "evidence": "POST-TIMEZONE-BACKUP-OCT28.md",
+      "testResults": "Dashboard PHYSICAL28Oct07:47:23UTC;96tracked plus13private packet files match;no SQL executed",
+      "nextAction": "No unchanged backup polling. Restore/full Auth/Storage certification remains excluded."
+    },
+    {
       "id": "CAPTURE-SELFTEST-COMPATIBILITY",
       "status": "blocked",
       "scope": "Diagnostic-only correction for stale Figy assumption and reference examples",
@@ -33,7 +41,7 @@
       "scope": "Saved local-midnight Oak and Pass clocks with safe earned-period transition",
       "evidence": "ACCOUNT-REWARD-TIMEZONE.md",
       "testResults": "54 local PostgreSQL checks;25 relevant JS suites;build;four rendered widths",
-      "nextAction": "LIVE SQL20261028040347/main595f86fd/Pages40630243892;27source/authority matches,5controls,6/6hosted sources. No live claims. Post-change physical backup pending."
+      "nextAction": "LIVE SQL20261028040347/main595f86fd;source/authority verified. Completed PHYSICAL backup28Oct07:47:23UTC available;no restore/export or live claim."
     },
     {
       "id": "SERVICE-DESK-WORDING",

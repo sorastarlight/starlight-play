@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+Current follow-up:Transactions is published at mainaec5627a/Pages40614466343 with4/4source matches;capture validation/refund compatibility is installed at migration20261028013900 with2candidate/6control contracts verified. Both approvals are spent;no live application tests were run. See ADMIN-HUB-TRANSACTIONS-ACTIVATION.md and CAPTURE-ITEM-VALIDATION-REVIEW.md. Earlier evening snapshots below are historical.
+
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.
 
 Latest published maintenance is Service Desk naming at main e3c039cd/Pages40600967148, with one exact hosted source,187 selected non-writing suites/build and28local rendered states. Ownership detail guidance and Health summary maintenance are also live. The earlier team editor correction is owner-confirmed. APP unchanged. The native Planning checkpoint remains documented in [its report](LAUNCH-CODEX272-NATIVE-PLANNING.md). Current parity review and disconnected transaction candidate: [review](ADMIN-HUB-PARITY-AND-TRANSACTIONS.md).

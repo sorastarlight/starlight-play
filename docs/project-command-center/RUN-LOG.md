@@ -2994,3 +2994,6 @@ October27 owner-approved Transactions activation: migration20261028011952 exact 
 
 
 CAPTURE-ITEM-VALIDATION:paired two-private-function guarded install/rollback now passes85 REAL LOCAL PG17checks;generic storage helper unchanged,original refund behavior preserved. Prepared only;production unchanged and important owner SQL decision required. No live catch/refund/player repair. See CAPTURE-ITEM-VALIDATION-REVIEW.md;private security/capture-classification/README.md.
+
+
+CAPTURE-ITEM-VALIDATION INSTALLED:explicit owner approval; migration20261028013900 exact two definitions/attributes match85-case candidate,6controls unchanged. Private guarded recovery retained. No gameplay/refund/repair/frontend/APP action. See CAPTURE-ITEM-VALIDATION-REVIEW.md.

@@ -4545,11 +4545,11 @@
     },
     {
       "id": "CAPTURE-ITEM-VALIDATION",
-      "status": "blocked",
+      "status": "done",
       "scope": "Two-private-function capture validation/refund compatibility correction",
       "evidence": "CAPTURE-ITEM-VALIDATION-REVIEW.md;private security/capture-classification/README.md",
-      "testResults": "85 real local PostgreSQL cases,guarded atomic install/rollback and drift refusal;no live gameplay",
-      "nextAction": "Owner decision for exact two-function installation and source-only verification;no player repair or live catch"
+      "testResults": "85 REAL LOCAL PG17checks;production migration20261028013900 exact2candidate definitions/attributes and6unchanged controls verified;no application calls",
+      "nextAction": "Approval spent;retain private guarded recovery and verify next completed post-change physical backup when due"
     }
   ]
 }

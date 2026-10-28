@@ -7,16 +7,17 @@
   const commands = Object.freeze({ captures: "admin_capture_report", progression: "admin_progression_overview", evolution: "admin_collection_overview", economy: "admin_economy_overview" });
   const titles = Object.freeze({ health: "Health", captures: "Captures", progression: "Progression", evolution: "Evolution & Trading", economy: "Economy" });
   const contexts = Object.freeze({
-    captures: "Capture counts and rates use this window. Retained QA activity is included by the existing report. Collection totals are not part of this window.",
-    progression: "Current all-account snapshot, including staff and QA profiles. Recorded species use catch records, not current ownership or a living Pokédex.",
-    evolution: "Evolution totals use retained history; Candy and open listings are current. Direct trade requests include every status, including pending requests, and exclude GTS exchanges.",
-    economy: "Balances are current. Today uses the game’s configured time zone; retained all-time ledger totals are separate. This report is not a full accounting invariant check."
+    captures: "Shows throws and catches during the selected period, including recorded test activity. This is capture activity, not the number of Pokémon trainers currently own.",
+    progression: "Shows current levels for all accounts, including staff and test accounts. Species counts show what trainers have caught, including Pokémon they later traded or released.",
+    evolution: "Shows recorded evolutions, current Candy balances and open GTS listings. Direct trade requests include pending, completed and cancelled requests; That request count excludes GTS exchanges.",
+    economy: "Shows current PokéCoin balances and recorded coin activity. “Today” follows the game’s reporting time zone, which may differ from your reward reset. Totals alone do not confirm that every transaction is correct."
   });
   const esc = value => String(value ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");
   const number = value => typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : null;
   const format = value => value === null ? "Unavailable" : value.toLocaleString("en-US", { maximumFractionDigits: 2 });
   const rateNumber = value => number(value) !== null && value <= 1 ? value : null;
   const rate = value => value == null ? "—" : rateNumber(value) !== null ? `${(value * 100).toFixed(1)}%` : "Unavailable";
+  function reportTime(value) { if (typeof value !== "string" || !Number.isFinite(Date.parse(value))) return "Unavailable"; return new Date(value).toLocaleString(undefined, { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short" }); }
   function validDays(value) { return Number.isInteger(value) && value >= 1 && value <= 365; }
   function accessError() { return Object.assign(Error("Staff session changed."), { code: "REPORT_ACCESS_CHANGED" }); }
   // The adapter accepts no generic RPC name or unreviewed arguments. Server authorization remains authoritative.
@@ -47,27 +48,27 @@
         tables.push({ title, headings: [title.replace(/^By /, "").replace(/^./, char => char.toUpperCase()), "Throws", "Catches", "Success"], rows: Array.isArray(raw[key]) ? raw[key].map(row => [typeof row?.[label] === "string" ? row[label] : "Unavailable", format(number(row?.throws)), format(number(row?.caught)), rate(row?.rate)]) : null });
       }
     } else if (view === "progression") {
-      add("Registered trainers", raw.trainers, "All profiles, not recently active players");
-      add("Average trainer level", raw.averageLevel, "Current profile XP converted to level");
-      add("Median trainer level", raw.medianLevel, "Current profile population");
-      add("Average recorded species", raw.averageSpecies, "Catch-record population; excludes profiles without catch records");
+      add("Registered trainers", raw.trainers, "Includes staff and test accounts");
+      add("Average trainer level", raw.averageLevel, "Based on current Trainer XP");
+      add("Median trainer level", raw.medianLevel, "Across all registered trainers");
+      add("Average recorded species", raw.averageSpecies, "Caught species; excludes trainers with no recorded catches");
       distribution("Trainer levels", raw.levelBuckets, ["1-10", "11-25", "26-50", "51-100"]);
       distribution("Recorded species per profile", raw.dexDistribution, ["0-25", "26-50", "51-75", "76-100", "101-125", "126-140", "141-150", "151"]);
     } else if (view === "evolution") {
-      add("Recorded evolutions", raw.evolutions, "Retained evolution log entries");
+      add("Recorded evolutions", raw.evolutions, "Recorded evolution history");
       add("Open GTS listings", raw.openGts, "Currently marked open");
-      add("Direct trade requests", raw.directTrades, "Every status; excludes GTS exchanges");
-      add("Evolution Candy held", raw.candyTotal, "Current balances across trainers");
+      add("Direct trade requests", raw.directTrades, "Pending, completed and cancelled; excludes GTS");
+      add("Evolution Candy held", raw.candyTotal, "Candy trainers currently hold");
       add("Trainers holding Candy", raw.candyTrainers, "Trainers with a positive Candy balance");
     } else if (view === "economy") {
       add("PokéCoins held", raw.circulation, "Current inventory balances");
       add("Average balance", raw.averageBalance, "Current inventories");
       add("Median balance", raw.medianBalance, "Current inventories");
-      add("Created today", raw.createdToday, "Positive ledger entries · game time zone");
-      add("Spent today", raw.spentToday, "Negative ledger entries · game time zone");
-      add("Mart revenue today", raw.storeRevenueToday, "Store purchases · game time zone");
-      add("Created, all time", raw.inflation?.created, "All retained positive ledger entries");
-      add("Spent, all time", raw.inflation?.destroyed, "All retained negative ledger entries");
+      add("Created today", raw.createdToday, "Recorded coin gains · reporting time zone");
+      add("Spent today", raw.spentToday, "Recorded coin spending · reporting time zone");
+      add("Mart revenue today", raw.storeRevenueToday, "Mart purchases · reporting time zone");
+      add("Created, all time", raw.inflation?.created, "All recorded coin gains");
+      add("Spent, all time", raw.inflation?.destroyed, "All recorded coin spending");
       distribution("Current PokéCoin balances", raw.distribution, ["0-499", "500-999", "1000-2499", "2500-4999", "5000-9999", "10000+"]);
     } else throw Error("Unsupported report.");
     const since = view === "captures" && typeof raw.since === "string" && Number.isFinite(Date.parse(raw.since)) ? new Date(raw.since).toISOString() : null;
@@ -120,7 +121,7 @@
       root.querySelector("#report-heading").textContent = titles[state.view]; root.querySelector(".analytics-context").textContent = contexts[state.view] || "";
       form.querySelector("label").hidden = state.view !== "captures"; form.querySelector("[type=submit]").hidden = state.view !== "captures";
       refresh.setAttribute("aria-disabled", String(state.phase === "loading")); panel.setAttribute("aria-busy", String(state.phase === "loading"));
-      status.textContent = state.phase === "loading" ? "Loading report…" : state.phase === "error" ? "Report unavailable. Refresh to try again; no values have been substituted with zero." : state.report ? `${state.report.partial ? "Partial report. Some values are unavailable. " : ""}Retrieved ${state.observed} (browser clock).${state.view === "captures" ? ` Requested range: ${state.days} days. Server window starts ${state.report.since || "Unavailable"}.` : ""}` : "No report loaded.";
+      status.textContent = state.phase === "loading" ? "Loading report…" : state.phase === "error" ? "Couldn’t load this report. Choose Refresh report to try again." : state.report ? `${state.report.partial ? "Partial report. Some values are unavailable. " : ""}Updated ${reportTime(state.observed)} (your device time).${state.view === "captures" ? ` Showing ${state.days} days, starting ${reportTime(state.report.since)}.` : ""}` : "No report loaded.";
       results.innerHTML = state.report ? `<div class="analytics-metrics">${state.report.cards.map(card => `<article class="analytics-metric"><p>${esc(card.label)}</p><strong>${esc(card.text ?? format(card.value))}</strong><small>${esc(card.scope)}</small></article>`).join("")}</div>${state.report.tables.map(table => `<div class="analytics-table-wrap"><table><caption>${esc(table.title)}</caption><thead><tr>${table.headings.map(heading => `<th scope="col">${esc(heading)}</th>`).join("")}</tr></thead><tbody>${table.rows === null ? `<tr><td colspan="${table.headings.length}">Unavailable</td></tr>` : table.rows.length ? table.rows.map(row => `<tr>${row.map(cell => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("") : `<tr><td colspan="${table.headings.length}">No recorded activity in this window.</td></tr>`}</tbody></table></div>`).join("")}` : "";
     });
     root.querySelector("[role=tablist]").addEventListener("click", event => { const button = event.target.closest("[data-report]"); if (!button) return; ui.select(button.dataset.report); if (button.dataset.report === "health") openHealth(); });
@@ -136,5 +137,5 @@
     ui.reset();
     return { state: ui.state, open() { ui.open(); if (ui.state.view === "health") openHealth(); }, reset() { input.value = "30"; ui.reset(); } };
   }
-  return Object.freeze({ commands, adapter, project, controller, mount, esc });
+  return Object.freeze({ commands, adapter, project, controller, mount, esc, reportTime });
 });

@@ -16,8 +16,8 @@
       "status": "in_progress",
       "scope": "Preserve exact diagnostic fields/scopes and separate findings from load failures",
       "evidence": "ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md",
-      "testResults": "54local projection/controller groups;192selected suites/build;prior24responsive states;17definition source closure",
-      "nextAction": "Continue bounded native server projection and strict read adapter locally. Self-test compatibility packet separately held;no production import,SQL or hosted diagnostic calls."
+      "testResults": "30local PG facade checks with mocked reports;19adapter+54projection/controller groups;193selected suites/build;24SQL-to-DOMlayouts",
+      "nextAction": "Prepare guarded facade packet and full-Hub integration using existing workspace tabs;component remains unimported. No production SQL/report calls. Self-test correction separately held."
     },
     {
       "id": "ANALYTICS-STAFF-CLARITY",

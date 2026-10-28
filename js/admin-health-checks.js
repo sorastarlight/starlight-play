@@ -10,9 +10,20 @@
  const itemLabel=key=>{const label=root.playItemLabel?.(key);if(typeof label==='string'&&label!==key)return text(label);return({none:'No berry',unknown:'Unknown item',pokeball:'Poké Ball',greatball:'Great Ball',ultraball:'Ultra Ball',masterball:'Master Ball',oran:'Oran Berry',pecha:'Pecha Berry',razz:'Razz Berry'})[key]||'Unrecognized item: '+key;};
  const selfTestName=value=>({'Two Trainers roll independently':'Two secure random draws differ','One capture row per Trainer per encounter':'Named capture-log index exists','Duplicate throws cannot spend two Poke Balls':'Throw-processing column exists','Berries are never treated as throwable Poke Balls':'Razz and Golden Razz are not throwable Balls','Maximum chance is never exceeded':'High-chance sample stays within the configured cap','Minimum chance is never breached':'Low-chance sample stays above the configured floor','Female variants use the species base rate':'Nidoran variants use matching base rates'})[value]||text(value);
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+ function adapter({session,identity,allowed,call}){
+  const denied=()=>Object.assign(Error('Staff session changed.'),{code:'CHECK_ACCESS_CHANGED'});
+  return async view=>{
+   if(!Object.hasOwn(titles,view))throw Error('Unsupported diagnostic view.');
+   const expected=identity();
+   const check=async()=>{const result=await session();if(!expected||!allowed()||identity()!==expected||result?.error||result?.data?.session?.user?.id!==expected)throw denied();};
+   await check();let raw;try{raw=await call('admin_hub_diagnostics',{p_view:view});}catch(error){if(error?.code==='42501')throw denied();throw error;}await check();
+   if(!object(raw)||raw._view!==view||typeof raw.truncated!=='boolean')throw Error('Diagnostic response does not match this view.');
+   return raw;
+  };
+ }
  function project(view,raw){
   if(!Object.hasOwn(titles,view)||!object(raw)||raw.error)throw Error('Check unavailable.');
-  const metrics=[],tables=[];let partial=false,findings=false;const informational=view==='economy'||view==='supplies';
+  const metrics=[],tables=[];let partial=raw.truncated===true,findings=false;const informational=view==='economy'||view==='supplies';
   const add=(key,label,scope,finding=true)=>{const value=count(raw[key]);metrics.push({label,value,scope});if(value===null)partial=true;else if(finding&&value>0)findings=true;return value;};
   if(view==='content'){
    if(typeof raw.ok!=='boolean')throw Error('Content check unavailable.');
@@ -54,7 +65,7 @@
    tables.push({title:'Event timing',columns:['Event','Pokémon','Time on your device'],rows:eventRows});
    const availability=object(raw.availability)?raw.availability:{};const rows=[['normal','Ordinary spawn classification'],['special','Special spawn classification'],['total','Configured highest Pokédex number']].map(([key,label])=>{const n=count(availability[key]);if(n===null)partial=true;return[label,n===null?'Unavailable':n];});tables.push({title:'Configured spawn scope',columns:['Setting or classification','Count or Dex limit'],rows});
   }
-  return{view,title:titles[view],note:notes[view],phase:findings?'findings':partial?'partial':informational?'information':'clear',partial,metrics,tables};
+  return{view,title:titles[view],note:notes[view],phase:findings?'findings':partial?'partial':informational?'information':'clear',partial,truncated:raw.truncated===true,metrics,tables};
  }
  function controller(read,update=()=>{}){
   let active=false,epoch=0,serial=0;const state={view:'content',phase:'closed',report:null,at:null};
@@ -67,11 +78,11 @@
   const select=host.querySelector('select'),button=host.querySelector('button'),status=host.querySelector('[data-check-status]'),results=host.querySelector('[data-check-results]');
   const ui=controller(read,state=>{
    select.value=state.view;host.querySelector('[data-check-note]').textContent=notes[state.view];host.setAttribute('aria-busy',String(state.phase==='loading'));button.disabled=state.phase==='closed'||state.phase==='loading';button.textContent=state.report?'Refresh check':'Load check';
-   const labels={closed:'Staff session ended. Reopen Checks to continue.',idle:'Choose Load check when you are ready.',loading:'Loading check…',error:'Couldn’t load this check. Choose Load check to try again.',findings:'Findings need review. No repairs have been made.',partial:'Some results are unavailable. This is not a complete check.',clear:'No findings in the checks listed below.',information:'Statistics loaded. These totals do not establish accounting or reward health.'};
-   status.textContent=labels[state.phase]+(state.report?.partial&&state.phase==='findings'?' Some results are also unavailable.':'')+(state.at?' Updated '+new Date(state.at).toLocaleString(undefined,{timeZoneName:'short'})+' (your device time).':'');
+   const labels={closed:'Staff session ended. Reopen Checks to continue.',idle:'Choose Load check when you are ready.',loading:'Loading check…',error:'Couldn’t load this check. Choose Load check to try again.',findings:'Findings need review. No repairs have been made.',partial:state.report?.truncated?'Partial results. Some rows or notes were shortened.':'Some results are unavailable. This is not a complete check.',clear:'No findings in the checks listed below.',information:'Statistics loaded. These totals do not establish accounting or reward health.'};
+   status.textContent=labels[state.phase]+(state.report?.partial&&state.phase==='findings'?(state.report.truncated?' Some rows or notes were shortened.':' Some results are also unavailable.'):'')+(state.at?' Updated '+new Date(state.at).toLocaleString(undefined,{timeZoneName:'short'})+' (your device time).':'');
    results.innerHTML=state.report?`<div class="health-check-metrics" data-count="${state.report.metrics.length}">${state.report.metrics.map(m=>`<article><h4>${esc(m.label)}</h4><strong>${m.display!==undefined?esc(m.display):m.value===null?'Unavailable':esc(m.value.toLocaleString())}</strong><p>${esc(m.scope)}</p></article>`).join('')}</div><div class="health-check-tables">${state.report.tables.map(t=>`<div class="health-check-table"><table><caption>${esc(t.title)}</caption><thead><tr>${t.columns.map(c=>`<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${t.rows===null?`<tr><td colspan="${t.columns.length}">Unavailable</td></tr>`:!t.rows.length?`<tr><td colspan="${t.columns.length}">${esc(t.empty||(state.view==='captures'?'No self-test results were returned.':'No recorded collisions.'))}</td></tr>`:t.rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`).join('')}</div>`:'';
   });
   select.addEventListener('change',()=>ui.select(select.value));button.addEventListener('click',()=>ui.load());ui.reset();return ui;
  }
- return Object.freeze({titles,project,controller,mount,esc});
+ return Object.freeze({titles,project,controller,mount,adapter,esc});
 });

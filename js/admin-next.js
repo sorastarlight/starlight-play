@@ -105,6 +105,12 @@
     session: () => supabase.auth.getSession(), identity: () => analyticsIdentity,
     allowed: () => staffOpen, call: (name, args) => window.playCall(name, args)
   }), document.getElementById("next-analytics-health"), () => loadHealth());
+  const coinLedgerApi=window.PLAY_ADMIN_COIN_LEDGER;
+  const coinLedger=coinLedgerApi?.mount(document.getElementById('next-coin-ledger'),coinLedgerApi.adapter({
+    session:()=>supabase.auth.getSession(),identity:()=>analyticsIdentity,
+    allowed:()=>staffOpen&&currentTab()==='analytics'&&!document.getElementById('next-transactions-section')?.hidden,
+    call:(name,args)=>{if(name!=='admin_hub_coin_ledger')throw Error('Unsupported transaction read.');return window.playCall(name,args);}
+  }));
   const planningApi=window.PLAY_ADMIN_PLANNING;
   const planning=planningApi?.mount(document.getElementById('next-planning'),planningApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>analyticsIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}),{species:window.PLAY_SPECIES||[],itemName:key=>window.playItemLabel?.(key)||key});
   const itemDefinitionsApi=window.PLAY_ADMIN_ITEM_DEFINITIONS;
@@ -518,6 +524,7 @@
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
+    if(next!=="analytics")coinLedger?.reset();
     if(next!=="system")systemConnections?.hideSensitive();
     sessionControls?.repaint();
     if (next === "operations") startOpsPoll();
@@ -544,6 +551,7 @@
     analyticsIdentity = "";
     analytics?.reset();
     planning?.reset();
+    coinLedger?.reset();
     healthGeneration++;
     healthLoaded = false;
     healthInFlight = false;

@@ -585,3 +585,5 @@ CAPTURE-ITEM-VALIDATION:paired two-private-function guarded install/rollback now
 
 
 CAPTURE-ITEM-VALIDATION INSTALLED:explicit owner approval; migration20261028013900 exact two definitions/attributes match85-case candidate,6controls unchanged. Private guarded recovery retained. No gameplay/refund/repair/frontend/APP action. See CAPTURE-ITEM-VALIDATION-REVIEW.md.
+
+ACCOUNT-REWARD-TIMEZONE prepared,not activated:54local SQL checks,25related JS suites/build,four rendered calendar widths. Saved local midnight/Monday reset,earned-period/streak preservation,guarded rollback/STOP. Exact six frontend files held with production SQL decision. See ACCOUNT-REWARD-TIMEZONE.md.

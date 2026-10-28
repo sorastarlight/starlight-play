@@ -661,3 +661,5 @@ CAPTURE-ITEM-VALIDATION INSTALLED:explicit owner approval; migration202610280139
 
 
 REWARD-LOCAL-DATES-PC-TABS:23 relevant local suites/build pass;four responsive local widths fit;ten tab round trips retain sprite nodes;identity-before-exposure/late-account guards pass. Exact five-file routine publication mainf2bbcaee;Pages40619514511 SUCCESS;5/5 hosted sources match. Server reset/claim/reward rules unchanged. No SQL or hosted claim/transfer. See REWARD-LOCAL-DATES-PC-TABS.md.
+
+ACCOUNT-REWARD-TIMEZONE prepared,not activated:54local SQL checks,25related JS suites/build,four rendered calendar widths. Saved local midnight/Monday reset,earned-period/streak preservation,guarded rollback/STOP. Exact six frontend files held with production SQL decision. See ACCOUNT-REWARD-TIMEZONE.md.

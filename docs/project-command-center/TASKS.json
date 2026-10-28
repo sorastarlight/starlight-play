@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "ACCOUNT-REWARD-TIMEZONE",
+      "status": "blocked",
+      "scope": "Saved local-midnight Oak and Pass clocks with safe earned-period transition",
+      "evidence": "ACCOUNT-REWARD-TIMEZONE.md",
+      "testResults": "54 local PostgreSQL checks;25 relevant JS suites;build;four rendered widths",
+      "nextAction": "Prepared private guarded install/rollback/STOP;await exact production activation decision. No hosted claims."
+    },
+    {
       "id": "SERVICE-DESK-WORDING",
       "status": "done",
       "scope": "Use Service Desk naming consistently in player/staff feedback",

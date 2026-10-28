@@ -527,8 +527,8 @@
     const daily = kind === 'daily', ready = wallet?.[daily ? 'dailyReady' : 'weeklyReady'];
     const next = wallet?.[daily ? 'passDailyNextAt' : 'passWeeklyNextAt'];
     const last = wallet?.[daily ? 'passDailyClaimedAt' : 'passWeeklyClaimedAt'];
-    const date = value => value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString(undefined,{timeZoneName:'short'}) : null;
-    if(wallet?.calendar==='UTC' && !wallet?.[daily?'passDailyVerified':'passWeeklyVerified']) return 'Check your subscription to unlock these supplies.';
+    const date = value => window.PLAY_PASS_CALENDAR?.localTime?.(value,wallet?.rewardTimezone)||(value && Number.isFinite(new Date(value).getTime()) ? new Date(value).toLocaleString(undefined,{timeZoneName:'short'}) : null);
+    if(['UTC','LOCAL'].includes(wallet?.calendar) && !wallet?.[daily?'passDailyVerified':'passWeeklyVerified']) return 'Check your subscription to unlock these supplies.';
     if(wallet?.ownerRepeat) return ready ? 'Owner testing: ready to claim again.' : 'Owner testing: 30 seconds between claims of this reward.';
     const available = ready ? 'Available now.' : date(next) ? `Next supply: ${date(next)}.` : 'Check back for your next supply.';
     return available + (date(last) ? ` Last claimed: ${date(last)}.` : '');
@@ -537,7 +537,7 @@
   function passFloor(floor, pass, wallet) {
     const info = describePass(pass, wallet);
     const resets=window.PLAY_PASS_CALENDAR?.resets?.(wallet)||{};
-    const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.ownerRepeat&&wallet?.[kind==='daily'?'passDailyVerified':'passWeeklyVerified']?'30-second wait':wallet?.calendar==='UTC'?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
+    const passState=kind=>!info.active?'Pass needed':wallet?.[kind==='daily'?'dailyReady':'weeklyReady']?'Ready':wallet?.ownerRepeat&&wallet?.[kind==='daily'?'passDailyVerified':'passWeeklyVerified']?'30-second wait':['UTC','LOCAL'].includes(wallet?.calendar)?(wallet?.[kind==='daily'?'passDailyDelivered':'passWeeklyDelivered']?'Claimed':'Verify Pass'):'Cooldown';
     return `<div class="mart-pass mart-pass-compact">
       <section class="pass-showcase${info.active ? ' is-active' : ''}" data-pass-hero>
         <header class="pass-compact-heading">
@@ -547,23 +547,23 @@
           <div class="pass-compact-tools"><button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
           ${pass?.checkedAt ? `<small>Checked ${esc(new Date(pass.checkedAt).toLocaleString())}</small>` : ''}</div>
         </header>
-        <div class="pass-calendar-heading"><h3>Your week of supplies</h3><small>Dates shown in your local time</small></div>
+        <div class="pass-calendar-heading"><h3>Your week of supplies</h3><small>${wallet?.rewardTimezone?'Dates follow your reward time zone':'Dates shown in your local time'}</small></div>
         ${window.PLAY_PASS_CALENDAR?.html(wallet, info.active) || ''}
         <div class="pass-reward-panels">
           <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? ' is-ready' : ''}">
             <header class="pass-reward-head"><h3>Today’s Pass supply</h3><span class="pass-reward-chip">${passState('daily')}</span></header>
             ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.daily) || ''}
             <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'daily'))}</p>
-            ${!wallet?.ownerRepeat && Array.isArray(wallet?.passDays) && wallet.passDays.length===7 && wallet?.dailyReady && info.active ? '<p class="pass-time-note">Claim today’s supply in the calendar above.</p>' : `<button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (wallet?.calendar==='UTC'?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>`}
+            ${!wallet?.ownerRepeat && Array.isArray(wallet?.passDays) && wallet.passDays.length===7 && wallet?.dailyReady && info.active ? '<p class="pass-time-note">Claim today’s supply in the calendar above.</p>' : `<button id="claim-daily" class="pass-claim-btn" type="button"${info.active && wallet?.dailyReady ? '' : ' disabled'}>${info.active && !wallet?.dailyReady ? (['UTC','LOCAL'].includes(wallet?.calendar)?passState('daily'):'On cooldown') : 'Claim daily supply'}</button>`}
           </article>
           <article class="pass-reward-card pass-weekly-card${info.active && wallet?.weeklyReady ? ' is-ready' : ''}">
             <header class="pass-reward-head"><h3>Weekly bonus</h3><span class="pass-reward-chip">${passState('weekly')}</span></header>
             ${window.PLAY_PASS_REWARDS?.html(lastPassRewards?.weekly) || ''}
             <p class="pass-time-note">${esc(passSupplyTiming(wallet, 'weekly'))}</p>
-            <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? '' : ' disabled'}>${info.active && !wallet?.weeklyReady ? (wallet?.calendar==='UTC'?passState('weekly'):'On cooldown') : 'Claim weekly bonus'}</button>
+            <button id="claim-weekly" class="pass-claim-btn is-weekly" type="button"${info.active && wallet?.weeklyReady ? '' : ' disabled'}>${info.active && !wallet?.weeklyReady ? (['UTC','LOCAL'].includes(wallet?.calendar)?passState('weekly'):'On cooldown') : 'Claim weekly bonus'}</button>
           </article>
         </div>
-        ${wallet?.calendar==='UTC'?`<p class="pass-time-note">${resets.daily?'Daily reset: '+esc(resets.daily)+'. ':''}${resets.weekly?'Weekly reset: '+esc(resets.weekly)+'. ':''}Times are local to your device. Saved supplies wait in <a href="storage.html#items">My PC</a>.</p>`:''}
+        ${window.PLAY_REWARD_TIMEZONE?.note(wallet)||''}${window.PLAY_REWARD_TIMEZONE?.timer(wallet?.rewardDailyResetAt,wallet)||''}${['UTC','LOCAL'].includes(wallet?.calendar)?`<p class="pass-time-note">${resets.daily?'Daily reset: '+esc(resets.daily)+'. ':''}${resets.weekly?'Weekly reset: '+esc(resets.weekly)+'. ':''}Times ${wallet?.rewardTimezone?'follow your saved reward time zone':'are local to your device'}. Saved supplies wait in <a href="storage.html#items">My PC</a>.</p>`:''}
         ${!info.active ? '<p class="pass-subscribe"><a href="https://www.twitch.tv/subs/sorastarlight" target="_blank" rel="noreferrer">Subscribe on Twitch</a> · Connect Twitch in My Account.</p>' : ''}
 
       </section>
@@ -1326,6 +1326,7 @@
 
   async function refreshStore() {
     try {
+      await window.PLAY_REWARD_TIMEZONE?.ensure();
       const data = await window.playCall("play_store");
       const wallet = data.wallet;
       lastCatalog = data.catalog;

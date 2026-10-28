@@ -13,7 +13,7 @@
   ordered.forEach((node,i)=>{if(container.children[i]!==node)container.insertBefore(node,container.children[i]||null);node.dataset.slot=String(i);if(!node.dataset.select)node.setAttribute('aria-label','Empty slot '+(i+1));});
  }
  function create(el,{client,call,label=k=>k,sprite=()=>'',uuid=()=>crypto.randomUUID(),onState=()=>{},notify=notice=>root.playToast?.(notice)}){
-  let generation=0,uid=null,data=null,pending=null,busy=false,selected=null,query='',dragFrom=null,bagOpen=false,bagQuery='',direction='withdraw',stale=false,arranging=false;
+  let generation=0,uid=null,data=null,pending=null,busy=false,selected=null,query='',dragFrom=null,bagOpen=false,bagQuery='',direction='withdraw',stale=false,arranging=false,visible=true;
   const giftBoxes=root.PLAY_REWARD_BOXES?.create({client,call,refresh:()=>refresh(),toast:notify});
   const cacheKey=id=>'pc-item-transfer:'+id,status=()=>el.querySelector('[data-pc-status]');
   function say(text,focus=false){const feedback=el.querySelector('[data-bag-status]');if(feedback)feedback.textContent=text;const s=status();if(s){s.textContent=text;if(focus)s.focus();}}
@@ -36,7 +36,7 @@
   function grid(){el.querySelector('[data-pc-grid]').innerHTML=cards(data,query,label,sprite,selected);}
   function render(){
    // This is an unseen-delivery indicator, not a count of unopened boxes.
-   root.playSetPcGiftCount?.(0,uid);
+   if(visible)root.playSetPcGiftCount?.(0,uid);
    if(selected&&!data.bag[selected]&&!data.stored[selected])selected=null;
    const waiting=Object.entries(data.waiting||{}).filter(([,n])=>n>0);
    if(el.querySelector('[data-pc-grid]')){sync();return;}
@@ -57,7 +57,7 @@
    onState(data);
   }
   function lock(){const active=root.document?.activeElement,focusData=active&&el.contains?.(active)?Object.entries(active.dataset):null;const controls=[...el.querySelectorAll('button,input')].map(control=>({control,disabled:control.disabled}));controls.forEach(x=>x.control.disabled=true);el.setAttribute?.('aria-busy','true');return()=>{controls.forEach(x=>{if(x.control.isConnected!==false)x.control.disabled=x.disabled;});el.removeAttribute?.('aria-busy');if(focusData?.length){const target=[...el.querySelectorAll('button,input')].find(node=>focusData.every(([key,value])=>node.dataset[key]===value));if(target&&!target.disabled)target.focus({preventScroll:true});else el.querySelector(bagOpen?'[data-bag-search]':'[data-bag-toggle]')?.focus({preventScroll:true});}};}
-  async function refresh(g=generation,id=uid){const next=await request('play_pc_items',{},g,id);if(g!==generation)return false;if(!next?.ok||!Array.isArray(next.slots)||next.slots.length!==SIZE)throw Error('Unavailable');data=next;stale=false;render();return true;}
+  async function refresh(g=generation,id=uid,soft=false){const snapshot=JSON.stringify(data);const next=await request('play_pc_items',{},g,id);if(g!==generation||soft&&(snapshot!==JSON.stringify(data)||busy||arranging||pending))return false;if(!next?.ok||!Array.isArray(next.slots)||next.slots.length!==SIZE)throw Error('Unavailable');const unchanged=JSON.stringify(next)===JSON.stringify(data);data=next;stale=false;if(!soft||!unchanged)render();else if(visible)root.playSetPcGiftCount?.(0,uid);return true;}
   function refreshFailed(message){stale=true;say(message);toast(message,'warning');}
   async function load(id){giftBoxes?.reset(id);const g=++generation;uid=id;data=null;busy=false;pending=null;el.innerHTML='<p class="pc-item-message" role="status">Loading item storage…</p>';try{const result=await request('play_pc_items',{},g,id);if(g!==generation)return;if(!result?.ok||!Array.isArray(result.slots)||result.slots.length!==SIZE)throw Error('Unavailable');data=result;render();const saved=root.sessionStorage?.getItem(cacheKey(id));if(saved){pending=JSON.parse(saved);el.querySelectorAll('button,input').forEach(x=>x.disabled=true);const retry=el.querySelector('[data-pc-retry]');retry.hidden=false;retry.disabled=false;say('Check your previous transfer before moving more items.');}}catch(_){if(g===generation){onState(null);el.innerHTML='<p class="pc-item-message" role="status">Item storage could not load.</p><button type="button" data-pc-refresh>Try again</button>';}}}
   async function transfer(){
@@ -110,12 +110,15 @@
   el.addEventListener('dragleave',event=>{const slot=event.target.closest('[data-slot]');if(slot&&!slot.contains(event.relatedTarget))slot.classList.remove('is-drop-target');});
   el.addEventListener('drop',event=>{const b=event.target.closest('[data-slot]');if(dragFrom===null||!b||busy||pending||stale)return;event.preventDefault();clearDrag();const key=slots(data)[dragFrom];dragFrom=null;moveTo(Number(b.dataset.slot),key);});
   el.addEventListener('dragend',()=>{dragFrom=null;clearDrag();});
-  return{load,reset};
+  function suspend(){visible=false;if(bagOpen)closeBag();}
+  async function activate(id){visible=true;if(uid!==id||!data)return load(id);if(busy||arranging||pending)return;const g=generation;try{await refresh(g,id,true);}catch(_){if(g===generation)say('Showing your last loaded items. Refresh to check for updates.');}}
+  return{load,reset,activate,suspend};
  }
  const api={rows,cards,slots,reorderCells,create};if(typeof module!=='undefined')module.exports=api;else{
   root.PLAY_PC_ITEMS=api;const el=document.getElementById('pc-item-panel');if(!el)return;const meta=document.getElementById('pc-item-meta');
   const ui=create(el,{client:root.playSupabase,call:(n,a)=>root.playCall(n,a),label:k=>root.playItemLabel(k),sprite:k=>root.playItemSprite(k),onState:d=>{if(meta)meta.innerHTML=`<p class="pc-box-label">ITEM BOX</p><p class="pc-box-count">${d?slots(d).filter(Boolean).length:'—'} / 30</p><div class="pc-usage" aria-hidden="true"><i style="--pc-fill:${d?slots(d).filter(Boolean).length/30*100:0}%"></i></div>`;}});let epoch=0;
-  async function mode(items){const g=++epoch;ui.reset();document.body.classList.toggle('pc-items-mode',items);el.hidden=!items;document.getElementById('pc-pokemon-panel').hidden=items;if(meta)meta.hidden=!items;document.querySelectorAll('[data-pc-mode]').forEach(b=>{const active=(b.dataset.pcMode==='items')===items;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});if(!items)return;try{const s=await root.playSupabase.auth.getSession();if(g!==epoch)return;const id=s.data?.session?.user?.id;if(id)await ui.load(id);else el.innerHTML='<p class="pc-item-message">Sign in to use item storage.</p>';}catch(_){if(g===epoch)el.innerHTML='<p class="pc-item-message">Could not check sign-in. Refresh to try again.</p>';}}
+  function reveal(items){document.body.classList.toggle('pc-items-mode',items);el.hidden=!items;document.getElementById('pc-pokemon-panel').hidden=items;if(meta)meta.hidden=!items;document.querySelectorAll('[data-pc-mode]').forEach(b=>{const active=(b.dataset.pcMode==='items')===items;b.setAttribute('aria-selected',String(active));b.tabIndex=active?0:-1;});}
+  async function mode(items){const g=++epoch;ui.suspend();if(!items){reveal(false);return;}try{const s=await root.playSupabase.auth.getSession();if(g!==epoch)return;const id=s.data?.session?.user?.id;let update;if(id)update=ui.activate(id);else{ui.reset();el.innerHTML='<p class="pc-item-message">Sign in to use item storage.</p>';}reveal(true);await update;}catch(_){if(g===epoch){ui.reset();el.innerHTML='<p class="pc-item-message">Could not check sign-in. Refresh to try again.</p>';reveal(true);}}}
   document.querySelectorAll('[data-pc-mode]').forEach(b=>{b.addEventListener('click',()=>{history.replaceState(null,'',b.dataset.pcMode==='items'?'#items':'#pokemon');mode(b.dataset.pcMode==='items');});b.addEventListener('keydown',e=>{if(['ArrowLeft','ArrowRight'].includes(e.key)){e.preventDefault();const target=document.querySelector(`[data-pc-mode="${b.dataset.pcMode==='items'?'pokemon':'items'}"]`);target.focus();target.click();}});});
   root.playSupabase.auth.onAuthStateChange((event,session)=>{if(root.playAuthNoise?.(event,session))return;ui.reset();setTimeout(()=>mode(location.hash==='#items'),0);});mode(location.hash==='#items');
  }

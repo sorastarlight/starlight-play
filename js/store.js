@@ -547,7 +547,7 @@
           <div class="pass-compact-tools"><button id="check-pass" class="pass-check-btn" type="button">Check subscription</button>
           ${pass?.checkedAt ? `<small>Checked ${esc(new Date(pass.checkedAt).toLocaleString())}</small>` : ''}</div>
         </header>
-        <div class="pass-calendar-heading"><h3>Your week of supplies</h3><small>Monday–Sunday · UTC</small></div>
+        <div class="pass-calendar-heading"><h3>Your week of supplies</h3><small>Dates shown in your local time</small></div>
         ${window.PLAY_PASS_CALENDAR?.html(wallet, info.active) || ''}
         <div class="pass-reward-panels">
           <article class="pass-reward-card pass-gift-card${info.active && wallet?.dailyReady ? ' is-ready' : ''}">

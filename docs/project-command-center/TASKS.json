@@ -72,8 +72,8 @@
       "status": "in_progress",
       "scope": "Prepare product-copy semantics without wiring legacy mutations",
       "evidence": "ADMIN-HUB-PRODUCT-COPY-PREPARATION.md",
-      "testResults": "34fictional controller groups;194selected suites/build;32local rendered states;review/back and late account response",
-      "nextAction": "Unreferenced local UI prepared;server-issued revision and atomic create/receipt/metadata preservation still unfinished. No production activation;Bits/shared collection decisions held."
+      "testResults": "34controller+31proposed adapter fictional groups;195selected suites/build;32local rendered states;late success/error account guards",
+      "nextAction": "Local UI and proposed injectable transport prepared with no imports/live calls. Server revision/create/atomic receipts/metadata preservation unfinished;activation and linked collection/Bits decisions held."
     },
     {
       "id": "HEALTH-SUMMARY-PARITY",

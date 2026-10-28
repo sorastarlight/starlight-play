@@ -33,7 +33,9 @@ test("No generic dispatcher and no unsafe mutation controls", () => {
   assert(nextJs.includes(configTransport), "reviewed configuration adapter transport missing");
   const sessionTransport = 'allowed: () => staffOpen && currentTab() === "operations" && !document.hidden, call: (name, args) => window.playCall(name, args)';
   assert(nextJs.includes(sessionTransport), "reviewed session adapter missing");
-  assert(!/playCall\(\s*(name|command)/.test(nextJs.replace(configTransport, "").replace(reportTransport, "").replace(sessionTransport, "").replace("window.playCall(name, args)", "").replaceAll("call:(name,args)=>window.playCall(name,args)", "")));
+  const ledgerTransport = "call:(name,args)=>{if(name!=='admin_hub_coin_ledger')throw Error('Unsupported transaction read.');return window.playCall(name,args);}";
+  assert(nextJs.includes(ledgerTransport), "guarded transaction transport missing");
+  assert(!/playCall\(\s*(name|command)/.test(nextJs.replace(ledgerTransport, "").replace(configTransport, "").replace(reportTransport, "").replace(sessionTransport, "").replace("window.playCall(name, args)", "").replaceAll("call:(name,args)=>window.playCall(name,args)", "")));
   assert(JSON.stringify(require("../js/admin-next-session.js").actions) === JSON.stringify(["start_session","end_session"]), "session actions must stay restricted");
   assert(JSON.stringify(require("../js/admin-next-config.js").commands) === JSON.stringify(["admin_economy_overview", "admin_economy_save"]), "configuration adapter must stay restricted");
   assert(JSON.stringify(require("../js/admin-next-progression").commands)===JSON.stringify(["admin_progression_overview","admin_progression_save"]));

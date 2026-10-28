@@ -4,6 +4,14 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "ANALYTICS-STAFF-CLARITY",
+      "status": "in_progress",
+      "scope": "Plain staff language and readable local report dates",
+      "evidence": "ADMIN-ANALYTICS-CLARITY.md",
+      "testResults": "191selected suites/build;16responsive reports,error/accountclear",
+      "nextAction": "Exact one-file routine publication and hosted static source verification"
+    },
+    {
       "id": "ACCOUNT-REWARD-TIMEZONE",
       "status": "done",
       "scope": "Saved local-midnight Oak and Pass clocks with safe earned-period transition",
@@ -21,11 +29,11 @@
     },
     {
       "id": "CAPTURE-CLASSIFICATION-REVIEW",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Private source finding and isolated classifier preparation",
       "evidence": "ADMIN-HUB-DIAGNOSTICS-PARITY.md",
       "testResults": "25private real local SQL checks;generic inventory helper preserved;full refund/caller integration unfinished",
-      "nextAction": "Do not install preliminary candidate. Complete refund compatibility and guarded packet before production decision;no live throw ordatarepair."
+      "nextAction": "Installed20261028013900;85localSQLchecks,2candidate/6control contracts verified. No live catch/refund."
     },
     {
       "id": "HUB-OWNERSHIP-REVIEW",
@@ -53,11 +61,11 @@
     },
     {
       "id": "HUB-PARITY-TRANSACTIONS",
-      "status": "in_progress",
+      "status": "done",
       "scope": "Audit native tool parity and prepare disconnected read-only transaction component",
       "evidence": "ADMIN-HUB-TRANSACTIONS-LOCAL-INTEGRATION.md",
       "testResults": "187 selected suites/build;23JSchecks;30finalSQLgroups;24standalone+16fullHubstates;4file replay",
-      "nextAction": "Owner activation decision queued for1function/4files,sourceverificationonly. No live read/notice authorized. Boundedreviewautomation deleted;renewalneeds humaninstruction."
+      "nextAction": "Installed20261028011952;LIVE mainaec5627a/Pages40614466343;4sources verified. No live transaction read."
     },
     {
       "id": "TEAM-EDITOR-STABILITY",

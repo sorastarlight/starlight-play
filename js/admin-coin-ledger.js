@@ -1,4 +1,4 @@
-/* Prepared native read-only transaction view. Not mounted by the production Hub. */
+/* Native read-only transaction view. Reports load only through the explicit staff action. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.PLAY_ADMIN_COIN_LEDGER=api;})(globalThis,()=>{
   'use strict';
   const object=x=>x&&typeof x==='object'&&!Array.isArray(x);

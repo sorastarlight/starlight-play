@@ -76,3 +76,13 @@ REAL LOCAL PostgreSQL17:30checks pass for anonymous/service-role denial,ordinary
 LOCAL:19strict read-adapter/envelope groups plus54projection/controller groups;193selected suites and build pass. REAL LOCAL DOM:24populated/partial layouts use the SQL-projected fictional payloads through the actual adapter/controller;zero overflow,private-field leakage or additional requests. Error and account reset clear results. No authenticated hosted navigation,new SQL orpublication.
 
 Next:guarded facade install/rollback and full native Hub integration with existing workspace tabs. Keep this new privileged workflow disconnected until review. Private DIAGNOSTICS-README.md records the candidate and limits;no facade activation packet is claimed finished yet.
+
+## October28 full-Hub local integration and recovery packet
+
+Checks is now integrated on the feature branch beside Reports,Transactions and Planning through existing workspace tabs. It opens without a diagnostic read;Load is explicit. The adapter requires the verified staff identity,current Analytics section and visible Checks workspace. Main-section exit and account transitions reset results;late responses cannot restore an old staff view. This is locally integrated only,not published.
+
+REAL LOCAL full Hub:16ready/partial/error/denied states across320/390/768/1280,zero horizontal overflow,zeroauto Checks reads,oneexplicitread when allowed andzero when denied. Keyboard workspace navigation preserves the loaded same-account view without another read. Held-read/account-switch acceptance leaves the staff workspace hidden andzero metrics after completion. CSP blocks network transport in these fixtures.
+
+The combined private SQL packet replaces only the self-test and creates only the bounded read facade.34pre/35post source+authority contracts guard install/rollback;new endpoint name/overloads are checked.20real local copied-source/recovery groups pass,including32self-test rows and combined forward/reverse replay with unchanged34control fingerprints. The separate30facade projection/role groups still use mocked report payloads and fictional role lookup;they are not full Auth or actual production-report execution.
+
+193selected regression suites/build pass. The four-file frontend candidate/reverse replay returns the exact mainb10fac2b tree through an alternate index,leaving the canonical index unchanged. Private COMBINED-README.md,COMBINED-INSTALL.sql,COMBINED-ROLLBACK.sql,combined-manifest.json andfrontend-replay.json form the review packet. Installation/publication and any hosted report/notice remain held for consolidated owner review.

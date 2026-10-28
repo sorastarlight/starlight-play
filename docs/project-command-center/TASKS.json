@@ -13,11 +13,11 @@
     },
     {
       "id": "HUB-DIAGNOSTICS-FIELD-PARITY",
-      "status": "in_progress",
+      "status": "blocked",
       "scope": "Preserve exact diagnostic fields/scopes and separate findings from load failures",
       "evidence": "ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md",
-      "testResults": "30local PG facade checks with mocked reports;19adapter+54projection/controller groups;193selected suites/build;24SQL-to-DOMlayouts",
-      "nextAction": "Prepare guarded facade packet and full-Hub integration using existing workspace tabs;component remains unimported. No production SQL/report calls. Self-test correction separately held."
+      "testResults": "20source/recovery PG groups;30mocked-report facade groups;54projection+19adapter groups;193suites/build;16fullHubstates+lateaccount;4file reverse tree",
+      "nextAction": "Combined1replacement/1readendpoint/4file packet ready for owner return review;no production SQL/publication. Continue independent parity/visual/recovery work."
     },
     {
       "id": "ANALYTICS-STAFF-CLARITY",

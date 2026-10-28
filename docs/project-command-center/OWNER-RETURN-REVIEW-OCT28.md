@@ -11,3 +11,7 @@ Capture diagnostic compatibility:one private self-test function still assumes Fi
 Prepare the bounded native Checks server projection and strict read adapter locally;retain source contracts and typed warning/partial/information behavior. Complete integrated layouts before any publication review. Product duplication,cosmetic revocation,legacy entry retirement and destructive cleanup retain their existing exact-scope holds. Do not ask routine questions during the overnight window.
 
 The next completed physical backup must postdate migration20261028040347;check when due after roughly07:44UTC. Existing points are not evidence for later migrations. Real device/provider acceptance and final launch remain separate from local tests and source verification.
+
+## Consolidated Checks activation packet
+
+The local workflow is now integrated and recovery-tested. Review can cover the one diagnostic-only self-test replacement,one new bounded staff read endpoint andfourfrontend files together. Private exact review:security/hub-diagnostics-parity/COMBINED-README.md.34/35source guards,20source/recovery SQL groups,30mocked-report facade SQL groups,193suites/build,16full-Hub layouts andheld-account response checks pass. Proposed activation verification would inspect deployed source only;no hosted report,notice or player action. Production remains unchanged while held.

@@ -111,6 +111,12 @@
     allowed:()=>staffOpen&&currentTab()==='analytics'&&!document.getElementById('next-transactions-section')?.hidden,
     call:(name,args)=>{if(name!=='admin_hub_coin_ledger')throw Error('Unsupported transaction read.');return window.playCall(name,args);}
   }));
+  const healthChecksApi=window.PLAY_ADMIN_HEALTH_CHECKS;
+  const healthChecks=healthChecksApi?.mount(document.getElementById('next-health-checks'),healthChecksApi.adapter({
+    session:()=>supabase.auth.getSession(),identity:()=>analyticsIdentity,
+    allowed:()=>staffOpen&&currentTab()==='analytics'&&!document.getElementById('next-checks-section')?.hidden,
+    call:(name,args)=>{if(name!=='admin_hub_diagnostics')throw Error('Unsupported diagnostic read.');return window.playCall(name,args);}
+  }));
   const planningApi=window.PLAY_ADMIN_PLANNING;
   const planning=planningApi?.mount(document.getElementById('next-planning'),planningApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>analyticsIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)}),{species:window.PLAY_SPECIES||[],itemName:key=>window.playItemLabel?.(key)||key});
   const itemDefinitionsApi=window.PLAY_ADMIN_ITEM_DEFINITIONS;
@@ -520,11 +526,12 @@
     else history.replaceState({ section: next }, "", href);
     if (next === "support" && staffOpen) window.PLAY_SUPPORT?.mount(document.getElementById("owner-support"),{staff:true,playerId:new URL(location.href).searchParams.get("trainer")||""});
     if (next === "analytics") {
-      if(staffOpen)planning?.open();
+      if(staffOpen){planning?.open();healthChecks?.open();}
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
     if(next!=="analytics")coinLedger?.reset();
+    if(next!=="analytics")healthChecks?.reset();
     if(next!=="system")systemConnections?.hideSensitive();
     sessionControls?.repaint();
     if (next === "operations") startOpsPoll();
@@ -552,6 +559,7 @@
     analytics?.reset();
     planning?.reset();
     coinLedger?.reset();
+    healthChecks?.reset();
     healthGeneration++;
     healthLoaded = false;
     healthInFlight = false;

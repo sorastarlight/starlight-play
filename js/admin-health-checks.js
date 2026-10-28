@@ -1,4 +1,4 @@
-/* Disconnected diagnostic component. No production page imports this module. */
+/* Prepared native diagnostic component. Production activation requires reviewed SQL and scoped publication. */
 (function(root,factory){const api=factory(root);if(typeof module==='object'&&module.exports)module.exports=api;else root.PLAY_ADMIN_HEALTH_CHECKS=api;})(typeof window==='undefined'?globalThis:window,root=>{
  'use strict';
  const titles=Object.freeze({content:'Content checks',captures:'Capture records',events:'Event readiness',economy:'Trainer & supply statistics',supplies:'Bag item totals'});

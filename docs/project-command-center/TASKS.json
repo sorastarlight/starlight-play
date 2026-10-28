@@ -4,12 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
+      "id": "CAPTURE-SELFTEST-COMPATIBILITY",
+      "status": "blocked",
+      "scope": "Diagnostic-only correction for stale Figy assumption and reference examples",
+      "evidence": "ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md",
+      "testResults": "14real local SQL groups;32self-test rows;18source/authority guards;rollback replay/source+ACL driftrefusal",
+      "nextAction": "Private exact packet ready for consolidated owner review;do not install or invoke hosted self-test."
+    },
+    {
       "id": "HUB-DIAGNOSTICS-FIELD-PARITY",
       "status": "in_progress",
       "scope": "Preserve exact diagnostic fields/scopes and separate findings from load failures",
       "evidence": "ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md",
-      "testResults": "47local contract/controller groups;192selected suites/build;24local populated/partial layouts;17definition closure source review",
-      "nextAction": "Five disconnected views prepared,no RPC adapter/import. Reproduce stale Figy self-test assertion with local copied source,prepare correction privately;server projection/activation held."
+      "testResults": "54local projection/controller groups;192selected suites/build;prior24responsive states;17definition source closure",
+      "nextAction": "Continue bounded native server projection and strict read adapter locally. Self-test compatibility packet separately held;no production import,SQL or hosted diagnostic calls."
     },
     {
       "id": "ANALYTICS-STAFF-CLARITY",

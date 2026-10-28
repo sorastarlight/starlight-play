@@ -8,6 +8,7 @@
  const scalar=v=>typeof v==='number'&&Number.isFinite(v)&&v>=0?v:null;
  const text=v=>typeof v==='string'?v.slice(0,2000):'Unavailable';
  const itemLabel=key=>{const label=root.playItemLabel?.(key);if(typeof label==='string'&&label!==key)return text(label);return({none:'No berry',unknown:'Unknown item',pokeball:'Poké Ball',greatball:'Great Ball',ultraball:'Ultra Ball',masterball:'Master Ball',oran:'Oran Berry',pecha:'Pecha Berry',razz:'Razz Berry'})[key]||'Unrecognized item: '+key;};
+ const selfTestName=value=>({'Two Trainers roll independently':'Two secure random draws differ','One capture row per Trainer per encounter':'Named capture-log index exists','Duplicate throws cannot spend two Poke Balls':'Throw-processing column exists','Berries are never treated as throwable Poke Balls':'Razz and Golden Razz are not throwable Balls','Maximum chance is never exceeded':'High-chance sample stays within the configured cap','Minimum chance is never breached':'Low-chance sample stays above the configured floor','Female variants use the species base rate':'Nidoran variants use matching base rates'})[value]||text(value);
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function project(view,raw){
   if(!Object.hasOwn(titles,view)||!object(raw)||raw.error)throw Error('Check unavailable.');
@@ -24,8 +25,8 @@
    for(const row of [['unknownBalls','Unknown Ball conditions','All retained capture logs'],['shinyFemaleUnflagged','Missing Shiny flags','Shiny-female logs across retained history'],['missingLogs','Missing capture logs','Rounds started in the last 14 days']])add(...row);
    const recent=object(raw.recent)?raw.recent:{};
    for(const [key,label,decimal]of [['throws','Recorded throws',false],['actual','Recorded catches',false],['expected','Expected catches from recorded chances',true]]){const value=(decimal?scalar:count)(recent[key]);if(value===null)partial=true;metrics.push({label,value,scope:'All retained non-Master-Ball logs with a recorded Ball'});}
-   if(!Array.isArray(raw.selfTest)||raw.selfTest.length>500){partial=true;tables.push({title:'Separate self-test results',columns:['Check','Result','Notes'],rows:null});}
-   else{const rows=[];if(!raw.selfTest.length)partial=true;for(const t of raw.selfTest){if(!object(t)||typeof t.name!=='string'||typeof t.passed!=='boolean'){partial=true;continue;}if(!t.passed)findings=true;rows.push([text(t.name),t.passed?'Passed':'Finding',text(t.detail)]);}tables.push({title:'Separate self-test results',columns:['Check','Result','Notes'],rows});}
+   if(!Array.isArray(raw.selfTest)||raw.selfTest.length>500){partial=true;tables.push({title:'Self-test samples and structural checks',columns:['Check','Result','Notes'],rows:null});}
+   else{const rows=[];if(!raw.selfTest.length)partial=true;for(const t of raw.selfTest){if(!object(t)||typeof t.name!=='string'||typeof t.passed!=='boolean'){partial=true;continue;}if(!t.passed)findings=true;rows.push([selfTestName(t.name),t.passed?'Passed':'Finding',text(t.detail)]);}tables.push({title:'Self-test samples and structural checks',columns:['Check','Result','Notes'],rows});}
    const build=typeof raw.clientBuild==='string'&&raw.clientBuild.length>0?text(raw.clientBuild):null;const multiplier=scalar(raw.ultraMultiplier);if(build===null||multiplier===null)partial=true;
    tables.push({title:'Reported capture configuration',columns:['Setting','Value'],rows:[['Client build',build??'Unavailable'],['Ultra Ball base multiplier',multiplier===null?'Unavailable':multiplier+'×']]});
   }else if(view==='economy'){

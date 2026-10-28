@@ -5,11 +5,11 @@
   "tasks": [
     {
       "id": "ACCOUNT-REWARD-TIMEZONE",
-      "status": "blocked",
+      "status": "done",
       "scope": "Saved local-midnight Oak and Pass clocks with safe earned-period transition",
       "evidence": "ACCOUNT-REWARD-TIMEZONE.md",
       "testResults": "54 local PostgreSQL checks;25 relevant JS suites;build;four rendered widths",
-      "nextAction": "Prepared private guarded install/rollback/STOP;await exact production activation decision. No hosted claims."
+      "nextAction": "LIVE SQL20261028040347/main595f86fd/Pages40630243892;27source/authority matches,5controls,6/6hosted sources. No live claims. Post-change physical backup pending."
     },
     {
       "id": "SERVICE-DESK-WORDING",

@@ -40,3 +40,6 @@ October27 owner-approved Transactions activation: migration20261028011952 exact 
 
 
 REWARD-LOCAL-DATES-PC-TABS:23 relevant local suites/build pass;four responsive local widths fit;ten tab round trips retain sprite nodes;identity-before-exposure/late-account guards pass. Exact five-file routine publication mainf2bbcaee;Pages40619514511 SUCCESS;5/5 hosted sources match. Server reset/claim/reward rules unchanged. No SQL or hosted claim/transfer. See REWARD-LOCAL-DATES-PC-TABS.md.
+
+
+LIVE after exact owner approval: migration20261028040347 saved_account_reward_timezone installed;read-only guards verify27 changed/new function definitions and authority plus5 unchanged function controls,8 dependency schemas and2 private table contracts/permissions. Exact six-file publication main595f86fd7132b70c10016f9cd0234ab13225dfeb;Pages40630243892 SUCCESS;6/6 static HTTP200sources match commit after line-ending normalization. No hosted enrollment,claim,notice,provider call or protected-account action. APP20261008-rc133 unchanged. Approval spent. Next post-change physical backup evidence is pending;old points do not cover this migration.

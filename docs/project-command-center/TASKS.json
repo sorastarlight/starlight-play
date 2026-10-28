@@ -64,8 +64,8 @@
       "status": "in_progress",
       "scope": "Prepare product-copy semantics without wiring legacy mutations",
       "evidence": "ADMIN-HUB-PRODUCT-COPY-PREPARATION.md",
-      "testResults": "21 private local planning checks;four rendered widths;actual quantity/review/cancel/account-clear checks",
-      "nextAction": "Ordinary product copy proposed;Bits mapping and shared avatar collection decisions held. No server/frontend activation."
+      "testResults": "34fictional controller groups;194selected suites/build;32local rendered states;review/back and late account response",
+      "nextAction": "Unreferenced local UI prepared;server-issued revision and atomic create/receipt/metadata preservation still unfinished. No production activation;Bits/shared collection decisions held."
     },
     {
       "id": "HEALTH-SUMMARY-PARITY",

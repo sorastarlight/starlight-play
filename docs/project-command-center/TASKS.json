@@ -72,8 +72,8 @@
       "status": "in_progress",
       "scope": "Prepare product-copy semantics without wiring legacy mutations",
       "evidence": "ADMIN-HUB-PRODUCT-COPY-PREPARATION.md",
-      "testResults": "39real local PG groups with fictional staff/reward lookup;34controller+31adapter groups;195selected suites/build;32rendered states",
-      "nextAction": "Private SQL candidate prepared;complete actual dependency closure,authority/schema drift guards,rollback andnative integration before activation review. No production SQL or live copy."
+      "testResults": "45real local PG groups:39fictional helpers+6actual copied reward view/helpers/staff wrappers with fictional roles;34controller+31adapter;195suites/build",
+      "nextAction": "8function/6relation plus reward-view contracts retained privately;complete guarded install/rollback andnative integration. No production activation or live copy."
     },
     {
       "id": "HEALTH-SUMMARY-PARITY",

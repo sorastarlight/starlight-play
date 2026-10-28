@@ -579,3 +579,6 @@ TEAM-EDITOR-STABILITY LIVE:main61c6f5d205fca886f2b7cb67221084480266a1d1;Pages405
 
 
 October27 owner-approved Transactions activation: migration20261028011952 exact source/ACL verified;four-file mainaec5627a published,Pages40614466343 SUCCESS;4/4 hosted source matches.23 fresh JS/build/rollback replay checks pass. No application calls. See ADMIN-HUB-TRANSACTIONS-ACTIVATION.md. Earlier held entries are historical.
+
+
+CAPTURE-ITEM-VALIDATION:paired two-private-function guarded install/rollback now passes85 REAL LOCAL PG17checks;generic storage helper unchanged,original refund behavior preserved. Prepared only;production unchanged and important owner SQL decision required. No live catch/refund/player repair. See CAPTURE-ITEM-VALIDATION-REVIEW.md;private security/capture-classification/README.md.

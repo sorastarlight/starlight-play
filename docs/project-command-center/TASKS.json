@@ -4542,6 +4542,14 @@
       "evidence": "ADMIN-HUB-TRANSACTIONS-ACTIVATION.md",
       "testResults": "Exact installed SQL definition/ACL/config match;23 fresh JS cases/build/rollback replay;96 existing recovery hashes;Pages40614466343 SUCCESS and4/4 hosted source matches",
       "nextAction": "Source-only approval complete;do not invoke transaction report without appropriate hosted acceptance authority"
+    },
+    {
+      "id": "CAPTURE-ITEM-VALIDATION",
+      "status": "blocked",
+      "scope": "Two-private-function capture validation/refund compatibility correction",
+      "evidence": "CAPTURE-ITEM-VALIDATION-REVIEW.md;private security/capture-classification/README.md",
+      "testResults": "85 real local PostgreSQL cases,guarded atomic install/rollback and drift refusal;no live gameplay",
+      "nextAction": "Owner decision for exact two-function installation and source-only verification;no player repair or live catch"
     }
   ]
 }

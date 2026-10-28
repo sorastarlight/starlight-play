@@ -1,5 +1,7 @@
 # Current Admin Hub status
 
+October28 current snapshot:Analytics clarity is live at mainb10fac2b/Pages40631484865 with one exact source match. Saved reward-timezone SQL20261028040347/main595f86fd is installed/source verified. Transactions and capture validation are completed,not awaiting approval. Post-change physical backup remains due later October28;no old-backup repoll. Current overnight continuation ends08:18EDT/12:18UTC;historical dates and held snapshots below are not current authority. Remaining diagnostic field parity is documented in ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md.
+
 Current follow-up:Transactions is published at mainaec5627a/Pages40614466343 with4/4source matches;capture validation/refund compatibility is installed at migration20261028013900 with2candidate/6control contracts verified. Both approvals are spent;no live application tests were run. See ADMIN-HUB-TRANSACTIONS-ACTIVATION.md and CAPTURE-ITEM-VALIDATION-REVIEW.md. Earlier evening snapshots below are historical.
 
 The primary staff navigation opens [Admin Hub](https://play.sorastarlight.net/admin-next.html). The migration is substantially expanded, but unfinished. This is a current summary; the [earlier status history](CURRENT-ADMIN-HUB-STATUS-HISTORY-BEFORE262.md) preserves the former per-slice records.

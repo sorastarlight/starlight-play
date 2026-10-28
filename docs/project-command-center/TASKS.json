@@ -4,12 +4,20 @@
   "smoke": "paused",
   "tasks": [
     {
-      "id": "ANALYTICS-STAFF-CLARITY",
+      "id": "HUB-DIAGNOSTICS-FIELD-PARITY",
       "status": "in_progress",
+      "scope": "Preserve exact diagnostic fields/scopes and separate findings from load failures",
+      "evidence": "ADMIN-HUB-DIAGNOSTICS-FIELD-REVIEW.md",
+      "testResults": "STATIC source-only5reports+13supportingdefinitions;no report calls",
+      "nextAction": "Prepare disconnected typed Checks layout/tests;finish helper closure before any hosted authority decision"
+    },
+    {
+      "id": "ANALYTICS-STAFF-CLARITY",
+      "status": "done",
       "scope": "Plain staff language and readable local report dates",
       "evidence": "ADMIN-ANALYTICS-CLARITY.md",
       "testResults": "191selected suites/build;16responsive reports,error/accountclear",
-      "nextAction": "Exact one-file routine publication and hosted static source verification"
+      "nextAction": "LIVE mainb10fac2b/Pages40631484865;one hosted source match. No hosted reports."
     },
     {
       "id": "ACCOUNT-REWARD-TIMEZONE",

@@ -3007,3 +3007,8 @@ ACCOUNT-REWARD-TIMEZONE prepared,not activated:54local SQL checks,25related JS s
 LIVE after exact owner approval: migration20261028040347 saved_account_reward_timezone installed;read-only guards verify27 changed/new function definitions and authority plus5 unchanged function controls,8 dependency schemas and2 private table contracts/permissions. Exact six-file publication main595f86fd7132b70c10016f9cd0234ab13225dfeb;Pages40630243892 SUCCESS;6/6 static HTTP200sources match commit after line-ending normalization. No hosted enrollment,claim,notice,provider call or protected-account action. APP20261008-rc133 unchanged. Approval spent. Next post-change physical backup evidence is pending;old points do not cover this migration.
 
 October28 continuation:Analytics staff-language/local-time maintenance prepared;191selected suites/build and16responsive report states pass,error/accountclear checked. Four extracted-source test fixtures reconciled with existing Transactions/timezone modules. No hosted application action. See ADMIN-ANALYTICS-CLARITY.md.
+
+DIAGNOSTICS-FIELD-REVIEW:source-only5legacy reports+13supporting definitions;documented all-time/14day/7day scopes,Oran-only andbagbonus labels,Content omitted-portrait status,Economy unconditional Healthy and differing cancelled-round filters. No report invoked or production data defect asserted. Separate typed Checks projection is nextlocal slice;activation held.
+
+
+LIVE routine maintenance:mainb10fac2bae0ced7fa54a5660be687a5c90653ff5,Pages40631484865 SUCCESS;js/admin-next-analytics.js HTTP200matches the committed source exactly. No authenticated navigation,report RPC,notice or SQL. APP unchanged.

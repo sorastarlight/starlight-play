@@ -4550,6 +4550,14 @@
       "evidence": "CAPTURE-ITEM-VALIDATION-REVIEW.md;private security/capture-classification/README.md",
       "testResults": "85 REAL LOCAL PG17checks;production migration20261028013900 exact2candidate definitions/attributes and6unchanged controls verified;no application calls",
       "nextAction": "Approval spent;retain private guarded recovery and verify next completed post-change physical backup when due"
+    },
+    {
+      "id": "REWARD-LOCAL-DATES-PC-TABS",
+      "status": "done",
+      "scope": "Oak current day/copy,local Pass dates and retained PC Items DOM",
+      "evidence": "REWARD-LOCAL-DATES-PC-TABS.md",
+      "testResults": "23 local suites/build;4responsive sizes;10tab round trips;identity/cache/error/late-response checks",
+      "nextAction": "Published mainf2bbcaee/Pages40619514511 SUCCESS;5/5 static hosted sources match. No server timing change or hosted claim/transfer."
     }
   ]
 }

@@ -37,3 +37,6 @@ The retained Master Ball listing master1 is an empty hidden draft. It remains un
 
 
 October27 owner-approved Transactions activation: migration20261028011952 exact source/ACL verified;four-file mainaec5627a published,Pages40614466343 SUCCESS;4/4 hosted source matches.23 fresh JS/build/rollback replay checks pass. No application calls. See ADMIN-HUB-TRANSACTIONS-ACTIVATION.md. Earlier held entries are historical.
+
+
+REWARD-LOCAL-DATES-PC-TABS:23 relevant local suites/build pass;four responsive local widths fit;ten tab round trips retain sprite nodes;identity-before-exposure/late-account guards pass. Exact five-file routine publication mainf2bbcaee;Pages40619514511 SUCCESS;5/5 hosted sources match. Server reset/claim/reward rules unchanged. No SQL or hosted claim/transfer. See REWARD-LOCAL-DATES-PC-TABS.md.

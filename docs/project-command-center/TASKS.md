@@ -658,3 +658,6 @@ CAPTURE-ITEM-VALIDATION:paired two-private-function guarded install/rollback now
 
 
 CAPTURE-ITEM-VALIDATION INSTALLED:explicit owner approval; migration20261028013900 exact two definitions/attributes match85-case candidate,6controls unchanged. Private guarded recovery retained. No gameplay/refund/repair/frontend/APP action. See CAPTURE-ITEM-VALIDATION-REVIEW.md.
+
+
+REWARD-LOCAL-DATES-PC-TABS:23 relevant local suites/build pass;four responsive local widths fit;ten tab round trips retain sprite nodes;identity-before-exposure/late-account guards pass. Exact five-file routine publication mainf2bbcaee;Pages40619514511 SUCCESS;5/5 hosted sources match. Server reset/claim/reward rules unchanged. No SQL or hosted claim/transfer. See REWARD-LOCAL-DATES-PC-TABS.md.

@@ -55,7 +55,7 @@ const defer = () => { let resolve, reject; const promise = new Promise((a, b) =>
   const readList = hub.match(/const READ_RPCS = Object.freeze\(\[([\s\S]*?)\]\)/)[1]; assert(!readList.includes("admin_store"));
   assert(hub.includes('["admin_store_get", "admin_store_draft_options", "admin_store_save_item"].includes(name)')); assert(hub.includes('data?.session?.user?.id !== identity')); assert(hub.includes('generation !== hubGeneration'));
   // Execute the actual dedicated adapter, not a replacement implementation.
-  const vm = require("node:vm"), adapterStart = hub.indexOf("async (name, args) => {"), adapterEnd = hub.indexOf("\n  });", adapterStart);
+  const vm = require("node:vm"), adapterStart = hub.indexOf("async (name, args) => {"), adapterEnd = hub.indexOf("\n  }, { onCopy: openProductCopy });", adapterStart);
   const adapterCode = "(" + hub.slice(adapterStart, adapterEnd + 4) + ")";
   let identity = "staff-A", gate = true, actualCalls = [];
   const context = { supabase: { auth: { getSession: async () => ({ data: { session: { user: { id: identity } } } }) } }, window: { playCall: async (...args) => { actualCalls.push(args); return { ok: true }; } } };

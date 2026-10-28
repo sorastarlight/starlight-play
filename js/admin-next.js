@@ -128,6 +128,17 @@
   const trainerStyles=styleApi?.mount(document.getElementById('next-trainer-styles'),styleApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),upload:payload=>assetTransport('upload',payload)}));
   const productCreateApi=window.PLAY_ADMIN_PRODUCT_CREATE;
   const specialProductCreators=['bits','avatars'].map(kind=>productCreateApi?.mount(document.getElementById('next-create-'+kind),productCreateApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)},kind),kind));
+  // Prepared local workflow; production publication and SQL activation remain held.
+  let productCopyDialog=null;
+  function resetProductCopy(){if(productCopyDialog){productCopyDialog.restore=false;productCopyDialog.ui?.reset();productCopyDialog.dialog.close();}}
+  function openProductCopy(sku,opener){
+    const api=window.PLAY_ADMIN_PRODUCT_COPY;if(!api||!staffOpen||currentTab()!=='mart'||productCopyDialog)return;
+    const dialog=document.createElement('dialog');dialog.className='product-copy-dialog';dialog.setAttribute('aria-label','Make a product copy');const host=document.createElement('div');dialog.append(host);document.body.append(dialog);
+    const transport=api.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen&&currentTab()==='mart'&&dialog.open,call:(name,args)=>{if(name==='admin_product_copy_options')return window.playCall('admin_product_copy_options',args);if(name==='admin_product_copy_create')return window.playCall('admin_product_copy_create',args);throw Error('Unsupported copy operation.');}});
+    const active={dialog,restore:true,ui:null,actor:martIdentity};productCopyDialog=active;const guarded=fn=>async value=>{try{return await fn(value);}catch(error){if(error?.code==='42501')resetProductCopy();throw error;}};active.ui=api.mount(host,guarded(transport.read),guarded(transport.create),{onClose:()=>dialog.close()});
+    dialog.addEventListener('cancel',event=>{if(active.ui.state.phase==='saving')event.preventDefault();});dialog.addEventListener('click',event=>{if(event.target!==dialog||active.ui.state.phase==='saving')return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
+    dialog.addEventListener('close',()=>{active.ui.reset();if(productCopyDialog===active)productCopyDialog=null;dialog.remove();if(active.restore&&staffOpen&&martIdentity===active.actor&&currentTab()==='mart'&&opener.isConnected)opener.focus();},{once:true});dialog.showModal();active.ui.open(sku);
+  }
   const mart = window.PLAY_ADMIN_NEXT_MART?.mount(document.getElementById("next-mart"), async (name, args) => {
     if (!["admin_store_get", "admin_store_draft_options", "admin_store_save_item"].includes(name)) throw new Error("Unsupported Mart operation.");
     const identity = martIdentity;
@@ -135,7 +146,7 @@
     if (error || !staffOpen || !identity || data?.session?.user?.id !== identity || martIdentity !== identity) throw new Error("Staff session changed.");
     let result;if(name === "admin_store_get")result=await window.playCall("admin_store_get");else if(name === "admin_store_draft_options")result=await window.playCall("admin_store_draft_options");else result=await window.playCall("admin_store_save_item", args);
     const after=await supabase.auth.getSession();if(after.error||!staffOpen||martIdentity!==identity||after.data?.session?.user?.id!==identity)throw Object.assign(Error("Staff session changed."),{code:"42501"});return result;
-  });
+  }, { onCopy: openProductCopy });
   const floorsApi = window.PLAY_ADMIN_FLOORS;
   const floorEditor = floorsApi?.mount(document.getElementById("next-mart-floors"), floorsApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => martIdentity,
@@ -530,6 +541,7 @@
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
+    if(next!=="mart")resetProductCopy();
     if(next!=="analytics")coinLedger?.reset();
     if(next!=="analytics")healthChecks?.reset();
     if(next!=="system")systemConnections?.hideSensitive();
@@ -634,6 +646,7 @@
     resetOperations();
     martIdentity = "";
     mart?.reset();
+    resetProductCopy();
     assets?.reset();
     trainerStyles?.reset();
     specialProductCreators.forEach(app=>app?.reset());
@@ -660,6 +673,7 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+    resetProductCopy();
       assets?.reset();
     trainerStyles?.reset();
     specialProductCreators.forEach(app=>app?.reset());
@@ -689,6 +703,7 @@
       staffOpen = false;
       martIdentity = "";
       mart?.reset();
+    resetProductCopy();
       assets?.reset();
     trainerStyles?.reset();
     specialProductCreators.forEach(app=>app?.reset());

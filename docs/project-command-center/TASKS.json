@@ -72,8 +72,8 @@
       "status": "in_progress",
       "scope": "Prepare product-copy semantics without wiring legacy mutations",
       "evidence": "ADMIN-HUB-PRODUCT-COPY-PREPARATION.md",
-      "testResults": "53real local PG groups including8fixture-baseline guard/replay cases;34controller+31adapter;195suites/build",
-      "nextAction": "Private9function/6relation+view guarded pair prepared;complete production-baseline closure replay andnative integration before activation review. No live copy."
+      "testResults": "53local PG groups;34controller+31adapter;195suites/build;16fullHubstates,dirty edit,Escape,late account response",
+      "nextAction": "Native integration local only,5runtime files held. Complete production-baseline closure/recovery replay before combined activation review;no live copy."
     },
     {
       "id": "HEALTH-SUMMARY-PARITY",

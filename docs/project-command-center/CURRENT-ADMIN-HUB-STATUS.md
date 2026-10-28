@@ -32,3 +32,6 @@ Current user direction authorizes continuing local redesign/migration and tested
 Latest reports: [Product types](LAUNCH-CODEX269-SPECIAL-PRODUCT-DRAFTS.md), [Trainer styles](LAUNCH-CODEX268-TRAINER-STYLES.md), [Catalogue names](LAUNCH-CODEX267-CATALOGUE-NAMES.md), [Product contents](LAUNCH-CODEX266-PRODUCT-CONTENTS.md), [Item effects](LAUNCH-CODEX265-NATIVE-ITEM-EFFECTS.md), [Special Events](LAUNCH-CODEX262-SPECIAL-EVENTS.md), [shop draft selection](LAUNCH-CODEX263-EXPANDED-SHOP-DRAFTS.md), [staff access](LAUNCH-CODEX258-STAFF-ACCESS.md), [image library](LAUNCH-CODEX260-IMAGE-LIBRARY.md), [spawn report](LAUNCH-CODEX261-SPAWN-REPORT.md).
 
 The retained Master Ball listing master1 is an empty hidden draft. It remains unsold;include it in the exact cleanup review. No retirement/deletion was run.
+
+
+October27 owner-approved Transactions activation: migration20261028011952 exact source/ACL verified;four-file mainaec5627a published,Pages40614466343 SUCCESS;4/4 hosted source matches.23 fresh JS/build/rollback replay checks pass. No application calls. See ADMIN-HUB-TRANSACTIONS-ACTIVATION.md. Earlier held entries are historical.

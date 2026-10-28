@@ -33,3 +33,6 @@ Only the read-only Transactions packet is ready for a concrete activation decisi
 Retain owner-reported Chrome linking/Pass and Android S25Ultra evidence. Firefox retest,iOS and actual screen-reader/device evidence remain incomplete. Local browser layouts do not replace those. Next physical backup after October27SQL is dueOctober28;no old-point polling,export or restore. APP unchanged. No hosted notice,provider call,claim,grant,protected-account write,spending or final launch.
 
 Final state:production main e3c039cd/Pages40600967148 SUCCESS;three scoped routine maintenance fixes live. Private transaction packet awaiting one explicit owner decision,with source-only verification proposed. Capture-classification preparation remains incomplete for deployment. Temporary local databases/test tabs/cache fixtures cleaned;APP and production gameplay unchanged.
+
+
+Subsequent owner approval completed October27evening: Transactions endpoint installed20261028011952, exact SQL/ACL verified;mainaec5627a/Pages40614466343SUCCESS,4/4 hosted sources match. No live transaction read or authenticated navigation. Earlier held statements above are historical;see ADMIN-HUB-TRANSACTIONS-ACTIVATION.md.

@@ -4534,6 +4534,14 @@
       "evidence": "PC-ITEM-TRANSFER-DIALOG.md",
       "testResults": "173 suites/build; fictional transfers and four responsive views pass",
       "nextAction": "Published mainc188b1ca; Pages40455726097 succeeded; both hosted item-storage files match exact source.173 suites/build and84 recovery packet hashes pass. No production SQL or real item transfer."
+    },
+    {
+      "id": "ADMIN-HUB-TRANSACTIONS-ACTIVATION",
+      "status": "done",
+      "scope": "Owner-approved staff transaction read endpoint and exact four-file activation",
+      "evidence": "ADMIN-HUB-TRANSACTIONS-ACTIVATION.md",
+      "testResults": "Exact installed SQL definition/ACL/config match;23 fresh JS cases/build/rollback replay;96 existing recovery hashes;Pages40614466343 SUCCESS and4/4 hosted source matches",
+      "nextAction": "Source-only approval complete;do not invoke transaction report without appropriate hosted acceptance authority"
     }
   ]
 }

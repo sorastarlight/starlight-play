@@ -2988,3 +2988,6 @@ PROFILE-MENU-ORDER LIVE:main9942c2db579f6be07d6bb557bc8cad12ddfb6e17;Pages405672
 TEAM-EDITOR-STABILITY local complete:oldsource3competingwrites/newsource1pending;confirmed stage/count/slots update together;no repeated entrance.188suites/build;localrendered add/reorder;no hosted calls. Two-file publication next.
 
 TEAM-EDITOR-STABILITY LIVE:main61c6f5d205fca886f2b7cb67221084480266a1d1;Pages40569172976 SUCCESS;2/2hosted source matches.188suites/build;local actual-handler delayed-write/failure/picker tests and rendered reorder/add synchronized stage/slots/count. Existing team records untouched;no live team save,hosted application/notice call,SQL,permissionchange orAPPstamp.
+
+
+October27 owner-approved Transactions activation: migration20261028011952 exact source/ACL verified;four-file mainaec5627a published,Pages40614466343 SUCCESS;4/4 hosted source matches.23 fresh JS/build/rollback replay checks pass. No application calls. See ADMIN-HUB-TRANSACTIONS-ACTIVATION.md. Earlier held entries are historical.

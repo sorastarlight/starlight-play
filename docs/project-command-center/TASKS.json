@@ -69,11 +69,11 @@
     },
     {
       "id": "HUB-PRODUCT-COPY-PREPARATION",
-      "status": "in_progress",
+      "status": "blocked",
       "scope": "Prepare product-copy semantics without wiring legacy mutations",
       "evidence": "ADMIN-HUB-PRODUCT-COPY-PREPARATION.md",
-      "testResults": "53local PG groups plus8exact production-baseline recovery groups;10/13function guards,6relations+view;5file reverse tree;195suites/build;16featureHubstates",
-      "nextAction": "Render exact copy-only scoped candidate on production baseline,then consolidate held activation review. No SQL install/publication or live copy authorized."
+      "testResults": "53localPG+8exact production-baseline recovery groups;34controller+31adapter;195suites/build;20exact scoped renderedstates+keyboard/busy",
+      "nextAction": "Consolidated owner return review ready:3newSQLfunctions+5copy-only frontend files,source-only verification. No activation/live copy authorized."
     },
     {
       "id": "HEALTH-SUMMARY-PARITY",

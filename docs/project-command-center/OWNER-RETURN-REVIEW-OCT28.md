@@ -21,3 +21,7 @@ Ordinary-product copy now has a disconnected local form/review controller and32r
 October28 07:49UTC recovery cycle:completed PHYSICAL backup28Oct07:47:23UTC observed after SQL20261028040347;availability only,no restore/export/application call.96tracked recovery files and13additional private manifest files match;noSQL executed. Pending backup observation closed;do not repoll unchanged point. See POST-TIMEZONE-BACKUP-OCT28.md.
 
 Ordinary-product copy has progressed to a local native dialog and privately tested atomic SQL/recovery pair.53local PG groups plus8exact source/schema recovery groups pass;195suites and16feature-Hub layouts passed earlier. A separate5file copy-only publication candidate excludes queued Checks. Render that exact scoped candidate next;hold activation for consolidated return review. Copies remain hidden drafts and preserve original products;Bits/appearance copies and cleanup are excluded.
+
+## Ordinary-product copy decision prepared
+
+The copy packet is now ready for review: [scope and evidence](ADMIN-HUB-PRODUCT-COPY-LOCAL-REVIEW.md),private security/hub-product-copy/RECOVERY-README.md. Proposed authority is only3newSQLfunctions and5scoped frontend files,source-only verification;no actual copy/catalogue read.53localPG+8exact recovery groups,195suites/build and20exact scoped rendered states pass. Bits/appearance copies,cleanup andother queued work remain excluded. Hold this decision for the owner’s return;continue independent work.

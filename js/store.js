@@ -25,6 +25,8 @@
   let cart = loadCart();
   let checkoutNote = "";
   let checkoutBusy = false;
+  let checkoutActor = null, checkoutAttempt = null, checkoutEpoch = 0, checkoutRecoveryBlocked = false;
+  let martReadSerial = 0, martLoadSerial = 0, sellReadSerial = 0;
   let emptyCartBusy = false;
   let lastPurchase = null;
   let lastLinkedLogin = "";
@@ -32,11 +34,13 @@
   let martMode = "buy"; // buy | sell
   let sellShelf = [];
   let sellQty = {};
-  let sellBusy = false;
+  let sellBusy = false, sellAttempt = null, sellRecoveryBlocked = false;
   let sellNote = "";
 
   window.playBindAccountNav({
     onSignOut() {
+      martLoadSerial++;
+      setCheckoutAccount(null);
       fillWallet(null);
       lastPass = null;
       lastWallet = null;
@@ -68,6 +72,57 @@
     try {
       localStorage.setItem(CART_KEY, JSON.stringify(cart.map((row) => ({ sku: row.sku, qty: row.qty }))));
     } catch (_) {}
+  }
+
+  function clearMartAccountData() {
+    lastWallet = null; lastPass = null; lastPassRewards = null; lastOwned = []; lastBag = null; lastLinkedLogin = "";
+    lastSupport = { events: [], bitsTotal: 0, pending: false }; sellShelf = []; sellQty = {}; sellNote = ""; sellBusy = false; sellAttempt = null; sellRecoveryBlocked = false; passCheckBusy = false; claimBusy = false; claimNeedsRefresh = false;
+    window._playOwnedAvatarPacks = []; clearTimeout(ownerRewardTimer); ownerRewardTimer = null;
+  }
+
+  async function martSessionMatches(actor, epoch) {
+    try {
+      const result = await supabase.auth.getSession();
+      return epoch === checkoutEpoch && !result.error && (result.data?.session?.user?.id || null) === actor;
+    } catch (_) { return false; }
+  }
+
+  function setCheckoutAccount(id) {
+    if (id === checkoutActor) return;
+    checkoutEpoch++; checkoutActor = id; checkoutAttempt = null; checkoutRecoveryBlocked = false; checkoutBusy = false; lastPurchase = null; checkoutNote = ""; clearMartAccountData();
+    if (!id) return;
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("play-mart-order:" + id) || "null");
+      if (saved && saved.actor === id && /^[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(saved.orderId) && Array.isArray(saved.items) && saved.items.length > 0 && saved.items.length <= 40 && saved.items.every(row => typeof row.sku === "string" && row.sku.length > 0 && Number.isInteger(row.qty) && row.qty >= 1 && row.qty <= CART_MAX_QTY)) {
+        checkoutAttempt = { actor: id, orderId: saved.orderId, items: saved.items.map(row => ({ sku: row.sku, qty: row.qty })) };
+        cart = checkoutAttempt.items.map(row => ({ ...row }));
+        checkoutNote = "Check your previous purchase before changing the cart. This uses the original order and cannot charge it twice.";
+      } else if (saved !== null) throw Error("Invalid saved checkout recovery.");
+    } catch (_) { checkoutRecoveryBlocked = true; checkoutNote = "Your browser could not load checkout recovery. Do not purchase again until site storage is available and the previous order is checked."; }
+    restoreSale(id);
+  }
+
+  function restoreSale(id) {
+    try {
+      const saved = JSON.parse(sessionStorage.getItem("play-mart-sale:" + id) || "null");
+      if (saved === null) return;
+      if (saved.actor !== id || typeof saved.item !== "string" || !saved.item || !Number.isInteger(saved.quantity) || saved.quantity < 1 || saved.quantity > 99 || !/^mart-sell:[a-f0-9]{8}(-[a-f0-9]{4}){3}-[a-f0-9]{12}$/i.test(saved.key)) throw Error("Invalid saved sale.");
+      sellAttempt = { actor: id, item: saved.item, quantity: saved.quantity, key: saved.key };
+      sellNote = "Check your previous sale before selling more items. It uses the original request.";
+    } catch (_) { sellRecoveryBlocked = true; sellNote = "Sale recovery could not be loaded. Check browser storage and the previous sale before selling again."; }
+  }
+
+  function rememberSale() {
+    const key = "play-mart-sale:" + checkoutActor;
+    if (sellAttempt) sessionStorage.setItem(key, JSON.stringify(sellAttempt));
+    else sessionStorage.removeItem(key);
+  }
+
+  function rememberCheckout() {
+    if (!checkoutActor) throw Error("Sign in before preparing checkout.");
+    const key = "play-mart-order:" + checkoutActor;
+    if (checkoutAttempt) sessionStorage.setItem(key, JSON.stringify(checkoutAttempt));
+    else sessionStorage.removeItem(key);
   }
 
   function cartCount() {
@@ -111,8 +166,8 @@
   function showPurchasePop(purchase, bag) {
     if(typeof window.playPresentEnqueue!=='function')return;
     const rewards=(purchase?.lines||[]).map(row=>({type:row.sku,amount:Number(row.qty),label:row.name+' ×'+row.qty,sprite:row.sprite}));
-    if(purchase?.premierBonus)rewards.push({type:'premierball',amount:1,label:'Bonus Premier Ball ×1'});
-    const totals=['Spent '+money(purchase?.total||0)+' PokéCoins',bag?.coins!=null?'Balance: '+money(bag.coins)+' PokéCoins':''].filter(Boolean).join(' · ');
+    if(purchase?.premierBonus)rewards.push({type:'premierball',amount:Number(purchase.premierBonus),label:'Bonus Premier Ball ×'+Number(purchase.premierBonus)});
+    const totals=[purchase?.total==null?'Previous purchase confirmed':'Spent '+money(purchase.total)+' PokéCoins',bag?.coins!=null?'Balance: '+money(bag.coins)+' PokéCoins':''].filter(Boolean).join(' · ');
     const pack=(purchase?.lines||[]).some(row=>isPackProduct(findSku(row.sku)));
     window.playPresentEnqueue([{id:'purchase:'+purchase?.orderId,type:'item',kind:'supply-claim',tier:'card',title:pack?'Pack purchased!':'Purchase complete!',kicker:'Thank you for shopping',body:totals,rewards,source:'store'}],{source:'store',noSummary:true});
   }
@@ -795,7 +850,7 @@
     const slug = item.slug;
     const owned = Math.max(0, Number(item.owned || 0));
     const unit = Math.max(0, Number(item.unitPrice || 0));
-    const qty = Math.max(1, Math.min(owned || 1, Number(sellQty[slug] || 1)));
+    const qty = Math.max(1, Math.min(99, owned || 1, Number(sellQty[slug] || 1)));
     sellQty[slug] = qty;
     const total = unit * qty;
     const sprite = item.sprite || window.playItemSprite?.(slug) || "images/items/poke-ball.png";
@@ -811,12 +866,12 @@
       </div>
       <div class="mart-card-actions is-sell-actions">
         <div class="mart-sell-qty" role="group" aria-label="Sell quantity">
-          <button type="button" class="secondary" data-sell-dec="${esc(slug)}" ${qty <= 1 ? "disabled" : ""}>−</button>
+          <button type="button" class="secondary" data-sell-dec="${esc(slug)}" ${qty <= 1 || sellBusy || sellAttempt || sellRecoveryBlocked ? "disabled" : ""}>−</button>
           <span class="mart-sell-qty-val">${qty}</span>
-          <button type="button" class="secondary" data-sell-inc="${esc(slug)}" ${qty >= owned ? "disabled" : ""}>+</button>
+          <button type="button" class="secondary" data-sell-inc="${esc(slug)}" ${qty >= Math.min(99, owned) || sellBusy || sellAttempt || sellRecoveryBlocked ? "disabled" : ""}>+</button>
         </div>
         <div class="mart-sell-total"><span class="muted">Total</span> <strong>${coinHtml}</strong></div>
-        <button type="button" class="gold mart-sell-go" data-sell-go="${esc(slug)}" ${owned < 1 || unit < 1 ? "disabled" : ""}>Sell</button>
+        <button type="button" class="gold mart-sell-go" data-sell-go="${esc(slug)}" ${owned < 1 || unit < 1 || sellBusy || sellAttempt || sellRecoveryBlocked ? "disabled" : ""}>Sell</button>
       </div>
     </article>`;
   }
@@ -834,72 +889,71 @@
         </div>
       </header>
       <p class="muted mart-sell-help">Only items you own that can be sold appear here. Review the quantity and PokéCoins you will receive before confirming.</p>
-      <p class="mart-checkout-note" data-sell-status${sellNote ? "" : " hidden"}>${esc(sellNote)}</p>
+      <p class="mart-checkout-note" data-sell-status${sellNote ? "" : " hidden"}>${esc(sellNote)}</p><button type="button" data-sell-recover${sellAttempt ? "" : " hidden"}${sellBusy || sellRecoveryBlocked ? " disabled" : ""}>Check previous sale</button>
       <div class="mart-shelf mart-sell-grid">${cards}</div>
     </section>`;
   }
 
-  async function refreshSellShelf() {
+  async function refreshSellShelf(parentCurrent = () => true) {
+    const epoch = checkoutEpoch, actor = checkoutActor, serial = ++sellReadSerial;
+    const current = () => epoch === checkoutEpoch && serial === sellReadSerial && parentCurrent();
     try {
+      if (!await martSessionMatches(actor, epoch) || !current()) return false;
       const data = await window.playCall("play_mart_sell_shelf");
+      if (!await martSessionMatches(actor, epoch) || !current()) return false;
       sellShelf = Array.isArray(data?.items) ? data.items : [];
-      const keep = new Set(sellShelf.map((row) => row.slug));
-      Object.keys(sellQty).forEach((key) => { if (!keep.has(key)) delete sellQty[key]; });
-    } catch (_) {
-      sellShelf = [];
-    }
+      const keep = new Set(sellShelf.map(row => row.slug));
+      Object.keys(sellQty).forEach(key => { if (!keep.has(key)) delete sellQty[key]; });
+      return true;
+    } catch (_) { if (current()) sellShelf = []; return false; }
   }
 
   async function sellItem(slug) {
-    if (sellBusy) return;
-    const row = sellShelf.find((item) => item.slug === slug);
-    if (!row) return;
-    const owned = Math.max(0, Number(row.owned || 0));
-    const unit = Math.max(0, Number(row.unitPrice || 0));
-    const qty = Math.max(1, Math.min(owned, Number(sellQty[slug] || 1)));
-    if (owned < 1 || unit < 1) return;
-    const total = unit * qty;
-    const label = row.name || slug;
-    const body = `Sell ${qty} ${label}${qty === 1 ? "" : "s"}?\n\nYou will receive:\n${total.toLocaleString()} PokéCoins`;
-    const ok = typeof window.playPresentConfirm === "function"
-      ? await window.playPresentConfirm({ title: `Sell ${label}?`, body, confirmLabel: "Sell Items", cancelLabel: "Cancel" })
-      : window.confirm(body);
-    if (!ok) return;
+    if (sellBusy || sellRecoveryBlocked) return;
+    const epoch = checkoutEpoch, actor = checkoutActor;
+    if (!actor) { sellNote = "Sign in before selling items."; syncSellUi(); return; }
+    const current = () => epoch === checkoutEpoch && actor === checkoutActor;
+    const recovery = Boolean(sellAttempt);
+    const verify = async () => {
+      const valid = await martSessionMatches(actor, epoch);
+      if (!current()) return false;
+      if (!valid) { setCheckoutAccount(null); fillWallet(null); renderFloors(lastCatalog, null, null, []); if (els.status) els.status.textContent = "Your account changed. Reload the Mart before selling items."; }
+      return valid;
+    };
+    let confirmed = false, sent = false;
     sellBusy = true;
-    sellNote = "Selling…";
-    syncSellUi();
-    const idem = `mart-sell:${slug}:${Date.now()}:${Math.random().toString(36).slice(2, 10)}`;
     try {
-      const data = await window.playCall("play_sell_item", {
-        p_item_key: slug,
-        p_quantity: qty,
-        p_idempotency_key: idem
-      });
-      sellNote = "";
-      if (typeof window.playPresentEnqueue === "function") {
-        window.playPresentEnqueue([{
-          id: `mart-sale:${idem}`,
-          type: "item",
-          kind: "loot",
-          title: "MART SALE COMPLETE!",
-          subtitle: `Sold: ${data.displayName || label} ×${data.quantity || qty}`,
-          body: `Received: ${(data.coinsReceived || total).toLocaleString()} PokéCoins`,
-          rewards: [{ type: "coins", amount: data.coinsReceived || total }]
-        }]);
+      if (!recovery) {
+        const row = sellShelf.find(item => item.slug === slug);
+        if (!row) return;
+        const owned = Number(row.owned), unit = Number(row.unitPrice), qty = Math.min(99, owned, Number(sellQty[slug] || 1));
+        if (!Number.isSafeInteger(qty) || qty < 1 || !Number.isSafeInteger(unit) || unit < 1) throw Error("Choose 1–99 owned items with a valid sell price.");
+        const body = `Sell ${qty} ${row.name || slug}?\n\nYou will receive: ${(unit * qty).toLocaleString()} PokéCoins`;
+        const ok = window.playPresentConfirm ? await window.playPresentConfirm({ title: "Confirm sale", body, confirmLabel: "Sell Items", cancelLabel: "Cancel" }) : window.confirm(body);
+        if (!ok || !current()) return;
+        if (!await verify()) return;
+        sellAttempt = { actor, item: slug, quantity: qty, key: "mart-sell:" + newOrderId() };
+        try { rememberSale(); } catch (_) { sellAttempt = null; throw Error("Your browser could not save sale recovery. Nothing was sold. Check site storage before trying again."); }
       }
-      await refreshStore();
-      await refreshSellShelf();
+      if (!current() || !await verify()) return;
+      const attempt = sellAttempt;
+      sellNote = "Checking the original sale…"; syncSellUi(); sent = true;
+      const data = await window.playCall("play_sell_item", { p_item_key: attempt.item, p_quantity: attempt.quantity, p_idempotency_key: attempt.key });
+      if (!current() || !await verify()) return;
+      if (data?.ok !== true || data.item !== attempt.item || data.quantity !== attempt.quantity || !Number.isSafeInteger(data.unitPrice) || data.unitPrice < 1 || !Number.isSafeInteger(data.coinsReceived) || data.coinsReceived !== data.unitPrice * data.quantity) throw Error("Sale receipt could not be confirmed.");
+      confirmed = true; sellAttempt = null; sellShelf = []; sellNote = "";
+      try { rememberSale(); } catch (_) { sellRecoveryBlocked = true; sellNote = "Sale completed, but browser recovery could not clear. Reload the Mart to inspect it."; }
+      window.playPresentEnqueue?.([{ id: "mart-sale:" + attempt.key, type: "item", kind: "loot", title: data.duplicate === true ? "Previous sale confirmed" : "Sale complete!", subtitle: `Sold: ${data.displayName || attempt.item} ×${data.quantity}`, body: `Received: ${data.coinsReceived.toLocaleString()} PokéCoins`, rewards: [{ type: "coins", amount: data.coinsReceived }] }]);
+      const refreshed = await refreshStore();
+      if (!current() || !await verify()) return;
+      if (!refreshed) sellNote = "Sale completed. Refresh the Mart to update your items and balance; do not sell them again.";
       if (martMode === "sell") renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
     } catch (error) {
-      sellNote = window.playPresentError
-        ? window.playPresentError(error, "Could not complete your sale.")
-        : window.playHumanRpcError
-          ? window.playHumanRpcError(error, "Could not complete your sale.")
-          : window.playRpcError(error, "Could not complete your sale.");
-      syncSellUi();
-    } finally {
-      sellBusy = false;
-    }
+      if (!current()) return;
+      if (confirmed) sellNote = "Sale completed, but the display could not finish. Refresh the Mart to inspect your items and balance.";
+      else if (sent && !recovery && ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) { sellAttempt = null; try { rememberSale(); } catch (_) {} sellNote = error.message || "Sale rejected. No items were sold by this attempt."; }
+      else sellNote = sent ? "Sale outcome is unconfirmed. Use Check previous sale before selling more; it reuses the original request." : error.message || "Sale could not be prepared.";
+    } finally { if (current()) { sellBusy = false; syncSellUi(); } }
   }
 
   function syncSellUi() {
@@ -910,6 +964,8 @@
       note.hidden = !sellNote;
       note.textContent = sellNote;
     }
+    const recovery = panel.querySelector("[data-sell-recover]");
+    if (recovery) { recovery.hidden = !sellAttempt; recovery.disabled = sellBusy || sellRecoveryBlocked; }
     const grid = panel.querySelector(".mart-sell-grid");
     if (grid) grid.innerHTML = sellShelf.length
       ? sellShelf.map(sellCardHtml).join("")
@@ -1056,7 +1112,7 @@
            ${typeof window.playPremierPreview === "function" && window.playPremierPreview(cart, findSku) > 0
              ? `<p class="mart-cart-fanfare-kicker">Bonus: Premier Ball ×${window.playPremierPreview(cart, findSku)}</p>`
              : ""}
-           <div class="mart-checkout-buttons"><button type="button" class="secondary" data-cart-empty${checkoutBusy ? " disabled" : ""}>Empty cart</button><button type="button" class="gold" data-checkout-buy${short || checkoutBusy ? " disabled" : ""}>Purchase</button></div>
+           <div class="mart-checkout-buttons"><button type="button" class="secondary" data-cart-empty${checkoutBusy || checkoutAttempt ? " disabled" : ""}>Empty cart</button><button type="button" class="gold" data-checkout-buy${(short && !checkoutAttempt) || checkoutBusy || checkoutRecoveryBlocked ? " disabled" : ""}>${checkoutAttempt ? "Check previous purchase" : "Purchase"}</button></div>
          </div>`
       : `<div class="mart-cart-empty is-compact">
            ${cartIconHtml("mart-cart-empty-icon")}
@@ -1088,8 +1144,8 @@
       <p class="mart-cart-fanfare-kicker">Sold!</p>
       <h3>Thank you for your purchase!</h3>
       <ul class="mart-cart-fanfare-items">${items}</ul>
-      <p class="mart-cart-fanfare-total"><span>Paid</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(receipt.total || 0)}</span></p>
-      ${receipt.premierBonus ? `<p class="mart-cart-fanfare-kicker">Bonus! You received a Premier Ball!</p>` : ""}
+      ${receipt.total == null ? `<p class="muted">Your previous order is confirmed.</p>` : `<p class="mart-cart-fanfare-total"><span>Paid</span> <span class="mart-cost"><img src="${window.playItemSprite("coins")}" alt="">${money(receipt.total)}</span></p>`}
+      ${receipt.premierBonus ? `<p class="mart-cart-fanfare-kicker">Bonus! You received ${money(receipt.premierBonus)} Premier Ball${Number(receipt.premierBonus) === 1 ? "" : "s"}!</p>` : ""}
       ${receipt.after != null ? `<p class="muted">You have ${money(receipt.after)} PokéCoins left.</p>` : `<p class="muted">They’re in your bag now. Come back any time!</p>`}
     </div>`;
   }
@@ -1118,6 +1174,7 @@
     const hidden = panel.hidden;
     panel.replaceWith(next);
     next.hidden = hidden;
+    if (checkoutAttempt || checkoutRecoveryBlocked) next.querySelectorAll("[data-cart-inc],[data-cart-dec],[data-cart-remove],[data-cart-empty]").forEach(control => control.disabled = true);
   }
 
   function addToCheckout(sku) {
@@ -1129,7 +1186,7 @@
   }
 
   function emptyCart() {
-    if (checkoutBusy || !cart.length) return;
+    if (checkoutBusy || checkoutAttempt || checkoutRecoveryBlocked || !cart.length) return;
     cart = [];
     checkoutNote = '';
     lastPurchase = null;
@@ -1139,19 +1196,20 @@
   }
 
   async function confirmEmptyCart() {
-    if(checkoutBusy||emptyCartBusy||!cart.length)return;
-    const snapshot=JSON.stringify(cart);emptyCartBusy=true;
+    if(checkoutBusy||checkoutAttempt||checkoutRecoveryBlocked||emptyCartBusy||!cart.length)return;
+    const snapshot=JSON.stringify(cart),epoch=checkoutEpoch;emptyCartBusy=true;
     try{
       const body='Remove all items from Your Cart?';
       const yes=window.playPresentConfirm?await window.playPresentConfirm({title:'Empty Your Cart?',body,confirmLabel:'Empty cart',cancelLabel:'Keep items'}):window.confirm(body);
       if(!yes)return;
-      if(checkoutBusy||JSON.stringify(cart)!==snapshot){window.playToast?.({kind:'warning',title:'Your cart changed',body:'Review Your Cart before emptying it.'});return;}
+      if(epoch!==checkoutEpoch||checkoutBusy||checkoutAttempt||JSON.stringify(cart)!==snapshot){window.playToast?.({kind:'warning',title:'Your cart changed',body:'Review Your Cart before emptying it.'});return;}
       emptyCart();
     }finally{emptyCartBusy=false;}
   }
 
   function setCartQty(sku, qty) {
     if (checkoutBusy) return;
+    if (checkoutAttempt || checkoutRecoveryBlocked) { cartFeedback("Check your previous purchase in Checkout before changing the cart.", "error"); return; }
     const item = findSku(sku);
     if (!Number.isSafeInteger(Number(qty)) || Number(qty) < 0) return;
     const previous = cart.find(row => row.sku === sku)?.qty || 0;
@@ -1249,46 +1307,51 @@
   let passCheckBusy = false;
   async function checkPass(button) {
     if (passCheckBusy) return;
-    passCheckBusy = true;
+    const actor = checkoutActor, epoch = checkoutEpoch;
+    const current = () => checkoutActor === actor && checkoutEpoch === epoch;
     const note = document.querySelector("[data-pass-status]") || els.status;
+    if (!actor) { if (note) note.textContent = "Sign in first."; return; }
+    const verify = async () => {
+      const valid = await martSessionMatches(actor, epoch);
+      if (!current()) return false;
+      if (!valid) { setCheckoutAccount(null); fillWallet(null); renderFloors(lastCatalog, null, null, []); }
+      return valid;
+    };
+    passCheckBusy = true;
     const wasDisabled = Boolean(button?.disabled);
     const fallback = "Could not check Starlight Pass right now. Please try again.";
-    if (button) {
-      button.disabled = true;
-      button.setAttribute("aria-busy", "true");
-    }
+    if (button) { button.disabled = true; button.setAttribute("aria-busy", "true"); }
     try {
-      const { data: sessionData } = await supabase.auth.getSession();
-      const session = sessionData.session;
-      if (!session) {
-        if (note) note.textContent = "Sign in first.";
-        return;
-      }
+      const { data: sessionData, error: sessionError } = await supabase.auth.getSession();
+      if (!current()) return;
+      const session = sessionData?.session;
+      if (sessionError) throw sessionError;
+      if (!session || session.user?.id !== actor) { await verify(); return; }
       // The server decides whether a provider token is required (the channel owner does not need one).
       if (note) note.textContent = "Checking Twitch…";
-      const { data, error } = await supabase.functions.invoke("refresh-pass", {
-        body: { accessToken: session.provider_token || "" }
-      });
+      const { data, error } = await supabase.functions.invoke("refresh-pass", { body: { accessToken: session.provider_token || "" } });
+      if (!current() || !await verify()) return;
       if (error) {
-        if (note) note.textContent = await functionMessage(error, fallback);
+        const message = await functionMessage(error, fallback);
+        if (current() && await verify() && note) note.textContent = message;
         return;
       }
       const resultMessage = data?.message || (data?.active ? "Starlight Pass is active." : "Twitch says you are not subscribed right now.");
       if (note) note.textContent = resultMessage;
       try {
         await load();
+        if (!current() || !await verify()) return;
         const refreshedNote = document.querySelector("[data-pass-status]") || note;
         if (refreshedNote) refreshedNote.textContent = resultMessage;
       } catch (_) {
-        if (note) note.textContent += " The Mart could not refresh. Reload the page for the latest display.";
+        if (current() && await verify() && note) note.textContent = resultMessage + " The Mart could not refresh. Reload the page for the latest display.";
       }
     } catch (_) {
-      if (note) note.textContent = fallback;
+      if (current() && await verify() && note) note.textContent = fallback;
     } finally {
-      passCheckBusy = false;
-      if (button?.isConnected) {
-        button.disabled = wasDisabled;
-        button.removeAttribute("aria-busy");
+      if (current()) {
+        passCheckBusy = false;
+        if (button?.isConnected) { button.disabled = wasDisabled; button.removeAttribute("aria-busy"); }
       }
     }
   }
@@ -1312,7 +1375,7 @@
         if(wallet[prefix+'Verified']&&Date.parse(wallet[prefix+'NextAt'])<=Date.now()){
           wallet[kind==='daily'?'dailyReady':'weeklyReady']=true;
           const button=document.getElementById('claim-'+kind);
-          if(button&&!claimBusy&&describePass(lastPass,wallet).active){
+          if(button&&!claimBusy&&!claimNeedsRefresh&&describePass(lastPass,wallet).active){
             button.disabled=false;button.textContent=kind==='daily'?'Claim daily supply':'Claim weekly bonus';
             const card=button.closest?.('.pass-reward-card'),chip=card?.querySelector('.pass-reward-chip'),note=card?.querySelector('.pass-time-note');
             if(chip)chip.textContent='Ready';
@@ -1325,118 +1388,174 @@
   }
 
   async function refreshStore() {
+    const epoch = checkoutEpoch, actor = checkoutActor, serial = ++martReadSerial;
+    const current = () => epoch === checkoutEpoch && serial === martReadSerial;
+    const verify = async () => {
+      const valid = await martSessionMatches(actor, epoch);
+      if (!current()) return false;
+      if (!valid) { clearMartAccountData(); fillWallet(null); renderFloors(lastCatalog, null, null, []); if (els.status) els.status.textContent = "Your account changed. Reload the Mart to view its balance and rewards."; }
+      return valid;
+    };
     try {
+      if (!await verify()) return null;
       await window.PLAY_REWARD_TIMEZONE?.ensure();
+      if (!current()) return null;
       const data = await window.playCall("play_store");
-      const wallet = data.wallet;
-      lastCatalog = data.catalog;
-      lastWallet = wallet;
-      lastPass = data.pass;
-      lastPassRewards = data.passRewards || null;
-      lastOwned = data.ownedAvatarPacks || [];
-      lastBag = data.bag || null;
+      if (!await verify()) return null;
+      if (data?.ok !== true || !data.catalog || typeof data.catalog !== "object" || Array.isArray(data.catalog)) throw Error("Mart catalog could not be verified.");
+      let support;
+      try { support = await window.playCall("play_support_recent") || { events: [], bitsTotal: 0, pending: false }; }
+      catch (_) { support = { events: [], bitsTotal: 0, pending: false }; }
+      if (!await verify()) return null;
+      await refreshSellShelf(current);
+      if (!await verify()) return null;
+      lastCatalog = data.catalog; lastWallet = data.wallet; lastPass = data.pass; lastPassRewards = data.passRewards || null;
+      lastOwned = data.ownedAvatarPacks || []; lastBag = data.bag || null; lastSupport = support;
       window._playOwnedAvatarPacks = lastOwned;
-      try {
-        lastSupport = await window.playCall("play_support_recent") || lastSupport;
-      } catch (_) {
-        lastSupport = { events: [], bitsTotal: 0, pending: false };
-      }
-      fillWallet(wallet);
-      await refreshSellShelf();
-      renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
-      scheduleOwnerRewards();
+      fillWallet(lastWallet); renderFloors(lastCatalog, lastWallet, lastPass, lastOwned); scheduleOwnerRewards();
       return data;
     } catch (error) {
+      if (!current()) return null;
+      if (!await verify()) return null;
       if (els.status) els.status.textContent = window.playRpcError(error, "Mart catalog is not live yet.");
-      await refreshSellShelf();
+      await refreshSellShelf(current);
+      if (!current() || !await verify()) return null;
       renderFloors(lastCatalog, lastWallet, lastPass, lastOwned);
       return null;
     }
   }
 
   async function load() {
+    const serial = ++martLoadSerial;
     try {
-      if (!sessionStorage.getItem("play-mart-enter")) {
-        sessionStorage.setItem("play-mart-enter", "1");
-        document.body.classList.add("is-mart-enter");
-      }
+      if (!sessionStorage.getItem("play-mart-enter")) { sessionStorage.setItem("play-mart-enter", "1"); document.body.classList.add("is-mart-enter"); }
     } catch (_) {}
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
-    if (!session) {
-      window.playSetAccountNav(null);
-      fillWallet(null);
-      await refreshStore();
-      return;
+    let epoch = checkoutEpoch;
+    const current = () => serial === martLoadSerial && epoch === checkoutEpoch;
+    try {
+      const result = await supabase.auth.getSession();
+      if (!current()) return;
+      if (result.error) throw Error("Sign-in could not be verified.");
+      const session = result.data?.session;
+      const changed = checkoutActor !== (session?.user?.id || null);
+      setCheckoutAccount(session?.user?.id || null); epoch = checkoutEpoch;
+      if (changed || !session) fillWallet(null);
+      if (!session) { window.playSetAccountNav(null); await refreshStore(); return; }
+      const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, starlight_pass, pass_source").eq("id", session.user.id).maybeSingle();
+      if (!current()) return;
+      let linkedLogin = "";
+      try {
+        const { data: cons } = await supabase.from("twitch_connections").select("twitch_login, confirmed, connection_type, is_primary").eq("user_id", session.user.id);
+        const row = (cons || []).filter(c => c.confirmed && (c.connection_type === "player" || c.connection_type === "secondary")).sort((a,b) => Number(b.is_primary) - Number(a.is_primary))[0];
+        linkedLogin = row?.twitch_login || "";
+      } catch (_) {}
+      if (!current() || !await martSessionMatches(session.user.id, epoch)) return;
+      const store = await refreshStore();
+      if (!current() || !await martSessionMatches(session.user.id, epoch)) return;
+      lastLinkedLogin = linkedLogin;
+      window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer, twitchLinked: store?.twitchLinked });
+    } catch (error) {
+      if (!current()) return;
+      clearMartAccountData(); fillWallet(null); window.playSetAccountNav(null);
+      if (els.status) els.status.textContent = window.playRpcError(error, "Mart sign-in could not be checked. Reload to try again.");
     }
-    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, starlight_pass, pass_source").eq("id", session.user.id).maybeSingle();
-    lastLinkedLogin = "";
-    try {
-      const { data: cons } = await supabase
-        .from("twitch_connections")
-        .select("twitch_login, confirmed, connection_type, is_primary")
-        .eq("user_id", session.user.id);
-      const row = (cons || [])
-        .filter((c) => c.confirmed && (c.connection_type === "player" || c.connection_type === "secondary"))
-        .sort((a, b) => Number(b.is_primary) - Number(a.is_primary))[0];
-      lastLinkedLogin = row?.twitch_login || "";
-    } catch (_) {}
-    const store = await refreshStore();
-    window.playSetAccountNav(session, profile, { isAdmin: Boolean(store?.isAdmin), trainer: store?.trainer, twitchLinked: store?.twitchLinked });
   }
 
   async function purchaseCart(button) {
-    if (!cart.length || checkoutBusy) return;
+    if ((!cart.length && !checkoutAttempt) || checkoutBusy || checkoutRecoveryBlocked) return;
     checkoutBusy = true;
+    let epoch = checkoutEpoch, confirmed = false, sent = false, recovery = false;
     try {
-    const { data: sessionData } = await supabase.auth.getSession();
-    if (!sessionData.session) {
-      checkoutNote = "Sign in first.";
-      syncCheckoutUi();
-      return;
-    }
-    if (button) button.disabled = true;
-      const receipt = {
-        total: cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0),
-        lines: cart.map((row) => {
-          const item = findSku(row.sku);
-          return {
-            sku: row.sku,
-            qty: row.qty,
-            name: item?.name || row.sku,
-            sprite: cartLineSprite(item)
-          };
-        })
-      };
-      const data = await window.playCall("play_buy_cart", {
-        p_items: cart.map((row) => ({ sku: row.sku, qty: row.qty })),
-        p_order_id: newOrderId()
-      });
-      cart = [];
-      saveCart();
-      checkoutNote = "";
-      lastPurchase = {
-        ...receipt,
-        message: data.message || "Purchased.",
-        premierBonus: Number(data.premierBonus || 0),
-        after: Number(data.bag?.coins ?? lastWallet?.coins ?? 0) - 0
-      };
-      if (data.bag?.coins != null) lastPurchase.after = Number(data.bag.coins);
+      const before = await supabase.auth.getSession();
+      if (before.error) throw Error("Your sign-in could not be verified. Reload the Mart before purchasing.");
+      const session = before.data?.session;
+      if (epoch !== checkoutEpoch) return;
+      if (!session?.user?.id) { setCheckoutAccount(null); epoch = checkoutEpoch; checkoutNote = "Sign in first."; return; }
+      if (checkoutActor && checkoutActor !== session.user.id) { setCheckoutAccount(session.user.id); epoch = checkoutEpoch; checkoutNote = "Your account changed. Reload the Mart and review the cart before purchasing."; return; }
+      setCheckoutAccount(session.user.id); epoch = checkoutEpoch; checkoutBusy = true;
+      if (checkoutRecoveryBlocked) return;
+      if (!checkoutAttempt && !lastWallet) throw Error("Wait for your current account balance to load before purchasing.");
+      recovery = Boolean(checkoutAttempt);
+      if (button) button.disabled = true;
+      const items = (checkoutAttempt?.items || cart).map(row => ({ sku: row.sku, qty: row.qty }));
+      const receipt = { total: items.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0), lines: items.map(row => { const item = findSku(row.sku); return { sku: row.sku, qty: row.qty, name: item?.name || row.sku, sprite: cartLineSprite(item) }; }) };
+      if (!checkoutAttempt) {
+        checkoutAttempt = { actor: checkoutActor, orderId: newOrderId(), items };
+        try { rememberCheckout(); } catch (_) { checkoutAttempt = null; throw Error("Your browser could not save the checkout request. Nothing was purchased. Check site storage and try again."); }
+      }
+      const attempt = checkoutAttempt;
+      sent = true;
+      const data = await window.playCall("play_buy_cart", { p_items: attempt.items.map(row => ({ ...row })), p_order_id: attempt.orderId });
+      const afterSession = await supabase.auth.getSession();
+      if (afterSession.error) throw Error("The checkout session could not be verified.");
+      const after = afterSession.data?.session;
+      if (epoch !== checkoutEpoch) return;
+      if (after?.user?.id !== attempt.actor) { setCheckoutAccount(after?.user?.id || null); epoch = checkoutEpoch; checkoutNote = "Your account changed. Reload the Mart to inspect purchases for this account."; return; }
+      if (data?.ok !== true || (data.duplicate !== true && data.orderId !== attempt.orderId)) throw Error("The checkout receipt could not be confirmed.");
+      confirmed = true;
+      checkoutAttempt = null; cart = []; checkoutNote = ""; saveCart();
+      try { rememberCheckout(); } catch (_) { checkoutNote = "Purchase completed, but browser recovery could not clear. Refresh the Mart to check your items."; }
+      lastPurchase = { ...receipt, orderId: attempt.orderId, total: data.duplicate === true ? null : receipt.total, message: data.message || "Purchased.", premierBonus: Number(data.premierBonus || 0), after: data.bag?.coins == null ? null : Number(data.bag.coins) };
       lastTab = CHECKOUT_TAB;
       showPurchasePop(lastPurchase, data.bag);
       await refreshStore();
     } catch (error) {
-      checkoutNote = window.playPresentError
-        ? window.playPresentError(error, "Could not complete your purchase.")
-        : window.playHumanRpcError
-          ? window.playHumanRpcError(error, "Could not complete your purchase.")
-          : window.playRpcError(error, "Could not complete your purchase.");
-      syncCheckoutUi();
-      if (button && button.isConnected) button.disabled = false;
-    } finally { checkoutBusy = false; syncCheckoutUi(); }
+      if (epoch !== checkoutEpoch) return;
+      if (confirmed) checkoutNote = "Purchase completed, but the display could not finish. Refresh the Mart to check your items; do not purchase them again.";
+      else if (sent && !recovery && ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) {
+        checkoutAttempt = null;
+        try { rememberCheckout(); } catch (_) {}
+        checkoutNote = window.playPresentError ? window.playPresentError(error, "Checkout was rejected. No purchase from this attempt completed.") : error.message;
+      } else checkoutNote = sent ? "Purchase outcome is unconfirmed. Use Check previous purchase before changing the cart; it reuses the original order." : error.message || "Checkout could not be prepared.";
+    } finally {
+      if (epoch === checkoutEpoch) { checkoutBusy = false; syncCheckoutUi(); }
+    }
   }
 
-  let claimBusy = false;
+  let claimBusy = false, claimNeedsRefresh = false;
+  async function claimStoreReward(kind, button) {
+    if (claimBusy || claimNeedsRefresh) return;
+    const actor = checkoutActor, epoch = checkoutEpoch;
+    const current = () => actor === checkoutActor && epoch === checkoutEpoch;
+    const note = kind === "choice" ? els.status : document.querySelector("[data-pass-status]") || els.status;
+    const say = message => { const target = kind === "choice" ? els.status : document.querySelector("[data-pass-status]") || note; if (target) target.textContent = message; };
+    if (!actor) { say("Sign in before claiming rewards."); return; }
+    const verify = async () => {
+      const valid = await martSessionMatches(actor, epoch);
+      if (!current()) return false;
+      if (!valid) { setCheckoutAccount(null); fillWallet(null); renderFloors(lastCatalog, null, null, []); }
+      return valid;
+    };
+    const item = kind === "choice" ? button?.getAttribute("data-choice-item") : null;
+    const key = kind === "choice" ? button?.getAttribute("data-choice-key") : null;
+    let confirmed = false, sent = false;
+    claimBusy = true;
+    if (button) button.disabled = true;
+    try {
+      if (!await verify()) return;
+      sent = true; claimNeedsRefresh = true;
+      const data = await window.playCall(kind === "choice" ? "play_claim_choice" : "play_claim_pass", kind === "choice" ? { p_reward_key: key, p_item: item } : { p_kind: kind });
+      if (!current() || !await verify()) return;
+      if (data?.ok !== true || (kind === "choice" ? data.item !== item : typeof data.receiptId !== "string" || !data.receiptId.trim())) throw Error("Reward receipt could not be confirmed.");
+      confirmed = true;
+      say(data.message || "Rewards received.");
+      presentClaim(kind === "choice" ? "Reward chosen" : kind === "daily" ? "Starlight Pass daily gift" : "Starlight Pass weekly crate", data, kind === "choice" ? "store" : "pass");
+      const refreshed = await refreshStore();
+      if (!current() || !await verify()) return;
+      if (!refreshed) throw Error("Reward display refresh unavailable.");
+      claimNeedsRefresh = false;
+    } catch (error) {
+      if (!current() || !await verify()) return;
+      if (confirmed) {
+        say("Rewards received, but the display could not finish. Reload the Mart to see your items and claim status.");
+      } else if (!sent || ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) {
+        claimNeedsRefresh = false;
+        say(error.message || "This reward could not be claimed.");
+        if (button?.isConnected) button.disabled = false;
+      } else say("Claim outcome is unconfirmed. Reload the Mart to check your items and reward calendar before trying again.");
+    } finally { if (current()) { claimBusy = false; if (claimNeedsRefresh) document.querySelectorAll("#claim-daily, #claim-weekly, [data-choice-item]").forEach(btn => { btn.disabled = true; }); } }
+  }
+
 
   document.addEventListener("click", async (event) => {
     const modeBtn = event.target.closest("#mart-mode-mount [data-mart-mode]");
@@ -1451,8 +1570,10 @@
       await switchMartMode(modeBtn.dataset.martMode === "sell" ? "sell" : "buy");
       return;
     }
+    if (event.target.closest("[data-sell-recover]")) { await sellItem(sellAttempt?.item); return; }
     const sellInc = event.target.closest("[data-sell-inc]");
     if (sellInc) {
+      if (sellBusy || sellAttempt || sellRecoveryBlocked) return;
       const slug = sellInc.dataset.sellInc;
       const row = sellShelf.find((item) => item.slug === slug);
       const owned = Math.max(0, Number(row?.owned || 0));
@@ -1462,6 +1583,7 @@
     }
     const sellDec = event.target.closest("[data-sell-dec]");
     if (sellDec) {
+      if (sellBusy || sellAttempt || sellRecoveryBlocked) return;
       const slug = sellDec.dataset.sellDec;
       sellQty[slug] = Math.max(1, Number(sellQty[slug] || 1) - 1);
       syncSellUi();
@@ -1510,14 +1632,16 @@
     }
     const buyAll = event.target.closest("[data-checkout-buy]");
     if (buyAll) {
+      const reviewedEpoch = checkoutEpoch, reviewedCart = JSON.stringify(cart);
       const total = cart.reduce((n, row) => n + Number(findSku(row.sku)?.cost || 0) * row.qty, 0);
       const premium = cart.some((row) => findSku(row.sku)?.pack) || total >= 1000;
-      if (premium) {
+      if (premium && !checkoutAttempt) {
         const body = `Cost: ${total} PokéCoins\nCurrent balance: ${Number(lastWallet?.coins || 0)}\nBalance after: ${Number(lastWallet?.coins || 0) - total}`;
         const ok = typeof window.playPresentConfirm === "function"
           ? await window.playPresentConfirm({ title: "Confirm purchase", body, confirmLabel: "Buy" })
           : window.confirm(`Buy this checkout?\n${body}`);
         if (!ok) return;
+        if (reviewedEpoch !== checkoutEpoch || reviewedCart !== JSON.stringify(cart)) { window.playToast?.({ kind: "warning", title: "Checkout changed", body: "Review the current account and cart before purchasing." }); return; }
       }
       await purchaseCart(buyAll);
       return;
@@ -1540,71 +1664,11 @@
       return;
     }
     const choiceBtn = event.target.closest("[data-choice-item]");
-    if (choiceBtn) {
-      if (claimBusy) return;
-      const note = els.status;
-      claimBusy = true;
-      try {
-        const data = await window.playCall("play_claim_choice", {
-          p_reward_key: choiceBtn.getAttribute("data-choice-key"),
-          p_item: choiceBtn.getAttribute("data-choice-item")
-        });
-        if (note) note.textContent = data.message;
-        presentClaim("Reward chosen", data, "store");
-        await refreshStore();
-      } catch (error) {
-        const msg = window.playPresentError
-          ? window.playPresentError(error, "Could not claim that reward. Please try again.")
-          : window.playRpcError(error, "Could not claim that reward. Please try again.");
-        if (note) note.textContent = msg;
-      } finally {
-        claimBusy = false;
-      }
-      return;
-    }
-    if (event.target.closest("#claim-daily")) {
-      if (claimBusy) return;
-      const note = document.querySelector("[data-pass-status]") || els.status;
-      const btn = document.getElementById("claim-daily");
-      claimBusy = true;
-      if (btn) btn.disabled = true;
-      try {
-        const data = await window.playCall("play_claim_pass", { p_kind: "daily" });
-        if (note) note.textContent = data.message;
-        presentClaim("Starlight Pass daily gift", data, "pass");
-        await refreshStore();
-      } catch (error) {
-        const msg = window.playPresentError
-          ? window.playPresentError(error, "Could not claim your Pass rewards. Please try again.")
-          : window.playRpcError(error, "Could not claim your Pass rewards. Please try again.");
-        if (note) note.textContent = msg;
-        if (btn && btn.isConnected) btn.disabled = false;
-      } finally {
-        claimBusy = false;
-      }
-      return;
-    }
-    if (event.target.closest("#claim-weekly")) {
-      if (claimBusy) return;
-      const note = document.querySelector("[data-pass-status]") || els.status;
-      const btn = document.getElementById("claim-weekly");
-      claimBusy = true;
-      if (btn) btn.disabled = true;
-      try {
-        const data = await window.playCall("play_claim_pass", { p_kind: "weekly" });
-        if (note) note.textContent = data.message;
-        presentClaim("Starlight Pass weekly crate", data, "pass");
-        await refreshStore();
-      } catch (error) {
-        const msg = window.playPresentError
-          ? window.playPresentError(error, "Could not claim your Pass rewards. Please try again.")
-          : window.playRpcError(error, "Could not claim your Pass rewards. Please try again.");
-        if (note) note.textContent = msg;
-        if (btn && btn.isConnected) btn.disabled = false;
-      } finally {
-        claimBusy = false;
-      }
-    }
+    if (choiceBtn) { await claimStoreReward("choice", choiceBtn); return; }
+    const dailyBtn = event.target.closest("#claim-daily");
+    if (dailyBtn) { await claimStoreReward("daily", dailyBtn); return; }
+    const weeklyBtn = event.target.closest("#claim-weekly");
+    if (weeklyBtn) await claimStoreReward("weekly", weeklyBtn);
   });
 
   els.floors?.addEventListener("keydown", (event) => {

@@ -7,7 +7,7 @@ function create(transport,onChange=()=>{}){
  const emit=()=>onChange(copy(state));
  function reset(){epoch++;Object.assign(state,{phase:'closed',catalog:[],daily:[],weekly:[],revision:null,rotationActive:false,review:null,message:''});emit();}
  function editable(){if(state.phase!=='ready'||state.review)throw Error('Return to editing before changing rewards.');}
- async function load(){reset();const token=epoch;state.phase='loading';emit();try{const result=await transport('read');if(token!==epoch)return;
+ async function load(){if(['loading','saving'].includes(state.phase))return;reset();const token=epoch;state.phase='loading';emit();try{const result=await transport('read');if(token!==epoch)return;
  if(!result||typeof result.revision!=='string'||!result.revision)throw Error('Reward settings could not be verified.');
  const rows=catalog.catalog(result.catalog,'pass');
  const readable=rows.map(r=>({...r,enabled:true}));
@@ -21,7 +21,23 @@ function create(transport,onChange=()=>{}){
  function review(requestId){editable();if(typeof requestId!=='string'||! /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(requestId))throw Error('Reload before saving.');state.review={requestId,expectedRevision:state.revision,daily:catalog.bundle(state.daily,state.catalog),weekly:catalog.bundle(state.weekly,state.catalog)};emit();return copy(state.review);}
  function cancel(){if(state.phase!=='ready')throw Error('Wait for the current operation.');state.review=null;emit();}
  function reviewMode(enabled,requestId){editable();if(typeof enabled!=='boolean'||typeof requestId!=='string'||! /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(requestId))throw Error('Reload before changing the reward calendar.');state.review={mode:true,enabled,requestId,expectedRevision:state.revision};emit();}
- async function save(){if(state.phase!=='ready'||!state.review)throw Error('Review the changes first.');const token=epoch,payload=copy(state.review);state.phase='saving';emit();try{const result=await transport(payload.mode?'mode':'save',payload);if(token!==epoch)return;if(result?.requestId!==payload.requestId||result?.status!=='saved'||typeof result.revision!=='string'||!result.revision)throw Error('Save was not confirmed.');state.phase='saved';state.rotationActive=payload.mode?payload.enabled:false;state.revision=result.revision;state.review=null;state.message='Pass rewards saved.';emit();}catch(error){if(token!==epoch)return;state.phase='uncertain';state.message='The save could not be confirmed. Check the saved rewards before trying again.';emit();}}
+ async function save(){
+ if(state.phase!=='ready'||!state.review)throw Error('Review the changes first.');
+ const token=epoch,payload=copy(state.review);let sent=false,confirmed=false;
+ state.phase='saving';
+ try{
+  emit();if(token!==epoch)return;sent=true;
+  const result=await transport(payload.mode?'mode':'save',payload);if(token!==epoch)return;
+  if(result?.requestId!==payload.requestId||result?.status!=='saved'||typeof result.revision!=='string'||!result.revision)throw Error('Save was not confirmed.');
+  confirmed=true;state.phase='saved';state.rotationActive=payload.mode?payload.enabled:false;state.revision=result.revision;state.review=null;state.message='Pass rewards saved.';emit();
+ }catch(error){
+  if(token!==epoch)return;
+  if(confirmed){state.phase='saved';state.message='Pass rewards saved, but the display could not finish. Reload the saved rewards before continuing.';}
+  else if(!sent){state.phase='inspection';state.message='No changes were sent because the display could not finish. Reload rewards before continuing.';}
+  else{state.phase='uncertain';state.message='The save could not be confirmed. Check the saved rewards before trying again.';}
+  try{emit();}catch(_){}
+ }
+ }
  return {getState:()=>copy(state),load,reset,add,remove,replace,review,reviewMode,cancel,save};
 }
 return {create};

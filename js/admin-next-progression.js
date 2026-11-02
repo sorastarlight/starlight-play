@@ -34,8 +34,8 @@
       const expected = identity(), before = await session();
       if (!expected || !allowed() || before.error || before.data?.session?.user?.id !== expected || identity() !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501" });
       const result = await call(command, command === "admin_progression_save" ? args : undefined);
-      const after = await session();
-      if (!allowed() || identity() !== expected || after.error || after.data?.session?.user?.id !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501" });
+      try { const after = await session(); if (!allowed() || identity() !== expected || after.error || after.data?.session?.user?.id !== expected) throw Error("Staff session changed."); }
+      catch (_) { throw Object.assign(Error("Staff session could not be verified after the request."), { code: "42501", ruleOutcomeUnknown: command === "admin_progression_save" }); }
       return result;
     };
   }
@@ -60,13 +60,24 @@
       }
       emit();
     }
-    async function save() {
+    function review() {
+      if (!active || state.phase !== "ready" || state.uncertain) throw Error("Reload XP settings before reviewing changes.");
+      const changes = patch(state.current, state.draft);
+      if (!Object.keys(changes).length) throw Error("No changes to review.");
+      return Object.freeze({ epoch, current: Object.freeze({ ...state.current }), changes: Object.freeze(changes) });
+    }
+    async function save(reviewed) {
       if (!active || state.phase !== "ready" || state.uncertain) return;
       const changes = patch(state.current, state.draft);
       if (!Object.keys(changes).length) throw Error("No changes to review.");
+      if (reviewed && (reviewed.epoch !== epoch || Object.keys(fields).some(key => reviewed.current?.[key] !== state.current[key]) || JSON.stringify(reviewed.changes) !== JSON.stringify(changes))) throw Error("XP settings changed after review. Review the current values before saving.");
       const request = epoch;
-      state.phase = "saving"; state.message = "Saving once…"; emit();
+      let sent = false;
+      state.phase = "saving"; state.message = "Saving once…";
       try {
+        emit();
+        if (!active || request !== epoch) return;
+        sent = true;
         const receipt = await transport("admin_progression_save", { p_balance: changes });
         if (!active || request !== epoch) return;
         const returned = project(receipt);
@@ -74,6 +85,11 @@
         state.message = "Save acknowledged. Reload to verify the stored XP settings before editing again.";
       } catch (error) {
         if (!active || request !== epoch) return;
+        if (!sent) {
+          state.phase = "ready"; state.uncertain = true; state.message = "The save screen could not be prepared. No XP changes were sent. Reload settings to continue.";
+          try { emit(); } catch (_) {} return;
+        }
+        if (error?.ruleOutcomeUnknown === true) { Object.assign(state, { phase: "error", current: null, draft: null, uncertain: true, message: "The request was sent, but its result could not be verified after the session check. XP data cleared. Do not repeat the save; check staff access and inspect stored settings." }); try { emit(); } catch (_) {} return; }
         if (["42501", "401", "403"].includes(String(error?.code || error?.status))) {
           Object.assign(state, { phase: "error", current: null, draft: null, uncertain: false, message: "Access denied or session changed. Configuration data was cleared. Reload after checking your staff access." }); emit(); return;
         }
@@ -81,11 +97,11 @@
       }
       state.phase = "ready"; state.uncertain = true; emit();
     }
-    return { state, reset, dirty, load, save, open() { active = true; return load(); } };
+    return { state, reset, dirty, load, review, save, open() { active = true; return load(); } };
   }
   function mount(root, transport) {
     if (!root) return null;
-    let returnFocus = null;
+    let returnFocus = null, mountEpoch = 0;
     const ui = controller(transport, render);
     function render() {
       const s = ui.state, focused = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
@@ -95,11 +111,20 @@
     }
     function dialog(title, content, action, label) {
       returnFocus = root.ownerDocument.activeElement;
+      const generation = mountEpoch;
       const dlg = root.ownerDocument.createElement("dialog"); dlg.className = "config-dialog";
       dlg.setAttribute("aria-labelledby", "progression-dialog-title");
       dlg.innerHTML = `<h3 id="progression-dialog-title">${esc(title)}</h3>${content}<div class="config-actions"><button type="button" data-progression-cancel autofocus>Back to editing</button><button type="button" data-progression-confirm>${esc(label)}</button></div>`;
       root.append(dlg); dlg.querySelector("[data-progression-cancel]").onclick = () => dlg.close();
-      dlg.querySelector("[data-progression-confirm]").onclick = () => { dlg.close(); action(); };
+      dlg.querySelector("[data-progression-confirm]").onclick = async () => {
+        if (!dlg.open || generation !== mountEpoch) return;
+        dlg.close();
+        try { await action(); } catch (error) {
+          if (generation !== mountEpoch) return;
+          const status = root.querySelector("[data-progression-validation]") || root.querySelector(".config-status");
+          if (status) status.textContent = error.message;
+        }
+      };
       dlg.onclose = () => { dlg.remove(); if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); };
       dlg.showModal(); if (dlg.scrollHeight > dlg.clientHeight) { const heading = dlg.querySelector('h3'); heading.tabIndex = -1; heading.focus({ preventScroll: true }); dlg.scrollTop = 0; }
     }
@@ -116,13 +141,12 @@
     root.addEventListener("submit", event => {
       if (!event.target.matches("[data-progression-form]")) return; event.preventDefault();
       try {
-        const changes = patch(ui.state.current, ui.state.draft);
-        if (!Object.keys(changes).length) throw Error("No changes to review.");
-        dialog("Review XP changes", `<p>This updates site-wide XP rules for future play. It does not change existing trainer XP or grant rewards. Trainer level never changes capture chance.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")}</span><strong>Proposed: ${value.toLocaleString("en-US")}</strong></dd></div>`).join("")}</dl><p>Another staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.</p>`, () => ui.save(), "Save XP settings");
+        const reviewed = ui.review(), changes = reviewed.changes;
+        dialog("Review XP changes", `<p>This updates site-wide XP rules for future play. It does not change existing trainer XP or grant rewards. Trainer level never changes capture chance.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")}</span><strong>Proposed: ${value.toLocaleString("en-US")}</strong></dd></div>`).join("")}</dl><p>Another staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.</p>`, () => ui.save(reviewed), "Save XP settings");
       } catch (error) { root.querySelector("[data-progression-validation]").textContent = error.message; }
     });
-    root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty()) { event.preventDefault(); event.returnValue = ""; } });
-    render(); return ui;
+    root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty() || ui.state.phase === "saving" || ui.state.uncertain) { event.preventDefault(); event.returnValue = ""; } });
+    render(); return { ...ui, reset() { mountEpoch++; ui.reset(); } };
   }
   return Object.freeze({ fields, limits, commands, amount, project, patch, adapter, controller, mount });
 });

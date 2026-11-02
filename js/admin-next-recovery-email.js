@@ -2,18 +2,19 @@
  'use strict';
  let generation=0,dialog=null;
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- function clear(){generation++;if(dialog){dialog.close();dialog.remove();dialog=null;}}
+ function clear(){generation++;const current=dialog;dialog=null;if(current){current.close();current.remove();}}
  function message(state){return ({accepted:'Supabase accepted the recovery-email request. Delivery has not been confirmed.',
   failed:'The email service rejected the request. No delivery is confirmed.',
   uncertain:'The outcome is uncertain. Do not send again until the request has been investigated.',
   limited:'Recovery requests are limited. Try again later.',
   disabled:'Recovery email is awaiting email-template and delivery configuration verification.'})[state]||'Recovery unavailable. Refresh the account before trying again.';}
  function mount(host,user,transport){
-  clear();const gen=generation;
+  clear();const gen=generation;let requestAttempted=false;
   if(!host||!transport)return;
-  host.innerHTML='<h4>Recovery email</h4><p>Owner access and a sign-in within five minutes are required. Email goes only to the account’s existing verified address.</p><button type="button">Review recovery email</button><p role="status" aria-live="polite"></p>';
+  host.innerHTML='<h4>Recovery email</h4><p>Owner access and a sign-in within five minutes are required. Email goes only to the account’s existing verified address.</p><button type="button">Review recovery email</button><p role="status" aria-live="polite" tabindex="-1"></p>';
   const button=host.querySelector('button'),status=host.querySelector('[role="status"]');
   button.onclick=async()=>{
+   if(requestAttempted||gen!==generation||!host.isConnected)return;
    button.disabled=true;status.textContent='Preparing a secure confirmation…';
    try{
     const result=await transport({action:'prepare',targetUuid:user.id});
@@ -28,11 +29,12 @@
     document.body.append(modal);modal.showModal();
     let sending=false;
     modal.querySelector('[data-cancel]').onclick=()=>modal.close();
-    modal.addEventListener('close',()=>{modal.remove();if(dialog===modal)dialog=null;if(button.isConnected)button.focus({preventScroll:true});},{once:true});
+    modal.addEventListener('close',()=>{modal.remove();if(dialog===modal)dialog=null;if(button.isConnected)(button.disabled?status:button).focus({preventScroll:true});},{once:true});
     modal.querySelector('form').onsubmit=async event=>{
-     event.preventDefault();if(sending||gen!==generation)return;
+     event.preventDefault();if(sending||requestAttempted||gen!==generation)return;
      const form=event.target;if(!form.reportValidity())return;
-     sending=true;form.querySelector('[type="submit"]').disabled=true;
+     sending=true;requestAttempted=true;button.disabled=true;form.querySelector('[type="submit"]').disabled=true;
+     status.textContent='A recovery request is in progress. Closing its window does not cancel it. Reload this account and check the outcome before preparing another request.';
      const body={action:'send',targetUuid:user.id,requestUuid,challengeId:data.challengeId,snapshotRevision:data.snapshotRevision,
       reason:form.elements.reason.value,caseRef:form.elements.caseRef.value};
      const outcome=modal.querySelector('[data-send-status]');outcome.textContent='Requesting email…';
@@ -40,11 +42,12 @@
       const sent=await transport(body);if(gen!==generation||!modal.isConnected)return;
       outcome.textContent=sent.error||sent.data?.error?'The outcome could not be confirmed. Refresh and investigate before sending again.':message(sent.data?.state);
      }catch{if(gen===generation&&modal.isConnected)outcome.textContent='The outcome could not be confirmed. Investigate before sending again.';}
+     finally{if(gen===generation&&host.isConnected)status.textContent='A recovery request was attempted. Reload this account and check its outcome before preparing another request.';}
      // A network timeout or uncertain result must never automatically resubmit.
     };
     status.textContent='Review the trainer and masked destination before confirming.';
    }catch{if(gen===generation&&host.isConnected)status.textContent='Owner access and a recent sign-in are required. Protected accounts cannot receive staff recovery emails.';}
-   finally{if(gen===generation&&host.isConnected)button.disabled=false;}
+   finally{if(gen===generation&&host.isConnected)button.disabled=requestAttempted;}
   };
  }
  root.PLAY_ADMIN_RECOVERY_EMAIL={mount,clear,message};

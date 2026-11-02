@@ -16,7 +16,7 @@
   const number = value => typeof value === "number" && Number.isFinite(value) && value >= 0 ? value : null;
   const format = value => value === null ? "Unavailable" : value.toLocaleString("en-US", { maximumFractionDigits: 2 });
   const rateNumber = value => number(value) !== null && value <= 1 ? value : null;
-  const rate = value => value == null ? "—" : rateNumber(value) !== null ? `${(value * 100).toFixed(1)}%` : "Unavailable";
+  const rate = (value, throws) => value == null ? throws === 0 ? "—" : "Unavailable" : rateNumber(value) !== null ? `${(value * 100).toFixed(1)}%` : "Unavailable";
   function reportTime(value) { if (typeof value !== "string" || !Number.isFinite(Date.parse(value))) return "Unavailable"; return new Date(value).toLocaleString(undefined, { month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit", timeZoneName: "short" }); }
   function validDays(value) { return Number.isInteger(value) && value >= 1 && value <= 365; }
   function accessError() { return Object.assign(Error("Staff session changed."), { code: "REPORT_ACCESS_CHANGED" }); }
@@ -43,9 +43,9 @@
     if (view === "captures") {
       add("Throws", raw.overall?.throws, "Selected capture window");
       add("Successful catches", raw.overall?.caught, "Selected capture window");
-      cards.push({ label: "Capture success", text: rate(raw.overall?.rate), value: rateNumber(raw.overall?.rate), scope: "Unavailable when no throws are recorded" });
+      cards.push({ label: "Capture success", text: rate(raw.overall?.rate, raw.overall?.throws), value: rateNumber(raw.overall?.rate), scope: "Unavailable when no throws are recorded" });
       for (const [key, title, label] of [["bySpecies", "By Pokémon", "name"], ["byBall", "By Poké Ball", "name"], ["byBerry", "By Berry", "name"], ["byCatchRateTier", "By catch-rate tier", "tier"]]) {
-        tables.push({ title, headings: [title.replace(/^By /, "").replace(/^./, char => char.toUpperCase()), "Throws", "Catches", "Success"], rows: Array.isArray(raw[key]) ? raw[key].map(row => [typeof row?.[label] === "string" ? row[label] : "Unavailable", format(number(row?.throws)), format(number(row?.caught)), rate(row?.rate)]) : null });
+        tables.push({ title, headings: [title.replace(/^By /, "").replace(/^./, char => char.toUpperCase()), "Throws", "Catches", "Success"], rows: Array.isArray(raw[key]) ? raw[key].map(row => [typeof row?.[label] === "string" ? row[label] : "Unavailable", format(number(row?.throws)), format(number(row?.caught)), rate(row?.rate, row?.throws)]) : null });
       }
     } else if (view === "progression") {
       add("Registered trainers", raw.trainers, "Includes staff and test accounts");
@@ -97,6 +97,7 @@
         cache.set(key, result); Object.assign(state, result);
       } catch (error) {
         if (!active || epoch !== currentEpoch || request !== serial) return;
+        cache.delete(key);
         if (error?.code === "REPORT_ACCESS_CHANGED") cache.clear();
         Object.assign(state, { phase: "error", report: null, observed: null });
       }

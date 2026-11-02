@@ -97,6 +97,7 @@
     allowed: () => staffOpen, call: (name, args) => {
       if (name === "admin_pass_rewards_read") return window.playCall("admin_pass_rewards_read");
       if (name === "admin_pass_rewards_save") return window.playCall("admin_pass_rewards_save", args);
+      if (name === "admin_pass_rotation_mode") return window.playCall("admin_pass_rotation_mode", args);
       throw new Error("Unsupported Pass operation.");
     }
   }));
@@ -300,6 +301,14 @@
     if (pager) pager.hidden = !view.showPager;
   }
 
+  function canLeaveCorrection() {
+    if (window.PLAY_ADMIN_REWARDS?.canLeave?.(els.trainerDetail) === false) { window.PLAY_ADMIN_REWARDS.warnBeforeLeaving(els.trainerDetail); return false; }
+    for (const tool of [corrections, staffAccess, accountTools]) {
+      if (tool && !tool.canLeave()) { tool.warnBeforeLeaving(); return false; }
+    }
+    return true;
+  }
+
   function renderTrainerProfile(view) {
     roster?.reset(); roster = null;
     corrections?.reset(); corrections = null;
@@ -406,6 +415,7 @@
         readCall("admin_identity_inspect", { p_user: userId })
       ]);
       if (gen !== trainerProfileGen) return;
+      if (account?.ok !== true || account.user?.id !== userId || identity?.ok !== true) throw new Error("Trainer details could not be verified. Reload this record.");
       trainerAccount = account;
       trainerIdentity = identity;
       if (cacheOnly) {
@@ -420,8 +430,9 @@
       }));
     } catch (error) {
       if (gen !== trainerProfileGen) return;
-      if (cacheOnly) return;
       const kind = classifyTrainerError(error);
+      if (cacheOnly && kind !== "denied") return;
+      trainerAccount = null; trainerIdentity = null;
       if (kind === "denied") {
         resetTrainers();
         renderTrainerDirectory(trainersUi.presentDirectory({ error: "denied", query: trainerQuery }));
@@ -470,9 +481,17 @@
     if (!staffOpen || !opsActive || document.hidden || opsInFlight) return;
     opsInFlight = true;
     const sequence = ++opsSequence, identity = opsIdentity;
+    const current = () => opsActive && staffOpen && sequence === opsSequence && identity === opsIdentity && !document.hidden;
+    const sameSession = async () => {
+      let auth; try { auth = await supabase.auth.getSession(); } catch (_) { auth = null; }
+      if (!current()) return false;
+      if (!identity || auth?.error || auth?.data?.session?.user?.id !== identity) { setSignedOut(); return false; }
+      return true;
+    };
     try {
+      if (!await sameSession()) return;
       const payload = await readCall("admin_live_snapshot");
-      if (!opsActive || !staffOpen || sequence !== opsSequence || identity !== opsIdentity || document.hidden) return;
+      if (!current() || !await sameSession() || !current()) return;
       if (!payload || payload.ok !== true || payload.contract !== "gate-17-s1-v2") {
         sessionControls?.observe(null);
         renderOperationsView(presentOps({ error: "missing" }));
@@ -481,7 +500,7 @@
       sessionControls?.observe(payload);
       renderOperationsView(presentOps({ payload }));
     } catch (error) {
-      if (!opsActive || sequence !== opsSequence || identity !== opsIdentity) return;
+      if (!current() || !await sameSession() || !current()) return;
       sessionControls?.observe(null);
       renderOperationsView(presentOps({ error: classifyOpsError(error) }));
     } finally {
@@ -760,11 +779,12 @@
     loadTrainerDirectory();
   });
   els.trainerBack?.addEventListener("click", () => {
+    if (!canLeaveCorrection()) return;
     closeTrainerProfile();
   });
   els.trainerList?.addEventListener("click", (event) => {
     const btn = event.target.closest("[data-open-trainer]");
-    if (!btn) return;
+    if (!btn || !canLeaveCorrection()) return;
     trainerPane = "overview";
     loadTrainerProfile(btn.getAttribute("data-open-trainer"));
   });
@@ -786,7 +806,7 @@
       return;
     }
     const btn = event.target.closest("[data-trainer-pane]");
-    if (!btn) return;
+    if (!btn || !canLeaveCorrection()) return;
     trainerPane = btn.getAttribute("data-trainer-pane") || "overview";
     if (trainerAccount || trainerIdentity) {
       renderTrainerProfile(trainersUi.presentProfile({
@@ -798,6 +818,9 @@
       return;
     }
     if (trainerSelectedId) loadTrainerProfile(trainerSelectedId);
+  });
+  window.addEventListener("beforeunload", event => {
+    if (window.PLAY_ADMIN_REWARDS?.canLeave?.(els.trainerDetail) === false) { event.preventDefault(); event.returnValue = ""; }
   });
   window.addEventListener("popstate", () => {
     showTab(new URL(window.location.href).searchParams.get("section"), false);

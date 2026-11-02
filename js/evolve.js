@@ -73,20 +73,22 @@
   };
   let data = null;
   let storage = null;
-  let pick = null;
-  let rareIdem = "";
+  let pick = null, evolveNeedsRefresh = false, cancelEvoFanfare = null;
+  let rareIdem = "", rareAttemptFamily = 0, rareNeedsRefresh = false;
   let activeTab = "send";
   const selectedOak = new Set();
-  let pendingOakIds = [];
+  let pendingOakIds = [], transferNeedsRefresh = false, transferPresentation = null;
   let inspectReturnFocus = null;
   let evoReturnFocus = null;
   let trainerCard = null;
+  let labActor = null, labEpoch = 0, labLoadSerial = 0, researchReadSerial = 0;
   const evolveGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const rareGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
   const oakGate = view.pendingGuard ? view.pendingGuard() : { begin() { return true; }, end() {}, busy: false };
 
   window.playBindAccountNav({
     onSignOut() {
+      labLoadSerial++; setLabActor(null);
       els.app.hidden = true;
       window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
     }
@@ -239,7 +241,7 @@
   }
 
   let research = null;
-  let researchBusy = false;
+  let researchBusy = false, researchNeedsRefresh = false;
   let martEduShown = false;
   let activeResearchTrack = "field";
 
@@ -614,23 +616,38 @@
   }
 
   async function loadResearch() {
-    if (!els.researchBoard) return;
+    if (!els.researchBoard || !labActor) return false;
+    const actor = labActor, epoch = labEpoch, serial = ++researchReadSerial;
+    const current = () => epoch === labEpoch && actor === labActor && serial === researchReadSerial;
     try {
-      research = await window.playCall("play_oak_research");
-      renderResearch();
-      renderHero();
-      refreshOakBubble();
+      if (!await verifyLab(actor, epoch) || !current()) return false;
+      const result = await window.playCall("play_oak_research");
+      if (!current() || !await verifyLab(actor, epoch)) return false;
+      if (!validResearch(result)) throw Error("Research status could not be verified.");
+      research = result; researchNeedsRefresh = false;
+      renderResearch(); renderHero(); refreshOakBubble(); return true;
     } catch (error) {
+      if (!current() || !await verifyLab(actor, epoch)) return false;
+      research = null;
       els.researchBoard.innerHTML = `<p class="muted">${esc(window.playHumanRpcError?.(error, "Research is unavailable.") || window.playRpcError?.(error, "Research is unavailable.") || "Research is unavailable.")}</p>`;
       if (els.researchTracklist) els.researchTracklist.innerHTML = "";
+      return false;
     }
   }
 
   async function claimResearch(milestoneId) {
-    if (researchBusy || !milestoneId) return;
+    if (researchBusy || researchNeedsRefresh || !milestoneId || !labActor) return;
+    const actor = labActor, epoch = labEpoch;
+    const current = () => actor === labActor && epoch === labEpoch;
+    let confirmed = false, sent = false;
     researchBusy = true;
     try {
+      if (!await verifyLab(actor, epoch) || !current()) return;
+      sent = true; researchNeedsRefresh = true;
       const data = await window.playCall("play_claim_oak_research", { p_milestone_id: milestoneId });
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      if (data?.ok !== true || data.milestoneId !== milestoneId || !data.rewards || typeof data.rewards !== "object" || Array.isArray(data.rewards)) throw Error("Research reward receipt could not be confirmed.");
+      confirmed = true;
       const rewards = rewardLines(data.rewards);
       const valuable = rewards.some((row) => ["stardust", "pearl", "starpiece", "nugget", "bigpearl", "bignugget"].includes(row.key));
       if (typeof window.playPresentEnqueue === "function") {
@@ -665,18 +682,23 @@
         }
         window.playPresentEnqueue(events);
       }
-      await loadResearch();
+      if (!await loadResearch() && current()) throw Error("Research display could not refresh.");
     } catch (error) {
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      researchNeedsRefresh = confirmed || (sent && !["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code)));
       if (els.researchBoard) {
         const note = document.createElement("p");
         note.className = "notice";
-        note.textContent = window.playHumanRpcError?.(error, "Could not claim that research reward.")
+        note.textContent = confirmed ? "Research reward received. Reopen Research to refresh your progress." : researchNeedsRefresh ? "Reward outcome is unconfirmed. Reopen Research to check this milestone before claiming again." : window.playHumanRpcError?.(error, "Could not claim that research reward.")
           || window.playRpcError?.(error, "Could not claim that research reward.")
           || "Could not claim that research reward.";
         els.researchBoard.prepend(note);
       }
     } finally {
-      researchBusy = false;
+      if (current()) {
+        researchBusy = false;
+        if (researchNeedsRefresh) els.researchBoard?.querySelectorAll?.("[data-claim-research]").forEach(button => { button.disabled = true; });
+      }
     }
   }
 
@@ -976,7 +998,7 @@
       const label = n > 0
         ? `Send ${n} Pokémon to Oak`
         : "Select Pokémon to send to Professor Oak";
-      els.sendGo.disabled = n < 1;
+      els.sendGo.disabled = n < 1 || transferNeedsRefresh || oakGate.busy;
       if (els.sendGoLabel) els.sendGoLabel.textContent = label;
       else els.sendGo.textContent = label;
       els.sendGo.setAttribute("aria-label", label);
@@ -1059,7 +1081,48 @@
       }).join("");
     }
     updateRarePreview();
-    if (els.rareUse) els.rareUse.disabled = qty < 1 || !families.length;
+    syncRareCandyAction();
+  }
+
+  function syncRareCandyAction() {
+    const qty = Number(data?.items?.rarecandy || data?.bag?.rarecandy || 0);
+    const eligible = (data?.families || []).some(fam => (fam.next || []).length);
+    if (els.rarePanel && rareIdem) els.rarePanel.hidden = false;
+    if (els.rareFamily) { els.rareFamily.disabled = Boolean(rareIdem) || rareGate.busy || rareNeedsRefresh; if (rareIdem) els.rareFamily.value = String(rareAttemptFamily); }
+    if (els.rareUse) { els.rareUse.disabled = rareGate.busy || rareNeedsRefresh || (!rareIdem && (qty < 1 || !eligible)); els.rareUse.textContent = rareIdem ? "Check previous use" : "Use Rare Candy"; }
+  }
+
+  async function useRareCandy() {
+    const family = rareIdem ? rareAttemptFamily : Number(els.rareFamily?.value || 0);
+    if (!labActor || rareNeedsRefresh || !Number.isSafeInteger(family) || family < 1 || !rareGate.begin()) return;
+    const actor = labActor, epoch = labEpoch, recovery = Boolean(rareIdem);
+    const current = () => actor === labActor && epoch === labEpoch;
+    let confirmed = false, sent = false;
+    syncRareCandyAction();
+    if (els.rareStatus) els.rareStatus.textContent = recovery ? "Checking the original Rare Candy use…" : "Using Rare Candy…";
+    try {
+      if (!await verifyLab(actor, epoch) || !current()) return;
+      if (!rareIdem) { rareIdem = view.newIdempotency ? view.newIdempotency() : `${Date.now()}`; rareAttemptFamily = family; }
+      const idem = rareIdem;
+      sent = true;
+      const result = await window.playCall("play_use_rare_candy", { p_family: family, p_idem: idem });
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      if (result?.ok !== true || result.familyId !== family || !Number.isSafeInteger(result.candyBefore) || result.candyBefore < 0 || !Number.isSafeInteger(result.candyAfter) || result.candyAfter !== result.candyBefore + 1) throw Error("Rare Candy receipt could not be confirmed.");
+      confirmed = true; rareIdem = ""; rareAttemptFamily = 0; rareNeedsRefresh = true;
+      if (els.rareStatus) els.rareStatus.textContent = result.message || "Rare Candy used.";
+      const refreshed = await load();
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      if (refreshed !== true) throw Error("Rare Candy display could not refresh.");
+      rareNeedsRefresh = false;
+    } catch (error) {
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      if (confirmed) {
+        if (els.rareStatus) els.rareStatus.textContent = "Rare Candy was used. Reopen the Lab to refresh your Candy totals.";
+      } else if (!sent || (!recovery && ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code)))) {
+        rareIdem = ""; rareAttemptFamily = 0;
+        if (els.rareStatus) els.rareStatus.textContent = error.message || "Rare Candy could not be used.";
+      } else if (els.rareStatus) els.rareStatus.textContent = "Rare Candy outcome is unconfirmed. Check previous use to check the original Evolution Line; do not choose another line yet.";
+    } finally { rareGate.end(); if (current()) syncRareCandyAction(); }
   }
 
   function updateRarePreview() {
@@ -1315,7 +1378,7 @@
     if (els.status) els.status.textContent = "";
     if (els.go) {
       els.go.hidden = !ready;
-      els.go.disabled = !ready;
+      els.go.disabled = !ready || evolveNeedsRefresh || evolveGate.busy;
       els.go.textContent = view.evolveLabel ? view.evolveLabel(row) : `Evolve ${row.name}`;
     }
     if (els.cancel) els.cancel.textContent = ready ? "Not now" : "Close";
@@ -1387,98 +1450,76 @@
   }
 
   async function transferSelected() {
-    if (!pendingOakIds.length || !oakGate.begin()) return;
+    if (!labActor || transferNeedsRefresh || !pendingOakIds.length || !oakGate.begin()) return;
+    const actor = labActor, epoch = labEpoch;
+    const current = () => actor === labActor && epoch === labEpoch;
+    const wanted = pendingOakIds.map(String);
+    let byId, families, trainer, sprite;
+    const successes = [], failures = [];
+    let unknown = null, presentationFailed = false;
     if (els.sendStatus) els.sendStatus.textContent = "Sending to Professor Oak…";
     if (els.sendGo) els.sendGo.disabled = true;
-    const wanted = pendingOakIds.slice();
-    const byId = new Map(sendableMons().map((mon) => [String(mon.id), mon]));
-    const successes = [];
-    const failures = [];
     try {
+      byId = new Map(sendableMons().map(mon => [String(mon.id), { ...mon }]));
+      families = (data?.families || []).map(family => ({ ...family }));
+      trainer = trainerCard ? { ...trainerCard } : null;
+      sprite = trainer?.trainerSprite || window._playTrainerSprite || "";
+      if (new Set(wanted).size !== wanted.length || wanted.some(id => !byId.has(id))) throw Error("The reviewed Pokémon selection changed. Review it again before sending.");
       for (const id of wanted) {
+        if (!current() || !await verifyLab(actor, epoch)) return;
         const mon = byId.get(id);
+        transferNeedsRefresh = true;
         try {
           const result = await window.playCall("play_transfer_oak", { p_catch_id: id });
-          successes.push({
-            ok: true,
-            id,
-            mon,
-            candyGranted: Number(result.candyGranted || 0),
-            familyId: Number(result.familyId || 0),
-            candyBaseDex: Number(result.candyBaseDex || 0),
-            candyName: result.candyName || "",
-            message: result.message || ""
-          });
+          if (!current() || !await verifyLab(actor, epoch)) return;
+          if (result?.ok !== true || !Number.isSafeInteger(result.candyGranted) || result.candyGranted < 0 || !Number.isSafeInteger(result.familyId) || result.familyId < 1 || !Number.isSafeInteger(result.candyBaseDex) || result.candyBaseDex < 1) throw Error("Transfer result could not be confirmed.");
+          successes.push({ ok: true, id, mon, candyGranted: result.candyGranted, familyId: result.familyId, candyBaseDex: result.candyBaseDex, candyName: result.candyName || "", message: result.message || "" });
           selectedOak.delete(id);
         } catch (error) {
-          failures.push({
-            id,
-            mon,
-            error: window.playHumanRpcError
-              ? window.playHumanRpcError(error, "Could not send that Pokémon to Oak.")
-              : window.playRpcError(error)
-          });
+          if (!current() || !await verifyLab(actor, epoch)) return;
+          const message = window.playHumanRpcError ? window.playHumanRpcError(error, "This Pokémon could not be sent.") : window.playRpcError(error);
+          if (["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) failures.push({ id, mon, error: message });
+          else { unknown = { id, mon }; break; }
         }
       }
+      if (!current()) return;
       pendingOakIds = [];
-
-      if (!successes.length) {
-        if (els.sendStatus) {
-          els.sendStatus.textContent = failures[0]?.error || "Transfer failed.";
-        }
-        await load();
-        return;
+      if (successes.length && window.playOakTransfer?.runSequence) {
+        const controller = typeof AbortController === "function" ? new AbortController() : null;
+        transferPresentation = controller;
+        try { await window.playOakTransfer.runSequence({ results: successes, families, trainerSprite: sprite, trainer, signal: controller?.signal }); }
+        catch (_) { presentationFailed = true; }
+        finally { if (transferPresentation === controller) transferPresentation = null; }
+        if (!current() || !await verifyLab(actor, epoch)) return;
       }
-
-      // Animation only after authoritative success — never invents candy or deletes.
-      if (window.playOakTransfer?.runSequence) {
-        const sprite = trainerCard?.trainerSprite || window._playTrainerSprite || "";
-        if (sprite) window._playTrainerSprite = sprite;
-        await window.playOakTransfer.runSequence({
-          results: successes,
-          families: data?.families || [],
-          trainerSprite: sprite,
-          trainer: trainerCard
-        });
+      let message = successes.length ? `${successes.length} Pokémon were received by Professor Oak.` : "No transfers were confirmed.";
+      if (successes.length) {
+        try {
+          setOakBubble("Excellent! This research should help us understand its Evolution Line.");
+          const summary = window.playOakTransfer?.rewardSummary?.(successes, families) || [];
+          if (summary.length) message += ` Received: ${summary.map(row => `${row.label} ×${row.qty}`).join(" · ")}.`;
+        } catch (_) { presentationFailed = true; }
       }
-      setOakBubble("Excellent! This research should help us understand its Evolution Line.");
-
-      const summary = window.playOakTransfer?.rewardSummary
-        ? window.playOakTransfer.rewardSummary(successes, data?.families || [])
-        : [];
-      const title = "Transferred to Professor Oak";
-      let body = "";
-      if (successes.length === 1) {
-        const mon = successes[0].mon;
-        const name = mon?.name || mon?.nickname || "Pokémon";
-        body = `${name} was sent to Professor Oak.`;
-        if (summary[0]?.qty) body += `\nReceived ${summary[0].label} ×${summary[0].qty}.`;
+      if (failures.length) message += ` ${failures.length} could not be sent: ${failures[0].error}`;
+      if (unknown) {
+        const unsent = wanted.length - successes.length - failures.length - 1;
+        message += ` One transfer outcome is unconfirmed. ${unsent} later Pokémon were not sent. Reopen the Lab to inspect your collection before sending more.`;
       } else {
-        body = `${successes.length} Pokémon were sent to Professor Oak.`;
-        if (summary.length) {
-          body += `\nReceived: ${summary.map((row) => `${row.label} ×${row.qty}`).join(" · ")}`;
-        }
+        const refreshed = await load();
+        if (!current() || !await verifyLab(actor, epoch)) return;
+        if (refreshed === true) transferNeedsRefresh = false;
+        else message += " Reopen the Lab to refresh your collection before sending more.";
       }
-      if (typeof window.playToast === "function") {
-        window.playToast({ kind: "success", title, body });
-      }
-      if (els.sendStatus) {
-        els.sendStatus.textContent = failures.length
-          ? `${failures.length} could not be sent: ${failures[0].error}`
-          : "";
-      }
-      setTab("send");
-      await load();
+      if (presentationFailed) message += " The animation could not finish; confirmed transfers are still complete.";
+      if (els.sendStatus) els.sendStatus.textContent = message;
+      if (successes.length) { try { window.playToast?.({ kind: unknown || presentationFailed ? "warning" : "success", title: "Transferred to Professor Oak", body: message }); } catch (_) {} }
     } catch (error) {
-      if (els.sendStatus) {
-        els.sendStatus.textContent = window.playHumanRpcError
-          ? window.playHumanRpcError(error, "Could not send that Pokémon to Oak.")
-          : window.playRpcError(error);
-      }
-      await load();
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      pendingOakIds = [];
+      if (els.sendStatus) els.sendStatus.textContent = successes.length ? `${successes.length} transfers completed. Reopen the Lab to inspect your collection; the display could not finish.` : error.message || "Review your selection and try again.";
     } finally {
       oakGate.end();
-      if (els.sendGo) els.sendGo.disabled = selectedOak.size < 1;
+      if (current() && els.sendGo) els.sendGo.disabled = transferNeedsRefresh || selectedOak.size < 1;
     }
   }
 
@@ -1586,6 +1627,7 @@
         continueBtn?.removeEventListener("click", onContinue);
         document.body.classList.remove("evo-playing");
         overlay.remove();
+        if (cancelEvoFanfare === finish) cancelEvoFanfare = null;
         resolve();
       };
 
@@ -1862,88 +1904,138 @@
         await wait(mode === "high" ? 900 : 650);
         if (!done && !ending) await beginDialogueFlow();
       };
+      cancelEvoFanfare = finish;
       run();
     });
   }
 
 
   async function evolveOnce() {
-    if (!pick || !canEvolve(pick)) return;
+    if (!labActor || evolveNeedsRefresh || !pick || !canEvolve(pick)) return;
     if (!evolveGate.begin()) return;
+    const reviewed = { ...pick }, actor = labActor, epoch = labEpoch;
+    const current = () => actor === labActor && epoch === labEpoch;
+    let confirmed = false, sent = false;
     if (els.go) els.go.disabled = true;
     if (els.status) els.status.textContent = "Evolving…";
     try {
-      const result = await window.playCall("play_evolve", { p_catch: pick.catchId, p_rule: pick.ruleId });
-      const model = view.resultModel ? view.resultModel(result, pick) : {};
-      if (model.already) {
-        if (els.status) els.status.textContent = result.message || "Already evolved.";
-        closeModal();
-        await load();
-        return;
-      }
+      if (!await verifyLab(actor, epoch) || !current()) return;
+      sent = true; evolveNeedsRefresh = true;
+      const result = await window.playCall("play_evolve", { p_catch: reviewed.catchId, p_rule: reviewed.ruleId });
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      const already = result?.ok === true && result.message === "Already evolved.";
+      if (!already && (result?.ok !== true || result.evolution?.catchId !== reviewed.catchId || result.evolution?.fromDex !== Number(reviewed.dex) || result.evolution?.toDex !== Number(reviewed.toDex))) throw Error("Evolution result could not be confirmed.");
+      confirmed = true;
       closeModal();
-      await showEvoFanfare(result, pick);
-      setOakBubble("Wonderful! Another successful evolution!");
-      // Ack reward notices without a second result card — the GBA dialogue already covered the beat.
-      try { await window.playCall("play_notices"); } catch (_) {}
-      await load();
+      if (!already) {
+        await showEvoFanfare(result, reviewed);
+        if (!current() || !await verifyLab(actor, epoch)) return;
+        setOakBubble("Wonderful! Another successful evolution!");
+        // Existing acknowledgement follows only a confirmed, current-account evolution.
+        try { await window.playCall("play_notices"); } catch (_) {}
+        if (!current() || !await verifyLab(actor, epoch)) return;
+      }
+      const refreshed = await load();
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      if (refreshed !== true) throw Error("Evolution display could not refresh.");
+      evolveNeedsRefresh = false;
     } catch (error) {
-      const raw = window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
-      if (els.status) els.status.textContent = view.humanEvoError ? view.humanEvoError(raw, raw) : raw;
-      if (els.go) els.go.disabled = false;
+      if (!current() || !await verifyLab(actor, epoch)) return;
+      if (!confirmed && (!sent || ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code)))) evolveNeedsRefresh = false;
+      else evolveNeedsRefresh = true;
+      const raw = confirmed ? "Evolution completed. Reopen the Lab to refresh your Pokémon." : evolveNeedsRefresh ? "Evolution outcome is unconfirmed. Reopen the Lab to inspect this Pokémon before trying again." : window.playHumanRpcError ? window.playHumanRpcError(error) : window.playRpcError(error);
+      if (els.status) els.status.textContent = confirmed || evolveNeedsRefresh ? raw : view.humanEvoError ? view.humanEvoError(raw, raw) : raw;
+      if (confirmed || evolveNeedsRefresh) { try { window.playToast?.({ kind: "warning", title: confirmed ? "Evolution completed" : "Evolution not confirmed", body: raw }); } catch (_) {} }
     } finally {
       evolveGate.end();
+      if (current() && els.go) els.go.disabled = evolveNeedsRefresh || !pick || !canEvolve(pick);
     }
   }
 
-  async function load() {
+  function setLabActor(actor) {
+    if (actor === labActor) return;
+    labActor = actor; labEpoch++; researchReadSerial++;
+    cancelEvoFanfare?.(); evolveNeedsRefresh = false; transferPresentation?.abort(); transferPresentation = null; transferNeedsRefresh = false;
+    data = null; storage = null; research = null; trainerCard = null; pick = null;
+    selectedOak.clear(); pendingOakIds = []; rareIdem = ""; rareAttemptFamily = 0; rareNeedsRefresh = false; researchBusy = false; researchNeedsRefresh = false; martEduShown = false;
+    window._playTrainerSprite = ""; window._playTrainerName = ""; window._playTrainerLogin = "";
+    if (els.app) els.app.hidden = true;
+    for (const modal of [els.modal, els.oakModal, els.inspectModal]) { if (modal?.open) modal.close?.(); }
+  }
+
+  async function labSessionMatches(actor, epoch) {
     try {
-      const session = await loadNav();
+      const reply = await supabase.auth.getSession();
+      return epoch === labEpoch && actor === labActor && !reply.error && (reply.data?.session?.user?.id || null) === actor;
+    } catch (_) { return false; }
+  }
+
+  async function verifyLab(actor, epoch) {
+    const valid = await labSessionMatches(actor, epoch);
+    if (epoch !== labEpoch || actor !== labActor) return false;
+    if (!valid) { setLabActor(null); window.playRestoreGate(els.gate, "Your account changed. Reopen the Lab."); }
+    return valid;
+  }
+
+  function validResearch(value) {
+    return value?.ok === true && Array.isArray(value.tracks) && value.tracks.every(track => track && typeof track === "object" && typeof track.id === "string" && Array.isArray(track.milestones) && track.milestones.every(m => m && typeof m === "object" && typeof m.id === "string" && typeof m.complete === "boolean" && typeof m.claimed === "boolean"));
+  }
+
+  async function load() {
+    const serial = ++labLoadSerial;
+    let current = () => serial === labLoadSerial;
+    try {
+      const auth = await supabase.auth.getSession();
+      if (!current()) return;
+      if (auth.error) throw auth.error;
+      const session = auth.data?.session;
+      setLabActor(session?.user?.id || null);
+      const actor = labActor, epoch = labEpoch, read = ++researchReadSerial;
+      current = () => serial === labLoadSerial && actor === labActor && epoch === labEpoch;
       if (!session) {
-        els.app.hidden = true;
-        window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab.");
-        return;
+        window.playSetAccountNav(null); els.app.hidden = true;
+        window.playRestoreGate(els.gate, "Sign in to visit Prof. Oak's Lab."); return;
       }
+      if (!await verifyLab(actor, epoch) || !current()) return;
+      await loadNav(session, current);
+      if (!current() || !await verifyLab(actor, epoch)) return;
       window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
       const [collection, boxes, oakResearch] = await Promise.all([
         window.playCall("play_collection"),
         window.playCall("play_storage").catch(() => null),
         window.playCall("play_oak_research").catch(() => null)
       ]);
-      data = collection;
-      storage = boxes;
-      if (oakResearch) research = oakResearch;
-      els.gate.hidden = true;
-      els.app.hidden = false;
-      render();
+      if (!current()) return;
+      if (!await verifyLab(actor, epoch)) { setLabActor(null); window.playRestoreGate(els.gate, "Your account changed. Reopen the Lab."); return; }
+      data = collection; storage = boxes;
+      if (read === researchReadSerial) { research = validResearch(oakResearch) ? oakResearch : null; if (research) researchNeedsRefresh = false; }
+      els.gate.hidden = true; els.app.hidden = false; if (!evolveGate.busy) evolveNeedsRefresh = false; if (!oakGate.busy) transferNeedsRefresh = false; render(); return true;
     } catch (error) {
-      els.gate.hidden = false;
-      els.app.hidden = true;
-      els.gate.textContent = window.playHumanRpcError
-        ? window.playHumanRpcError(error, "Prof. Oak's Lab is not live yet.")
-        : window.playRpcError(error, "Prof. Oak's Lab is not live yet.");
+      if (!current()) return;
+      data = null; storage = null; research = null; trainerCard = null;
+      els.gate.hidden = false; els.app.hidden = true;
+      els.gate.textContent = window.playHumanRpcError ? window.playHumanRpcError(error, "Prof. Oak's Lab is not live yet.") : window.playRpcError(error, "Prof. Oak's Lab is not live yet.");
+      return false;
     }
   }
 
-  async function loadNav() {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
-    if (!session) {
-      window.playSetAccountNav(null);
-      return session;
-    }
-    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
-    let extras = {};
+  async function loadNav(session, current) {
+    const { data: profile, error } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url, username").eq("id", session.user.id).maybeSingle();
+    if (!current()) return;
+    if (error) throw error;
+    let extras = {}, card = null;
     try {
       const snapshot = await window.playCall("play_state");
-      trainerCard = snapshot?.trainer || null;
-      if (trainerCard?.trainerSprite) window._playTrainerSprite = trainerCard.trainerSprite;
-      window._playTrainerName = trainerCard?.displayName || profile?.display_name || "";
-      window._playTrainerLogin = trainerCard?.twitchLogin || trainerCard?.login || profile?.twitch_login || profile?.username || "";
+      if (!current() || !await verifyLab(session.user.id, labEpoch)) return;
+      card = snapshot?.trainer || null;
       extras = { isAdmin: Boolean(snapshot?.isAdmin), trainer: snapshot?.trainer, twitchLinked: snapshot?.twitchLinked };
     } catch (_) {}
+    if (!current() || !await verifyLab(session.user.id, labEpoch)) return;
+    trainerCard = card;
+    window._playTrainerSprite = card?.trainerSprite || "";
+    window._playTrainerName = card?.displayName || profile?.display_name || "";
+    window._playTrainerLogin = card?.twitchLogin || card?.login || profile?.twitch_login || profile?.username || "";
     window.playSetAccountNav(session, profile, extras);
-    return session;
   }
 
   restoreResearchTrack();
@@ -2119,28 +2211,7 @@
   els.search?.addEventListener("input", renderReady);
   els.sort?.addEventListener("change", renderReady);
   els.rareFamily?.addEventListener("change", updateRarePreview);
-  els.rareUse?.addEventListener("click", async () => {
-    const family = Number(els.rareFamily?.value || 0);
-    if (!family || !rareGate.begin()) return;
-    if (!rareIdem) rareIdem = view.newIdempotency ? view.newIdempotency() : `${Date.now()}`;
-    if (els.rareUse) els.rareUse.disabled = true;
-    if (els.rareStatus) els.rareStatus.textContent = "Using Rare Candy…";
-    try {
-      const result = await window.playCall("play_use_rare_candy", { p_family: family, p_idem: rareIdem });
-      rareIdem = "";
-      if (els.rareStatus) els.rareStatus.textContent = result.message || "Rare Candy used.";
-      await load();
-    } catch (error) {
-      if (els.rareStatus) {
-        els.rareStatus.textContent = window.playHumanRpcError
-          ? window.playHumanRpcError(error, "Rare Candy could not be used.")
-          : window.playRpcError(error);
-      }
-    } finally {
-      rareGate.end();
-      if (els.rareUse) els.rareUse.disabled = false;
-    }
-  });
+  els.rareUse?.addEventListener("click", useRareCandy);
   els.candy?.addEventListener("click", (event) => {
     const card = event.target.closest("[data-family]");
     if (!card) return;

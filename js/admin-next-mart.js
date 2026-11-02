@@ -198,6 +198,7 @@
     root.addEventListener("input", event => {
       if (event.target.matches("[data-mart-search]")) { query = event.target.value; list(); return; }
       const form = event.target.closest("[data-mart-form]"); if (!form || controller.state.phase !== "ready" || controller.state.uncertain) return;
+      if(event.target.getAttribute('aria-invalid')==='true'&&event.target.validity?.valid){event.target.removeAttribute('aria-invalid');const help=(event.target.getAttribute('aria-describedby')||'').split(/\s+/).filter(id=>id&&id!=='mart-product-validation');if(help.length)event.target.setAttribute('aria-describedby',help.join(' '));else event.target.removeAttribute('aria-describedby');root.querySelector('[data-mart-validation]').textContent='';}
       for (const key of fields) if(form.elements[key]) controller.state.draft[key] = ["visible", "featured"].includes(key) ? form.elements[key].checked : form.elements[key].value;
       for(const input of form.querySelectorAll('[data-reward-quantity]'))controller.state.draft.quantities[input.dataset.rewardQuantity]=input.value;
       if(Object.keys(controller.state.draft.quantities).length===1)controller.state.draft.quantity=String(Object.values(controller.state.draft.quantities)[0]);
@@ -206,8 +207,14 @@
     });
     root.addEventListener("change", event => { if (event.target.matches("[data-mart-floor]")) { floor = event.target.value; list(); } });
     async function chooseReward(){const sku=controller.state.row?.sku,options=await controller.loadRewardOptions();if(controller.state.row?.sku!==sku||!options||controller.state.phase!=="ready"||controller.state.uncertain)return;const dlg=root.ownerDocument.createElement('dialog');dlg.className='mart-reward-dialog';dlg.setAttribute('aria-label','Choose product rewards');dlg.innerHTML='<h3>Choose product rewards</h3><p>Choose known items for this product. Master Balls are for staff gifts and Pass rewards only.</p><div data-shop-picker></div><button type="button" data-picker-close>Done</button>';root.append(dlg);let picker;const rows=options.map(r=>({id:r.key==='bag_bonus'?'space':'item:'+r.key,kind:r.key==='bag_bonus'?'space':'item',name:r.name,category:r.category,sprite:'images/items/'+r.sprite,enabled:true,maxQuantity:2147483647}));picker=runtime.PLAY_REWARD_PICKER.mount(dlg.querySelector('[data-shop-picker]'),rows,entry=>{const key=entry.catalogId==='space'?'bag_bonus':entry.catalogId.slice(5);controller.addReward(key,entry.quantity);dlg.close();},'shop');dlg.querySelector('[data-picker-close]').onclick=()=>dlg.close();dlg.onclose=()=>{picker?.clear();dlg.remove();requestAnimationFrame(()=>root.querySelector('[data-mart-add-reward]')?.focus());};dlg.showModal();dlg.querySelector('[data-reward-search]')?.focus();}
-    root.addEventListener('invalid',e=>{const field=e.target.closest('[data-mart-field-pane]');if(field){pane=field.dataset.martFieldPane;showPane();}},true);
-    root.addEventListener('keydown',e=>{const tab=e.target.closest('[data-mart-pane]');if(!tab)return;const tabs=[...root.querySelectorAll('[data-mart-pane]')],i=tabs.indexOf(tab);let next;if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;if(next!==undefined){e.preventDefault();tabs[next].focus();}});
+    root.addEventListener('invalid',e=>{
+      const form=e.target.closest('[data-mart-form]'),first=form?.querySelector('input:invalid,textarea:invalid,select:invalid')||e.target,field=first.closest('[data-mart-field-pane]');
+      if(field){pane=field.dataset.martFieldPane;showPane();}
+      const error=root.querySelector('[data-mart-validation]');
+      if(error){error.id='mart-product-validation';error.textContent=(labels[first.name]||first.labels?.[0]?.textContent.trim()||'Product field')+': '+(first.validationMessage||'Enter a valid value.');first.setAttribute('aria-invalid','true');const help=(first.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);if(!help.includes(error.id))help.push(error.id);first.setAttribute('aria-describedby',help.join(' '));}
+      first.focus();
+    },true);
+    root.addEventListener('keydown',e=>{const tab=e.target.closest('[data-mart-pane]');if(!tab)return;const tabs=[...root.querySelectorAll('[data-mart-pane]')],i=tabs.indexOf(tab);let next;if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;if(next!==undefined){e.preventDefault();tabs.forEach((button,index)=>{button.tabIndex=index===next?0:-1;});tabs[next].focus();}});
     root.addEventListener("click", event => {
       if(event.target.closest('[data-mart-back-to-list]')){root.querySelector('[data-mart-search]')?.focus();return;}
       const tab=event.target.closest('[data-mart-pane]');if(tab){pane=tab.dataset.martPane;showPane();return;}

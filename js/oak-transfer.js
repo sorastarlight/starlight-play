@@ -484,9 +484,9 @@
    * Presentation only. Call AFTER authoritative Oak transfer success.
    * Never grants candy or deletes catches.
    */
-  async function runSequence({ results, families, onDone, trainerSprite, trainer } = {}) {
+  async function runSequence({ results, families, onDone, trainerSprite, trainer, signal } = {}) {
     const plan = planSequence(results);
-    if (!plan.count || typeof document === "undefined") {
+    if (signal?.aborted || !plan.count || typeof document === "undefined") {
       onDone?.();
       return { skipped: true };
     }
@@ -537,12 +537,15 @@
     const finish = () => {
       if (finished) return;
       finished = true;
+      signal?.removeEventListener("abort", onAbort);
       document.removeEventListener("keydown", onKey);
       document.body.classList.remove("oak-gb-playing");
       overlay.remove();
       onDone?.();
       resolveDone({ ok: true, mode: plan.mode, count: plan.count, summary, stages: stageOrder({ mode: plan.mode, reduced }) });
     };
+
+    const onAbort = () => { aborted = true; if (lineEl) lineEl.dataset.skip = "1"; finish(); };
 
     const revealReward = async () => {
       setStage("reward");
@@ -575,6 +578,8 @@
         jumpReward();
       }
     };
+    signal?.addEventListener("abort", onAbort, { once: true });
+    if (signal?.aborted) { onAbort(); return donePromise; }
     document.addEventListener("keydown", onKey);
     skipBtn?.addEventListener("click", (event) => {
       event.preventDefault();

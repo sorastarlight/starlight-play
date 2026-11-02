@@ -28,13 +28,17 @@
   function adapter({ session, identity, allowed, call }) {
     return async (command, args) => {
       if (!commands.includes(command)) throw Error("Unsupported configuration operation.");
-      if (command === "admin_economy_save" && (!args || Object.keys(args).join() !== "p_balance" || !args.p_balance || !Object.keys(args.p_balance).length || Object.keys(args.p_balance).some(key => !Object.hasOwn(fields, key)))) throw Error("Unsupported configuration payload.");
+      if (command === "admin_economy_save" && (!args || Object.keys(args).join() !== "p_balance" || !args.p_balance || !Object.keys(args.p_balance).length || Object.keys(args.p_balance).some(key => !Object.hasOwn(fields, key)))) throw Error("Choose supported reward settings.");
       if (command === "admin_economy_save") Object.values(args.p_balance).forEach(amount);
       const expected = identity(), before = await session();
       if (!expected || !allowed() || before.error || before.data?.session?.user?.id !== expected || identity() !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501" });
       const result = await call(command, command === "admin_economy_save" ? args : undefined);
-      const after = await session();
-      if (!allowed() || identity() !== expected || after.error || after.data?.session?.user?.id !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501" });
+      try {
+        const after = await session();
+        if (!allowed() || identity() !== expected || after.error || after.data?.session?.user?.id !== expected) throw Error("Staff session changed.");
+      } catch (_) {
+        throw Object.assign(Error("Staff session could not be verified after the request."), { code: "42501", rewardOutcomeUnknown: command === "admin_economy_save" });
+      }
       return result;
     };
   }
@@ -55,36 +59,47 @@
         Object.assign(state, { phase: "ready", current, draft: Object.fromEntries(Object.entries(current).map(([key, value]) => [key, String(value)])), message: "Current reward amounts loaded. Review changes before saving." });
       } catch (_) {
         if (!active || request !== epoch) return;
-        Object.assign(state, { phase: "error", current: null, draft: null, message: "Reward configuration unavailable or access denied. No defaults were substituted. Reload to try again." });
+        Object.assign(state, { phase: "error", current: null, draft: null, message: "Reward amounts could not be loaded. Check your staff access, then reload." });
       }
       emit();
     }
-    async function save() {
+    function reviewSnapshot() { return Object.freeze({ epoch, current: JSON.stringify(state.current), changes: JSON.stringify(patch(state.current, state.draft)) }); }
+    async function save(reviewed) {
       if (!active || state.phase !== "ready" || state.uncertain) return;
       const changes = patch(state.current, state.draft);
+      if (reviewed && (reviewed.epoch !== epoch || reviewed.current !== JSON.stringify(state.current) || reviewed.changes !== JSON.stringify(changes))) throw Error("This draft changed after review. Review it again before saving.");
       if (!Object.keys(changes).length) throw Error("No changes to review.");
       const request = epoch;
-      state.phase = "saving"; state.message = "Saving once…"; emit();
+      let sent = false, confirmed = false;
+      state.phase = "saving"; state.message = "Saving once…";
       try {
+        emit();
+        if (!active || request !== epoch) return;
+        sent = true;
         const receipt = await transport("admin_economy_save", { p_balance: changes });
         if (!active || request !== epoch) return;
         const returned = project(receipt);
         if (Object.keys(changes).some(key => returned[key] !== changes[key])) throw Error("Unconfirmed receipt.");
+        confirmed = true;
         state.message = "Save acknowledged. Reload to verify the stored reward settings before editing again.";
       } catch (error) {
         if (!active || request !== epoch) return;
+        if (error?.rewardOutcomeUnknown === true) {
+          Object.assign(state, { phase: "error", current: null, draft: null, uncertain: true, message: "The request was sent, but its result could not be verified after the session check. Data cleared. Do not repeat the save; check staff access and inspect stored settings." }); try { emit(); } catch (_) {} return;
+        }
         if (["42501", "401", "403"].includes(String(error?.code || error?.status))) {
           Object.assign(state, { phase: "error", current: null, draft: null, uncertain: false, message: "Access denied or session changed. Configuration data was cleared. Reload after checking your staff access." }); emit(); return;
         }
+        if (!sent) { state.phase = "ready"; state.uncertain = true; state.message = "Nothing was sent because the display could not finish. Reload before continuing."; try { emit(); } catch (_) {} return; }
         state.message = "Save could not be confirmed. Do not retry: reload and compare the stored settings first. Your local draft remains below.";
       }
-      state.phase = "ready"; state.uncertain = true; emit();
+      state.phase = "ready"; state.uncertain = true; try { emit(); } catch (_) { if (confirmed) state.message = "Save acknowledged, but the display could not finish. Reload before continuing."; }
     }
-    return { state, reset, dirty, load, save, open() { active = true; return load(); } };
+    return { state, reset, dirty, load, reviewSnapshot, save, open() { active = true; return load(); } };
   }
   function mount(root, transport) {
     if (!root) return null;
-    let returnFocus = null;
+    let returnFocus = null, currentDialog = null;
     const ui = controller(transport, render);
     function render() {
       const s = ui.state, focused = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
@@ -93,13 +108,15 @@
       if (focused) root.querySelector(".config-status")?.focus({ preventScroll: true });
     }
     function dialog(title, content, action, label) {
+      if (currentDialog) return;
+      const stamp = JSON.stringify(ui.state);
       returnFocus = root.ownerDocument.activeElement;
-      const dlg = root.ownerDocument.createElement("dialog"); dlg.className = "config-dialog";
+      const dlg = root.ownerDocument.createElement("dialog"); dlg.className = "config-dialog"; currentDialog = dlg;
       dlg.setAttribute("aria-labelledby", "config-dialog-title");
       dlg.innerHTML = `<h3 id="config-dialog-title">${esc(title)}</h3>${content}<div class="config-actions"><button type="button" data-config-cancel autofocus>Back to editing</button><button type="button" data-config-confirm>${esc(label)}</button></div>`;
       root.append(dlg); dlg.querySelector("[data-config-cancel]").onclick = () => dlg.close();
-      dlg.querySelector("[data-config-confirm]").onclick = () => { dlg.close(); action(); };
-      dlg.onclose = () => { dlg.remove(); if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); };
+      dlg.querySelector("[data-config-confirm]").onclick = async () => { if (currentDialog !== dlg || !dlg.open) return; if (stamp !== JSON.stringify(ui.state)) { dlg.close(); const output = root.querySelector("[data-config-validation]"); if (output) output.textContent = "This draft changed after review. Review it again before continuing."; return; } dlg.close(); try { await action(); } catch (error) { const output = root.querySelector("[data-config-validation]"); if (output) output.textContent = error.message; } };
+      dlg.onclose = () => { dlg.remove(); if (currentDialog === dlg) currentDialog = null; if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); };
       dlg.showModal(); if (dlg.scrollHeight > dlg.clientHeight) { const heading = dlg.querySelector('h3'); heading.tabIndex = -1; heading.focus({ preventScroll: true }); dlg.scrollTop = 0; }
     }
     root.addEventListener("input", event => {
@@ -115,12 +132,13 @@
     root.addEventListener("submit", event => {
       if (!event.target.matches("[data-config-form]")) return; event.preventDefault();
       try {
-        const changes = patch(ui.state.current, ui.state.draft);
+        if (ui.state.phase !== "ready" || ui.state.uncertain) return;
+        const reviewed = ui.reviewSnapshot(), changes = patch(ui.state.current, ui.state.draft);
         if (!Object.keys(changes).length) throw Error("No changes to review.");
-        dialog("Review reward changes", `<p>This updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} PokéCoins</span><strong>Proposed: ${value.toLocaleString("en-US")} PokéCoins</strong></dd></div>`).join("")}</dl><p>Another staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.</p>`, () => ui.save(), "Save reward settings");
+        dialog("Review reward changes", `<p>This updates site-wide reward rules. It does not grant PokéCoins or repair past rewards.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} PokéCoins</span><strong>Proposed: ${value.toLocaleString("en-US")} PokéCoins</strong></dd></div>`).join("")}</dl><p>Another staff member may have edited since loading. This editor does not lock settings. Save once, then reload to verify.</p>`, () => ui.save(reviewed), "Save reward settings");
       } catch (error) { root.querySelector("[data-config-validation]").textContent = error.message; }
     });
-    root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty()) { event.preventDefault(); event.returnValue = ""; } });
+    root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty() || ui.state.phase === "saving" || ui.state.uncertain) { event.preventDefault(); event.returnValue = ""; } });
     render(); return ui;
   }
   return Object.freeze({ fields, commands, amount, project, patch, adapter, controller, mount });

@@ -28,23 +28,27 @@
     deleteBox: document.getElementById("pc-delete-box")
   };
   let data = null;
+  let pcActor = null, pcEpoch = 0, pcLoadSerial = 0, pcStorageSerial = 0, oakNeedsInspection = false, oakPresentation = null;
   let trainerCard = null;
   let selectedId = "";
   let lastDetailId = "";
   let filtered = [];
   let boxIndex = 0;
   const BOX_SLOTS = 30;
-  let saveTimer = 0;
+  let saveTimer = 0, layoutRevision = 0, layoutConfirmedRevision = 0, layoutSavePending = null, layoutSaving = false, layoutNeedsInspection = false;
   let pendingOakId = "";
   let oakBusy = false;
   let renamingBox = -1;
   let dropTargetEl = null;
   let acquireTimer = 0;
   let boxOpBusy = false;
+  let releaseBusy = false, releaseNeedsInspection = false, metadataBusy = false, metadataNeedsInspection = false;
+  const pcDialogCancels = new Set();
   let emptyInspectOnce = false;
 
   window.playBindAccountNav({
     onSignOut() {
+      pcLoadSerial++; setPcActor(null);
       familiarity.reset(null);
       data = null;
       trainerCard = null;
@@ -179,18 +183,79 @@
     return (data?.mons || []).filter(matches);
   }
 
+  function layoutEditAllowed() {
+    if (!pcActor || !data) return false;
+    if (layoutNeedsInspection || boxOpBusy || metadataBusy || releaseBusy || oakBusy) {
+      try { window.playToast?.({ kind: "warning", title: "Check your PC arrangement", body: layoutNeedsInspection ? "Reopen My PC to inspect the previous save before arranging more Pokémon." : "Wait for the current box action to finish." }); } catch (_) {}
+      return false;
+    }
+    return true;
+  }
+
+  function layoutActionReady() {
+    if (!pcActor || !data) return false;
+    if (layoutNeedsInspection || boxOpBusy || layoutSaving || layoutSavePending || renamingBox >= 0) {
+      try { window.playToast?.({ kind: "warning", title: "Finish your arrangement first", body: layoutNeedsInspection ? "Reopen My PC to inspect the previous save." : "Finish naming your box and wait for the arrangement to save before using this box action." }); } catch (_) {}
+      return false;
+    }
+    return true;
+  }
+
+  function boxMutationReady() {
+    return !boxOpBusy && !metadataBusy && !releaseBusy && !oakBusy && !metadataNeedsInspection && !releaseNeedsInspection && !oakNeedsInspection && layoutActionReady();
+  }
+
+  function validPcBoxSnapshot(value) {
+    return validPcSnapshot(value) && Array.isArray(value.layout.boxes) && value.layout.boxes.length >= 1 && value.layout.boxes.length <= 20 && value.layout.boxes.every(box => box && typeof box.name === "string" && Array.isArray(box.slots) && box.slots.length === BOX_SLOTS && box.slots.every(id => id === null || typeof id === "string"));
+  }
+
+  function applyPcSnapshot(next, inspectLayout = false) {
+    if (inspectLayout && layoutNeedsInspection && !layoutSaving) {
+      clearTimeout(saveTimer); layoutSavePending = null; layoutNeedsInspection = false; layoutConfirmedRevision = layoutRevision;
+    }
+    const keepDraft = data?.layout && (layoutNeedsInspection || ((layoutSaving || layoutSavePending) && layoutRevision > layoutConfirmedRevision));
+    data = keepDraft ? { ...next, layout: data.layout } : next;
+  }
+
   function saveLayout(message = "") {
+    if (!pcActor || !data?.layout || layoutNeedsInspection || boxOpBusy) return false;
+    const layout = JSON.parse(JSON.stringify(data.layout));
+    layoutSavePending = { actor: pcActor, epoch: pcEpoch, revision: ++layoutRevision, layout, message };
+    pcStorageSerial++;
     clearTimeout(saveTimer);
-    saveTimer = setTimeout(async () => {
-      try {
-        const next = await window.playCall("play_save_pc", { p_layout: data.layout });
-        if (next?.layout) data.layout = next.layout;
-        if (message) window.playToast?.({ kind: "success", title: "Your PC updated", body: message });
-      } catch (error) {
-        if (els.status) els.status.textContent = window.playRpcError(error);
-        window.playToast?.({ kind: "error", title: "Could not save your box", body: "Your arrangement was not confirmed. Refresh before moving more Pokémon." });
+    saveTimer = setTimeout(() => { saveTimer = 0; return drainLayout(); }, 350);
+    return true;
+  }
+
+  async function drainLayout() {
+    if (boxOpBusy || layoutSaving || layoutNeedsInspection || !layoutSavePending) return;
+    const job = layoutSavePending; layoutSavePending = null; layoutSaving = true;
+    const current = () => job.actor === pcActor && job.epoch === pcEpoch;
+    let sent = false, confirmed = false;
+    try {
+      if (!current() || !await verifyPc(job.actor, job.epoch) || !current()) return;
+      sent = true;
+      const next = await window.playCall("play_save_pc", { p_layout: job.layout });
+      if (!current() || !await verifyPc(job.actor, job.epoch) || !current()) return;
+      if (!validPcSnapshot(next) || !Array.isArray(next.layout.boxes) || next.layout.boxes.length < 1 || next.layout.boxes.length > 20 || !next.layout.boxes.every(box => box && typeof box.name === "string" && Array.isArray(box.slots) && box.slots.length === BOX_SLOTS && box.slots.every(id => id === null || typeof id === "string"))) throw Error("Arrangement receipt could not be confirmed.");
+      confirmed = true; layoutConfirmedRevision = job.revision;
+      if (layoutRevision === job.revision && !layoutSavePending) {
+        data.layout = next.layout;
+        if (job.message) { try { window.playToast?.({ kind: "success", title: "Your PC updated", body: job.message }); } catch (_) {} }
       }
-    }, 350);
+    } catch (error) {
+      if (!current() || !await verifyPc(job.actor, job.epoch) || !current()) return;
+      layoutNeedsInspection = true; clearTimeout(saveTimer);
+      const rejected = !sent || ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code));
+      const message = confirmed ? "Your arrangement was saved, but the display could not finish. Reopen My PC to inspect it before moving more Pokémon." : rejected ? "Your arrangement was not saved. Reopen My PC to inspect it before moving more Pokémon." : "Arrangement outcome is unconfirmed. Reopen My PC to inspect it before moving more Pokémon.";
+      if (els.status) els.status.textContent = message;
+      try { window.playToast?.({ kind: "warning", title: confirmed ? "Arrangement saved" : "Check your PC arrangement", body: message }); } catch (_) {}
+    } finally {
+      if (current()) {
+        layoutSaving = false;
+        if (layoutSavePending && !layoutNeedsInspection) { clearTimeout(saveTimer); saveTimer = 0; void drainLayout(); }
+      }
+    }
   }
 
   function matches(mon) {
@@ -298,7 +363,7 @@
       selectedId = "";
       renderDetail(null);
       renderTabs();
-      if (data?._layoutDirty) {
+      if (data?._layoutDirty && !boxOpBusy) {
         data._layoutDirty = false;
         saveLayout();
       }
@@ -337,7 +402,7 @@
     );
     renderDetail(active);
     renderTabs();
-    if (data?._layoutDirty) {
+    if (data?._layoutDirty && !boxOpBusy) {
       data._layoutDirty = false;
       saveLayout();
     }
@@ -377,8 +442,8 @@
     const art = pcStyle(mon, "inspect");
     const familiarityCopy = familiarityPresentation(familiarity.get(Number(mon.dex)));
     const tradeDisabled = mon.listed || mon.locked || mon.favorite || mon.tradable === false;
-    const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy;
-    const releaseDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite;
+    const oakDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy || oakNeedsInspection || releaseNeedsInspection || metadataBusy || metadataNeedsInspection;
+    const releaseDisabled = mon.onTeam || mon.listed || mon.locked || mon.favorite || releaseBusy || releaseNeedsInspection || metadataBusy || metadataNeedsInspection;
     const badges = typeof window.playMonIdentityBadgesHtml === "function"
       ? window.playMonIdentityBadgesHtml(mon)
       : `<div class="type-row">${window.playTypeChipHtml(window.playSpeciesTypes(mon.dex, mon.types))}</div>`;
@@ -432,12 +497,12 @@
           <h3 class="pc-module-label">Nickname</h3>
           <div class="pc-nick-row">
             <input id="nick-input" type="text" maxlength="12" value="${window.playEscapeAttr(mon.nickname || "")}" placeholder="${window.playEscapeAttr(mon.name)}" aria-label="Nickname">
-            <button id="save-nick" type="button">Save</button>
+            <button id="save-nick" type="button" ${metadataBusy || metadataNeedsInspection ? "disabled" : ""}>Save</button>
           </div>
 
           <div class="pc-action-group" aria-label="Common management">
-            <button id="toggle-fav" class="pc-action${mon.favorite ? " is-on" : ""}" type="button">${mon.favorite ? "★ Favorited" : "☆ Favorite"}</button>
-            <button id="toggle-lock" class="pc-action${mon.locked ? " is-on" : ""}" type="button">${mon.locked ? "🔒 Locked" : "🔒 Lock"}</button>
+            <button id="toggle-fav" ${metadataBusy || metadataNeedsInspection ? "disabled" : ""} class="pc-action${mon.favorite ? " is-on" : ""}" type="button">${mon.favorite ? "★ Favorited" : "☆ Favorite"}</button>
+            <button id="toggle-lock" ${metadataBusy || metadataNeedsInspection ? "disabled" : ""} class="pc-action${mon.locked ? " is-on" : ""}" type="button">${mon.locked ? "🔒 Locked" : "🔒 Lock"}</button>
             <button id="move-mon" class="pc-action pc-action-move" type="button">Move</button>
           </div>
 
@@ -468,32 +533,40 @@
       p_catch_id: mon.id,
       p_name: document.getElementById("nick-input")?.value || ""
     }));
-    document.getElementById("toggle-fav")?.addEventListener("click", async () => {
-      try {
-        await window.playCall("play_set_mon_flags", { p_catch: mon.id, p_favorite: !mon.favorite });
-        data = await window.playCall("play_storage");
-        render();
-      } catch (error) {
-        els.status.textContent = window.playRpcError(error);
-      }
-    });
-    document.getElementById("toggle-lock")?.addEventListener("click", async () => {
-      try {
-        await window.playCall("play_set_mon_flags", { p_catch: mon.id, p_locked: !mon.locked });
-        data = await window.playCall("play_storage");
-        render();
-      } catch (error) {
-        els.status.textContent = window.playRpcError(error);
-      }
-    });
+    document.getElementById("toggle-fav")?.addEventListener("click", () => act("play_set_mon_flags", { p_catch: mon.id, p_favorite: !mon.favorite }));
+    document.getElementById("toggle-lock")?.addEventListener("click", () => act("play_set_mon_flags", { p_catch: mon.id, p_locked: !mon.locked }));
     document.getElementById("move-mon")?.addEventListener("click", () => openMoveDialog(mon));
     document.getElementById("send-oak")?.addEventListener("click", () => openOakModal(mon));
     document.getElementById("list-trade")?.addEventListener("click", () => {
       window.location.href = `./trade.html?list=${encodeURIComponent(mon.id)}`;
     });
-    document.getElementById("release-mon")?.addEventListener("click", async () => {
+    document.getElementById("release-mon")?.addEventListener("click", () => releaseMon(mon));
+
+    if (changed) pulseAcquisition();
+
+    if (window.matchMedia("(max-width: 900px)").matches) {
+      els.detail.scrollIntoView({ block: "nearest", behavior: "smooth" });
+    }
+  }
+
+  function syncReleaseButton() {
+    const button = document.getElementById("release-mon"), mon = monById(selectedId);
+    if (button) button.disabled = releaseBusy || releaseNeedsInspection || metadataBusy || metadataNeedsInspection || !mon || Boolean(mon.onTeam || mon.listed || mon.locked || mon.favorite);
+  }
+
+  async function releaseMon(source) {
+    if (!pcActor || releaseBusy || releaseNeedsInspection || metadataBusy || metadataNeedsInspection || !layoutActionReady()) return;
+    const live = monById(source?.id);
+    if (!live) return;
+    const mon = { ...live }, actor = pcActor, epoch = pcEpoch, adjacent = pickAdjacentAfter(live.id);
+    const current = () => actor === pcActor && epoch === pcEpoch;
+    let confirmed = false, sent = false;
+    releaseBusy = true; syncReleaseButton();
+    try {
+      if (!await verifyPc(actor, epoch) || !current()) return;
       const isShiny = String(mon.variant || "").includes("shiny") || mon.shiny;
       const choice = await confirmRelease(mon);
+      if (!current() || !await verifyPc(actor, epoch)) return;
       if (choice === "oak") {
         openOakModal(mon);
         return;
@@ -528,31 +601,37 @@
         if (typed !== "confirm") return;
         confirmKey = "SHINY";
       }
-      try {
-        const result = await window.playCall("play_release", { p_catch: mon.id, p_confirm: confirmKey });
-        if (els.status) els.status.textContent = "";
-        if (typeof window.playToast === "function") {
-          window.playToast({ kind: "success", title: "Released", body: result.message || "Pokémon released." });
-        }
-        data = await window.playCall("play_storage");
-        selectedId = pickAdjacentAfter(mon.id);
-        lastDetailId = "";
-        render();
-      } catch (error) {
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (!layoutActionReady()) return;
+      sent = true; releaseNeedsInspection = true; pcStorageSerial++;
+      const result = await window.playCall("play_release", { p_catch: mon.id, p_confirm: confirmKey });
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (result?.ok !== true) throw Error("Release result could not be confirmed.");
+      confirmed = true; pcStorageSerial++;
+      try { window.playToast?.({ kind: "success", title: "Released", body: typeof result.message === "string" ? result.message : "Pokémon released." }); } catch (_) {}
+      const read = ++pcStorageSerial;
+      const next = await window.playCall("play_storage");
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (read !== pcStorageSerial || !validPcSnapshot(next) || next.mons.some(row => String(row.id) === String(mon.id))) throw Error("Released Pokémon display could not refresh.");
+      applyPcSnapshot(next);
+      if (selectedId === String(mon.id)) selectedId = adjacent && monById(adjacent) ? adjacent : "";
+      else if (!monById(selectedId)) selectedId = "";
+      lastDetailId = ""; render(); releaseNeedsInspection = false;
+      if (els.status) els.status.textContent = "";
+    } catch (error) {
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (confirmed) {
+        if (els.status) els.status.textContent = "Pokémon released, but the display could not refresh. Reopen My PC to inspect your collection.";
+      } else if (!sent || ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) {
+        releaseNeedsInspection = false;
         if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not release that Pokémon.");
         else if (els.status) els.status.textContent = window.playRpcError(error);
-      }
-    });
-
-    if (changed) pulseAcquisition();
-
-    if (window.matchMedia("(max-width: 900px)").matches) {
-      els.detail.scrollIntoView({ block: "nearest", behavior: "smooth" });
-    }
+      } else if (els.status) els.status.textContent = "Release outcome is unconfirmed. Reopen My PC to inspect this Pokémon before releasing anything else.";
+    } finally { if (current()) { releaseBusy = false; syncReleaseButton(); } }
   }
 
   function openOakModal(mon) {
-    if (!els.oakModal || !mon || oakBusy) return;
+    if (!els.oakModal || !mon || oakBusy || oakNeedsInspection || releaseNeedsInspection || metadataBusy || metadataNeedsInspection || !layoutActionReady()) return;
     pendingOakId = String(mon.id);
     const model = window.playOakTransfer?.confirmModel
       ? window.playOakTransfer.confirmModel([mon], data?.mons || [])
@@ -580,54 +659,51 @@
   }
 
   async function transferToOak(id) {
-    if (!id || oakBusy) return;
-    const mon = monById(id);
-    if (!mon) {
-      els.status.textContent = "That Pokémon is no longer in your PC.";
-      return;
-    }
+    if (!pcActor || !id || oakBusy || oakNeedsInspection || releaseNeedsInspection || metadataBusy || metadataNeedsInspection || !layoutActionReady()) return;
+    const source = monById(id);
+    if (!source) { els.status.textContent = "That Pokémon is no longer in your PC."; return; }
+    const mon = { ...source }, actor = pcActor, epoch = pcEpoch;
+    const current = () => actor === pcActor && epoch === pcEpoch;
+    const trainer = trainerCard ? { ...trainerCard } : null;
+    const families = (data?.families || []).map(family => ({ ...family }));
+    const sprite = trainer?.trainerSprite || window._playTrainerSprite || "";
+    const nextSelect = pickAdjacentAfter(id);
+    let confirmed = false, sent = false, animationFailed = false;
     oakBusy = true;
     els.status.textContent = "Sending to Professor Oak…";
-    const nextSelect = pickAdjacentAfter(id);
     try {
+      if (!await verifyPc(actor, epoch) || !current()) return;
+      sent = true; oakNeedsInspection = true; pcStorageSerial++;
       const result = await window.playCall("play_transfer_oak", { p_catch_id: id });
-      const success = {
-        ok: true,
-        id,
-        mon,
-        candyGranted: Number(result?.candyGranted || 0),
-        familyId: Number(result?.familyId || 0),
-        candyBaseDex: Number(result?.candyBaseDex || 0),
-        candyName: result?.candyName || "",
-        message: result?.message || ""
-      };
-      if (els.status) els.status.textContent = "";
-      // Animation only after authoritative success — never invents candy or deletes.
-      if (window.playOakTransfer?.runSequence) {
-        const sprite = trainerCard?.trainerSprite || window._playTrainerSprite || "";
-        if (sprite) window._playTrainerSprite = sprite;
-        await window.playOakTransfer.runSequence({
-          results: [success],
-          families: result?.families || data?.families || [],
-          trainerSprite: sprite,
-          trainer: trainerCard || result?.trainer || null
-        });
-      }
-      data = result;
-      selectedId = nextSelect && monById(nextSelect) ? nextSelect : "";
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (!validPcSnapshot(result) || result.mons.some(row => String(row.id) === String(id)) || !Number.isSafeInteger(result.candyGranted) || result.candyGranted < 0 || !Number.isSafeInteger(result.familyId) || result.familyId < 1 || !Number.isSafeInteger(result.candyBaseDex) || result.candyBaseDex < 1) throw Error("Transfer result could not be confirmed.");
+      confirmed = true; pcStorageSerial++; applyPcSnapshot(result);
+      if (selectedId === String(id)) selectedId = nextSelect && monById(nextSelect) ? nextSelect : "";
+      else if (!monById(selectedId)) selectedId = "";
       lastDetailId = "";
-      // Payoff lives in the Oak Game Moment — do not echo candy text under the PC.
-      if (els.status) els.status.textContent = "";
-      render();
+      const success = { ok: true, id, mon, candyGranted: result.candyGranted, familyId: result.familyId, candyBaseDex: result.candyBaseDex, candyName: result.candyName || "", message: result.message || "" };
+      if (window.playOakTransfer?.runSequence) {
+        const controller = typeof AbortController === "function" ? new AbortController() : null;
+        oakPresentation = controller;
+        try { await window.playOakTransfer.runSequence({ results: [success], families, trainerSprite: sprite, trainer, signal: controller?.signal }); }
+        catch (_) { animationFailed = true; }
+        finally { if (oakPresentation === controller) oakPresentation = null; }
+        if (!current() || !await verifyPc(actor, epoch)) return;
+      }
+      render(); oakNeedsInspection = false;
+      if (els.status) els.status.textContent = animationFailed ? "Pokémon transferred. The animation could not finish; your collection is updated." : "";
+      if (animationFailed) { try { window.playToast?.({ kind: "warning", title: "Pokémon transferred", body: "The animation could not finish; your transfer is complete." }); } catch (_) {} }
     } catch (error) {
-      els.status.textContent = window.playHumanRpcError
-        ? window.playHumanRpcError(error, "Could not send that Pokémon to Oak.")
-        : window.playRpcError(error);
-      // No success animation / no fake removal on failure.
-    } finally {
-      oakBusy = false;
-    }
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (confirmed) {
+        if (els.status) els.status.textContent = "Pokémon transferred, but the display could not finish. Reopen My PC to refresh your collection.";
+      } else if (!sent || ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) {
+        oakNeedsInspection = false;
+        if (els.status) els.status.textContent = window.playHumanRpcError ? window.playHumanRpcError(error, "This Pokémon could not be sent.") : window.playRpcError(error);
+      } else if (els.status) els.status.textContent = "Transfer outcome is unconfirmed. Reopen My PC to inspect your collection before sending more Pokémon.";
+    } finally { if (current()) oakBusy = false; }
   }
+
 
 
   function monArtUrl(mon) {
@@ -640,7 +716,7 @@
 
   function oakEligible(mon) {
     if (!mon) return false;
-    return !(mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy);
+    return !(mon.onTeam || mon.listed || mon.locked || mon.favorite || oakBusy || oakNeedsInspection || releaseNeedsInspection || metadataBusy || metadataNeedsInspection);
   }
 
   function openPcDialog(opts) {
@@ -665,10 +741,13 @@
       const finish = (value) => {
         if (settled) return;
         settled = true;
+        pcDialogCancels.delete(cancel);
         try { dialog.close?.(); } catch (_) {}
         dialog.remove();
         resolve(value);
       };
+      const cancel = () => finish("cancel");
+      pcDialogCancels.add(cancel);
       dialog.addEventListener("cancel", (event) => {
         event.preventDefault();
         finish("cancel");
@@ -729,34 +808,49 @@
   }
 
   async function runAutoArrange() {
-    if (boxOpBusy) return;
+    if (!boxMutationReady()) return;
     if (searching()) {
-      if (typeof window.playToast === "function") {
-        window.playToast({ kind: "warning", title: "Clear search first", body: "Auto-arrange works on the current box view." });
-      }
+      window.playToast?.({ kind: "warning", title: "Clear search first", body: "Auto-arrange works on the current box view." });
       return;
     }
-    const keepId = selectedId;
+    normalizeBoxes();
+    if (data._layoutDirty) { data._layoutDirty = false; saveLayout(); return; }
+    const actor = pcActor, epoch = pcEpoch, targetBox = boxIndex, reviewedLayout = JSON.stringify(data.layout);
+    const current = () => actor === pcActor && epoch === pcEpoch;
+    let sent = false, confirmed = false;
     boxOpBusy = true;
     try {
-      const result = await window.playCall("play_pc_auto_arrange", { p_box: boxIndex });
-      data = result;
-      if (keepId) selectedId = String(keepId);
+      if (!await verifyPc(actor, epoch) || !current()) return;
+      if (JSON.stringify(data?.layout) !== reviewedLayout) throw Error("Your arrangement changed. Try auto-arrange again.");
+      sent = true; pcStorageSerial++;
+      const result = await window.playCall("play_pc_auto_arrange", { p_box: targetBox });
+      if (!current() || !await verifyPc(actor, epoch) || !current()) return;
+      if (!validPcBoxSnapshot(result) || result.arranged !== true || result.box !== targetBox || !Number.isSafeInteger(result.count) || result.count !== result.layout.boxes[targetBox]?.slots.filter(Boolean).length) throw Error("Box arrangement could not be confirmed.");
+      confirmed = true; pcStorageSerial++; applyPcSnapshot(result);
       if (els.status) els.status.textContent = "";
-      if (typeof window.playToast === "function") {
-        window.playToast({ kind: "success", title: "Box arranged", body: result?.message || "Pokémon packed to the top-left." });
-      }
       render();
+      window.playToast?.({ kind: "success", title: "Box arranged", body: result.message || "Pokémon packed to the top-left." });
     } catch (error) {
-      presentBoxError(error, "Could not arrange this box.");
+      if (!current() || !await verifyPc(actor, epoch) || !current()) return;
+      if (sent && !confirmed) layoutNeedsInspection = true;
+      const message = confirmed ? "Box arranged, but the display could not refresh. Reopen My PC." : sent ? "Arrangement could not be confirmed. Reopen My PC before another box action." : "Could not arrange this box. Review it again.";
+      try { presentBoxError(new Error(message), message); } catch (_) { if (els.status) els.status.textContent = message; }
     } finally {
-      boxOpBusy = false;
+      if (current()) {
+        boxOpBusy = false;
+        if (!layoutNeedsInspection && data?._layoutDirty) { data._layoutDirty = false; saveLayout(); }
+      }
     }
   }
 
   async function runDeleteBox() {
+    if (!boxMutationReady()) return;
+    const actor = pcActor, epoch = pcEpoch, targetBox = boxIndex;
+    const current = () => actor === pcActor && epoch === pcEpoch;
     const boxes = normalizeBoxes();
-    const box = boxes[boxIndex];
+    if (data._layoutDirty) { data._layoutDirty = false; saveLayout(); return; }
+    const reviewedLayout = JSON.stringify(data.layout);
+    const box = boxes[targetBox];
     if (!box) return;
     if (boxes.length <= 1) {
       if (typeof window.playToast === "function") {
@@ -764,114 +858,148 @@
       }
       return;
     }
-    let preflight;
+    boxOpBusy = true;
+    let sent = false, confirmed = false;
     try {
-      preflight = await window.playCall("play_pc_delete_box_preflight", { p_box: boxIndex });
-    } catch (error) {
-      if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not check this box.");
-      return;
-    }
-    if (!preflight?.canDelete) {
-      if (typeof window.playToast === "function") {
-        window.playToast({ kind: "warning", title: "Cannot delete", body: preflight?.message || "You must keep at least one PC box." });
+      const ready = async () => {
+        if (!current() || !await verifyPc(actor, epoch) || !current()) return false;
+        if (JSON.stringify(data?.layout) !== reviewedLayout) throw new Error("Your PC arrangement changed. Review the box again.");
+        return true;
+      };
+      if (!await ready()) return;
+      let preflight;
+      try {
+        preflight = await window.playCall("play_pc_delete_box_preflight", { p_box: targetBox });
+      } catch (error) {
+        throw error;
       }
-      return;
-    }
-    const occupants = Number(preflight.occupants || 0);
-    const free = Number(preflight.freeElsewhere || 0);
-    const releaseCount = Number(preflight.releaseCount || 0);
-    const name = preflight.boxName || box.name || `BOX ${boxIndex + 1}`;
+      if (!await ready()) return;
+      if (preflight?.ok !== true) throw new Error("The box check could not be confirmed.");
+      if (preflight.canDelete && (preflight.boxIndex !== targetBox || preflight.boxCount !== boxes.length || !Number.isSafeInteger(preflight.releaseCount) || preflight.releaseCount < 0)) throw new Error("The box check changed. Review it again.");
+      if (!preflight?.canDelete) {
+        if (typeof window.playToast === "function") {
+          window.playToast({ kind: "warning", title: "Cannot delete", body: preflight?.message || "You must keep at least one PC box." });
+        }
+        return;
+      }
+      const occupants = Number(preflight.occupants || 0);
+      const free = Number(preflight.freeElsewhere || 0);
+      const releaseCount = Number(preflight.releaseCount || 0);
+      const name = preflight.boxName || box.name || `BOX ${targetBox + 1}`;
 
-    if (releaseCount <= 0) {
-      const ok = await openPcDialog({
-        title: "Delete this Box?",
-        body: occupants
-          ? `All Pokémon in this box will be moved to available spaces in your other PC storage boxes.`
-          : "This box is empty and will be removed.",
-        warnHtml: occupants
-          ? `<div class="pc-dialog-warn">${occupants} Pokémon will be relocated. None will be released.</div>`
-          : "",
+      if (releaseCount <= 0) {
+        const ok = await openPcDialog({
+          title: "Delete this Box?",
+          body: occupants
+            ? `All Pokémon in this box will be moved to available spaces in your other PC storage boxes.`
+            : "This box is empty and will be removed.",
+          warnHtml: occupants
+            ? `<div class="pc-dialog-warn">${occupants} Pokémon will be relocated. None will be released.</div>`
+            : "",
+          actionsHtml: `
+            <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
+            <button class="pc-btn-destroy" value="delete" type="submit">Delete box</button>`,
+          focusSelector: "button.pc-btn-keep"
+        });
+        if (ok !== "delete") return;
+        try {
+          if (!await ready()) return;
+          sent = true; pcStorageSerial++;
+          const result = await window.playCall("play_pc_delete_box", {
+            p_box: targetBox,
+            p_confirm_release: false,
+            p_confirm_text: "",
+            p_expected_release: 0
+          });
+          if (!current() || !await verifyPc(actor, epoch) || !current()) return;
+          if (!validPcSnapshot(result) || result.deletedBox !== targetBox || !Number.isSafeInteger(result.released) || result.released < 0 || result.released > releaseCount || result.layout?.boxes?.length !== boxes.length - 1) throw new Error("Box deletion could not be confirmed. Reopen My PC before continuing.");
+          confirmed = true; pcStorageSerial++;
+          applyPcSnapshot(result);
+          if (boxIndex > targetBox) boxIndex--;
+          boxIndex = Math.min(boxIndex, Math.max(0, result.layout.boxes.length - 1));
+          if (typeof window.playToast === "function") {
+            window.playToast({ kind: "success", title: "Box deleted", body: result?.message || "Box deleted." });
+          }
+          render();
+        } catch (error) {
+          throw error;
+        }
+        return;
+      }
+
+      const first = await openPcDialog({
+        title: "Not Enough PC Storage",
+        danger: true,
+        bodyHtml: `<p class="pc-dialog-body">This box contains <strong>${occupants}</strong> Pokémon, but your other Boxes only have <strong>${free}</strong> available spaces.</p>
+          <p class="pc-dialog-body"><strong>${releaseCount}</strong> Pokémon cannot be moved.</p>`,
+        warnHtml: `<div class="pc-dialog-warn">If you continue, Pokémon that cannot be moved will be PERMANENTLY RELEASED. This cannot be undone.</div>`,
         actionsHtml: `
           <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
-          <button class="pc-btn-destroy" value="delete" type="submit">Delete box</button>`,
+          <button class="pc-btn-destroy" value="continue" type="submit">Continue Anyway</button>`,
         focusSelector: "button.pc-btn-keep"
       });
-      if (ok !== "delete") return;
+      if (first !== "continue") return;
+
+      const second = await openPcDialog({
+        title: "Permanent release warning",
+        danger: true,
+        bodyHtml: `<p class="pc-dialog-body">Deleting <strong>${window.playEscapeAttr(name)}</strong> will permanently release <strong>${releaseCount}</strong> Pokémon.</p>
+          <p class="pc-dialog-body">To continue, type: <strong>YES</strong></p>`,
+        extraHtml: `<input class="pc-confirm-input" id="pc-delete-yes" type="text" autocomplete="off" spellcheck="false" aria-label="Type YES to confirm">`,
+        actionsHtml: `
+          <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
+          <button class="pc-btn-destroy" value="confirm" type="submit" disabled id="pc-delete-confirm">Confirm deletion</button>`,
+        focusSelector: "#pc-delete-yes",
+        onMount(dialog) {
+          const input = dialog.querySelector("#pc-delete-yes");
+          const btn = dialog.querySelector("#pc-delete-confirm");
+          const sync = () => {
+            const ok = String(input?.value || "").trim().toUpperCase() === "YES";
+            if (btn) btn.disabled = !ok;
+          };
+          input?.addEventListener("input", sync);
+          sync();
+        },
+        validate(value, dialog) {
+          if (value !== "confirm") return true;
+          const typed = String(dialog.querySelector("#pc-delete-yes")?.value || "").trim().toUpperCase();
+          return typed === "YES";
+        }
+      });
+      if (second !== "confirm") return;
+
       try {
+        if (!await ready()) return;
+        sent = true; pcStorageSerial++;
         const result = await window.playCall("play_pc_delete_box", {
-          p_box: boxIndex,
-          p_confirm_release: false,
-          p_confirm_text: "",
-          p_expected_release: 0
+          p_box: targetBox,
+          p_confirm_release: true,
+          p_confirm_text: "YES",
+          p_expected_release: releaseCount
         });
-        data = result;
-        boxIndex = Math.min(boxIndex, Math.max(0, (normalizeBoxes().length || 1) - 1));
+        if (!current() || !await verifyPc(actor, epoch) || !current()) return;
+        if (!validPcSnapshot(result) || result.deletedBox !== targetBox || !Number.isSafeInteger(result.released) || result.released < 0 || result.released > releaseCount || result.layout?.boxes?.length !== boxes.length - 1) throw new Error("Box deletion could not be confirmed. Reopen My PC before continuing.");
+        confirmed = true; pcStorageSerial++;
+        applyPcSnapshot(result);
+        if (boxIndex > targetBox) boxIndex--;
+        boxIndex = Math.min(boxIndex, Math.max(0, result.layout.boxes.length - 1));
         if (typeof window.playToast === "function") {
           window.playToast({ kind: "success", title: "Box deleted", body: result?.message || "Box deleted." });
         }
         render();
       } catch (error) {
-        if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not delete this box.");
+        throw error;
       }
-      return;
-    }
-
-    const first = await openPcDialog({
-      title: "Not Enough PC Storage",
-      danger: true,
-      bodyHtml: `<p class="pc-dialog-body">This box contains <strong>${occupants}</strong> Pokémon, but your other Boxes only have <strong>${free}</strong> available spaces.</p>
-        <p class="pc-dialog-body"><strong>${releaseCount}</strong> Pokémon cannot be moved.</p>`,
-      warnHtml: `<div class="pc-dialog-warn">If you continue, Pokémon that cannot be moved will be PERMANENTLY RELEASED. This cannot be undone.</div>`,
-      actionsHtml: `
-        <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
-        <button class="pc-btn-destroy" value="continue" type="submit">Continue Anyway</button>`,
-      focusSelector: "button.pc-btn-keep"
-    });
-    if (first !== "continue") return;
-
-    const second = await openPcDialog({
-      title: "Permanent release warning",
-      danger: true,
-      bodyHtml: `<p class="pc-dialog-body">Deleting <strong>${window.playEscapeAttr(name)}</strong> will permanently release <strong>${releaseCount}</strong> Pokémon.</p>
-        <p class="pc-dialog-body">To continue, type: <strong>YES</strong></p>`,
-      extraHtml: `<input class="pc-confirm-input" id="pc-delete-yes" type="text" autocomplete="off" spellcheck="false" aria-label="Type YES to confirm">`,
-      actionsHtml: `
-        <button class="pc-btn-keep" value="cancel" type="submit">Cancel</button>
-        <button class="pc-btn-destroy" value="confirm" type="submit" disabled id="pc-delete-confirm">Confirm deletion</button>`,
-      focusSelector: "#pc-delete-yes",
-      onMount(dialog) {
-        const input = dialog.querySelector("#pc-delete-yes");
-        const btn = dialog.querySelector("#pc-delete-confirm");
-        const sync = () => {
-          const ok = String(input?.value || "").trim().toUpperCase() === "YES";
-          if (btn) btn.disabled = !ok;
-        };
-        input?.addEventListener("input", sync);
-        sync();
-      },
-      validate(value, dialog) {
-        if (value !== "confirm") return true;
-        const typed = String(dialog.querySelector("#pc-delete-yes")?.value || "").trim().toUpperCase();
-        return typed === "YES";
-      }
-    });
-    if (second !== "confirm") return;
-
-    try {
-      const result = await window.playCall("play_pc_delete_box", {
-        p_box: boxIndex,
-        p_confirm_release: true,
-        p_confirm_text: "YES",
-        p_expected_release: releaseCount
-      });
-      data = result;
-      boxIndex = Math.min(boxIndex, Math.max(0, (normalizeBoxes().length || 1) - 1));
-      if (typeof window.playToast === "function") {
-        window.playToast({ kind: "success", title: "Box deleted", body: result?.message || "Box deleted." });
-      }
-      render();
     } catch (error) {
-      if (typeof window.playPresentError === "function") window.playPresentError(error, "Could not delete this box.");
+      if (!current()) return;
+      if (sent && !confirmed) layoutNeedsInspection = true;
+      const message = confirmed ? "Box deleted, but the display could not refresh. Reopen My PC." : sent ? "Deletion could not be confirmed. Reopen My PC before another box action." : "Could not check this box.";
+      try { presentBoxError(new Error(message), message); } catch (_) { if (els.status) els.status.textContent = message; }
+    } finally {
+      if (current()) {
+        boxOpBusy = false;
+        if (!layoutNeedsInspection && data?._layoutDirty) { data._layoutDirty = false; saveLayout(); }
+      }
     }
   }
 
@@ -880,61 +1008,128 @@
     renderGrid();
   }
 
+  function syncMetadataButtons() {
+    for (const id of ["save-nick", "toggle-fav", "toggle-lock"]) { const button = document.getElementById(id); if (button) button.disabled = metadataBusy || metadataNeedsInspection; }
+    syncReleaseButton();
+    const oak = document.getElementById("send-oak"); if (oak) oak.disabled = !oakEligible(monById(selectedId));
+  }
+
   async function act(name, args) {
+    if (!pcActor || boxOpBusy || layoutNeedsInspection || metadataBusy || metadataNeedsInspection) return;
     const nickSave = name === "play_set_nickname";
-    if (!nickSave && els.status) els.status.textContent = "Working…";
+    if (!nickSave && name !== "play_set_mon_flags") return;
+    const request = { ...args }, id = String(nickSave ? request.p_catch_id : request.p_catch);
+    if (!monById(id) || id !== String(selectedId)) { if (els.status) els.status.textContent = "Select this Pokémon again before editing it."; return; }
+    const flags = ["p_favorite", "p_locked"].filter(key => Object.prototype.hasOwnProperty.call(request, key));
+    if (nickSave ? typeof request.p_name !== "string" : flags.length !== 1 || typeof request[flags[0]] !== "boolean") return;
+    const actor = pcActor, epoch = pcEpoch;
+    const current = () => actor === pcActor && epoch === pcEpoch;
+    const title = nickSave ? "Nickname saved" : typeof request.p_favorite === "boolean" ? "Favorite updated" : "Lock updated";
+    let confirmed = false, sent = false;
+    metadataBusy = true; syncMetadataButtons();
+    if (!nickSave && els.status) els.status.textContent = "Updating Pokémon…";
     try {
-      data = await window.playCall(name, args);
-      if (nickSave) {
-        if (els.status) els.status.textContent = "";
-        const row = document.querySelector(".pc-nick-row");
-        row?.classList.add("is-saved");
-        setTimeout(() => row?.classList.remove("is-saved"), 1600);
-        if (typeof window.playToast === "function") {
-          window.playToast({ kind: "success", title: "Nickname saved", body: data?.message || "Nickname updated." });
-        }
-      } else if (els.status) {
-        els.status.textContent = data.message || "";
+      if (!await verifyPc(actor, epoch) || !current()) return;
+      sent = true; metadataNeedsInspection = true; pcStorageSerial++;
+      const result = await window.playCall(name, request);
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (result?.ok !== true || (nickSave && !validPcSnapshot(result))) throw Error("Pokémon update could not be confirmed.");
+      confirmed = true;
+      const read = ++pcStorageSerial;
+      const next = nickSave ? result : await window.playCall("play_storage");
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (read !== pcStorageSerial || !validPcSnapshot(next) || !next.mons.some(mon => String(mon.id) === id)) throw Error("Updated Pokémon display could not refresh.");
+      const editingId = selectedId, input = document.getElementById("nick-input"), draft = input?.value;
+      const preserveDraft = draft !== undefined && (!nickSave || editingId !== id || draft !== request.p_name);
+      applyPcSnapshot(next); render();
+      if (preserveDraft && selectedId === editingId) { const field = document.getElementById("nick-input"); if (field) field.value = draft; }
+      if (nickSave && selectedId === id && !preserveDraft) {
+        const row = document.querySelector(".pc-nick-row"); row?.classList.add("is-saved");
+        setTimeout(() => { if (current()) row?.classList.remove("is-saved"); }, 1600);
       }
-      render();
+      metadataNeedsInspection = false;
+      if (els.status) els.status.textContent = "";
+      try { window.playToast?.({ kind: "success", title, body: nickSave && preserveDraft && editingId === id ? "Your earlier name was saved. Your newer edit is still unsaved." : typeof result.message === "string" ? result.message : "Pokémon updated." }); } catch (_) {}
     } catch (error) {
-      const msg = window.playRpcError(error);
-      if (els.status) els.status.textContent = msg;
-      if (nickSave && typeof window.playPresentError === "function") {
-        window.playPresentError(error, "Could not save that nickname.");
-      }
+      if (!current() || !await verifyPc(actor, epoch)) return;
+      if (confirmed) {
+        if (els.status) els.status.textContent = "Pokémon updated, but the display could not refresh. Reopen My PC to inspect it.";
+      } else if (!sent || ["P0001", "22023", "42501", "23514", "23503", "23505", "40001", "55P03"].includes(String(error?.code))) {
+        metadataNeedsInspection = false;
+        if (els.status) els.status.textContent = window.playRpcError(error);
+        if (nickSave && window.playPresentError) window.playPresentError(error, "Could not save that nickname.");
+      } else if (els.status) els.status.textContent = "Pokémon update outcome is unconfirmed. Reopen My PC to inspect it before editing or removing Pokémon.";
+    } finally { if (current()) { metadataBusy = false; syncMetadataButtons(); } }
+  }
+
+  function setPcActor(actor) {
+    if (actor === pcActor) return;
+    pcActor = actor; pcEpoch++; pcStorageSerial++;
+    for (const cancel of [...pcDialogCancels]) cancel();
+    boxOpBusy = false; releaseBusy = false; releaseNeedsInspection = false; metadataBusy = false; metadataNeedsInspection = false;
+    clearTimeout(saveTimer); clearTimeout(acquireTimer);
+    layoutRevision = 0; layoutConfirmedRevision = 0; layoutSavePending = null; layoutSaving = false; layoutNeedsInspection = false;
+    oakPresentation?.abort(); oakPresentation = null; oakNeedsInspection = false; oakBusy = false;
+    data = null; trainerCard = null; selectedId = ""; lastDetailId = ""; filtered = []; pendingOakId = ""; boxIndex = 0; renamingBox = -1;
+    familiarity.reset(actor);
+    window._playTrainerSprite = "";
+    if (els.grid) els.grid.innerHTML = "";
+    if (els.detail) els.detail.innerHTML = "";
+    if (els.status) els.status.textContent = "";
+    if (els.app) els.app.hidden = true;
+    if (els.oakModal?.open) els.oakModal.close?.();
+  }
+
+  function validPcSnapshot(value) {
+    return value?.ok === true && Array.isArray(value.mons) && value.mons.every(mon => mon && typeof mon.id === "string" && mon.id) && value.layout && typeof value.layout === "object" && !Array.isArray(value.layout);
+  }
+
+  async function verifyPc(actor, epoch) {
+    let result; try { result = await supabase.auth.getSession(); } catch (_) { result = null; }
+    if (actor !== pcActor || epoch !== pcEpoch) return false;
+    if (!result || result.error || (result.data?.session?.user?.id || null) !== actor) {
+      setPcActor(null); window.playRestoreGate(els.gate, "Your account changed. Reopen My PC."); return false;
     }
+    return true;
   }
 
   async function load() {
-    const { data: sessionData } = await supabase.auth.getSession();
-    const session = sessionData.session;
-    familiarity.reset(session?.user?.id || null);
-    if (!session) {
-      els.app.hidden = true;
-      trainerCard = null;
-      window.playRestoreGate(els.gate, "Sign in to open your PC boxes.");
-      window.playSetAccountNav(null);
-      return;
-    }
-    window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
-    const { data: profile } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", session.user.id).maybeSingle();
-    let snapshot = null;
+    const serial = ++pcLoadSerial;
+    let current = () => serial === pcLoadSerial;
     try {
-      snapshot = await window.playCall("play_state");
-    } catch (_) {}
-    trainerCard = snapshot?.trainer || null;
-    if (trainerCard?.trainerSprite) window._playTrainerSprite = trainerCard.trainerSprite;
-    window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: trainerCard });
-    try {
-      data = await window.playCall("play_storage");
-      els.gate.hidden = true;
-      els.app.hidden = false;
-      render();
+      const auth = await supabase.auth.getSession();
+      if (!current()) return false;
+      if (auth.error) throw auth.error;
+      const session = auth.data?.session;
+      setPcActor(session?.user?.id || null);
+      const actor = pcActor, epoch = pcEpoch;
+      current = () => serial === pcLoadSerial && actor === pcActor && epoch === pcEpoch;
+      if (!session) { window.playRestoreGate(els.gate, "Sign in to open your PC boxes."); window.playSetAccountNav(null); return false; }
+      if (!await verifyPc(actor, epoch) || !current()) return false;
+      window.playSetLoadingGate(els.gate, els.app, { soft: !els.app?.hidden });
+      const { data: profile, error } = await supabase.from("profiles").select("display_name, twitch_login, avatar_url").eq("id", actor).maybeSingle();
+      if (!current()) return false;
+      if (error) throw error;
+      let snapshot = null;
+      try { snapshot = await window.playCall("play_state"); } catch (_) {}
+      if (!current() || !await verifyPc(actor, epoch)) return false;
+      const read = ++pcStorageSerial;
+      const next = await window.playCall("play_storage");
+      if (!current() || read !== pcStorageSerial || !await verifyPc(actor, epoch)) return false;
+      if (boxOpBusy) return false;
+      if (!validPcSnapshot(next)) throw Error("Your PC storage could not be verified.");
+      applyPcSnapshot(next, true); trainerCard = snapshot?.trainer || null;
+      window._playTrainerSprite = trainerCard?.trainerSprite || "";
+      window.playSetAccountNav(session, profile, { isAdmin: Boolean(snapshot?.isAdmin), trainer: trainerCard });
+      if (!oakBusy) oakNeedsInspection = false;
+      if (!releaseBusy) releaseNeedsInspection = false;
+      if (!metadataBusy) metadataNeedsInspection = false;
+      els.gate.hidden = true; els.app.hidden = false; render(); return true;
     } catch (error) {
-      els.gate.hidden = false;
-      els.app.hidden = true;
-      els.gate.textContent = window.playRpcError(error, "Could not open storage.");
+      if (!current()) return false;
+      data = null; trainerCard = null;
+      els.gate.hidden = false; els.app.hidden = true;
+      els.gate.textContent = window.playRpcError(error, "Could not open storage."); return false;
     }
   }
 
@@ -959,7 +1154,16 @@
     return Boolean((els.search?.value || "").trim());
   }
 
+  function validPcDrag(payload) {
+    if (!layoutEditAllowed()) return false;
+    const boxes = normalizeBoxes();
+    const valid = payload?.actor === pcActor && payload.epoch === pcEpoch && typeof payload.id === "string" && Boolean(monById(payload.id)) && Number.isSafeInteger(payload.box) && Number.isSafeInteger(payload.slot) && payload.slot >= 0 && payload.slot < BOX_SLOTS && String(boxes[payload.box]?.slots[payload.slot] || "") === payload.id;
+    if (!valid) { try { window.playToast?.({ kind: "warning", title: "Your PC changed", body: "Pick up the Pokémon again before moving it." }); } catch (_) {} }
+    return valid;
+  }
+
   function swapSlots(fromBox, fromSlot, toBox, toSlot) {
+    if (!layoutEditAllowed() || ![fromBox, fromSlot, toBox, toSlot].every(Number.isSafeInteger) || fromSlot < 0 || fromSlot >= BOX_SLOTS || toSlot < 0 || toSlot >= BOX_SLOTS) return;
     const boxes = normalizeBoxes();
     if (!boxes[fromBox] || !boxes[toBox]) return;
     const a = boxes[fromBox].slots[fromSlot];
@@ -982,58 +1186,57 @@
   }
 
   async function moveMonToBox(catchId, toBoxIndex, opts = {}) {
-    if (boxOpBusy) return null;
+    if (!boxMutationReady()) return null;
     const sourceBox = boxIndex;
     const boxes = normalizeBoxes();
-    if (!boxes[toBoxIndex]) throw new Error("That box is not available.");
-    if (boxFillCount(boxes[toBoxIndex]) >= BOX_SLOTS && opts.allowFull !== true) {
-      // Server will also reject; give a fast local message when obvious.
-      const alreadyHere = (boxes[toBoxIndex].slots || []).some((id) => id && String(id) === String(catchId));
-      if (!alreadyHere) throw new Error("That storage slot is no longer available.");
-    }
+    if (data._layoutDirty) { data._layoutDirty = false; saveLayout(); return null; }
+    const mon = monById(catchId);
+    if (!mon || !Number.isSafeInteger(toBoxIndex) || !boxes[toBoxIndex] || !boxes.some(box => box.slots.includes(catchId))) throw new Error("Choose that Pokémon and its destination again.");
+    if (boxFillCount(boxes[toBoxIndex]) >= BOX_SLOTS && !boxes[toBoxIndex].slots.includes(catchId)) throw new Error("That storage slot is no longer available.");
+    const actor = pcActor, epoch = pcEpoch, reviewedLayout = JSON.stringify(data.layout), keepId = selectedId, who = displayName(mon), destName = boxToastName(boxes[toBoxIndex], toBoxIndex);
+    const current = () => actor === pcActor && epoch === pcEpoch;
+    let sent = false, confirmed = false;
     boxOpBusy = true;
     try {
-      const next = await window.playCall("play_move_pc_mon", {
-        p_catch_id: catchId,
-        p_to_box: toBoxIndex
-      });
-      data = next;
-      if (next?.layout) data.layout = next.layout;
-      if (next?.mons) data.mons = next.mons;
-      boxIndex = Number.isFinite(Number(opts.stayOnBox)) ? Number(opts.stayOnBox) : sourceBox;
-      if (next?.moved) {
-        selectedId = "";
-        lastDetailId = "";
-        emptyInspectOnce = true;
+      if (!await verifyPc(actor, epoch) || !current()) return null;
+      if (JSON.stringify(data?.layout) !== reviewedLayout) throw Error("Your arrangement changed. Choose the destination again.");
+      sent = true; pcStorageSerial++;
+      const next = await window.playCall("play_move_pc_mon", { p_catch_id: catchId, p_to_box: toBoxIndex });
+      if (!current() || !await verifyPc(actor, epoch) || !current()) return null;
+      if (!validPcBoxSnapshot(next) || typeof next.moved !== "boolean" || !next.mons.some(row => row.id === catchId) || !next.layout.boxes[toBoxIndex]?.slots.includes(catchId)) throw Error("Pokémon move could not be confirmed.");
+      confirmed = true; pcStorageSerial++; applyPcSnapshot(next);
+      // Preserve a tab or specimen selected while the request was pending.
+      if (boxIndex === sourceBox && next.moved && selectedId === keepId && selectedId === catchId) {
+        selectedId = ""; lastDetailId = ""; emptyInspectOnce = true;
       }
       render();
       if (els.status) els.status.textContent = "";
-      if (next?.moved && typeof window.playToast === "function") {
-        const dest = (data.layout?.boxes || [])[toBoxIndex];
-        const destName = boxToastName(dest, toBoxIndex);
-        const mon = monById(catchId);
-        const who = mon ? displayName(mon) : "Pokémon";
-        window.playToast({
-          kind: "success",
-          title: "Moved",
-          body: `${who} moved to ${destName}.`
-        });
-      }
+      if (next.moved) window.playToast?.({ kind: "success", title: "Moved", body: `${who} moved to ${destName}.` });
       return next;
+    } catch (error) {
+      if (!current() || !await verifyPc(actor, epoch) || !current()) return null;
+      if (sent && !confirmed) layoutNeedsInspection = true;
+      throw new Error(confirmed ? "Pokémon moved, but the display could not refresh. Reopen My PC." : sent ? "Move could not be confirmed. Reopen My PC before moving more Pokémon." : "Your arrangement changed. Choose the destination again.");
     } finally {
-      boxOpBusy = false;
+      if (current()) {
+        boxOpBusy = false;
+        if (!layoutNeedsInspection && data?._layoutDirty) { data._layoutDirty = false; saveLayout(); }
+      }
     }
   }
 
   function openMoveDialog(mon) {
-    if (!mon?.id) return;
+    if (!mon?.id || !boxMutationReady()) return;
     const boxes = normalizeBoxes();
+    const actor = pcActor, epoch = pcEpoch, reviewedLayout = JSON.stringify(data.layout), catchId = String(mon.id);
+    const current = () => actor === pcActor && epoch === pcEpoch;
     const name = displayName(mon);
     let currentBox = -1;
     boxes.forEach((box, i) => {
       if ((box.slots || []).some((id) => id && String(id) === String(mon.id))) currentBox = i;
     });
     const existing = document.getElementById("pc-move-dialog");
+    if (existing?.open) existing.close();
     existing?.remove();
     const dialog = document.createElement("dialog");
     dialog.id = "pc-move-dialog";
@@ -1061,20 +1264,29 @@
       </form>`;
     document.body.appendChild(dialog);
     const close = () => {
-      dialog.close();
+      pcDialogCancels.delete(close);
+      if (dialog.open) dialog.close();
       dialog.remove();
     };
+    pcDialogCancels.add(close);
+    dialog.addEventListener("close", close, { once: true });
     dialog.addEventListener("click", (event) => {
       if (event.target === dialog) close();
     });
     dialog.querySelectorAll(".pc-move-option:not([disabled])").forEach((btn) => {
       btn.addEventListener("click", async () => {
+        if (!current()) { close(); return; }
+        if (JSON.stringify(data?.layout) !== reviewedLayout || !monById(catchId)) {
+          close(); presentBoxError(new Error("Your arrangement changed. Choose the Pokémon and destination again."), "Choose the destination again."); return;
+        }
         const dest = Number(btn.dataset.box);
         btn.disabled = true;
         try {
-          await moveMonToBox(mon.id, dest);
-          close();
+          const result = await moveMonToBox(catchId, dest);
+          if (result || !current()) close();
+          else btn.disabled = false;
         } catch (error) {
+          if (!current()) return;
           btn.disabled = false;
           presentBoxError(error, "That Pokémon could not be moved.");
         }
@@ -1090,6 +1302,8 @@
   }
 
   function startRename(index) {
+    if (!layoutEditAllowed()) return;
+    const actor = pcActor, epoch = pcEpoch;
     const boxes = normalizeBoxes();
     const box = boxes[index];
     const tab = els.tabs?.querySelector(`[data-box="${index}"]`);
@@ -1105,11 +1319,13 @@
     input.focus();
     input.select();
     const finish = (save) => {
-      if (renamingBox < 0) return;
+      if (actor !== pcActor || epoch !== pcEpoch || renamingBox < 0) return;
       renamingBox = -1;
-      if (save) {
-        box.name = String(input.value).trim().slice(0, 12) || box.name;
-        data.layout = { boxes };
+      if (save && layoutEditAllowed()) {
+        const latest = normalizeBoxes(), target = latest[index];
+        if (!target) return;
+        target.name = String(input.value).trim().slice(0, 12) || target.name;
+        data.layout = { boxes: latest };
         saveLayout("Box name saved.");
       }
       renderGrid();
@@ -1161,7 +1377,8 @@
     clearDropTarget();
     let payload = null;
     try { payload = JSON.parse(event.dataTransfer.getData("text/plain") || ""); } catch (_) {}
-    const catchId = payload?.id;
+    if (!validPcDrag(payload)) return;
+    const catchId = payload.id;
     const dest = Number(tab.dataset.box);
     if (!catchId || !Number.isFinite(dest)) return;
     try {
@@ -1173,6 +1390,7 @@
   els.tabs?.addEventListener("click", (event) => {
     if (event.detail > 1 || event.target.closest("input")) return;
     if (event.target.closest("[data-add-box]")) {
+      if (!layoutEditAllowed()) return;
       const boxes = normalizeBoxes();
       if (boxes.length >= 20) return;
       boxes.push({ name: `BOX ${boxes.length + 1}`, slots: Array(BOX_SLOTS).fill(null) });
@@ -1203,12 +1421,13 @@
   });
   els.grid.addEventListener("dragstart", (event) => {
     const button = event.target.closest("button[data-id]");
-    if (!button || searching()) {
+    if (!button || searching() || !layoutEditAllowed()) {
       event.preventDefault();
       return;
     }
     event.dataTransfer.setData("text/plain", JSON.stringify({
       id: button.dataset.id,
+      actor: pcActor, epoch: pcEpoch,
       box: boxIndex,
       slot: Number(button.dataset.slot)
     }));
@@ -1245,7 +1464,7 @@
     clearDropTarget();
     let payload = null;
     try { payload = JSON.parse(event.dataTransfer.getData("text/plain") || ""); } catch (_) {}
-    if (!payload || payload.slot == null) return;
+    if (!validPcDrag(payload)) return;
     swapSlots(Number(payload.box), Number(payload.slot), boxIndex, Number(slot.dataset.slot));
   });
   els.grid.addEventListener("keydown", (event) => {

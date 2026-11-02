@@ -138,7 +138,7 @@
   async function mount(root,user,pane,transport){
     const slot=root.querySelector("[data-trainer-rewards]");
     if(!slot||!user?.id)return;
-    const ctx={userId:user.id,pane,slot,busy:false,pending:null};contexts.set(root,ctx);
+    const ctx={userId:user.id,pane,slot,busy:false,pending:null,confirmed:null};contexts.set(root,ctx);
     const current=()=>contexts.get(root)===ctx&&root.contains(slot);
     function status(text){if(current())slot.querySelector('[data-reward-status]').textContent=text;}
     function draw(data){
@@ -152,6 +152,24 @@
         }else{slot.querySelectorAll('form').forEach(form=>form.remove());status("Protected trainer: account changes require separately scoped authorization.");}
       }
     }
+    async function refreshConfirmed(result){
+      if(!current())return;
+      ctx.busy=true;
+      slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
+      try{
+        const refreshed=await transport.read(user.id);
+        if(!current())return;
+        draw(refreshed);ctx.confirmed=null;
+        status(result.message||(result.ok?"Action completed.":"Action failed; nothing was granted."));
+        if(result.ok){try{await transport.changed?.(user.id);}catch(_){if(current())status("The staff action is confirmed and reward history was refreshed, but the trainer summary could not refresh. Reload the record; do not repeat the action.");}}
+      }catch(_){
+        if(!current())return;
+        ctx.confirmed=result;
+        slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
+        status((result.ok?"The staff action is confirmed.":"The action failed; nothing was granted.")+" Reward history could not refresh. Reload history to inspect it; this will not repeat the action.");
+        const retry=slot.querySelector('[data-reward-retry]');retry.textContent="Reload reward history";retry.hidden=false;retry.disabled=false;
+      }finally{ctx.busy=false;}
+    }
     async function send(intent){
       if(!current()||ctx.busy)return;
       ctx.busy=true;slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
@@ -159,11 +177,10 @@
       try{
         const result=await transport.write(intent);
         if(!current())return;
+        if(typeof result?.ok!=="boolean"||result.requestId!==intent.p_request)throw Error("Staff action receipt did not match the reviewed request.");
         ctx.pending=null;
-        const refreshed=await transport.read(user.id);
-        if(!current())return;
-        draw(refreshed);status(result.message|| (result.ok?"Action completed.":"Action failed; nothing was granted."));
-        if(result.ok) await transport.changed?.(user.id);
+        ctx.confirmed=result;
+        await refreshConfirmed(result);
       }catch(error){
         if(!current())return;
         ctx.pending=intent;
@@ -177,7 +194,7 @@
       return;
     }
     slot.addEventListener('input',event=>{
-      if(!event.target.matches('[data-gift-search]')||ctx.busy||ctx.pending||!current())return;
+      if(!event.target.matches('[data-gift-search]')||ctx.busy||ctx.pending||ctx.confirmed||!current())return;
       const form=event.target.form,select=form.querySelector('[data-gift-choice]');
       const rows=giftChoices(ctx.data,form.elements.namedItem('gift_kind').value,event.target.value);
       const selected=rows.some(row=>row.id===select.value)?select.value:"";
@@ -185,14 +202,14 @@
       form.querySelector('[data-choice-count]').textContent=rows.length?`Matches: ${rows.length}`:"No matching rewards. Try another name.";
     });
     slot.addEventListener('change',(event)=>{
-      if(event.target.name!=="gift_kind"||ctx.busy)return;
+      if(event.target.name!=="gift_kind"||ctx.busy||ctx.pending||ctx.confirmed)return;
       slot.querySelector('[data-gift-fields]').innerHTML=giftFields(ctx.data,event.target.value);
       if(event.target.value==='pokemon'||event.target.value==='candy')chooseSpecies(event.target.form,current);
     });
-    slot.addEventListener('click',(event)=>{if(event.target.closest('[data-species-picker]')&&!ctx.busy)chooseSpecies(event.target.closest('form'),current);if(event.target.closest('[data-reward-retry]')&&ctx.pending)send(ctx.pending);});
+    slot.addEventListener('click',(event)=>{if(event.target.closest('[data-species-picker]')&&!ctx.busy&&!ctx.pending&&!ctx.confirmed)chooseSpecies(event.target.closest('form'),current);if(event.target.closest('[data-reward-retry]')&&!ctx.busy){if(ctx.confirmed)refreshConfirmed(ctx.confirmed);else if(ctx.pending)send(ctx.pending);}});
     slot.addEventListener('submit',async(event)=>{
       const form=event.target.closest('[data-reward-form]');if(!form)return;event.preventDefault();
-      if(ctx.busy||ctx.pending||!current())return;
+      if(ctx.busy||ctx.pending||ctx.confirmed||!current())return;
       if(["pokemon","candy"].includes(form.elements.namedItem("gift_kind")?.value)&&!form.elements.namedItem("dex")?.value){chooseSpecies(form,current);return;}
       let intent;
       try{intent=makeIntent(form,event.submitter,user.id,crypto.randomUUID());}catch(error){status(error.message);return;}
@@ -215,5 +232,7 @@
       await send(intent);
     });
   }
-  return {mount,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity,reviewSummary,reviewTitle};
+  function canLeave(root){const ctx=contexts.get(root);return !ctx||!root.contains(ctx.slot)||!(ctx.busy||ctx.pending||ctx.confirmed);}
+  function warnBeforeLeaving(root){const ctx=contexts.get(root);if(!ctx||!root.contains(ctx.slot))return;const status=ctx.slot.querySelector('[data-reward-status]');if(!status)return;status.tabIndex=-1;status.textContent=ctx.confirmed?'The staff action is confirmed. Reload reward history before leaving this record.':ctx.pending?'This action’s outcome is unconfirmed. Recover the same request before leaving this record.':'Finish or cancel the staff action review, or wait for its result, before leaving this record.';status.focus?.({preventScroll:true});}
+  return {mount,canLeave,warnBeforeLeaving,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity,reviewSummary,reviewTitle};
 }));

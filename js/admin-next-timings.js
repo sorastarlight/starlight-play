@@ -29,11 +29,11 @@
       if (!commands.includes(command)) throw Error("Unsupported configuration operation.");
       if (command === "admin_encounter_timings_save" && (!args || Object.keys(args).sort().join() !== "p_revision,p_settings" || !/^[a-f0-9]{32}$/.test(args.p_revision||"") || !args.p_settings || !Object.keys(args.p_settings).length || Object.keys(args.p_settings).some(key => !Object.hasOwn(fields, key)))) throw Error("Unsupported configuration payload.");
       if (command === "admin_encounter_timings_save") Object.entries(args.p_settings).forEach(([key,value])=>amount(value,key));
-      const expected = identity(), before = await session();
+      const expected = identity(); let before; try { before=await session(); } catch (_) { throw Object.assign(Error('Staff session unavailable.'),{code:'42501',sent:false}); }
       if (!expected || !allowed() || before.error || before.data?.session?.user?.id !== expected || identity() !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501" });
       const result = await call(command, command === "admin_encounter_timings_save" ? args : undefined);
-      const after = await session();
-      if (!allowed() || identity() !== expected || after.error || after.data?.session?.user?.id !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501" });
+      let after; try { after=await session(); } catch (_) { throw Object.assign(Error('Staff session unavailable.'),{code:'42501',sent:command===commands[1]}); }
+      if (!allowed() || identity() !== expected || after.error || after.data?.session?.user?.id !== expected) throw Object.assign(Error("Staff session changed."), { code: "42501", sent:command===commands[1] });
       return result;
     };
   }
@@ -58,13 +58,16 @@
       }
       emit();
     }
-    async function save() {
+    function review() { if (!active || state.phase !== "ready" || state.uncertain) throw Error("Reload timings before reviewing changes."); const changes=patch(state.current,state.draft); if(!Object.keys(changes).length)throw Error("No changes to review."); return Object.freeze({epoch,revision:state.revision,current:JSON.stringify(state.current),changes:JSON.stringify(changes)}); }
+    async function save(reviewed) {
       if (!active || state.phase !== "ready" || state.uncertain) return;
       const changes = patch(state.current, state.draft);
       if (!Object.keys(changes).length) throw Error("No changes to review.");
+      if(reviewed&&(reviewed.epoch!==epoch||reviewed.revision!==state.revision||reviewed.current!==JSON.stringify(state.current)||reviewed.changes!==JSON.stringify(changes)))throw Error("Timings changed after review. Review them again before saving.");
       const request = epoch;
-      state.phase = "saving"; state.message = "Saving once…"; emit();
+      state.phase = "saving"; state.message = "Saving once…"; let sent=false;
       try {
+        emit(); sent=true;
         const receipt = await transport("admin_encounter_timings_save", { p_revision:state.revision,p_settings: changes });
         if (!active || request !== epoch) return;
         const returned = project(receipt);if(typeof receipt.commandQueued!=="boolean")throw Error("Unconfirmed timing receipt.");
@@ -72,18 +75,19 @@
         state.message = receipt.commandQueued?"Timings saved; a stream PC settings update was queued. Reload to verify.":"Timings saved on Play. No stream PC connection is configured. Reload to verify.";
       } catch (error) {
         if (!active || request !== epoch) return;
+        if(!sent){state.phase="ready";state.uncertain=false;state.message="Nothing was sent. Review your changes again before saving.";try{emit();}catch(_){}return;}
         if (["42501", "401", "403"].includes(String(error?.code || error?.status))) {
-          Object.assign(state, { phase: "error", current: null, draft: null, revision:null, uncertain: false, message: "Access denied or session changed. Configuration data was cleared. Reload after checking your staff access." }); emit(); return;
+          Object.assign(state, { phase: "error", current: null, draft: null, revision:null, uncertain: error.sent===true, message: error.sent===true?"Save could not be confirmed after the staff session changed. Do not retry; reload and inspect stored timings.":"Access denied or session changed before saving. Configuration data was cleared. Reload after checking your staff access." }); try{emit();}catch(_){} return;
         }
         state.message = String(error?.code)==="40001"?"Encounter timings changed since loading. Reload and review again.":"Save could not be confirmed. Do not retry: reload and compare the stored settings first. Your local draft remains below.";
       }
-      state.phase = "ready"; state.uncertain = true; emit();
+      state.phase = "ready"; state.uncertain = true; try{emit();}catch(_){}
     }
-    return { state, reset, dirty, load, save, open() { active = true; return load(); } };
+    return { state, reset, dirty, load, review, save, open() { active = true; return load(); } };
   }
   function mount(root, transport) {
     if (!root) return null;
-    let returnFocus = null;
+    let returnFocus = null, activeDialog = null;
     const ui = controller(transport, render);
     function render() {
       const s = ui.state, focused = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
@@ -92,13 +96,14 @@
       if (focused) root.querySelector(".config-status")?.focus({ preventScroll: true });
     }
     function dialog(title, content, action, label) {
+      if(activeDialog)return; const stamp=JSON.stringify(ui.state);
       returnFocus = root.ownerDocument.activeElement;
-      const dlg = root.ownerDocument.createElement("dialog"); dlg.className = "config-dialog";
+      const dlg = root.ownerDocument.createElement("dialog"); dlg.className = "config-dialog"; activeDialog=dlg;
       dlg.setAttribute("aria-labelledby", "timings-dialog-title");
       dlg.innerHTML = `<h3 id="timings-dialog-title">${esc(title)}</h3>${content}<div class="config-actions"><button type="button" data-timings-cancel autofocus>Back to editing</button><button type="button" data-timings-confirm>${esc(label)}</button></div>`;
       root.append(dlg); dlg.querySelector("[data-timings-cancel]").onclick = () => dlg.close();
-      dlg.querySelector("[data-timings-confirm]").onclick = () => { dlg.close(); action(); };
-      dlg.onclose = () => { dlg.remove(); if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); };
+      dlg.querySelector("[data-timings-confirm]").onclick = async () => { if(activeDialog!==dlg||!dlg.open)return; if(stamp!==JSON.stringify(ui.state)){dlg.close();const output=root.querySelector("[data-timings-validation]");if(output)output.textContent="This draft changed after review. Review it again before continuing.";return;}dlg.close();try{await action();}catch(error){const output=root.querySelector("[data-timings-validation]");if(output)output.textContent=error.message;} };
+      dlg.onclose = () => { dlg.remove(); if(activeDialog===dlg)activeDialog=null; if (returnFocus?.isConnected) returnFocus.focus({ preventScroll: true }); };
       dlg.showModal(); if (dlg.scrollHeight > dlg.clientHeight) { const heading = dlg.querySelector('h3'); heading.tabIndex = -1; heading.focus({ preventScroll: true }); dlg.scrollTop = 0; }
     }
     root.addEventListener("input", event => {
@@ -114,9 +119,9 @@
     root.addEventListener("submit", event => {
       if (!event.target.matches("[data-timings-form]")) return; event.preventDefault();
       try {
-        const changes = patch(ui.state.current, ui.state.draft);
+        const reviewed=ui.review(),changes = patch(ui.state.current, ui.state.draft);
         if (!Object.keys(changes).length) throw Error("No changes to review.");
-        dialog("Review encounter timings", `<p>Applies to future encounters. If a stream PC connection exists, a settings update will be queued. This action does not start an encounter.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} seconds</span><strong>Proposed: ${value.toLocaleString("en-US")} seconds</strong></dd></div>`).join("")}</dl><p>Saving checks for changes made by other staff. Reload if the settings have changed.</p>`, () => ui.save(), "Save encounter timings");
+        dialog("Review encounter timings", `<p>Applies to future encounters. If a stream PC connection exists, a settings update will be queued. This action does not start an encounter.</p><dl class="config-comparison">${Object.entries(changes).map(([key, value]) => `<div><dt>${esc(fields[key])}</dt><dd><span>Current: ${ui.state.current[key].toLocaleString("en-US")} seconds</span><strong>Proposed: ${value.toLocaleString("en-US")} seconds</strong></dd></div>`).join("")}</dl><p>Saving checks for changes made by other staff. Reload if the settings have changed.</p>`, () => ui.save(reviewed), "Save encounter timings");
       } catch (error) { root.querySelector("[data-timings-validation]").textContent = error.message; }
     });
     root.ownerDocument.defaultView.addEventListener("beforeunload", event => { if (ui.dirty()) { event.preventDefault(); event.returnValue = ""; } });

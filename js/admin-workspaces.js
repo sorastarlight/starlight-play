@@ -25,7 +25,7 @@
           event.key === 'ArrowRight' ? (index + 1) % panels.length :
           event.key === 'ArrowLeft' ? (index + panels.length - 1) % panels.length : null;
         if (next === null) return;
-        event.preventDefault(); buttons[next].focus();
+        event.preventDefault(); buttons.forEach((button, i) => { button.tabIndex = i === next ? 0 : -1; }); buttons[next].focus();
       });
       return button;
     });

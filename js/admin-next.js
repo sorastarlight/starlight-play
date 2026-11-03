@@ -129,6 +129,18 @@
   const trainerStyles=styleApi?.mount(document.getElementById('next-trainer-styles'),styleApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args),upload:payload=>assetTransport('upload',payload)}));
   const productCreateApi=window.PLAY_ADMIN_PRODUCT_CREATE;
   const specialProductCreators=['bits','avatars'].map(kind=>productCreateApi?.mount(document.getElementById('next-create-'+kind),productCreateApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen,call:(name,args)=>window.playCall(name,args)},kind),kind));
+  // Prepared local workflow; production publication and SQL activation remain held.
+  let productCopyDialog=null;
+  function resetProductCopy(){if(productCopyDialog){productCopyDialog.restore=false;productCopyDialog.ui?.reset();productCopyDialog.dialog.close();}}
+  function openProductCopy(sku,opener){
+    const api=window.PLAY_ADMIN_PRODUCT_COPY;if(!api||!staffOpen||currentTab()!=='mart'||productCopyDialog)return;
+    const dialog=document.createElement('dialog');dialog.className='product-copy-dialog';dialog.setAttribute('aria-label','Make a product copy');const host=document.createElement('div');dialog.append(host);document.body.append(dialog);
+    const transport=api.adapter({session:()=>supabase.auth.getSession(),identity:()=>martIdentity,allowed:()=>staffOpen&&currentTab()==='mart'&&dialog.open,call:(name,args)=>{if(name==='admin_product_copy_options')return window.playCall('admin_product_copy_options',args);if(name==='admin_product_copy_create')return window.playCall('admin_product_copy_create',args);throw Error('Unsupported copy operation.');}});
+    const active={dialog,restore:true,ui:null,actor:martIdentity};productCopyDialog=active;const guarded=fn=>async value=>{try{return await fn(value);}catch(error){if(error?.code==='42501')resetProductCopy();throw error;}};active.ui=api.mount(host,guarded(transport.read),guarded(transport.create),{onClose:()=>dialog.close()});
+    dialog.addEventListener('keydown',event=>{if(event.key!=='Tab')return;const controls=[...dialog.querySelectorAll('button:not([disabled]),input:not([disabled]),textarea:not([disabled]),select:not([disabled]),a[href]')].filter(el=>!el.hidden&&!el.closest('[hidden]')&&el.getClientRects().length),first=controls[0],last=controls.at(-1);if(!first){event.preventDefault();return;}const focused=document.activeElement;if(event.shiftKey&&(focused===first||!controls.includes(focused))){event.preventDefault();last.focus();}else if(!event.shiftKey&&focused===last){event.preventDefault();first.focus();}});
+    dialog.addEventListener('cancel',event=>{if(active.ui.state.phase==='saving')event.preventDefault();});dialog.addEventListener('click',event=>{if(event.target!==dialog||active.ui.state.phase==='saving')return;const r=dialog.getBoundingClientRect();if(event.clientX<r.left||event.clientX>r.right||event.clientY<r.top||event.clientY>r.bottom)dialog.close();});
+    dialog.addEventListener('close',()=>{active.ui.reset();if(productCopyDialog===active)productCopyDialog=null;dialog.remove();if(active.restore&&staffOpen&&martIdentity===active.actor&&currentTab()==='mart'&&opener.isConnected)opener.focus();},{once:true});dialog.showModal();active.ui.open(sku);
+  }
   const mart = window.PLAY_ADMIN_NEXT_MART?.mount(document.getElementById("next-mart"), async (name, args) => {
     if (!["admin_store_get", "admin_store_draft_options", "admin_store_save_item"].includes(name)) throw new Error("Unsupported Mart operation.");
     const identity = martIdentity;
@@ -136,7 +148,7 @@
     if (error || !staffOpen || !identity || data?.session?.user?.id !== identity || martIdentity !== identity) throw new Error("Staff session changed.");
     let result;if(name === "admin_store_get")result=await window.playCall("admin_store_get");else if(name === "admin_store_draft_options")result=await window.playCall("admin_store_draft_options");else result=await window.playCall("admin_store_save_item", args);
     const after=await supabase.auth.getSession();if(after.error||!staffOpen||martIdentity!==identity||after.data?.session?.user?.id!==identity)throw Object.assign(Error("Staff session changed."),{code:"42501"});return result;
-  });
+  }, { onCopy: openProductCopy });
   const floorsApi = window.PLAY_ADMIN_FLOORS;
   const floorEditor = floorsApi?.mount(document.getElementById("next-mart-floors"), floorsApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => martIdentity,
@@ -303,12 +315,22 @@
 
   function canLeaveCorrection() {
     if (window.PLAY_ADMIN_REWARDS?.canLeave?.(els.trainerDetail) === false) { window.PLAY_ADMIN_REWARDS.warnBeforeLeaving(els.trainerDetail); return false; }
-    for (const tool of [corrections, staffAccess, accountTools]) {
+    for (const tool of [roster, corrections, staffAccess, accountTools]) {
       if (tool && !tool.canLeave()) { tool.warnBeforeLeaving(); return false; }
     }
     return true;
   }
 
+  function statInspectorOptions() {
+    const actorId=configIdentity;
+    if(!staffOpen||!actorId||!window.PLAY_POKEMON_INSPECTOR_ADAPTER||!window.PLAY_POKEMON_INSPECTOR_EDIT)return {};
+    return {mountInspector(context){
+      if(!staffOpen||configIdentity!==actorId||trainerSelectedId!==context.trainerId)return null;
+      const adapter=window.PLAY_POKEMON_INSPECTOR_ADAPTER.create({actorId,trainerId:context.trainerId,specimenId:context.specimenId,session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,call:(name,args)=>window.playCall(name,args),makeId:()=>window.crypto.randomUUID()});
+      const handle=window.PLAY_POKEMON_INSPECTOR_EDIT.attach(context,adapter);
+      return {...handle,reset(){adapter.reset();handle.reset();}};
+    }};
+  }
   function renderTrainerProfile(view) {
     roster?.reset(); roster = null;
     corrections?.reset(); corrections = null;
@@ -323,7 +345,7 @@
     }
     if (els.trainerDetail) window.PLAY_SUPPORT?.unmount(els.trainerDetail.querySelector("[data-support-trainer]"));
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
-    if (view.pane === "pokemon" && view.user && window.PLAY_ADMIN_ROSTER) roster = window.PLAY_ADMIN_ROSTER.mount(els.trainerDetail?.querySelector('[data-trainer-roster]'),view.user.id,window.PLAY_ADMIN_ROSTER.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,call:(_name,args)=>window.playCall("admin_trainer_pokemon",args)}),trainersUi);
+    if (view.pane === "pokemon" && view.user && window.PLAY_ADMIN_ROSTER) roster = window.PLAY_ADMIN_ROSTER.mount(els.trainerDetail?.querySelector('[data-trainer-roster]'),view.user.id,window.PLAY_ADMIN_ROSTER.adapter({session:()=>supabase.auth.getSession(),identity:()=>configIdentity,allowed:target=>staffOpen&&trainerSelectedId===target,call:(_name,args)=>window.playCall("admin_trainer_pokemon",args)}),trainersUi,statInspectorOptions());
     if (view.pane === "inventory" && view.user && window.PLAY_TRAINER_CORRECTIONS) {
       const api=window.PLAY_TRAINER_CORRECTIONS;
       corrections=api.mount(els.trainerDetail?.querySelector('[data-trainer-corrections]'),api.adapter({
@@ -530,6 +552,7 @@
   }
 
   function showTab(tab, push) {
+    if(roster?.canLeave?.()===false){roster.warnBeforeLeaving?.();return;}
     const next = resolveTab(tab);
     document.querySelectorAll("[data-next-panel]").forEach((panel) => {
       panel.hidden = panel.dataset.nextPanel !== next;
@@ -549,6 +572,7 @@
       if (analytics && staffOpen) analytics.open();
       else if (!analytics) loadHealth();
     }
+    if(next!=="mart")resetProductCopy();
     if(next!=="analytics")coinLedger?.reset();
     if(next!=="analytics")healthChecks?.reset();
     if(next!=="system")systemConnections?.hideSensitive();
@@ -653,6 +677,7 @@
     resetOperations();
     martIdentity = "";
     mart?.reset();
+    resetProductCopy();
     assets?.reset();
     trainerStyles?.reset();
     specialProductCreators.forEach(app=>app?.reset());
@@ -679,6 +704,7 @@
     if (martIdentity !== (session?.user?.id || "")) {
       martIdentity = "";
       mart?.reset();
+    resetProductCopy();
       assets?.reset();
     trainerStyles?.reset();
     specialProductCreators.forEach(app=>app?.reset());
@@ -708,6 +734,7 @@
       staffOpen = false;
       martIdentity = "";
       mart?.reset();
+    resetProductCopy();
       assets?.reset();
     trainerStyles?.reset();
     specialProductCreators.forEach(app=>app?.reset());
@@ -820,6 +847,7 @@
     if (trainerSelectedId) loadTrainerProfile(trainerSelectedId);
   });
   window.addEventListener("beforeunload", event => {
+    if(roster?.canLeave?.()===false){event.preventDefault();event.returnValue="";}
     if (window.PLAY_ADMIN_REWARDS?.canLeave?.(els.trainerDetail) === false) { event.preventDefault(); event.returnValue = ""; }
   });
   window.addEventListener("popstate", () => {

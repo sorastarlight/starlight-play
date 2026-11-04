@@ -8,7 +8,9 @@
  function eligibility(raw,now=Date.now()){
   const age=now-Date.parse(raw?.asOf),checked=Date.parse(raw?.asOf)-Date.parse(raw?.twitch?.checkedAt);
   if(raw?.ok!==true||raw.contract!=='gate-17-s1-v2'||!Number.isFinite(age)||age< -30000||age>90000||!Number.isFinite(checked)||checked<0||checked>900000||!['LIVE','OFFLINE'].includes(raw.twitch?.state)||raw.twitch.known!==true||raw.twitch.stale!==false)return {start:false,end:false,message:'A fresh, known observation is required. Reload session status; controls stay unavailable until Twitch status is confirmed.'};
-  const r=raw.rpgSession;if(!r||r.directorRowPresent!==true||!Object.hasOwn(raw,'currentEncounter')||![null,'object'].includes(raw.currentEncounter===null?null:typeof raw.currentEncounter))return {start:false,end:false,message:'Session state is incomplete. Reload before acting.'};
+  const r=raw.rpgSession;
+  const encounter=raw.currentEncounter;
+  if(!r||r.directorRowPresent!==true||(encounter!==null&&(typeof encounter!=='object'||Array.isArray(encounter))))return {start:false,end:false,message:'Session state is incomplete. Reload before acting.'};
   const inactive=r.state==='INACTIVE'&&r.active===false,active=r.state==='ACTIVE'&&r.active===true&&typeof r.sessionId==='string'&&!!r.sessionId&&r.sessionRowPresent===true&&r.sessionEndedAt==null;
   return {valid:inactive||active,start:raw.twitch.state==='LIVE'&&inactive&&raw.currentEncounter===null,end:active&&raw.currentEncounter===null,message:raw.currentEncounter!==null?'Finish or cancel the active encounter before ending a session.':inactive?(raw.twitch.state==='LIVE'?'Starting enables Normal mode and automatic encounters; the first encounter may be scheduled.':'Start is unavailable while Twitch is offline. Manual encounter controls are below.'):active?'Ending clears the next encounter and any queued special. Twitch can remain live.':'Session state is incomplete. Reload before acting.'};
  }

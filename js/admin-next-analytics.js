@@ -82,10 +82,10 @@
     const cache = new Map();
     async function load(force = false) {
       if (!active || state.view === "health") return;
-      if (state.phase === "loading" && !force) return;
       // Refresh is single-flight; changing view/range invalidates that request separately.
       if (state.phase === "loading") return;
-      const key = `${state.view}:${state.days}`, cached = cache.get(key);
+      const key = state.view === "captures" ? `captures:${state.days}` : state.view;
+      const cached = cache.get(key);
       if (cached && !force) { Object.assign(state, cached); update(state); return; }
       const currentEpoch = epoch, request = ++serial, view = state.view, days = state.days;
       Object.assign(state, { phase: "loading", report: null, observed: null }); update(state);

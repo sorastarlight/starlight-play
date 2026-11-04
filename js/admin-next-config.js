@@ -51,8 +51,10 @@
     async function load() {
       if (!active || ["loading", "saving"].includes(state.phase)) return;
       const request = ++epoch;
-      Object.assign(state, { phase: "loading", current: null, draft: null, uncertain: false, message: "Loading reward configuration…" }); emit();
+      Object.assign(state, { phase: "loading", current: null, draft: null, uncertain: false, message: "Loading reward configuration…" });
       try {
+        emit();
+        if (!active || request !== epoch) return;
         const raw = await transport("admin_economy_overview");
         if (!active || request !== epoch) return;
         const current = project(raw);

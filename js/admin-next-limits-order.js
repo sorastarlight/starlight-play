@@ -28,7 +28,7 @@ async function save(reviewed){
   emit();if(!active||token!==epoch)return;sent=true;
   const receipt=await transport(write,args);if(!active||token!==epoch)return;
   if(capture){if(receipt?.ok!==true)throw Error('Unconfirmed');const stored=bounds(receipt.balance);if(Object.entries(proposed).some(([k,v])=>stored[k]!==v))throw Error('Unconfirmed');}
-  else{const stored=categories(receipt);if(stored.length!==proposed.p_ids.length||stored.some((r,i)=>r.id!==proposed.p_ids[i]))throw Error('Unconfirmed');}
+  else{const stored=categories(receipt);if(stored.length!==proposed.p_ids.length||stored.some((r,i)=>r.id!==proposed.p_ids[i]))throw Error('Unconfirmed');state.current=stored;}
   confirmed=true;state.message='Changes saved. Reload to verify stored values before editing again.';
  }catch(error){
   if(!active||token!==epoch)return;

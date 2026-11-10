@@ -82,6 +82,7 @@
         if (!active || request !== epoch) return;
         const returned = project(receipt);
         if (Object.keys(changes).some(key => returned[key] !== changes[key])) throw Error("Unconfirmed receipt.");
+        state.current = returned;
         confirmed = true;
         state.message = "Save acknowledged. Reload to verify the stored reward settings before editing again.";
       } catch (error) {

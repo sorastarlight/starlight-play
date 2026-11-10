@@ -10,7 +10,7 @@ const uuid=x=>typeof x==='string'&&/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f
 const keys='blurb,categoryId,cost,name,quantity,reward,sku',max=2147483647;
 const normalize=x=>String(x??'').normalize('NFKD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
 const matches=(text,q)=>normalize(q).split(/\s+/).filter(Boolean).every(w=>normalize(text).includes(w));
-function floor(r){return object(r)&&uuid(r.id)&&r.kind==='coins'&&r.system===false&&typeof r.name==='string'&&r.name.trim().length>0;}
+function floor(r){return object(r)&&uuid(r.id)&&((r.kind==='coins'&&(r.system===false||(r.system===true&&['field-kit','berries','evolution'].includes(r.key))))||(r.kind==='balls'&&r.system===true&&r.key==='balls'))&&typeof r.name==='string'&&r.name.trim().length>0;}
 function empty(){return{sku:'',categoryId:'',name:'',blurb:'',reward:'pokeball',quantity:1,cost:0};}
 function payload(d,options=items){
  if(!object(d)||Object.keys(d).sort().join(',')!==keys||!uuid(d.categoryId)||typeof d.sku!=='string'||d.sku.length>40||!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(d.sku)||typeof d.name!=='string'||!d.name.trim()||d.name.trim().length>120||typeof d.blurb!=='string'||d.blurb.length>500||!(options===null?typeof d.reward==='string'&&/^[a-z0-9_]{1,64}$/.test(d.reward)&&d.reward!=='masterball':options.some(i=>i.key===d.reward))||!Number.isInteger(d.quantity)||d.quantity<1||d.quantity>max||!Number.isInteger(d.cost)||d.cost<0||d.cost>max)throw Error('Complete the draft with a valid code, category, item, quantity and whole PokéCoin price.');

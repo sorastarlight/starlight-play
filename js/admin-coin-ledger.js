@@ -1,4 +1,4 @@
-/* Prepared native read-only transaction view. Not mounted by the production Hub. */
+/* Native read-only transaction view. Reports load only through the explicit staff action. */
 (function(root,factory){const api=factory();if(typeof module==='object'&&module.exports)module.exports=api;else root.PLAY_ADMIN_COIN_LEDGER=api;})(globalThis,()=>{
   'use strict';
   const object=x=>x&&typeof x==='object'&&!Array.isArray(x);
@@ -66,12 +66,30 @@
     if(!host)return null;
     const doc=host.ownerDocument;let dialog=null,opener=null;
     host.classList.add('admin-coin-ledger');
-    host.innerHTML='<h3>PokéCoin transactions</h3><p>Review recorded changes to trainer balances. This view does not change PokéCoins.</p><div class="ledger-toolbar"><label>Transactions per page<select data-ledger-size><option>20</option><option selected>40</option><option>100</option></select></label><button type="button" data-ledger-refresh>Refresh</button></div><p data-ledger-status role="status" tabindex="-1"></p><div data-ledger-results></div><div class="ledger-pager"><button type="button" data-ledger-newer>Newer</button><span data-ledger-count></span><button type="button" data-ledger-older>Older</button></div>';
+    host.innerHTML='<h3>PokéCoin transactions</h3><p>Review recorded changes to trainer balances. This view does not change PokéCoins.</p><div class="ledger-toolbar"><label>Transactions per page<select data-ledger-size><option>20</option><option selected>40</option><option>100</option></select></label><button type="button" data-ledger-refresh>Refresh</button></div><p data-ledger-status aria-live="polite" aria-atomic="true" tabindex="-1"></p><div data-ledger-results></div><div class="ledger-pager"><button type="button" data-ledger-newer>Newer</button><span data-ledger-count></span><button type="button" data-ledger-older>Older</button></div>';
     const find=s=>host.querySelector(s),close=()=>{dialog?.close();dialog?.remove();dialog=null;};
+    const status = find('[data-ledger-status]');
+    let announcementTimer;
+    function announce(message, completed) {
+      const view = doc.defaultView;
+      view?.clearTimeout(announcementTimer);
+      const update = () => {
+        if (status.textContent === message) return;
+        if (completed) {
+          const notice = doc.createElement('span');
+          notice.setAttribute('role', 'alert');
+          notice.setAttribute('aria-live', 'polite');
+          notice.textContent = message;
+          status.replaceChildren(notice);
+        } else status.textContent = message;
+      };
+      if (completed && view) announcementTimer = view.setTimeout(update, 180);
+      else update();
+    }
     const model=controller(read,s=>{
       close();const busy=s.phase==='loading';
       find('[data-ledger-results]').innerHTML=results(s.report);
-      find('[data-ledger-status]').textContent=busy?'Loading transactions…':s.phase==='denied'?'Staff access could not be confirmed. Reopen the workspace after signing in.':s.phase==='error'?'Transactions could not load. Refresh to try again.':s.report?'Retrieved '+stamp(s.observed)+'. Times are local to your device.':'No transaction report loaded.';
+      announce(busy?'Loading transactions…':s.phase==='denied'?'Staff access could not be confirmed. Reopen the workspace after signing in.':s.phase==='error'?'Transactions could not load. Refresh to try again.':s.report?'Retrieved '+stamp(s.observed)+'. Times are local to your device.':'No transaction report loaded.', !!s.report || s.phase === 'error' || s.phase === 'denied');
       find('[data-ledger-results]').setAttribute('aria-busy',String(busy));find('[data-ledger-refresh]').disabled=busy;find('[data-ledger-refresh]').textContent=s.phase==='closed'?'Load transactions':'Refresh';find('[data-ledger-size]').disabled=busy||s.phase==='closed';find('[data-ledger-size]').value=String(s.limit);
       find('[data-ledger-newer]').disabled=busy||!s.history.length;find('[data-ledger-older]').disabled=busy||!s.report?.hasMore;find('[data-ledger-count]').textContent=s.report?s.report.rows.length+' shown':'';
     });

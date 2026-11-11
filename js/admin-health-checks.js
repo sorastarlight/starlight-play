@@ -74,12 +74,30 @@
  }
  function mount(host,read){
   if(!host)return null;
-  host.innerHTML=`<div class="health-check-toolbar"><label>Choose a check<select data-check-view>${Object.entries(titles).map(([v,t])=>`<option value="${v}">${esc(t)}</option>`).join('')}</select></label><button type="button" data-check-load>Load check</button></div><p data-check-note></p><p role="status" data-check-status></p><div data-check-results></div>`;
+  host.innerHTML=`<div class="health-check-toolbar"><label>Choose a check<select data-check-view>${Object.entries(titles).map(([v,t])=>`<option value="${v}">${esc(t)}</option>`).join('')}</select></label><button type="button" data-check-load>Load check</button></div><p data-check-note></p><p aria-live="polite" aria-atomic="true" data-check-status></p><div data-check-results></div>`;
   const select=host.querySelector('select'),button=host.querySelector('button'),status=host.querySelector('[data-check-status]'),results=host.querySelector('[data-check-results]');
+let announcementTimer;
+ function announce(message, completed) {
+   const view = host.ownerDocument?.defaultView;
+   if (view) view.clearTimeout(announcementTimer);
+   const update = () => {
+     if (status.textContent === message) return;
+     if (completed && view && status.replaceChildren) {
+       const notice = status.ownerDocument.createElement("span");
+       notice.setAttribute("role", "alert");
+       notice.setAttribute("aria-live", "polite");
+       notice.textContent = message;
+       status.replaceChildren(notice);
+     } else status.textContent = message;
+   };
+   // Let Firefox expose the updated controls before dispatching a live text event.
+   if (view?.requestAnimationFrame && message) announcementTimer = view.setTimeout(update, 180);
+   else update();
+ }
   const ui=controller(read,state=>{
-   select.value=state.view;host.querySelector('[data-check-note]').textContent=notes[state.view];host.setAttribute('aria-busy',String(state.phase==='loading'));button.disabled=state.phase==='closed'||state.phase==='loading';button.textContent=state.report?'Refresh check':'Load check';
+   select.value=state.view;host.querySelector('[data-check-note]').textContent=notes[state.view];results.setAttribute('aria-busy',String(state.phase==='loading'));button.disabled=state.phase==='closed'||state.phase==='loading';button.textContent=state.report?'Refresh check':'Load check';
    const labels={closed:'Staff session ended. Reopen Checks to continue.',idle:'Choose Load check when you are ready.',loading:'Loading check…',error:'Couldn’t load this check. Choose Load check to try again.',findings:'Findings need review. No repairs have been made.',partial:state.report?.truncated?'Partial results. Some rows or notes were shortened.':'Some results are unavailable. This is not a complete check.',clear:'No findings in the checks listed below.',information:'Statistics loaded. These totals do not establish accounting or reward health.'};
-   status.textContent=labels[state.phase]+(state.report?.partial&&state.phase==='findings'?(state.report.truncated?' Some rows or notes were shortened.':' Some results are also unavailable.'):'')+(state.at?' Updated '+new Date(state.at).toLocaleString(undefined,{timeZoneName:'short'})+' (your device time).':'');
+  announce(labels[state.phase]+(state.report?.partial&&state.phase==='findings'?(state.report.truncated?' Some rows or notes were shortened.':' Some results are also unavailable.'):'')+(state.at?' Updated '+new Date(state.at).toLocaleString(undefined,{timeZoneName:'short'})+' (your device time).':''), !!state.report || state.phase === 'error');
    results.innerHTML=state.report?`<div class="health-check-metrics" data-count="${state.report.metrics.length}">${state.report.metrics.map(m=>`<article><h4>${esc(m.label)}</h4><strong>${m.display!==undefined?esc(m.display):m.value===null?'Unavailable':esc(m.value.toLocaleString())}</strong><p>${esc(m.scope)}</p></article>`).join('')}</div><div class="health-check-tables">${state.report.tables.map(t=>`<div class="health-check-table"><table><caption>${esc(t.title)}</caption><thead><tr>${t.columns.map(c=>`<th scope="col">${esc(c)}</th>`).join('')}</tr></thead><tbody>${t.rows===null?`<tr><td colspan="${t.columns.length}">Unavailable</td></tr>`:!t.rows.length?`<tr><td colspan="${t.columns.length}">${esc(t.empty||(state.view==='captures'?'No self-test results were returned.':'No recorded collisions.'))}</td></tr>`:t.rows.map(r=>`<tr>${r.map(c=>`<td>${esc(c)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`).join('')}</div>`:'';
   });
   select.addEventListener('change',()=>ui.select(select.value));button.addEventListener('click',()=>ui.load());ui.reset();return ui;

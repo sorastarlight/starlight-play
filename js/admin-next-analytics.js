@@ -110,10 +110,37 @@
   }
   function mount(root, read, health, openHealth) {
     if (!root || !health) return null;
-    root.innerHTML = `<div class="analytics-tabs" role="tablist" aria-label="Game reports">${Object.entries(titles).map(([key, title]) => `<button type="button" role="tab" id="report-tab-${key}" aria-controls="${key === "health" ? "next-analytics-health" : "report-panel"}" data-report="${key}" aria-selected="${key === "health"}" tabindex="${key === "health" ? 0 : -1}">${esc(title)}</button>`).join("")}</div><section id="report-panel" role="tabpanel" tabindex="0" hidden><h3 id="report-heading"></h3><p class="analytics-context"></p><form class="analytics-toolbar"><label>Capture range (days)<input name="days" type="number" min="1" max="365" step="1" required value="30"></label><button type="submit">Apply range</button><button type="button" data-refresh>Refresh report</button></form><p class="analytics-status" role="status"></p><div class="analytics-results"></div></section>`;
+    root.innerHTML = `<div class="analytics-tabs" role="tablist" aria-label="Game reports">${Object.entries(titles).map(([key, title]) => `<button type="button" role="tab" id="report-tab-${key}" aria-controls="${key === "health" ? "next-analytics-health" : "report-panel"}" data-report="${key}" aria-selected="${key === "health"}" tabindex="${key === "health" ? 0 : -1}">${esc(title)}</button>`).join("")}</div><section id="report-panel" role="tabpanel" tabindex="0" hidden><h3 id="report-heading"></h3><p class="analytics-context"></p><p tabindex="-1" class="analytics-status" aria-live="polite" aria-atomic="true"></p><form class="analytics-toolbar"><label>Capture range (days)<input name="days" type="number" min="1" max="365" step="1" required value="30"></label><button type="submit">Apply range</button><button type="button" data-refresh>Refresh report</button></form><div class="analytics-results"></div></section>`;
     const panel = root.querySelector("#report-panel"), form = root.querySelector("form"), input = form.elements.days;
     const status = root.querySelector(".analytics-status"), results = root.querySelector(".analytics-results"), refresh = root.querySelector("[data-refresh]");
     health.setAttribute("role", "tabpanel"); health.setAttribute("aria-labelledby", "report-tab-health"); health.tabIndex = 0;
+let announcementTimer, requestControl;
+ function announce(message, completed) {
+   const view = root.ownerDocument?.defaultView;
+   if (!completed) {
+     requestControl = root.ownerDocument?.activeElement;
+     status.setAttribute("aria-live", "polite");
+   }
+   if (view) view.clearTimeout(announcementTimer);
+   const update = () => {
+     if (status.textContent === message) return;
+     const trigger = root.ownerDocument?.activeElement;
+     if (completed && view && trigger === requestControl && trigger?.matches?.("[data-report], [data-refresh], .analytics-toolbar [type=submit]") && root.contains(trigger) && !panel.hidden) {
+       status.setAttribute("aria-live", "off");
+       status.textContent = message;
+       status.focus({preventScroll:true});
+     } else if (completed && view && status.replaceChildren) {
+       const notice = status.ownerDocument.createElement("span");
+       notice.setAttribute("role", "alert");
+       notice.setAttribute("aria-live", "polite");
+       notice.textContent = message;
+       status.replaceChildren(notice);
+     } else status.textContent = message;
+   };
+   // Let Firefox expose the updated controls before dispatching a live text event.
+   if (view?.requestAnimationFrame && message) announcementTimer = view.setTimeout(update, 180);
+   else update();
+ }
     const ui = controller(read, state => {
       health.hidden = state.view !== "health"; panel.hidden = state.view === "health";
       const focusedTab = root.contains(root.ownerDocument.activeElement) && root.ownerDocument.activeElement.matches?.("[data-report]") ? root.ownerDocument.activeElement.dataset.report : null;
@@ -121,8 +148,8 @@
       panel.setAttribute("aria-labelledby", `report-tab-${state.view}`);
       root.querySelector("#report-heading").textContent = titles[state.view]; root.querySelector(".analytics-context").textContent = contexts[state.view] || "";
       form.querySelector("label").hidden = state.view !== "captures"; form.querySelector("[type=submit]").hidden = state.view !== "captures";
-      refresh.setAttribute("aria-disabled", String(state.phase === "loading")); panel.setAttribute("aria-busy", String(state.phase === "loading"));
-      status.textContent = state.phase === "loading" ? "Loading report…" : state.phase === "error" ? "Couldn’t load this report. Choose Refresh report to try again." : state.report ? `${state.report.partial ? "Partial report. Some values are unavailable. " : ""}Updated ${reportTime(state.observed)} (your device time).${state.view === "captures" ? ` Showing ${state.days} days, starting ${reportTime(state.report.since)}.` : ""}` : "No report loaded.";
+      refresh.setAttribute("aria-disabled", String(state.phase === "loading")); results.setAttribute("aria-busy", String(state.phase === "loading"));
+  announce(state.view === "health" ? "" : state.phase === "loading" ? "Loading report…" : state.phase === "error" ? "Couldn’t load this report. Choose Refresh report to try again." : state.report ? `${state.report.partial ? "Partial report. Some values are unavailable. " : ""}Updated ${reportTime(state.observed)} (your device time).${state.view === "captures" ? ` Showing ${state.days} days, starting ${reportTime(state.report.since)}.` : ""}` : "No report loaded.", state.view !== "health" && (state.phase === "error" || !!state.report));
       results.innerHTML = state.report ? `<div class="analytics-metrics">${state.report.cards.map(card => `<article class="analytics-metric"><p>${esc(card.label)}</p><strong>${esc(card.text ?? format(card.value))}</strong><small>${esc(card.scope)}</small></article>`).join("")}</div>${state.report.tables.map(table => `<div class="analytics-table-wrap"><table><caption>${esc(table.title)}</caption><thead><tr>${table.headings.map(heading => `<th scope="col">${esc(heading)}</th>`).join("")}</tr></thead><tbody>${table.rows === null ? `<tr><td colspan="${table.headings.length}">Unavailable</td></tr>` : table.rows.length ? table.rows.map(row => `<tr>${row.map(cell => `<td>${esc(cell)}</td>`).join("")}</tr>`).join("") : `<tr><td colspan="${table.headings.length}">No recorded activity in this window.</td></tr>`}</tbody></table></div>`).join("")}` : "";
     });
     root.querySelector("[role=tablist]").addEventListener("click", event => { const button = event.target.closest("[data-report]"); if (!button) return; ui.select(button.dataset.report); if (button.dataset.report === "health") openHealth(); });

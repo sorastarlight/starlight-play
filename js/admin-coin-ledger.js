@@ -69,7 +69,7 @@
     host.innerHTML='<h3>PokéCoin transactions</h3><p>Review recorded changes to trainer balances. This view does not change PokéCoins.</p><div class="ledger-toolbar"><label>Transactions per page<select data-ledger-size><option>20</option><option selected>40</option><option>100</option></select></label><button type="button" data-ledger-refresh>Refresh</button></div><p data-ledger-status aria-live="polite" aria-atomic="true" tabindex="-1"></p><div data-ledger-results></div><div class="ledger-pager"><button type="button" data-ledger-newer>Newer</button><span data-ledger-count></span><button type="button" data-ledger-older>Older</button></div>';
     const find=s=>host.querySelector(s),close=()=>{dialog?.close();dialog?.remove();dialog=null;};
     const status = find('[data-ledger-status]');
-    let announcementTimer;
+    let announcementTimer, pageDirection = '';
     function announce(message, completed) {
       const view = doc.defaultView;
       view?.clearTimeout(announcementTimer);
@@ -89,11 +89,13 @@
     const model=controller(read,s=>{
       close();const busy=s.phase==='loading';
       find('[data-ledger-results]').innerHTML=results(s.report);
-      announce(busy?'Loading transactions…':s.phase==='denied'?'Staff access could not be confirmed. Reopen the workspace after signing in.':s.phase==='error'?'Transactions could not load. Refresh to try again.':s.report?'Retrieved '+stamp(s.observed)+'. Times are local to your device.':'No transaction report loaded.', !!s.report || s.phase === 'error' || s.phase === 'denied');
+      const pageSummary = pageDirection && s.report ? pageDirection + ' transactions. Page ' + (s.history.length + 1) + '. ' + s.report.rows.length + (s.report.rows.length === 1 ? ' transaction shown.' : ' transactions shown.') : '';
+      if (!busy) pageDirection = '';
+      announce(busy?(pageDirection?'':'Loading transactions…'):s.phase==='denied'?'Staff access could not be confirmed. Reopen the workspace after signing in.':s.phase==='error'?'Transactions could not load. Refresh to try again.':pageSummary || (s.report?'Retrieved '+stamp(s.observed)+'. Times are local to your device.':'No transaction report loaded.'), !!s.report || s.phase === 'error' || s.phase === 'denied');
       find('[data-ledger-results]').setAttribute('aria-busy',String(busy));find('[data-ledger-refresh]').disabled=busy;find('[data-ledger-refresh]').textContent=s.phase==='closed'?'Load transactions':'Refresh';find('[data-ledger-size]').disabled=busy||s.phase==='closed';find('[data-ledger-size]').value=String(s.limit);
       find('[data-ledger-newer]').disabled=busy||!s.history.length;find('[data-ledger-older]').disabled=busy||!s.report?.hasMore;find('[data-ledger-count]').textContent=s.report?s.report.rows.length+' shown':'';
     });
-    find('[data-ledger-refresh]').onclick=()=>model.state.phase==='closed'?model.open():model.refresh();find('[data-ledger-older]').onclick=()=>model.older();find('[data-ledger-newer]').onclick=()=>model.newer();find('[data-ledger-size]').onchange=e=>model.size(Number(e.target.value));
+    find('[data-ledger-refresh]').onclick=()=>model.state.phase==='closed'?model.open():model.refresh();for (const direction of ['older','newer']) find('[data-ledger-'+direction+']').onclick=()=>{pageDirection=direction==='older'?'Older':'Newer';status.focus();return model[direction]();};find('[data-ledger-size]').onchange=e=>model.size(Number(e.target.value));
     host.addEventListener('click',e=>{
       const button=e.target.closest('[data-ledger-detail]');if(!button||!host.contains(button)||dialog)return;
       const row=model.state.report?.rows.find(r=>r.id===button.dataset.ledgerDetail);if(!row)return;opener=button;

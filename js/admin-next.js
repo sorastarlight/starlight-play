@@ -189,6 +189,7 @@
   let trainerListGen = 0;
   let trainerProfileGen = 0;
   let trainerDirLoaded = false;
+  let trainerDirectoryPresentation = 0;
   let trainerAccount = null;
   let trainerIdentity = null;
 
@@ -298,19 +299,33 @@
     if (els.trainerDetailWrap) els.trainerDetailWrap.hidden = true;
     if (els.trainerList) els.trainerList.innerHTML = "";
     if (els.trainerDetail) els.trainerDetail.innerHTML = "";
-    if (els.trainerListStatus) els.trainerListStatus.textContent = "Open this tab to load the first page of trainers.";
+    if (els.trainerListStatus) { els.trainerListStatus.removeAttribute("aria-label"); els.trainerListStatus.textContent = "Open this tab to load the first page of trainers."; }
     if (els.trainerDetailStatus) els.trainerDetailStatus.textContent = "";
     if (els.trainerPrev) els.trainerPrev.disabled = true;
     if (els.trainerNext) els.trainerNext.disabled = true;
   }
 
   function renderTrainerDirectory(view) {
-    if (els.trainerListStatus) els.trainerListStatus.textContent = view.status;
+    trainerDirectoryPresentation++;
+    if (els.trainerListStatus) { els.trainerListStatus.removeAttribute('aria-label'); els.trainerListStatus.textContent = view.status; }
     if (els.trainerList) els.trainerList.innerHTML = trainersUi.directoryHtml ? trainersUi.directoryHtml(view) : "";
     if (els.trainerPrev) els.trainerPrev.disabled = !view.canPrev;
     if (els.trainerNext) els.trainerNext.disabled = !view.canNext;
     const pager = els.trainerPrev && els.trainerPrev.parentElement;
     if (pager) pager.hidden = !view.showPager;
+  }
+
+  function announceTrainerDirectory(gen) {
+    const status = els.trainerListStatus, version = trainerDirectoryPresentation;
+    if (!status) return;
+    const text = status.textContent;
+    window.setTimeout(() => {
+      if (gen !== trainerListGen || version !== trainerDirectoryPresentation || !staffOpen || currentTab() !== 'trainers' || trainerSelectedId || document.hidden || !status.isConnected) return;
+      const active = document.activeElement;
+      if (active !== document.body && !els.trainerRoot?.contains(active)) return;
+      const visible = document.createElement('span'); visible.setAttribute('aria-hidden','true'); visible.textContent = text;
+      status.replaceChildren(visible); status.setAttribute('aria-label',text); status.setAttribute('tabindex','-1'); status.focus({preventScroll:true});
+    }, 180);
   }
 
   function canLeaveCorrection() {
@@ -397,12 +412,14 @@
         query: trainerQuery,
         selectedId: trainerSelectedId
       }));
+      announceTrainerDirectory(gen);
     } catch (error) {
       if (gen !== trainerListGen) return;
       const kind = classifyTrainerError(error);
       if (kind === "denied") {
         resetTrainers();
         renderTrainerDirectory(trainersUi.presentDirectory({ error: "denied", query: trainerQuery }));
+        announceTrainerDirectory(trainerListGen);
         return;
       }
       renderTrainerDirectory(trainersUi.presentDirectory({
@@ -413,6 +430,7 @@
         total: trainerTotal,
         offset: trainerOffset
       }));
+      announceTrainerDirectory(gen);
     }
   }
 

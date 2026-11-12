@@ -90,7 +90,7 @@ test("Presenter renders directory, empty, denied, and identity keys", () => {
   });
   const profileHtml = trainers.profileHtml(profile);
   assert(profileHtml.includes("Ash"));
-  assert(profileHtml.includes("Password login present"));
+  assert(profileHtml.includes("Password sign-in"));
   assert(!profileHtml.includes("Grant"));
   assert(!profileHtml.includes("unlink"));
 });

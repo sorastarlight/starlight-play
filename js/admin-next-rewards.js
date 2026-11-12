@@ -34,6 +34,17 @@
   }
   const speciesArt=(dex,shiny=false)=>`images/pokemon/home/${shiny?"shiny/":""}${Number(dex)}.png`;
   const speciesChoice=(dex,candy=false)=>`<img src="${candy?candyArt(dex):speciesArt(dex)}" width="64" height="64" loading="lazy" alt=""><span><strong>${esc(candy?candyName(dex):speciesName(dex))}</strong><small>#${String(dex).padStart(3,"0")}</small></span>`;
+  function updateSearchCount(output,text){
+    output.removeAttribute('aria-label');
+    output.textContent=text;
+  }
+  function focusSearchCount(output){
+    const text=output.textContent;
+    output.tabIndex=-1;
+    output.setAttribute('aria-label',text);
+    output.innerHTML='<span aria-hidden="true">'+esc(text)+'</span>';
+    output.focus({preventScroll:true});
+  }
   let openDialog=null;
   function modal(content,label,opener){
     openDialog?.close();
@@ -47,10 +58,11 @@
     const candy=form.elements.namedItem("gift_kind")?.value==="candy";
     const opener=form.querySelector('[data-species-picker]');
     const dialog=modal(`<header><div><p class="eyebrow">${candy?"Choose a candy family":"Choose a Pokémon"}</p><h3>Find your gift</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-picker-filters"><label>Generation<select data-generation>${generations().map(g=>`<option value="${esc(g.id)}">${esc(g.name)}</option>`).join("")}</select></label><label>Search Pokémon<input type="search" data-species-search placeholder="Name or Pokédex number" autocomplete="off"></label></div><p class="record-note">${candy?"Evolution Candy is shared by the whole family. Searching an evolved Pokémon finds its family candy. ":""}Only released generations are available. More generations will appear here when enabled for gifts.</p><p role="status" data-picker-count></p><div class="reward-species-grid" data-species-grid></div>`,candy?"Choose a candy family":"Choose a Pokémon",opener);
-    const draw=()=>{const generation=generations().find(g=>g.id===dialog.querySelector('[data-generation]').value);const found=searchSpecies(dialog.querySelector('[data-species-search]').value,generation);const matches=candy?[...new Set(found.map(candyLine))]:found;dialog.querySelector('[data-picker-count]').textContent=`${matches.length} ${candy?(matches.length===1?"candy family":"candy families"):"Pokémon"}`;dialog.querySelector('[data-species-grid]').innerHTML=matches.length?matches.map(dex=>`<button type="button" data-pick-dex="${dex}" aria-label="${esc(candy?candyName(dex):speciesName(dex))}, number ${dex}">${speciesChoice(dex,candy)}</button>`).join(""):"<p>No Pokémon match. Try a name or dex number.</p>";};
+    const draw=()=>{const generation=generations().find(g=>g.id===dialog.querySelector('[data-generation]').value);const found=searchSpecies(dialog.querySelector('[data-species-search]').value,generation);const matches=candy?[...new Set(found.map(candyLine))]:found;updateSearchCount(dialog.querySelector('[data-picker-count]'),`${matches.length} ${candy?(matches.length===1?"candy family":"candy families"):"Pokémon"}`);dialog.querySelector('[data-species-grid]').innerHTML=matches.length?matches.map(dex=>`<button type="button" data-pick-dex="${dex}" aria-label="${esc(candy?candyName(dex):speciesName(dex))}, number ${dex}">${speciesChoice(dex,candy)}</button>`).join(""):"<p>No Pokémon match. Try a name or dex number.</p>";};
     dialog.addEventListener('input',event=>{if(event.target.matches('[data-species-search]'))draw();});
     dialog.addEventListener('change',event=>{if(event.target.matches('[data-generation]'))draw();});
     dialog.addEventListener('click',event=>{const choice=event.target.closest('[data-pick-dex]');if(!choice)return;if(!current()){dialog.close();return;}form.elements.namedItem('dex').value=choice.dataset.pickDex;opener.innerHTML=speciesChoice(choice.dataset.pickDex,candy)+`<span>${candy?"Change candy family":"Change Pokémon"}</span>`;dialog.close();});
+    dialog.addEventListener('keydown',event=>{if(event.key==='Enter'&&event.target.matches('[data-species-search]')){event.preventDefault();focusSearchCount(dialog.querySelector('[data-picker-count]'));}});
     draw();dialog.querySelector('[data-species-search]').focus();
   }
   function reviewSummary(intent,data){
@@ -206,13 +218,14 @@
       if(current())slot.innerHTML=`<h4>${pane==="pass"?"Starlight Pass":"Gifts"}</h4><p class="record-note">${error?.code==="42501"?"These tools require owner or admin permission.":"Reward history is unavailable. No account changes are available here. Reload the trainer record to try again."}</p>`;
       return;
     }
+    slot.addEventListener('keydown',event=>{if(event.key==='Enter'&&event.target.matches('[data-gift-search]')){event.preventDefault();focusSearchCount(event.target.form.querySelector('[data-choice-count]'));}});
     slot.addEventListener('input',event=>{
       if(!event.target.matches('[data-gift-search]')||ctx.busy||ctx.pending||ctx.confirmed||!current())return;
       const form=event.target.form,select=form.querySelector('[data-gift-choice]');
       const rows=giftChoices(ctx.data,form.elements.namedItem('gift_kind').value,event.target.value);
       const selected=rows.some(row=>row.id===select.value)?select.value:"";
       select.innerHTML=choiceOptions(rows,selected);
-      form.querySelector('[data-choice-count]').textContent=rows.length?`Matches: ${rows.length}`:"No matching rewards. Try another name.";
+      updateSearchCount(form.querySelector('[data-choice-count]'),rows.length?`Matches: ${rows.length}`:"No matching rewards. Try another name.");
     });
     slot.addEventListener('change',(event)=>{
       if(event.target.name!=="gift_kind"||ctx.busy||ctx.pending||ctx.confirmed)return;

@@ -1,4 +1,4 @@
-/* Disconnected local stat-correction workflow. No page import, endpoint names or live transport. */
+/* Trainer stat-correction workflow; reads and corrections use supplied adapters. */
 (function(root,factory){const local=typeof module==='object'&&module.exports,api=factory(local?require('./admin-pokemon-correction-plan'):root.PLAY_POKEMON_CORRECTION_PLAN,local?require('./admin-pokemon-correction-recovery'):root.PLAY_POKEMON_CORRECTION_RECOVERY);if(local)module.exports=api;else root.PLAY_POKEMON_CORRECTION_TRANSACTION=api;})(typeof window==='undefined'?globalThis:window,(planner,recovery)=>{
  'use strict';const clone=x=>JSON.parse(JSON.stringify(x)),uuid=x=>typeof x==='string'&&/^[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}$/i.test(x);
  function create({load,submit,verify,readReceipt,update=()=>{}}){
@@ -20,20 +20,33 @@
  }
  const esc=x=>String(x??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
  function mount(host,adapters){
-  if(!host)return null;let ui;
+  if(!host)return null;let ui,presentation=0,ownedFocus=false,focusOrigin=null;
+  function focusResult(node,version){
+   if(!node||!host.ownerDocument)return;
+   const doc=host.ownerDocument,dialog=host.closest?.('dialog');
+   setTimeout(()=>{
+    if(version!==presentation||!host.isConnected||doc.hidden||(dialog&&!dialog.open))return;
+    const active=doc.activeElement;
+    if(active!==focusOrigin&&!(ownedFocus&&active===doc.body))return;
+    if(node.matches('[data-stat-error]')){const text=node.textContent,visible=doc.createElement('span');visible.setAttribute('aria-hidden','true');visible.textContent=text;node.replaceChildren(visible);node.setAttribute('aria-label',text);}
+    node.setAttribute('tabindex','-1');node.focus({preventScroll:true});
+   },180);
+  }
   const labels={level:'Level',nature_id:'Nature',hp:'HP',atk:'Attack',def:'Defense',spa:'Sp. Attack',spd:'Sp. Defense',spe:'Speed'};
   const label=k=>labels[k]||(k.startsWith('iv_')?'IV · ':'EV · ')+(labels[k.slice(3)]||k);
   ui=create({...adapters,update:s=>{
+   const version=++presentation,doc=host.ownerDocument,dialog=host.closest?.('dialog');
+   if(doc&&(['loading','checking','inspecting'].includes(s.phase)||(s.phase==='review'&&(host.contains(doc.activeElement)||dialog?.contains(doc.activeElement))))){focusOrigin=doc.activeElement;ownedFocus=host.contains(focusOrigin)||!!dialog?.contains(focusOrigin);}
    adapters.onState?.(clone(s));
-   if(s.phase==='empty'){host.innerHTML='';return;}
+   if(s.phase==='empty'&&!s.message){ownedFocus=false;host.innerHTML='';return;}
    const snapshot=s.snapshot,editing=s.phase==='editing',review=s.phase==='review';
    let body='';
-   if(editing&&snapshot){body='<form data-stat-form><table><thead><tr><th>Stat</th><th>Current</th><th>New value</th></tr></thead><tbody>'+Object.entries(snapshot.constraints).filter(([,rule])=>rule.editable===true).map(([key,rule])=>'<tr><th>'+esc(label(key))+'</th><td>'+esc(snapshot.values[key])+'</td><td>'+(key==='nature_id'?'<select name="'+esc(key)+'">'+rule.allowed.map(id=>'<option value="'+id+'" '+(id===snapshot.values[key]?'selected':'')+'>'+esc(snapshot.natureNames?.[id]||('Nature '+id))+'</option>').join('')+'</select>':'<input name="'+esc(key)+'" aria-label="New '+esc(label(key))+'" type="number" min="'+rule.min+'" max="'+rule.max+'" step="1" value="'+esc(snapshot.values[key])+'" required>')+'</td></tr>').join('')+'</tbody></table><label>Staff reason<textarea name="reason" minlength="3" maxlength="500" required></textarea></label><button type="submit">Review correction</button></form>';}
+   if(editing&&snapshot){body='<form data-stat-form><table><thead><tr><th>Stat</th><th>Current</th><th>New value</th></tr></thead><tbody>'+Object.entries(snapshot.constraints).filter(([,rule])=>rule.editable===true).map(([key,rule])=>'<tr><th>'+esc(label(key))+'</th><td>'+esc(snapshot.values[key])+'</td><td>'+(key==='nature_id'?'<select name="'+esc(key)+'" aria-label="New '+esc(label(key))+'">'+rule.allowed.map(id=>'<option value="'+id+'" '+(id===snapshot.values[key]?'selected':'')+'>'+esc(snapshot.natureNames?.[id]||('Nature '+id))+'</option>').join('')+'</select>':'<input name="'+esc(key)+'" aria-label="New '+esc(label(key))+'" type="number" min="'+rule.min+'" max="'+rule.max+'" step="1" value="'+esc(snapshot.values[key])+'" required>')+'</td></tr>').join('')+'</tbody></table><label>Staff reason<textarea name="reason" minlength="3" maxlength="500" required></textarea></label><button type="submit">Review correction</button></form>';}
    else if(review){body='<table><thead><tr><th>Stat</th><th>Before</th><th>After</th></tr></thead><tbody>'+s.review.review.map(x=>'<tr><th>'+esc(label(x.field))+'</th><td>'+esc(x.before)+'</td><td>'+esc(x.after)+'</td></tr>').join('')+'</tbody></table><p>'+(s.request.reversesReceiptId?'Reversal restores the original saved values, including HP lost solely to that correction. Any later change blocks reversal.':'Current HP will not increase. It may decrease if maximum HP decreases.')+'</p><p>Staff reason: '+esc(s.review.reason)+'</p><button type="button" data-stat-save>'+(s.request.reversesReceiptId?'Reverse correction':'Save correction')+'</button>';}
    else if(s.phase==='uncertain')body=(typeof adapters.readReceipt==='function'?'<button type="button" data-stat-inspect>Check saved result</button>':'')+'<button type="button" data-stat-save>Retry the same request</button>';
-   else if(s.phase==='success')body='<p role="status">'+esc(s.message)+'</p>';
-   host.innerHTML='<section aria-busy="'+(['loading','checking','saving','inspecting'].includes(s.phase)?'true':'false')+'"><h3>Pokémon stats</h3><p role="alert" data-stat-error>'+esc(s.message)+'</p>'+body+'</section>';
-   const form=host.querySelector('[data-stat-form]');form?.addEventListener('submit',event=>{event.preventDefault();if(!form.reportValidity())return;try{const changes={};for(const key of Object.keys(snapshot.constraints)){const input=form.elements.namedItem(key);if(!input)continue;if(input.value.trim()==='')throw Error('Enter a whole value for each stat.');const value=Number(input.value);if(value!==snapshot.values[key])changes[key]=value;}ui.review(changes,form.elements.namedItem('reason').value,adapters.makeId());}catch(error){const message=host.querySelector('[data-stat-error]');if(message)message.textContent=error.message;}});
+   host.innerHTML='<section aria-busy="'+(['loading','checking','saving','inspecting'].includes(s.phase)?'true':'false')+'"><h3 tabindex="-1" data-stat-heading>'+(review?'Review Pokémon stat correction':'Pokémon stats')+'</h3><p role="alert" data-stat-error>'+esc(s.message)+'</p>'+body+'</section>';
+   if(!['loading','checking','saving','inspecting'].includes(s.phase))focusResult(host.querySelector(s.message?'[data-stat-error]':'[data-stat-heading]'),version);
+   const form=host.querySelector('[data-stat-form]');form?.addEventListener('submit',event=>{event.preventDefault();if(!form.reportValidity())return;try{const changes={};for(const key of Object.keys(snapshot.constraints)){const input=form.elements.namedItem(key);if(!input)continue;if(input.value.trim()==='')throw Error('Enter a whole value for each stat.');const value=Number(input.value);if(value!==snapshot.values[key])changes[key]=value;}ui.review(changes,form.elements.namedItem('reason').value,adapters.makeId());}catch(error){const message=host.querySelector('[data-stat-error]');if(message){message.textContent=error.message;focusOrigin=doc?.activeElement;ownedFocus=!!doc&&host.contains(focusOrigin);focusResult(message,++presentation);}}});
    host.querySelector('[data-stat-inspect]')?.addEventListener('click',()=>ui.inspectPending());
    host.querySelector('[data-stat-save]')?.addEventListener('click',()=>ui.save());
   }});return ui;

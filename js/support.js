@@ -96,7 +96,21 @@ function mount(host,{staff=false,playerId='',readonly=false}={}){
   const count=state.tickets.length;
   summary.textContent=ok?(count===0?'No matching tickets.':count+' matching '+(count===1?'ticket':'tickets')+' shown.'):'Tickets unavailable. Use Find tickets to try again.';
   summary.hidden=false;summary.tabIndex=-1;summary.focus({preventScroll:true});
- };host.querySelector('[data-new]')?.addEventListener('click',newTicket);host.querySelector('[data-more-list]').onclick=()=>loadList(true);
+ };host.querySelector('[data-new]')?.addEventListener('click',newTicket);host.querySelector('[data-more-list]').onclick=async e=>{
+  const button=e?.currentTarget,doc=host.ownerDocument,focused=button&&doc?.activeElement===button;
+  const previousCount=state.tickets.length,previousKey=state.listKey;
+  const pending=loadList(true),revision=state.listRevision;
+  const ok=await pending;
+  if(!focused||state.dead||revision!==state.listRevision)return;
+  const retry=host.querySelector('[data-search] button');
+  if(doc.activeElement!==button&&doc.activeElement!==doc.body&&(ok||doc.activeElement!==retry))return;
+  const firstNew=previousKey===state.listKey?previousCount:0;
+  const entries=host.querySelectorAll('[data-list] [data-ticket]');
+  if(ok&&entries[firstNew]){entries[firstNew].focus({preventScroll:false});return;}
+  const summary=host.querySelector('[data-search-summary]');
+  summary.textContent=ok?'No more matching tickets.':'Tickets unavailable. Use Find tickets to try again.';
+  summary.hidden=false;summary.tabIndex=-1;summary.focus({preventScroll:true});
+ };
  host.querySelector('[data-list]').onclick=e=>{const b=e.target.closest('[data-ticket]');if(b)loadDetail(b.dataset.ticket);};}
  async function loadList(append=false){const f=host.querySelector('[data-search]');const summary=host.querySelector('[data-search-summary]');if(summary){summary.hidden=true;summary.textContent='';}const p=Object.fromEntries(new FormData(f));if(playerId)p.playerId=playerId;const listKey=JSON.stringify(p);if(append&&!state.cursor)return;if(append&&listKey!==state.listKey)append=false;const epoch=state.epoch,revision=++state.listRevision;const current=()=>alive(epoch)&&revision===state.listRevision;status('Loading tickets…');if(!append){state.cursor=null;host.querySelector('[data-more-list]').hidden=true;}if(append&&state.cursor){p.cursorTime=state.cursor.time;p.cursorId=state.cursor.id;}
  try{const data=await call('list',p);if(!current())return;if(host.querySelector('[data-new]'))host.querySelector('[data-new]').disabled=false;state.tickets=append?state.tickets.concat(data.tickets):data.tickets;state.cursor=data.nextCursor;state.listKey=listKey;host.querySelector('[data-counts]').textContent=`${data.openCount} open ${data.openCount===1?'ticket':'tickets'}`;host.querySelector('[data-list]').innerHTML=state.tickets.map(t=>`<button class="support-ticket" data-ticket="${esc(t.id)}" aria-current="${t.id===state.selected}"><small>CASE #${esc(t.caseNo)}</small><br>${esc(t.subject)}<br><span class="support-tag">${esc(label(t.state))}</span></button>`).join('')||'<p>No matching tickets.</p>';host.querySelector('[data-more-list]').hidden=!state.cursor;status('');return true;}catch(e){if(current()){if(host.querySelector('[data-new]'))host.querySelector('[data-new]').disabled=true;state.tickets=[];state.cursor=null;state.listKey=null;host.querySelector('[data-counts]').textContent='';host.querySelector('[data-list]').textContent='Tickets unavailable. Choose Find tickets to try again.';const more=host.querySelector('[data-more-list]'),lostFocus=host.ownerDocument?.activeElement===more;more.hidden=true;status(e.message+' Choose Find tickets to reload the list.');if(lostFocus)host.querySelector('[data-search] button')?.focus();}}return false;}

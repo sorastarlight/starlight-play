@@ -79,7 +79,7 @@
     const glyphs = { titles: "✦", badges: "✧", background: "▧", team_background: "▦", avatar: "◉", packs: "◈", "gym-badges-future": "◇" };
     const icon = icons[group.id] ? '<img src="images/items/' + icons[group.id] + '" alt="" width="32" height="32">' : esc(glyphs[group.id] || "✦");
     const status = group.unavailable ? "Unavailable" : kind === "inventory" ? (group.items.some(item => item.qty != null) ? (group.id === "currency" ? "View balances" : "View items") : "No balances returned") : (group.items.length ? "View ownership" : "No ownership returned");
-    return '<button type="button" class="record-hit record-category" data-record-action="group" data-record-id="' + esc(group.id) + '"><span class="record-category-icon" aria-hidden="true">' + icon + '</span><span><strong>' + esc(group.name) + '</strong><small>' + esc(status) + '</small></span><span aria-hidden="true">›</span></button>';
+    return '<button type="button" class="record-hit record-category" data-record-action="group" data-record-id="' + esc(group.id) + '"><span class="record-category-icon" aria-hidden="true">' + icon + '</span><span><strong>' + esc(group.name) + '</strong> <small>' + esc(status) + '</small></span><span aria-hidden="true">›</span></button>';
   }
   const shinyChip = (mon) => String(mon.variant).toLowerCase() === "shiny" ? '<span class="admin-next-chip record-shiny">Shiny</span>' : "";
   function statsPanel(mon) {
@@ -164,7 +164,8 @@
       else if (action === "mons") state.mon = "";
       root.style.minHeight = `${Math.max(0, window.innerHeight-root.getBoundingClientRect().top)}px`;
       root.innerHTML = profileHtml(current);
-      root.querySelector("[data-record-heading], [data-record-action]")?.focus({ preventScroll: true });
+      const destination = root.querySelector("[data-record-heading]") || root.querySelector("[data-record-action]");
+      destination?.focus({ preventScroll: true });
     }
     root.addEventListener("click", (event) => {
       const hit = event.target.closest("[data-record-action]");

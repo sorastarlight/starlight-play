@@ -39,6 +39,10 @@ const puppeteer = require('puppeteer');
         assert.match(await page.$eval(count, node => node.getAttribute('aria-label')), query === 'zzzz' ? /No matching|0 / : /1/);
         assert.equal(await page.$('dialog .reward-review-form'), null, 'Search must not open a gift review');
       }
+      if (kind === 'item') {
+        await page.keyboard.press('Tab');
+        assert.equal(await page.evaluate(() => document.activeElement.name), 'key', 'Results should lead to the item choice');
+      }
       assert.equal(await page.evaluate(() => writes), 0);
       console.log(`PASS ${kind} Enter search summary, focus and zero submissions`);
       await page.close();

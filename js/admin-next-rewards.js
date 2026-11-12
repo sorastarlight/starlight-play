@@ -126,7 +126,7 @@
   }
   function searchableChoice(data,kind,label,name){
     const rows=giftChoices(data,kind);
-    return `<label>Search ${esc(label.toLowerCase())}<input type="search" name="gift_search" data-gift-search placeholder="Search by name" autocomplete="off"></label><label>${esc(label)}<select name="${name}" data-gift-choice required>${choiceOptions(rows)}</select></label><small role="status" data-choice-count>${rows.length} available</small>`;
+    return `<label>Search ${esc(label.toLowerCase())}<input type="search" name="gift_search" data-gift-search placeholder="Search by name" autocomplete="off"></label><small role="status" data-choice-count>${rows.length} available</small><label>${esc(label)}<select name="${name}" data-gift-choice required>${choiceOptions(rows)}</select></label>`;
   }
   function giftFields(data,kind){
     if(kind==="coins"||kind==="space")return `<label>${kind==="coins"?"PokéCoins":"Inventory Space slots"}<input name="qty" type="number" min="1" max="10000" value="1" required></label>`;

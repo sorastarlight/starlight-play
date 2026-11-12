@@ -188,6 +188,7 @@
   let accountTools = null;
   let trainerListGen = 0;
   let trainerProfileGen = 0;
+  let trainerProfilePresentation = 0;
   let trainerDirLoaded = false;
   let trainerDirectoryPresentation = 0;
   let trainerAccount = null;
@@ -300,7 +301,7 @@
     if (els.trainerList) els.trainerList.innerHTML = "";
     if (els.trainerDetail) els.trainerDetail.innerHTML = "";
     if (els.trainerListStatus) { els.trainerListStatus.removeAttribute("aria-label"); els.trainerListStatus.textContent = "Open this tab to load the first page of trainers."; }
-    if (els.trainerDetailStatus) els.trainerDetailStatus.textContent = "";
+    if (els.trainerDetailStatus) { els.trainerDetailStatus.removeAttribute('aria-label'); els.trainerDetailStatus.textContent = ""; }
     if (els.trainerPrev) els.trainerPrev.disabled = true;
     if (els.trainerNext) els.trainerNext.disabled = true;
   }
@@ -328,6 +329,17 @@
     }, 180);
   }
 
+  function announceTrainerProfile(gen, userId) {
+    const status = els.trainerDetailStatus, version = trainerProfilePresentation;
+    if (!status) return;
+    const text = status.textContent;
+    window.setTimeout(() => {
+      if (gen !== trainerProfileGen || version !== trainerProfilePresentation || !staffOpen || currentTab() !== 'trainers' || trainerSelectedId !== userId || document.hidden || !status.isConnected || document.activeElement !== els.trainerBack) return;
+      const visible = document.createElement('span'); visible.setAttribute('aria-hidden','true'); visible.textContent = text;
+      status.replaceChildren(visible); status.setAttribute('aria-label',text); status.setAttribute('tabindex','-1'); status.focus({preventScroll:true});
+    }, 180);
+  }
+
   function canLeaveCorrection() {
     if (window.PLAY_ADMIN_REWARDS?.canLeave?.(els.trainerDetail) === false) { window.PLAY_ADMIN_REWARDS.warnBeforeLeaving(els.trainerDetail); return false; }
     for (const tool of [roster, corrections, staffAccess, accountTools]) {
@@ -347,6 +359,7 @@
     }};
   }
   function renderTrainerProfile(view) {
+    trainerProfilePresentation++;
     roster?.reset(); roster = null;
     corrections?.reset(); corrections = null;
     staffAccess?.reset(); staffAccess = null;
@@ -354,9 +367,10 @@
     if (els.trainerDetailWrap) els.trainerDetailWrap.hidden = !trainerSelectedId;
     if (els.trainerRoot) els.trainerRoot.classList.toggle("is-profile", Boolean(trainerSelectedId));
     if (els.trainerDetailStatus) {
+      els.trainerDetailStatus.removeAttribute('aria-label');
       els.trainerDetailStatus.textContent = view.loading
         ? "Loading trainer…"
-        : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") : "Trainer record.");
+        : (view.denied || view.error ? (view.error || "Trainer inspect is restricted to staff.") + " Use All trainers to return to the list." : `Trainer record: ${view.user?.displayName || view.user?.login || "Trainer"}.`);
     }
     if (els.trainerDetail) window.PLAY_SUPPORT?.unmount(els.trainerDetail.querySelector("[data-support-trainer]"));
     if (els.trainerDetail) trainersUi.renderRecord(els.trainerDetail, view);
@@ -468,6 +482,7 @@
         identity,
         pane: trainerPane
       }));
+      if (!refresh) announceTrainerProfile(gen, userId);
     } catch (error) {
       if (gen !== trainerProfileGen) return;
       const kind = classifyTrainerError(error);
@@ -483,6 +498,7 @@
         error: kind,
         pane: trainerPane
       }));
+      if (!refresh) announceTrainerProfile(gen, userId);
     }
   }
 
@@ -496,7 +512,7 @@
     if (els.trainerRoot) els.trainerRoot.classList.remove("is-profile");
     if (els.trainerDetailWrap) els.trainerDetailWrap.hidden = true;
     if (els.trainerDetail) els.trainerDetail.innerHTML = "";
-    if (els.trainerDetailStatus) els.trainerDetailStatus.textContent = "";
+    if (els.trainerDetailStatus) { els.trainerDetailStatus.removeAttribute('aria-label'); els.trainerDetailStatus.textContent = ""; }
     renderTrainerDirectory(trainersUi.presentDirectory({
       data: { users: trainerUsers, total: trainerTotal, offset: trainerOffset },
       query: trainerQuery,

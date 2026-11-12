@@ -69,40 +69,43 @@ function controller(transport,onChange=()=>{}){
 }
 function mount(host,transport,trainerUi={}){
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- let presentationVersion=0,historyLoading=false;let holdChoice='';let addChoice='',addTotal='',addLevel='5',addShiny=false;let section='balances',query='',selected='',draftValue='',reason='',currentTrainerId=null,selectedIds=new Set();
+ let presentationVersion=0,historyLoading=false,recoveryLoading=false;let holdChoice='';let addChoice='',addTotal='',addLevel='5',addShiny=false;let section='balances',query='',selected='',draftValue='',reason='',currentTrainerId=null,selectedIds=new Set();
  const model=controller(transport,render);
  const safeArt=src=>/^images\/[a-zA-Z0-9_./-]+\.(png|svg|webp)$/.test(src||'')&&!src.includes('..')?src:'images/items/inventory-bag.png';
  function focusReview(){host.querySelector(section==='tradeHolds'?'[data-repair-hold] button[type=submit]':section==='addPokemon'?'[data-add-pokemon] button[type=submit]':section==='pokemon'?'[data-remove-pokemon] button[type=submit]':'[data-correction-form] button[type=submit]')?.focus();}
  function selectedRow(){return model.state.snapshot?.values.find(r=>r.id===selected);}
  function pendingDraft(){if(model.state.phase!=='ready')return false;if(section==='pokemon')return selectedIds.size>0||!!reason.trim();if(section==='tradeHolds')return !!reason.trim();if(section==='addPokemon')return !!(addTotal||reason.trim());const r=selectedRow();return r&&(String(draftValue)!==String(r.value)||reason.trim());}
  function allowed(){return model.state.phase==='ready'&&!model.state.review&&!model.state.recovery&&!model.state.snapshot?.protected;}
+ function announceRecordStatus(version){
+  const notice=host.querySelector('[role=status]'),view=host.ownerDocument?.defaultView;
+  view?.setTimeout?.(()=>{
+   if(version!==presentationVersion||!notice?.isConnected)return;
+   const active=host.ownerDocument.activeElement;
+   if(active!==host.ownerDocument.body&&!host.contains(active))return;
+   const text=notice.textContent;
+   notice.innerHTML='<span aria-hidden="true">'+esc(text)+'</span>';
+   notice.setAttribute('aria-label',text);
+   notice.focus({preventScroll:true});
+  },180);
+ }
  function render(){
   const version=++presentationVersion;
   const s=model.state,focused=host.contains(document.activeElement);
   const historyLoaded=historyLoading&&s.phase==='ready';
   historyLoading=section==='history'&&s.phase==='loading';
+  const recoveryLoaded=recoveryLoading&&s.phase==='ready';
+  recoveryLoading=s.phase==='loading'&&Boolean(s.recovery);
   if(!s.snapshot){selected='';draftValue='';reason='';selectedIds.clear();host.innerHTML=`<p role="status" tabindex="-1">${esc(s.phase==='loading'?'Loading account details…':s.message||'Choose a trainer.')}</p>${currentTrainerId?`<button type="button" data-correction-load ${s.phase==='loading'?'disabled':''}>Reload account</button>`:''}`;
-   if(['error','uncertain'].includes(s.phase)){
-    const notice=host.querySelector('[role=status]'),view=host.ownerDocument?.defaultView;
-    view?.setTimeout?.(()=>{
-     if(version!==presentationVersion||!notice?.isConnected)return;
-     const active=host.ownerDocument.activeElement;
-     if(active===host.ownerDocument.body||host.contains(active)){
-      const text=notice.textContent;
-      notice.innerHTML='<span aria-hidden="true">'+esc(text)+'</span>';
-      notice.setAttribute('aria-label',text);
-      notice.focus({preventScroll:true});
-     }
-    },180);
-   }
+   if(['error','uncertain'].includes(s.phase))announceRecordStatus(version);
    return;
   }
   host.querySelectorAll('dialog').forEach(d=>d.close());
   host.innerHTML=`<header class="correction-toolbar"><div><h3>Account corrections</h3><p>Set the quantities this trainer should have. Gifts and normal gameplay rewards are recorded separately.</p></div><button type="button" data-correction-load ${s.phase==='saving'?'disabled':''}>Reload account</button></header><p role="status" tabindex="-1">${esc(s.message)}</p>${s.snapshot.protected?'<p class="notice">This is a protected account. Corrections are disabled.</p>':''}<nav class="correction-tabs" aria-label="Correction tools">${[['balances','Balances & capacity'],['items','Items'],['candy','Evolution Candy'],['pokemon','Remove Pokémon'],['addPokemon','Pokémon quantity'],['tradeHolds','Trade holds'],['history','Recent corrections']].map(([key,label])=>`<button type="button" data-section="${key}" aria-pressed="${section===key}" ${s.phase==='saving'?'disabled':''}>${label}</button>`).join('')}</nav><p role="alert" tabindex="-1" data-correction-error></p><div data-correction-body></div>`;
   const body=host.querySelector('[data-correction-body]');
+  if(recoveryLoaded)announceRecordStatus(version);
   if(section==='history'){
    body.innerHTML='<h4 tabindex="-1" data-history-heading>Recent corrections</h4>'+historyView(s.snapshot.history);
-   if(historyLoaded){
+   if(historyLoaded&&!recoveryLoaded){
     const heading=host.querySelector('[data-history-heading]');
     host.ownerDocument?.defaultView?.setTimeout?.(()=>{
      if(version!==presentationVersion||!heading?.isConnected)return;

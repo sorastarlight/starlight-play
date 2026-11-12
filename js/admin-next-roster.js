@@ -23,7 +23,7 @@
    try{const data=project(await transport({p_user:target,p_query:query,p_generation:1,p_cursor:cursor}),target);if(!active||token!==epoch)return;
     if(index===0)state.history=[null];else state.history=state.history.slice(0,index+1);
     Object.assign(state,{phase:'ready',query,rows:data.rows,more:data.more,cursor:data.cursor,page:index,message:data.rows.length?`Showing ${index*40+1}–${index*40+data.rows.length}${data.more?' · more available':''}`:'No matching Pokémon. Try another name or Pokédex number.'});
-   }catch(_){if(!active||token!==epoch)return;Object.assign(state,{phase:'error',query:'',page:0,history:[null],rows:[],more:false,cursor:null,message:'Roster unavailable or access denied. Reload to try again.'});}notify(state);
+   }catch(_){if(!active||token!==epoch)return;Object.assign(state,{phase:'error',query,page:0,history:[null],rows:[],more:false,cursor:null,message:'Roster unavailable or access denied. Reload to try again.'});}notify(state);
   }
   return {state,load,next(){if(state.phase!=='ready'||!state.more)return;const cursor=state.cursor,index=state.page+1;state.history[index]=cursor;return load(state.query,index,cursor);},previous(){if(state.phase!=='ready'||!state.page)return;const index=state.page-1;return load(state.query,index,state.history[index]);},reset(){active=false;epoch++;Object.assign(state,{phase:'closed',rows:[],query:'',cursor:null,more:false,history:[null],page:0,message:''});notify(state);}};
  }

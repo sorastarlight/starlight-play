@@ -140,7 +140,20 @@
     if(!slot||!user?.id)return;
     const ctx={userId:user.id,pane,slot,busy:false,pending:null,confirmed:null};contexts.set(root,ctx);
     const current=()=>contexts.get(root)===ctx&&root.contains(slot);
-    function status(text){if(current())slot.querySelector('[data-reward-status]').textContent=text;}
+    function status(text,announce=false){
+      if(!current())return;
+      const target=slot.querySelector('[data-reward-status]');
+      target.textContent=text;
+      const sequence=ctx.announcement=(ctx.announcement||0)+1;
+      const view=target.ownerDocument?.defaultView;
+      if(!announce||!view)return;
+      target.tabIndex=-1;
+      view.setTimeout(()=>{
+        if(!current()||sequence!==ctx.announcement||!target.isConnected)return;
+        const active=target.ownerDocument.activeElement;
+        if(active===target.ownerDocument.body||slot.contains(active))target.focus({preventScroll:true});
+      },180);
+    }
     function draw(data){
       if(!current())return;
       ctx.data=data;
@@ -160,13 +173,13 @@
         const refreshed=await transport.read(user.id);
         if(!current())return;
         draw(refreshed);ctx.confirmed=null;
-        status(result.message||(result.ok?"Action completed.":"Action failed; nothing was granted."));
-        if(result.ok){try{await transport.changed?.(user.id);}catch(_){if(current())status("The staff action is confirmed and reward history was refreshed, but the trainer summary could not refresh. Reload the record; do not repeat the action.");}}
+        status(result.message||(result.ok?"Action completed.":"Action failed; nothing was granted."),true);
+        if(result.ok){try{await transport.changed?.(user.id);}catch(_){if(current())status("The staff action is confirmed and reward history was refreshed, but the trainer summary could not refresh. Reload the record; do not repeat the action.",true);}}
       }catch(_){
         if(!current())return;
         ctx.confirmed=result;
         slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
-        status((result.ok?"The staff action is confirmed.":"The action failed; nothing was granted.")+" Reward history could not refresh. Reload history to inspect it; this will not repeat the action.");
+        status((result.ok?"The staff action is confirmed.":"The action failed; nothing was granted.")+" Reward history could not refresh. Reload history to inspect it; this will not repeat the action.",true);
         const retry=slot.querySelector('[data-reward-retry]');retry.textContent="Reload reward history";retry.hidden=false;retry.disabled=false;
       }finally{ctx.busy=false;}
     }
@@ -185,7 +198,7 @@
         if(!current())return;
         ctx.pending=intent;
         slot.querySelectorAll('button,input,select,textarea').forEach(control=>control.disabled=true);
-        status("The result is uncertain. Retry this same request to retrieve its receipt without granting twice. Do not start a new grant for this result.");
+        status("The result is uncertain. Retry this same request to retrieve its receipt without granting twice. Do not start a new grant for this result.",true);
         const retry=slot.querySelector('[data-reward-retry]');retry.hidden=false;retry.disabled=false;
       }finally{ctx.busy=false;}
     }

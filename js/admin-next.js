@@ -492,6 +492,7 @@
         resetTrainers();
         renderTrainerDirectory(trainersUi.presentDirectory({ error: "denied", query: trainerQuery }));
         renderTrainerProfile(trainersUi.presentProfile({ error: "denied", pane: trainerPane }));
+        announceTrainerDirectory(trainerListGen);
         return;
       }
       renderTrainerProfile(trainersUi.presentProfile({

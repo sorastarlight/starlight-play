@@ -25,11 +25,11 @@ const path=require('node:path');
  // A pending response must not repopulate another trainer, or survive sign-out.
  const vm=require('node:vm'),fs=require('node:fs');const window={};
  vm.runInNewContext(fs.readFileSync('js/admin-next-diagnostics.js','utf8'),{window});
- function fixture(){const button={},status={};const host={isConnected:true,querySelector:s=>s==='button'?button:status};return {host,button,status,root:{querySelector:()=>host}};}
+ function fixture(){const button={},status={removeAttribute(){},setAttribute(){}},details={};const host={isConnected:true,querySelector:s=>s==='button'?button:s==='[data-diagnostic-results]'?details:status};return {host,button,status,details,root:{querySelector:()=>host}};}
  let resolve;const first=fixture();window.PLAY_ADMIN_DIAGNOSTICS.mount(first.root,{id:target},'connections',()=>new Promise(r=>resolve=r));
  const pending=first.button.onclick();window.PLAY_ADMIN_DIAGNOSTICS.clear();resolve({data});await pending;
  assert.equal(first.status.textContent,'Inspecting…');count++;
  const second=fixture();window.PLAY_ADMIN_DIAGNOSTICS.mount(second.root,{id:target},'connections',async()=>({data:{...data,maskedEmail:'<script>bad</script>'}}));
- await second.button.onclick();assert(!second.status.innerHTML.includes('<script>'));assert(second.status.innerHTML.includes('&lt;script&gt;'));count++;
+ await second.button.onclick();assert(!second.details.innerHTML.includes('<script>'));assert(second.details.innerHTML.includes('&lt;script&gt;'));count++;
  console.log(`${count} synthetic account diagnostics checks passed`);
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -8,22 +8,28 @@
     clear();
     const host=container.querySelector('[data-trainer-diagnostics]');
     if(pane!=='connections'||!host)return;
-    const gen=generation;
-    host.innerHTML='<h4>Account support · owner only</h4><p>Inspect masked sign-in details without changing this account.</p><button type="button">Inspect sign-in methods</button><div role="status" aria-live="polite"></div><section class="record-recovery" data-recovery-email></section>';
+    const gen=generation;let inspectionVersion=0;
+    host.innerHTML='<h4>Account support · owner only</h4><p>Inspect masked sign-in details without changing this account.</p><button type="button">Inspect sign-in methods</button><div role="status" tabindex="-1"></div><section data-diagnostic-results aria-label="Sign-in inspection details"></section><section class="record-recovery" data-recovery-email></section>';
     root.PLAY_ADMIN_RECOVERY_EMAIL?.mount(host.querySelector('[data-recovery-email]'),user,recovery);
-    const button=host.querySelector('button'),status=host.querySelector('[role="status"]');
+    const button=host.querySelector('button'),status=host.querySelector('[role="status"]'),details=host.querySelector('[data-diagnostic-results]');
+    function announce(message){
+      const version=inspectionVersion;
+      status.innerHTML='<span aria-hidden="true">'+esc(message)+'</span>';status.setAttribute('aria-label',message);
+      host.ownerDocument?.defaultView?.setTimeout?.(()=>{if(gen!==generation||version!==inspectionVersion||!status.isConnected)return;const active=host.ownerDocument.activeElement;if(active!==host.ownerDocument.body&&!host.contains(active))return;status.focus({preventScroll:true});},180);
+    }
     button.onclick=async()=>{
-      button.disabled=true;status.textContent='Inspecting…';
+      inspectionVersion++;
+      button.disabled=true;details.innerHTML='';status.removeAttribute('aria-label');status.textContent='Inspecting…';
       try{
         const result=await inspect(user.id);
         if(gen!==generation||!host.isConnected)return;
         const data=result?.data;
         if(result?.error||!data||data.error||data.targetUuid!==user.id)throw Error();
-        status.innerHTML=`<dl class="record-diagnostics"><dt>Email</dt><dd>${esc(data.maskedEmail||'Not recorded')}</dd><dt>Email verified</dt><dd>${yes(data.emailVerified)}</dd><dt>Password present</dt><dd>${yes(data.passwordPresent)}</dd><dt>Auth sign-in providers</dt><dd>${esc(Array.isArray(data.authProviders)?data.authProviders.join(', ')||'None recorded':'Unknown')}</dd><dt>Observed</dt><dd>${esc(data.observedAt)}</dd></dl><p>${esc(data.remainingRoutes)}</p><p>Twitch app connections shown above are separate from Auth sign-in identities. This inspection does not establish that an identity is safe to unlink.</p>`;
-        button.textContent='Refresh inspection';
+        details.innerHTML=`<dl class="record-diagnostics"><dt>Email</dt><dd>${esc(data.maskedEmail||'Not recorded')}</dd><dt>Email verified</dt><dd>${yes(data.emailVerified)}</dd><dt>Password present</dt><dd>${yes(data.passwordPresent)}</dd><dt>Auth sign-in providers</dt><dd>${esc(Array.isArray(data.authProviders)?data.authProviders.join(', ')||'None recorded':'Unknown')}</dd><dt>Observed</dt><dd>${esc(data.observedAt)}</dd></dl><p>${esc(data.remainingRoutes)}</p><p>Twitch app connections shown above are separate from Auth sign-in identities. This inspection does not establish that an identity is safe to unlink.</p>`;
+        button.textContent='Refresh inspection';announce('Sign-in inspection loaded.');
       }catch{
         if(gen!==generation||!host.isConnected)return;
-        status.textContent='Inspection unavailable. Owner access is required; protected accounts cannot be inspected here.';
+        announce('Inspection unavailable. Owner access is required; protected accounts cannot be inspected here.');
       }finally{if(gen===generation&&host.isConnected)button.disabled=false;}
     };
   }

@@ -69,7 +69,7 @@ function controller(transport,onChange=()=>{}){
 }
 function mount(host,transport,trainerUi={}){
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
- let presentationVersion=0;let holdChoice='';let addChoice='',addTotal='',addLevel='5',addShiny=false;let section='balances',query='',selected='',draftValue='',reason='',currentTrainerId=null,selectedIds=new Set();
+ let presentationVersion=0,historyLoading=false;let holdChoice='';let addChoice='',addTotal='',addLevel='5',addShiny=false;let section='balances',query='',selected='',draftValue='',reason='',currentTrainerId=null,selectedIds=new Set();
  const model=controller(transport,render);
  const safeArt=src=>/^images\/[a-zA-Z0-9_./-]+\.(png|svg|webp)$/.test(src||'')&&!src.includes('..')?src:'images/items/inventory-bag.png';
  function focusReview(){host.querySelector(section==='tradeHolds'?'[data-repair-hold] button[type=submit]':section==='addPokemon'?'[data-add-pokemon] button[type=submit]':section==='pokemon'?'[data-remove-pokemon] button[type=submit]':'[data-correction-form] button[type=submit]')?.focus();}
@@ -79,6 +79,8 @@ function mount(host,transport,trainerUi={}){
  function render(){
   const version=++presentationVersion;
   const s=model.state,focused=host.contains(document.activeElement);
+  const historyLoaded=historyLoading&&s.phase==='ready';
+  historyLoading=section==='history'&&s.phase==='loading';
   if(!s.snapshot){selected='';draftValue='';reason='';selectedIds.clear();host.innerHTML=`<p role="status" tabindex="-1">${esc(s.phase==='loading'?'Loading account details…':s.message||'Choose a trainer.')}</p>${currentTrainerId?`<button type="button" data-correction-load ${s.phase==='loading'?'disabled':''}>Reload account</button>`:''}`;
    if(['error','uncertain'].includes(s.phase)){
     const notice=host.querySelector('[role=status]'),view=host.ownerDocument?.defaultView;
@@ -98,7 +100,18 @@ function mount(host,transport,trainerUi={}){
   host.querySelectorAll('dialog').forEach(d=>d.close());
   host.innerHTML=`<header class="correction-toolbar"><div><h3>Account corrections</h3><p>Set the quantities this trainer should have. Gifts and normal gameplay rewards are recorded separately.</p></div><button type="button" data-correction-load ${s.phase==='saving'?'disabled':''}>Reload account</button></header><p role="status" tabindex="-1">${esc(s.message)}</p>${s.snapshot.protected?'<p class="notice">This is a protected account. Corrections are disabled.</p>':''}<nav class="correction-tabs" aria-label="Correction tools">${[['balances','Balances & capacity'],['items','Items'],['candy','Evolution Candy'],['pokemon','Remove Pokémon'],['addPokemon','Pokémon quantity'],['tradeHolds','Trade holds'],['history','Recent corrections']].map(([key,label])=>`<button type="button" data-section="${key}" aria-pressed="${section===key}" ${s.phase==='saving'?'disabled':''}>${label}</button>`).join('')}</nav><p role="alert" tabindex="-1" data-correction-error></p><div data-correction-body></div>`;
   const body=host.querySelector('[data-correction-body]');
-  if(section==='history'){body.innerHTML=historyView(s.snapshot.history);return;}
+  if(section==='history'){
+   body.innerHTML='<h4 tabindex="-1" data-history-heading>Recent corrections</h4>'+historyView(s.snapshot.history);
+   if(historyLoaded){
+    const heading=host.querySelector('[data-history-heading]');
+    host.ownerDocument?.defaultView?.setTimeout?.(()=>{
+     if(version!==presentationVersion||!heading?.isConnected)return;
+     const active=host.ownerDocument.activeElement;
+     if(active===host.ownerDocument.body||host.contains(active))heading.focus({preventScroll:true});
+    },180);
+   }
+   return;
+  }
   if(section==='tradeHolds'){
    const holds=s.snapshot.tradeHolds||[],hold=holds.find(h=>h.id===holdChoice);body.innerHTML=`<p>Repair only expired transaction holds. Personal locks and favorites are preserved. Active trades and live cooldowns cannot be cleared here.</p><div class="correction-layout"><aside><div class="correction-value-list">${holds.map(h=>`<button type="button" data-hold-choice="${esc(h.id)}" aria-pressed="${holdChoice===h.id}"><strong>${esc(h.name)}</strong><small>${esc(h.publicId||h.id)} · ${h.repairable?'Expired hold':'Not ready'}</small></button>`).join('')||'<p>No trade holds found.</p>'}</div></aside><section>${hold?`<h4>${esc(hold.name)}</h4><p>${esc(hold.publicId||hold.id)}</p><p>${esc(hold.reason)}</p><p>Personal lock: ${hold.locked?'On':'Off'} · Favorite: ${hold.favorite?'Yes':'No'}</p><form data-repair-hold><fieldset ${allowed()&&hold.repairable?'':'disabled'}><label>Staff reason<textarea name="reason" required minlength="3" maxlength="1000">${esc(reason)}</textarea></label><div class="mart-actions"><button type="button" data-discard-hold>Discard changes</button><button type="submit">Review expired hold repair</button></div></fieldset></form>`:'<h4>Choose a Pokémon with a trade hold</h4><p>Select a record to inspect its current hold.</p>'}</section></div>`;
   }else if(section==='addPokemon'){
@@ -135,7 +148,7 @@ function mount(host,transport,trainerUi={}){
  host.addEventListener('change',e=>{if(e.target.name==='addChoice'){addChoice=e.target.value;addTotal='';reason='';render();host.querySelector('[name=addTotal]')?.focus();return;}if(e.target.name==='addShiny'){addShiny=e.target.checked;return;}if(e.target.name==='specimen'){if(e.target.checked)selectedIds.add(e.target.value);else selectedIds.delete(e.target.value);host.querySelector('[data-selection-count]').textContent=selectedIds.size+' selected';}});
  host.addEventListener('click',e=>{try{
   if(e.target.closest('[data-discard-removal]')){selectedIds.clear();reason='';render();host.querySelector('[data-mon-search]')?.focus();return;}
-  if(e.target.closest('[data-discard-hold]')){reason='';render();return;}
+  if(e.target.closest('[data-discard-hold]')){reason='';render();host.querySelector('[data-repair-hold] textarea')?.focus({preventScroll:true});return;}
   const holdButton=e.target.closest('[data-hold-choice]');if(holdButton){if(pendingDraft())throw Error('Review or discard this correction first.');holdChoice=holdButton.dataset.holdChoice;reason='';render();const reasonField=host.querySelector('[data-repair-hold] textarea');if(reasonField&&!reasonField.disabled)reasonField.focus();else [...host.querySelectorAll('[data-hold-choice]')].find(b=>b.dataset.holdChoice===holdChoice)?.focus();return;}
   if(e.target.closest('[data-discard-add]')){addTotal='';reason='';render();host.querySelector('[name=addTotal]')?.focus();return;}
   if(e.target.closest('[data-correction-load]')){if(model.state.phase==='saving'||model.state.review||pendingDraft())throw Error('Finish reviewing or discard this correction before reloading.');if(['saved','uncertain'].includes(model.state.phase))addTotal='';model.open(currentTrainerId||model.state.snapshot?.trainerId);return;}
@@ -143,7 +156,7 @@ function mount(host,transport,trainerUi={}){
   if(e.target.closest('[data-correction-cancel]')){model.cancel();focusReview();return;}
   const pane=e.target.closest('[data-section]');if(pane){if(pendingDraft())throw Error('Review or discard this correction before changing tools.');section=pane.dataset.section;query='';selected='';draftValue='';reason='';render();host.querySelector(`[data-section="${section}"]`)?.focus();return;}
   const pick=e.target.closest('[data-value-id]');if(pick){if(pendingDraft())throw Error('Review or discard this correction before choosing another balance.');selected=pick.dataset.valueId;draftValue=selectedRow().value;reason='';valueList();valueEditor();host.querySelector('[data-correction-form] input[name=value]')?.focus();return;}
-  if(e.target.closest('[data-discard]')){draftValue=selectedRow().value;reason='';valueEditor();return;}
+  if(e.target.closest('[data-discard]')){draftValue=selectedRow().value;reason='';valueEditor();host.querySelector('[data-correction-form] [name=value]')?.focus({preventScroll:true});return;}
   const stats=e.target.closest('[data-mon-stats]');if(stats){const p=model.state.snapshot.pokemon.find(p=>p.id===stats.dataset.monStats);const d=document.createElement('dialog');d.className='mart-dialog';d.setAttribute('aria-label','Selected Pokémon stats');d.innerHTML=`<h3>${esc(p.name)}</h3><p>${esc(p.publicId||p.id)} · Level ${esc(p.level)}</p>${trainerUi.statsPanel?.(p)||'<p>Stats are not available.</p>'}<button type="button" data-close-stats>Close</button>`;host.append(d);d.querySelector('[data-close-stats]').onclick=()=>d.close();d.onclose=()=>d.remove();d.showModal();}
  }catch(error){showCorrectionError(error);}});
  host.addEventListener('submit',e=>{if(!e.target.matches('[data-correction-form],[data-remove-pokemon],[data-add-pokemon],[data-repair-hold]'))return;e.preventDefault();try{if(e.target.matches('[data-repair-hold]'))model.review({type:'repairTradeHold',id:holdChoice},reason,crypto.randomUUID());else if(e.target.matches('[data-add-pokemon]'))model.review({type:'pokemonQuantity',catalogId:addChoice,value:Number(addTotal),level:Number(addLevel),shiny:addShiny},reason,crypto.randomUUID());else if(e.target.matches('[data-remove-pokemon]'))model.review({type:'removePokemon',ids:[...selectedIds]},reason,crypto.randomUUID());else model.review({type:'quantity',id:selected,value:Number(draftValue)},reason,crypto.randomUUID());}catch(error){showCorrectionError(error);}});

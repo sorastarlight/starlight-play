@@ -5,9 +5,10 @@ const copy=v=>structuredClone(v);
 function create(transport,onChange=()=>{}){
  let epoch=0;const state={phase:'closed',catalog:[],daily:[],weekly:[],revision:null,rotationActive:false,review:null,message:''};
  const emit=()=>onChange(copy(state));
- function reset(){epoch++;Object.assign(state,{phase:'closed',catalog:[],daily:[],weekly:[],revision:null,rotationActive:false,review:null,message:''});emit();}
+ function clear(){epoch++;Object.assign(state,{phase:'closed',catalog:[],daily:[],weekly:[],revision:null,rotationActive:false,review:null,message:''});}
+ function reset(){clear();emit();}
  function editable(){if(state.phase!=='ready'||state.review)throw Error('Return to editing before changing rewards.');}
- async function load(){if(['loading','saving'].includes(state.phase))return;reset();const token=epoch;state.phase='loading';emit();try{const result=await transport('read');if(token!==epoch)return;
+ async function load(){if(['loading','saving'].includes(state.phase))return;clear();const token=epoch;state.phase='loading';emit();try{const result=await transport('read');if(token!==epoch)return;
  if(!result||typeof result.revision!=='string'||!result.revision)throw Error('Reward settings could not be verified.');
  const rows=catalog.catalog(result.catalog,'pass');
  const readable=rows.map(r=>({...r,enabled:true}));

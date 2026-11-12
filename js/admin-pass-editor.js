@@ -16,10 +16,10 @@ function mount(host,transport){
   const s=model.getState();if(['loading','saving'].includes(s.phase))return;
   if(!dirty(s)){model.load();return;}
   if(reloadDialog)return;
-  const d=document.createElement('dialog');reloadDialog=d;d.className='mart-dialog';d.setAttribute('aria-label','Discard unsaved Pass edits?');
+  let reloading=false;const d=document.createElement('dialog');reloadDialog=d;d.className='mart-dialog';d.setAttribute('aria-label','Discard unsaved Pass edits?');
   d.innerHTML='<h3>Discard unsaved Pass edits?</h3><p>Reloading replaces your local changes with the saved rewards. It does not repeat a save.</p><div class="mart-actions"><button type="button" data-keep-edits autofocus>Keep editing</button><button type="button" data-reload-confirm>Discard and reload</button></div>';
-  host.append(d);d.querySelector('[data-keep-edits]').onclick=()=>d.close();d.querySelector('[data-reload-confirm]').onclick=()=>{if(reloadDialog!==d)return;reloadDialog=null;d.close();model.load();};
-  d.addEventListener('close',()=>{if(reloadDialog===d)reloadDialog=null;d.remove();const b=host.querySelector('[data-load]');if(host.isConnected&&b&&!b.disabled)b.focus({preventScroll:true});},{once:true});d.showModal();
+  host.append(d);d.querySelector('[data-keep-edits]').onclick=()=>d.close();d.querySelector('[data-reload-confirm]').onclick=()=>{if(reloadDialog!==d)return;reloading=true;reloadDialog=null;d.close();model.load();};
+  d.addEventListener('close',()=>{if(reloadDialog===d)reloadDialog=null;d.remove();const b=host.querySelector('[data-load]');if(!reloading&&host.isConnected&&b&&!b.disabled)b.focus({preventScroll:true});},{once:true});d.showModal();
  }
  function render(s){
   const hadFocus=host.contains(document.activeElement)&&s.phase!=='closed';

@@ -151,7 +151,7 @@ function mount(host,{staff=false,playerId='',readonly=false}={}){
  void replyAttachments(t,d);
  d.querySelector('[data-more-messages]')?.addEventListener('click',()=>loadDetail(t.id,true));
  if(staff&&root.PLAY_ADMIN_RECOVERY_EMAIL)root.PLAY_ADMIN_RECOVERY_EMAIL.mount(d.querySelector('[data-recovery]'),{id:t.playerId,displayName:'Trainer for case #'+t.caseNo},body=>client.functions.invoke('owner-recovery-email',{body}));
- d.querySelector('[data-canned]')?.addEventListener('change',e=>{if(e.target.value)d.querySelector('[data-reply] textarea').value=e.target.value;});
+ d.querySelector('[data-canned]')?.addEventListener('change',e=>{if(e.target.value)d.querySelector('[data-reply] textarea').value=e.target.selectedOptions[0].textContent;});
  d.querySelector('[data-reply]')?.addEventListener('submit',async e=>{e.preventDefault();const f=e.target,p=Object.fromEntries(new FormData(f));p.internal=p.internal==='true';await mutate('reply',p,f);});
  d.querySelector('[data-triage]')?.addEventListener('submit',async e=>{e.preventDefault();await mutate('triage',Object.fromEntries(new FormData(e.target)),e.target);});
  for(const b of d.querySelectorAll('[data-transition]'))b.onclick=()=>transition(b.dataset.transition);

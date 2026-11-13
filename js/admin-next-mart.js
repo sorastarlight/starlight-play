@@ -115,15 +115,15 @@
   }
   function mount(root, transport, { onCopy } = {}) {
     if (!root) return null;
-    let query = "", floor = "", validationVersion = 0, pane="details";
+    let query = "", floor = "", validationVersion = 0, pane="details", optionsWereLoading=false,preserveControlFocus=false,intentCleanups=new Set();
     const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const reward = key => controller.state.rewardOptions?.find(r=>r.key===key)?.name || (runtime.playItemLabel?.(key)!==key?runtime.playItemLabel?.(key):null) || ({berry:"Berry",bait:"Honey",pokeball:"Poké Ball",greatball:"Great Ball",ultraball:"Ultra Ball",lure:"Poké Radar",coins:"PokéCoins",bag_bonus:"Inventory Space"}[key]) || key.replace(/_/g,' ').replace(/^./,c=>c.toUpperCase());
     const controller = createController(transport, render);
     function render() {
       validationVersion++;
-      const s = controller.state,listScroll=root.querySelector("[data-mart-list]")?.scrollTop||0;
+      const prior=root.ownerDocument.activeElement,s = controller.state,optionsFinished=optionsWereLoading&&!s.optionsLoading&&s.phase==="ready",anchor=(optionsFinished||preserveControlFocus)&&root.contains(prior)?{tab:prior.dataset?.martPane,name:prior.closest?.("[data-mart-form]")?prior.name:null,reward:prior.dataset?.rewardQuantity,search:prior.matches?.("[data-mart-search]"),category:prior.matches?.("[data-mart-floor]"),start:prior.selectionStart,end:prior.selectionEnd}:null;optionsWereLoading=s.optionsLoading;const listScroll=root.querySelector("[data-mart-list]")?.scrollTop||0;
       const restoreFocus = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
-      if (s.phase === "closed") { query = ""; floor = ""; pane="details"; }
+      if (s.phase === "closed") { query = ""; floor = ""; pane="details";for(const stop of intentCleanups)stop();intentCleanups.clear(); }
       root.querySelector("dialog")?.close();
       root.innerHTML = `<p role="status" tabindex="-1" class="mart-status">${esc(s.message)}</p><button type="button" data-mart-load ${["loading", "saving", "closed"].includes(s.phase) ? "disabled" : ""}>Reload catalog</button><div data-mart-body></div>`;
       if (s.catalog) {
@@ -131,10 +131,11 @@
         list();root.querySelector("[data-mart-list]").scrollTop=listScroll; editor();
       }
       if (restoreFocus) {
-        const target = s.phase === "ready" && s.row && !s.uncertain
-          ? root.querySelector("[data-mart-editor] h3") : root.querySelector(".mart-status");
-        target?.setAttribute("tabindex", "-1");
-        target?.focus();
+        const preserved=anchor&&(anchor.tab?[...root.querySelectorAll("[data-mart-pane]")].find(n=>n.dataset.martPane===anchor.tab):anchor.name?root.querySelector("[data-mart-form]")?.elements.namedItem(anchor.name):anchor.reward?[...root.querySelectorAll("[data-reward-quantity]")].find(n=>n.dataset.rewardQuantity===anchor.reward):anchor.search?root.querySelector("[data-mart-search]"):anchor.category?root.querySelector("[data-mart-floor]"):null);
+        const target = preserved || (s.phase === "ready" && s.row && !s.uncertain
+          ? root.querySelector("[data-mart-editor] h3") : root.querySelector(".mart-status"));
+        if(!preserved)target?.setAttribute("tabindex", "-1");if(preserved&&anchor.tab)for(const tab of root.querySelectorAll("[data-mart-pane]"))tab.tabIndex=tab===preserved?0:-1;
+        target?.focus();if(preserved&&Number.isInteger(anchor.start)&&Number.isInteger(anchor.end)){try{preserved.setSelectionRange(anchor.start,anchor.end);}catch(_){}}
       }
     }
     function list() {
@@ -210,7 +211,8 @@
     });
     root.addEventListener("change", event => { if (event.target.matches("[data-mart-floor]")) { floor = event.target.value; list(); } });
     function announceDraftChange(sku){const target=root.querySelector('.mart-status'),active=root.ownerDocument.activeElement,version=validationVersion;setTimeout(()=>{if(version===validationVersion&&target?.isConnected&&!root.closest('[hidden]')&&target.getClientRects().length&&controller.state.row?.sku===sku&&controller.state.phase==='ready'&&!controller.state.uncertain&&root.ownerDocument.activeElement===active)target.focus({preventScroll:true});},160);}
-    async function chooseReward(){const sku=controller.state.row?.sku,reviewedDraft=controller.state.draft,options=await controller.loadRewardOptions();if(controller.state.row?.sku!==sku||controller.state.draft!==reviewedDraft||!options||controller.state.phase!=="ready"||controller.state.uncertain)return;const dlg=root.ownerDocument.createElement('dialog');dlg.className='mart-reward-dialog';dlg.setAttribute('aria-label','Choose product rewards');dlg.innerHTML='<h3>Choose product rewards</h3><p>Choose known items for this product. Master Balls are for staff gifts and Pass rewards only.</p><div data-shop-picker></div><button type="button" data-picker-close>Done</button>';root.append(dlg);let picker,added=false;const rows=options.map(r=>({id:r.key==='bag_bonus'?'space':'item:'+r.key,kind:r.key==='bag_bonus'?'space':'item',name:r.name,category:r.category,sprite:'images/items/'+r.sprite,enabled:true,maxQuantity:2147483647}));picker=runtime.PLAY_REWARD_PICKER.mount(dlg.querySelector('[data-shop-picker]'),rows,entry=>{if(!dlg.open||!dlg.isConnected||controller.state.row?.sku!==sku||controller.state.draft!==reviewedDraft||controller.state.phase!=='ready'||controller.state.uncertain)return;const key=entry.catalogId==='space'?'bag_bonus':entry.catalogId.slice(5);controller.addReward(key,entry.quantity);added=true;dlg.close();announceDraftChange(sku);},'shop');dlg.querySelector('[data-picker-close]').onclick=()=>dlg.close();dlg.onclose=()=>{picker?.clear();dlg.remove();if(!added)requestAnimationFrame(()=>{if(controller.state.draft===reviewedDraft&&controller.state.row?.sku===sku&&controller.state.phase==='ready'&&!controller.state.uncertain&&!root.closest('[hidden]'))root.querySelector('[data-mart-add-reward]')?.focus();});};dlg.showModal();dlg.querySelector('[data-reward-search]')?.focus();}
+    async function readOptionsForIntent(){const pending=controller.loadRewardOptions();let moved=false;const track=e=>{if(!e.target.matches?.('[data-mart-editor] h3')){moved=true;cleanup();intentCleanups.delete(cleanup);}};const cleanup=()=>root.ownerDocument.removeEventListener('focusin',track,true);intentCleanups.add(cleanup);root.ownerDocument.addEventListener('focusin',track,true);try{const options=await pending;return{options,moved};}finally{cleanup();intentCleanups.delete(cleanup);}}
+    async function chooseReward(){const sku=controller.state.row?.sku,reviewedDraft=controller.state.draft,intentPane=pane,{options,moved}=await readOptionsForIntent();if(moved||!root.isConnected||root.closest("[hidden]")||!root.getClientRects().length||!root.contains(root.ownerDocument.activeElement)||pane!==intentPane||controller.state.row?.sku!==sku||controller.state.draft!==reviewedDraft||!options||controller.state.phase!=="ready"||controller.state.uncertain)return;const dlg=root.ownerDocument.createElement('dialog');dlg.className='mart-reward-dialog';dlg.setAttribute('aria-label','Choose product rewards');dlg.innerHTML='<h3>Choose product rewards</h3><p>Choose known items for this product. Master Balls are for staff gifts and Pass rewards only.</p><div data-shop-picker></div><button type="button" data-picker-close>Done</button>';root.append(dlg);let picker,added=false;const rows=options.map(r=>({id:r.key==='bag_bonus'?'space':'item:'+r.key,kind:r.key==='bag_bonus'?'space':'item',name:r.name,category:r.category,sprite:'images/items/'+r.sprite,enabled:true,maxQuantity:2147483647}));picker=runtime.PLAY_REWARD_PICKER.mount(dlg.querySelector('[data-shop-picker]'),rows,entry=>{if(!dlg.open||!dlg.isConnected||controller.state.row?.sku!==sku||controller.state.draft!==reviewedDraft||controller.state.phase!=='ready'||controller.state.uncertain)return;const key=entry.catalogId==='space'?'bag_bonus':entry.catalogId.slice(5);controller.addReward(key,entry.quantity);added=true;dlg.close();announceDraftChange(sku);},'shop');dlg.querySelector('[data-picker-close]').onclick=()=>dlg.close();dlg.onclose=()=>{picker?.clear();dlg.remove();if(!added)requestAnimationFrame(()=>{if(controller.state.draft===reviewedDraft&&controller.state.row?.sku===sku&&controller.state.phase==='ready'&&!controller.state.uncertain&&!root.closest('[hidden]'))root.querySelector('[data-mart-add-reward]')?.focus();});};dlg.showModal();dlg.querySelector('[data-reward-search]')?.focus();}
     root.addEventListener('invalid',e=>{
       const form=e.target.closest('[data-mart-form]'),first=form?.querySelector('input:invalid,textarea:invalid,select:invalid')||e.target,field=first.closest('[data-mart-field-pane]');
       if(field){pane=field.dataset.martFieldPane;showPane();}
@@ -224,7 +226,7 @@
       if(event.target.closest('[data-mart-back-to-list]')){root.querySelector('[data-mart-search]')?.focus();return;}
       const tab=event.target.closest('[data-mart-pane]');if(tab){validationVersion++;pane=tab.dataset.martPane;showPane();return;}
       if(event.target.closest('[data-mart-add-reward]')){chooseReward().catch(()=>{controller.state.message='Shop item picker unavailable. Reload the catalog before continuing.';render();});return;}
-      const remove=event.target.closest('[data-remove-product-reward]');if(remove){const sku=controller.state.row?.sku,reviewedDraft=controller.state.draft,key=remove.dataset.removeProductReward;controller.loadRewardOptions().then(rows=>{if(rows&&controller.state.row?.sku===sku&&controller.state.draft===reviewedDraft){controller.removeReward(key);root.querySelector('[data-mart-add-reward]')?.focus();announceDraftChange(sku);}});return;}
+      const remove=event.target.closest('[data-remove-product-reward]');if(remove){const sku=controller.state.row?.sku,reviewedDraft=controller.state.draft,intentPane=pane,key=remove.dataset.removeProductReward;readOptionsForIntent().then(({options:rows,moved})=>{if(rows&&controller.state.row?.sku===sku&&controller.state.draft===reviewedDraft){const keepFocus=!moved&&root.contains(root.ownerDocument.activeElement)&&pane===intentPane;preserveControlFocus=!keepFocus;try{controller.removeReward(key);}finally{preserveControlFocus=false;}if(keepFocus){root.querySelector('[data-mart-add-reward]')?.focus();announceDraftChange(sku);}}});return;}
 
       const item = event.target.closest("[data-mart-sku]");
       const load = event.target.closest("[data-mart-load]");

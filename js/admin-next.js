@@ -875,6 +875,7 @@
     const supportLink = event.target.closest("[data-record-support]");
     if (supportLink && !event.ctrlKey && !event.metaKey && !event.shiftKey && !event.altKey) {
       event.preventDefault();
+      if (!canLeaveCorrection()) return;
       const user = trainerAccount?.user;
       const context = document.getElementById("next-support-context");
       if (context && user) {

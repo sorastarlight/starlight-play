@@ -155,6 +155,7 @@
     function status(text,announce=false){
       if(!current())return;
       const target=slot.querySelector('[data-reward-status]');
+      target.removeAttribute('aria-label');
       target.textContent=text;
       const sequence=ctx.announcement=(ctx.announcement||0)+1;
       const view=target.ownerDocument?.defaultView;
@@ -259,6 +260,6 @@
     });
   }
   function canLeave(root){const ctx=contexts.get(root);return !ctx||!root.contains(ctx.slot)||!(ctx.busy||ctx.pending||ctx.confirmed);}
-  function warnBeforeLeaving(root){const ctx=contexts.get(root);if(!ctx||!root.contains(ctx.slot))return;const status=ctx.slot.querySelector('[data-reward-status]');if(!status)return;status.tabIndex=-1;status.textContent=ctx.confirmed?'The staff action is confirmed. Reload reward history before leaving this record.':ctx.pending?'This action’s outcome is unconfirmed. Recover the same request before leaving this record.':'Finish or cancel the staff action review, or wait for its result, before leaving this record.';status.focus?.({preventScroll:true});}
+  function warnBeforeLeaving(root){const ctx=contexts.get(root);if(!ctx||!root.contains(ctx.slot))return;const status=ctx.slot.querySelector('[data-reward-status]');if(!status)return;const text=ctx.confirmed?'The staff action is confirmed. Reload reward history before leaving this record.':ctx.pending?'This action’s outcome is unconfirmed. Recover the same request before leaving this record.':'Finish or cancel the staff action review, or wait for its result, before leaving this record.';const visible=document.createElement('span');visible.setAttribute('aria-hidden','true');visible.textContent=text;status.replaceChildren(visible);status.setAttribute('aria-label',text);status.tabIndex=-1;status.focus?.({preventScroll:true});}
   return {mount,canLeave,warnBeforeLeaving,clear(){contexts=new WeakMap();openDialog?.close();},delivery,passHtml,giftHtml,giftFields,makeIntent,intentSummary,searchSpecies,kindName,itemName,reviewArt,candyLine,candyName,giftChoices,pokemonMax,pokemonQuantity,reviewSummary,reviewTitle};
 }));

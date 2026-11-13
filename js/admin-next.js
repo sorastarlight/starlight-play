@@ -54,6 +54,7 @@
   let opsActive = false;
   let staffOpen = false;
   let hubGeneration = 0;
+  let hubGatePresentation = 0;
   let martIdentity = "";
   let analyticsIdentity = "";
   let configIdentity = "";
@@ -707,6 +708,22 @@
     }
   }
 
+  function announceHubGate() {
+    const gate = els.gate, generation = hubGeneration, version = ++hubGatePresentation;
+    if (!gate) return;
+    const text = gate.textContent;
+    gate.removeAttribute('aria-label');
+    gate.setAttribute('role', 'status');
+    gate.setAttribute('tabindex', '-1');
+    window.setTimeout(() => {
+      if (generation !== hubGeneration || version !== hubGatePresentation || staffOpen || gate.hidden || !gate.isConnected || document.hidden || gate.textContent !== text) return;
+      const focused = document.activeElement;
+      if (focused !== document.body && focused !== gate && !els.staff?.contains(focused)) return;
+      const visible = document.createElement('span'); visible.setAttribute('aria-hidden', 'true'); visible.textContent = text;
+      gate.replaceChildren(visible); gate.setAttribute('aria-label', text); gate.focus({preventScroll:true});
+    }, 180);
+  }
+
   function setSignedOut() {
     hubGeneration++;
     resetOperations();
@@ -725,11 +742,13 @@
     resetHealth();
     resetTrainers();
     if (els.staff) els.staff.hidden = true;
+    window.playSetAccountNav?.(null);
     if (els.gate) {
       els.gate.hidden = false;
       els.gate.textContent = "Sign in to open the Admin Hub.";
     }
     renderOperationsFallback();
+    announceHubGate();
   }
 
   async function loadHub(passedSession) {
@@ -755,6 +774,7 @@
       if (els.staff) els.staff.hidden = true;
       if (els.gate) { els.gate.hidden = false; els.gate.textContent = "Checking staff access…"; }
       renderOperationsFallback();
+      announceHubGate();
     }
     if (!session) {
       setSignedOut();
@@ -788,6 +808,7 @@
           : "This workspace is for staff. Your trainer account does not have access.";
       }
       renderOperationsFallback();
+      announceHubGate();
       return;
     }
     if (els.gate) els.gate.hidden = true;

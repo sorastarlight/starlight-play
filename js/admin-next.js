@@ -587,9 +587,42 @@
     loadOperations();
   }
 
+  // Same-document entries are view state, never account or command authority.
+  const historyKey = "__playHubHistory";
+  const newHistoryVisit = () => Date.now().toString(36) + "-" + Math.random().toString(36).slice(2);
+  let historyVisit = newHistoryVisit(), historyIndex = 0, restoringHistory = false, tabPresentation = 0;
+  let acceptedHistoryUrl = location.pathname + location.search + location.hash, acceptedHistoryState = history.state;
+  function hubHistoryEntry(state) {
+    const entry = state?.[historyKey];
+    return entry?.visit === historyVisit && Number.isSafeInteger(entry.index) && entry.index >= 0 ? entry : null;
+  }
+  function storeHubLocation(section, href, push) {
+    const entry = hubHistoryEntry(history.state);
+    if (push) historyIndex++;
+    else if (entry) historyIndex = entry.index;
+    const state = { ...(history.state || {}), section, [historyKey]: { visit: historyVisit, index: historyIndex } };
+    history[push ? "pushState" : "replaceState"](state, "", href);
+    acceptedHistoryState = history.state;
+    acceptedHistoryUrl = location.pathname + location.search + location.hash;
+  }
+  function holdHubHistory(entry) {
+    const delta = entry ? historyIndex - entry.index : 0;
+    if (entry && delta && Math.abs(delta) < history.length) {
+      restoringHistory = true;
+      history.go(delta);
+    } else {
+      // Foreign or malformed entries have no reliable traversal distance.
+      restoringHistory = false;
+      historyVisit = newHistoryVisit(); historyIndex = 0;
+      acceptedHistoryState = { ...(acceptedHistoryState || {}), [historyKey]: { visit: historyVisit, index: historyIndex } };
+      history.replaceState(acceptedHistoryState, "", acceptedHistoryUrl);
+    }
+  }
+
   function showTab(tab, push) {
     if(roster?.canLeave?.()===false){roster.warnBeforeLeaving?.();return;}
     const next = resolveTab(tab);
+    tabPresentation++;
     document.querySelectorAll("[data-next-panel]").forEach((panel) => {
       panel.hidden = panel.dataset.nextPanel !== next;
     });
@@ -600,8 +633,7 @@
     const url = new URL(window.location.href);
     url.searchParams.set("section", next);
     const href = `${url.pathname}${url.search}${url.hash}`;
-    if (push) history.pushState({ section: next }, "", href);
-    else history.replaceState({ section: next }, "", href);
+    storeHubLocation(next, href, push);
     if (next === "support" && staffOpen) window.PLAY_SUPPORT?.mount(document.getElementById("owner-support"),{staff:true,playerId:new URL(location.href).searchParams.get("trainer")||""});
     if (next === "analytics") {
       if(staffOpen){planning?.open();healthChecks?.open();}
@@ -882,7 +914,7 @@
         context.textContent = `Selected trainer: ${user.displayName || user.login || "Trainer"} · @${user.login || "Unavailable"} · ${user.id || "Unavailable"}. Read-only context from the last account snapshot.`;
         context.hidden = false;
       }
-      history.pushState({ section: "support" }, "", supportLink.getAttribute("href"));
+      storeHubLocation("support", supportLink.getAttribute("href"), true);
       showTab("support", false);
       const heading = document.querySelector('#next-panel-support h2');
       heading?.setAttribute("tabindex", "-1");
@@ -907,8 +939,25 @@
     if(roster?.canLeave?.()===false){event.preventDefault();event.returnValue="";}
     if (window.PLAY_ADMIN_REWARDS?.canLeave?.(els.trainerDetail) === false) { event.preventDefault(); event.returnValue = ""; }
   });
-  window.addEventListener("popstate", () => {
+  window.addEventListener("popstate", event => {
+    const entry = hubHistoryEntry(event.state);
+    if (restoringHistory && entry?.index === historyIndex) {
+      restoringHistory = false;
+      history.replaceState(acceptedHistoryState, "", acceptedHistoryUrl);
+      return;
+    }
+    if (!canLeaveCorrection()) { holdHubHistory(entry); return; }
+    restoringHistory = false;
+    if (!entry) { historyVisit = newHistoryVisit(); historyIndex = 0; }
+    const origin = document.activeElement;
     showTab(new URL(window.location.href).searchParams.get("section"), false);
+    const presentation = tabPresentation;
+    const heading = document.querySelector('[data-next-panel]:not([hidden]) h2');
+    window.setTimeout(() => {
+      if (presentation !== tabPresentation || !staffOpen || !heading?.isConnected || heading.closest('[hidden]')) return;
+      if (document.activeElement !== document.body && document.activeElement !== origin) return;
+      heading.setAttribute('tabindex', '-1'); heading.focus({preventScroll:true});
+    }, 180);
   });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden) {

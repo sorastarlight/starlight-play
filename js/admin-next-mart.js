@@ -115,18 +115,19 @@
   }
   function mount(root, transport, { onCopy } = {}) {
     if (!root) return null;
-    let query = "", floor = "", focusReturn = null, pane="details";
+    let query = "", floor = "", validationVersion = 0, pane="details";
     const esc = value => String(value ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
     const reward = key => controller.state.rewardOptions?.find(r=>r.key===key)?.name || (runtime.playItemLabel?.(key)!==key?runtime.playItemLabel?.(key):null) || ({berry:"Berry",bait:"Honey",pokeball:"Poké Ball",greatball:"Great Ball",ultraball:"Ultra Ball",lure:"Poké Radar",coins:"PokéCoins",bag_bonus:"Inventory Space"}[key]) || key.replace(/_/g,' ').replace(/^./,c=>c.toUpperCase());
     const controller = createController(transport, render);
     function render() {
+      validationVersion++;
       const s = controller.state,listScroll=root.querySelector("[data-mart-list]")?.scrollTop||0;
       const restoreFocus = root.contains(root.ownerDocument.activeElement) && s.phase !== "closed";
       if (s.phase === "closed") { query = ""; floor = ""; pane="details"; }
       root.querySelector("dialog")?.close();
       root.innerHTML = `<p role="status" tabindex="-1" class="mart-status">${esc(s.message)}</p><button type="button" data-mart-load ${["loading", "saving", "closed"].includes(s.phase) ? "disabled" : ""}>Reload catalog</button><div data-mart-body></div>`;
       if (s.catalog) {
-        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="admin-mart-card"><label>Search products<input type="search" data-mart-search placeholder="Name, product code or description" value="${esc(query)}"></label><label>Category<select data-mart-floor><option value="">All categories</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="admin-mart-card" data-mart-editor></section></div>`;
+        root.querySelector("[data-mart-body]").innerHTML = `<div class="mart-layout"><aside class="admin-mart-card"><label>Search products<input type="search" data-mart-search title="Press Enter for search results." placeholder="Name, product code or description" value="${esc(query)}"></label><label>Category<select data-mart-floor><option value="">All categories</option>${s.catalog.categories.map(c => `<option value="${esc(c.id)}" ${floor === c.id ? "selected" : ""}>${esc(c.name)}</option>`).join("")}</select></label><div data-mart-list></div></aside><section class="admin-mart-card" data-mart-editor></section></div>`;
         list();root.querySelector("[data-mart-list]").scrollTop=listScroll; editor();
       }
       if (restoreFocus) {
@@ -139,7 +140,7 @@
     function list() {
       const s = controller.state, host = root.querySelector("[data-mart-list]"); if (!host) return;
       const rows = searchProducts(s.catalog.items, query, floor);
-      host.innerHTML = `<p class="muted">${rows.length} ${rows.length === 1 ? "product" : "products"}</p>` + rows.map(p => `<button type="button" class="mart-product" data-mart-sku="${esc(p.sku)}" aria-pressed="${p.sku === s.row?.sku}" ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><strong>${esc(p.name || p.sku)}</strong><small>${eligible(p, s.catalog.categories) ? esc(p.bits > 0 ? p.bits : p.cost) + (p.bits > 0 ? " Bits" : " PokéCoins") + " · " + ((p.status||p.extra?.status||"published")==='draft'?'Draft':!p.visible?'Hidden':'Published') : "Product data needs review"}</small></button>`).join("") + (!rows.length ? "<p>No products match these filters.</p>" : "");
+      host.innerHTML = `<p class="muted" data-mart-search-status tabindex="-1">${rows.length} ${rows.length === 1 ? "product" : "products"}</p>` + rows.map(p => `<button type="button" class="mart-product" data-mart-sku="${esc(p.sku)}" aria-pressed="${p.sku === s.row?.sku}" ${s.phase === "saving" || s.uncertain ? "disabled" : ""}><strong>${esc(p.name || p.sku)}</strong><small>${eligible(p, s.catalog.categories) ? esc(p.bits > 0 ? p.bits : p.cost) + (p.bits > 0 ? " Bits" : " PokéCoins") + " · " + ((p.status||p.extra?.status||"published")==='draft'?'Draft':!p.visible?'Hidden':'Published') : "Product data needs review"}</small></button>`).join("") + (!rows.length ? "<p>No products match these filters.</p>" : "");
     }
     function editor() {
       const s = controller.state, host = root.querySelector("[data-mart-editor]");
@@ -181,11 +182,11 @@
       root.querySelector("[data-preview-status]").textContent = d.status === "draft" ? "Draft — not published" : d.visible ? "Published and visible" : "Published, hidden from Mart";
     }
     function dialog(title, content, action, label) {
-      focusReturn = root.ownerDocument.activeElement;
+      const opener = root.ownerDocument.activeElement;
       const dlg = root.ownerDocument.createElement("dialog"); dlg.className = "mart-dialog";
       dlg.setAttribute("aria-labelledby", "mart-dialog-title"); dlg.innerHTML = `<h3 id="mart-dialog-title">${esc(title)}</h3>${content}<div class="mart-actions"><button type="button" data-cancel autofocus>Return to editor</button><button type="button" data-confirm>${esc(label)}</button></div>`;
       root.append(dlg); dlg.querySelector("[data-cancel]").onclick = () => dlg.close();
-      dlg.querySelector("[data-confirm]").onclick = () => { dlg.close(); action(); };
+      dlg.querySelector("[data-confirm]").onclick = () => { if(!dlg.open||!dlg.isConnected)return;dlg.close(); action(); };
       dlg.addEventListener("keydown", event => {
         if (event.key !== "Tab") return;
         const buttons = [...dlg.querySelectorAll("button:not(:disabled)")];
@@ -193,12 +194,13 @@
         if (event.shiftKey && active === first) { event.preventDefault(); last.focus(); }
         else if (!event.shiftKey && active === last) { event.preventDefault(); first.focus(); }
       });
-      dlg.onclose = () => { dlg.remove(); if (focusReturn?.isConnected) focusReturn.focus({ preventScroll: true }); };
+      dlg.onclose = () => { dlg.remove(); if (opener?.isConnected&&!root.closest("[hidden]")&&opener.getClientRects().length) opener.focus({ preventScroll: true }); };
       dlg.showModal(); if (dlg.scrollHeight > dlg.clientHeight) { const heading = dlg.querySelector('h3'); heading.tabIndex = -1; heading.focus({ preventScroll: true }); dlg.scrollTop = 0; }
     }
     root.addEventListener("input", event => {
       if (event.target.matches("[data-mart-search]")) { query = event.target.value; list(); return; }
       const form = event.target.closest("[data-mart-form]"); if (!form || controller.state.phase !== "ready" || controller.state.uncertain) return;
+      const warning=root.querySelector('[data-mart-validation]');if(warning?.hasAttribute?.('aria-label')){warning.removeAttribute('aria-label');warning.textContent='';}
       if(event.target.getAttribute('aria-invalid')==='true'&&event.target.validity?.valid){event.target.removeAttribute('aria-invalid');const help=(event.target.getAttribute('aria-describedby')||'').split(/\s+/).filter(id=>id&&id!=='mart-product-validation');if(help.length)event.target.setAttribute('aria-describedby',help.join(' '));else event.target.removeAttribute('aria-describedby');root.querySelector('[data-mart-validation]').textContent='';}
       for (const key of fields) if(form.elements[key]) controller.state.draft[key] = ["visible", "featured"].includes(key) ? form.elements[key].checked : form.elements[key].value;
       for(const input of form.querySelectorAll('[data-reward-quantity]'))controller.state.draft.quantities[input.dataset.rewardQuantity]=input.value;
@@ -212,14 +214,14 @@
       const form=e.target.closest('[data-mart-form]'),first=form?.querySelector('input:invalid,textarea:invalid,select:invalid')||e.target,field=first.closest('[data-mart-field-pane]');
       if(field){pane=field.dataset.martFieldPane;showPane();}
       const error=root.querySelector('[data-mart-validation]');
-      if(error){error.id='mart-product-validation';error.textContent=(labels[first.name]||first.labels?.[0]?.textContent.trim()||'Product field')+': '+(first.validationMessage||'Enter a valid value.');first.setAttribute('aria-invalid','true');const help=(first.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);if(!help.includes(error.id))help.push(error.id);first.setAttribute('aria-describedby',help.join(' '));}
+      if(error){error.removeAttribute?.('aria-label');error.id='mart-product-validation';error.textContent=(labels[first.name]||first.labels?.[0]?.textContent.trim()||'Product field')+': '+(first.validationMessage||'Enter a valid value.');first.setAttribute('aria-invalid','true');const help=(first.getAttribute('aria-describedby')||'').split(/\s+/).filter(Boolean);if(!help.includes(error.id))help.push(error.id);first.setAttribute('aria-describedby',help.join(' '));}
       first.focus();
     },true);
-    root.addEventListener('keydown',e=>{const tab=e.target.closest('[data-mart-pane]');if(!tab)return;const tabs=[...root.querySelectorAll('[data-mart-pane]')],i=tabs.indexOf(tab);let next;if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;if(next!==undefined){e.preventDefault();tabs.forEach((button,index)=>{button.tabIndex=index===next?0:-1;});tabs[next].focus();}});
+    root.addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches?.('[data-mart-search]')){e.preventDefault();const summary=root.querySelector('[data-mart-search-status]'),count=root.querySelectorAll('[data-mart-sku]').length;if(summary){const text=count?count+' matching '+(count===1?'product.':'products.'):'No matching products.';summary.setAttribute('aria-label',text);summary.innerHTML='<span aria-hidden="true">'+esc(text)+'</span>';summary.focus({preventScroll:true});}return;}const tab=e.target.closest('[data-mart-pane]');if(!tab)return;const tabs=[...root.querySelectorAll('[data-mart-pane]')],i=tabs.indexOf(tab);let next;if(e.key==='Home')next=0;else if(e.key==='End')next=tabs.length-1;else if(e.key==='ArrowRight')next=(i+1)%tabs.length;else if(e.key==='ArrowLeft')next=(i+tabs.length-1)%tabs.length;if(next!==undefined){e.preventDefault();tabs.forEach((button,index)=>{button.tabIndex=index===next?0:-1;});tabs[next].focus();}});
     root.addEventListener("click", event => {
       const copyButton=event.target.closest('[data-mart-copy]');if(copyButton){if(typeof onCopy==='function'&&controller.state.phase==='ready'&&!controller.state.uncertain&&!controller.dirty())onCopy(controller.state.row.sku,copyButton);return;}
       if(event.target.closest('[data-mart-back-to-list]')){root.querySelector('[data-mart-search]')?.focus();return;}
-      const tab=event.target.closest('[data-mart-pane]');if(tab){pane=tab.dataset.martPane;showPane();return;}
+      const tab=event.target.closest('[data-mart-pane]');if(tab){validationVersion++;pane=tab.dataset.martPane;showPane();return;}
       if(event.target.closest('[data-mart-add-reward]')){chooseReward().catch(()=>{controller.state.message='Shop item picker unavailable. Reload the catalog before continuing.';render();});return;}
       const remove=event.target.closest('[data-remove-product-reward]');if(remove){const sku=controller.state.row?.sku,key=remove.dataset.removeProductReward;controller.loadRewardOptions().then(rows=>{if(rows&&controller.state.row?.sku===sku){controller.removeReward(key);root.querySelector('[data-mart-add-reward]')?.focus();}});return;}
 
@@ -232,6 +234,7 @@
       else if (controller.dirty()) dialog("Discard this local draft?", "<p>Unsaved edits will be lost. Reloading checks the current stored product; it does not repeat a save.</p>", action, "Discard and continue");
       else action();
     });
+    function showError(message){const n=root.querySelector('[data-mart-validation]'),opener=root.ownerDocument.activeElement,version=++validationVersion;n.textContent=message;n.tabIndex=-1;n.setAttribute('aria-label',message);setTimeout(()=>{if(version===validationVersion&&n.textContent===message&&n.isConnected&&!root.closest('[hidden]')&&n.getClientRects().length&&root.ownerDocument.activeElement===opener)n.focus({preventScroll:true});},80);}
     root.addEventListener("submit", event => {
       if (!event.target.matches("[data-mart-form]")) return; event.preventDefault();
       const s = controller.state;
@@ -242,7 +245,7 @@
         const before = draft(s.row), changes = fields.filter(k => JSON.stringify(before[k]) !== JSON.stringify(s.draft[k])).filter(k=>k!=="quantity"||JSON.stringify(before.quantities)===JSON.stringify(s.draft.quantities));
         const display = (key, value) => key === "quantities" ? Object.entries(value).map(([k,v])=>reward(k)+" ×"+v).join(", ") : key === "looks" ? value.map(id=>s.catalog.looks?.find(l=>l.id===id)?.name||id).join(", ") : ["visible", "featured"].includes(key) ? value ? "Yes" : "No" : key === "status" ? value === "draft" ? "Draft" : "Published" : String(value || "(empty)");
         dialog("Review product changes", `<p><strong>${esc(s.row.name)}</strong> · ${esc(s.row.sku)}</p><p>This updates the Mart product for all trainers. Existing purchases are unchanged.</p><dl class="mart-comparison">${changes.map(k => `<div><dt>${labels[k]}</dt><dd><span>Current: ${esc(display(k, before[k]))}</span><strong>New: ${esc(display(k, s.draft[k]))}</strong></dd></div>`).join("")}</dl><p>Another staff member may have updated this product. Reload first if you are editing together.</p>`, () => controller.save(), "Save product");
-      } catch (error) { root.querySelector("[data-mart-validation]").textContent = error.message; }
+      } catch (error) { showError(error.message); }
     });
     const unload = event => { if (controller.dirty()&&!controller.state.uncertain) { event.preventDefault(); event.returnValue = ""; } };
     root.ownerDocument.defaultView.addEventListener("beforeunload", unload);

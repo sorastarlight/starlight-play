@@ -47,10 +47,10 @@
   }
   let openDialog=null;
   function modal(content,label,opener){
-    openDialog?.close();
+    const previous=document.activeElement;openDialog?.close();
     const dialog=document.createElement("dialog");dialog.className="reward-dialog";dialog.setAttribute("aria-label",label);dialog.innerHTML=content;
     document.body.append(dialog);openDialog=dialog;
-    dialog.addEventListener("close",()=>{dialog.remove();if(openDialog===dialog)openDialog=null;if(opener?.isConnected)opener.focus({preventScroll:true});},{once:true});
+    dialog.addEventListener("close",()=>{const owned=openDialog===dialog,active=document.activeElement;dialog.remove();if(owned)openDialog=null;if(owned&&opener?.isConnected&&!opener.closest("[hidden]")&&!document.querySelector("dialog[open]")&&(active===document.body||active===opener||active===previous||dialog.contains(active)))opener.focus({preventScroll:true});},{once:true});
     dialog.addEventListener("click",event=>{if(event.target.closest('[data-modal-cancel]'))dialog.close();});
     dialog.showModal();return dialog;
   }
@@ -61,7 +61,7 @@
     const draw=()=>{const generation=generations().find(g=>g.id===dialog.querySelector('[data-generation]').value);const found=searchSpecies(dialog.querySelector('[data-species-search]').value,generation);const matches=candy?[...new Set(found.map(candyLine))]:found;updateSearchCount(dialog.querySelector('[data-picker-count]'),`${matches.length} ${candy?(matches.length===1?"candy family":"candy families"):"Pokémon"}`);dialog.querySelector('[data-species-grid]').innerHTML=matches.length?matches.map(dex=>`<button type="button" data-pick-dex="${dex}" aria-label="${esc(candy?candyName(dex):speciesName(dex))}, number ${dex}">${speciesChoice(dex,candy)}</button>`).join(""):"<p>No Pokémon match. Try a name or dex number.</p>";};
     dialog.addEventListener('input',event=>{if(event.target.matches('[data-species-search]'))draw();});
     dialog.addEventListener('change',event=>{if(event.target.matches('[data-generation]'))draw();});
-    dialog.addEventListener('click',event=>{const choice=event.target.closest('[data-pick-dex]');if(!choice)return;if(!current()){dialog.close();return;}form.elements.namedItem('dex').value=choice.dataset.pickDex;opener.innerHTML=speciesChoice(choice.dataset.pickDex,candy)+`<span>${candy?"Change candy family":"Change Pokémon"}</span>`;dialog.close();});
+    dialog.addEventListener('click',event=>{const choice=event.target.closest('[data-pick-dex]');if(!choice)return;if(!dialog.open||!dialog.isConnected||openDialog!==dialog||!form.isConnected||form.closest("[hidden]")||form.elements.namedItem("gift_kind")?.value!==(candy?"candy":"pokemon")||!current()){dialog.close();return;}form.elements.namedItem('dex').value=choice.dataset.pickDex;opener.innerHTML=speciesChoice(choice.dataset.pickDex,candy)+`<span>${candy?"Change candy family":"Change Pokémon"}</span>`;dialog.close();});
     dialog.addEventListener('keydown',event=>{if(event.key==='Enter'&&event.target.matches('[data-species-search]')){event.preventDefault();focusSearchCount(dialog.querySelector('[data-picker-count]'));}});
     draw();dialog.querySelector('[data-species-search]').focus();
   }
@@ -79,11 +79,11 @@
     }
     return actionNames[intent.p_action]||'Review staff action';
   }
-  function reviewIntent(intent,data,user,previewOnly=false){
+  function reviewIntent(intent,data,user,previewOnly=false,current=()=>true){
     const opener=document.activeElement;
     const art=reviewArt(intent);
     const dialog=modal(`<form class="reward-review-form"><header><div><p class="eyebrow">${intent.p_action.startsWith('pass_')?'Starlight Pass':'Special delivery'}</p><h3>${esc(reviewTitle(intent,data))}</h3></div><button type="button" data-modal-cancel>Cancel</button></header><div class="reward-review-hero">${art}${reviewSummary(intent,data)}<span class="reward-review-recipient">For ${esc(user.displayName||user.login||"Trainer")}</span></div><label>Staff reason<textarea name="reason" rows="2" required minlength="3" maxlength="500" placeholder="Why are you making this change?"></textarea></label><p class="record-note">This action and reason will be saved in staff history.</p><button class="reward-deliver" type="submit" ${previewOnly?'disabled':''}>${previewOnly?'Preview only — no gifts sent':intent.p_action.startsWith('pass_')?'Confirm Pass action':'Send gift ✦'}</button></form>`,"Review staff action",opener);
-    return new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(null),{once:true});dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();if(previewOnly)return;const reason=dialog.querySelector('textarea').value.trim();if(reason.length<3){dialog.querySelector('textarea').setCustomValidity('Enter at least 3 characters.');dialog.querySelector('textarea').reportValidity();return;}resolve(reason);dialog.close();});dialog.querySelector('textarea').addEventListener('input',event=>event.target.setCustomValidity(''));});
+    return new Promise(resolve=>{dialog.addEventListener('close',()=>resolve(null),{once:true});dialog.querySelector('form').addEventListener('submit',event=>{event.preventDefault();if(previewOnly||!dialog.open||!dialog.isConnected||openDialog!==dialog||!current())return;const reason=dialog.querySelector('textarea').value.trim();if(reason.length<3){dialog.querySelector('textarea').setCustomValidity('Enter at least 3 characters.');dialog.querySelector('textarea').reportValidity();return;}resolve(reason);dialog.close();});dialog.querySelector('textarea').addEventListener('input',event=>event.target.setCustomValidity(''));});
   }
   const actionNames={pass_on:"Turn Pass on",pass_off:"Turn Pass off",pass_sync:"Clear staff override",pass_daily:"Give daily rewards again",pass_weekly:"Give weekly rewards again",item:"Give items",pokemon:"Give a Pokémon",pokemon_batch:"Give Pokémon",candy:"Give Evolution Candy",title:"Give a title",cosmetic:"Give a cosmetic",badge:"Give a ribbon"};
   const bundleText=(items)=>Object.entries(items||{}).map(([id,qty])=>`${qty} ${itemName({id,name:id})}`).join(", ")||"None recorded";
@@ -245,14 +245,14 @@
       controls.forEach(({control})=>control.disabled=true);
       let reason;
       try{
-        reason=await reviewIntent(intent,ctx.data,user,transport.previewOnly);
+        reason=await reviewIntent(intent,ctx.data,user,transport.previewOnly,()=>current()&&slot.isConnected&&!slot.closest("[hidden]"));
         if(!reason||!current())return;
         intent.p_reason=reason;
       }finally{
         ctx.busy=false;
         if(current()){
           controls.forEach(({control,disabled})=>control.disabled=disabled);
-          if(!reason&&reviewOpener?.isConnected)reviewOpener.focus({preventScroll:true});
+          if(!reason&&reviewOpener?.isConnected&&!reviewOpener.closest('[hidden]')&&!document.querySelector('dialog[open]')&&(document.activeElement===document.body||document.activeElement===reviewOpener))reviewOpener.focus({preventScroll:true});
         }
       }
       await send(intent);

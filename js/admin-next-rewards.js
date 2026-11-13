@@ -215,7 +215,7 @@
       }finally{ctx.busy=false;}
     }
     try{draw(await transport.read(user.id));}catch(error){
-      if(current())slot.innerHTML=`<h4>${pane==="pass"?"Starlight Pass":"Gifts"}</h4><p class="record-note">${error?.code==="42501"?"These tools require owner or admin permission.":"Reward history is unavailable. No account changes are available here. Reload the trainer record to try again."}</p>`;
+      if(current()){slot.innerHTML=`<h4>${pane==="pass"?"Starlight Pass":"Gifts"}</h4><p class="record-note" role="status" data-reward-status></p>`;status(error?.code==="42501"?"These tools require owner or admin permission.":"Reward history is unavailable. No account changes are available here. Reload the trainer record to try again.",true);}
       return;
     }
     slot.addEventListener('keydown',event=>{if(event.key==='Enter'&&event.target.matches('[data-gift-search]')){event.preventDefault();focusSearchCount(event.target.form.querySelector('[data-choice-count]'));}});

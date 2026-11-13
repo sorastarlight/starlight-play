@@ -1,0 +1,20 @@
+// Actual widget, fictional events and reads only. No Twitch or fulfillment calls.
+const assert=require('node:assert/strict'),fs=require('node:fs'),path=require('node:path'),puppeteer=require('puppeteer');
+async function bitsFixture(mode){
+ window.calls=[];
+ window.app=PLAY_ADMIN_BITS.mount(document.querySelector('#editor'),async(name,args)=>{
+  calls.push({name,args});if(name==='admin_bits_retry')throw Error('No fulfillment in this fixture');
+  if(name==='admin_system_connections_read'){if(mode==='retry'&&calls.length===1)throw Error('Fictional read failure');if(['outside','reset'].includes(mode))await new Promise(r=>window.release=r);return {ok:true,canRetryBits:mode!=='non-owner'};}
+  if(name==='admin_bits_health')return {ok:true,status:'UNKNOWN',eventSub:'enabled',lastVerifiedAt:null,unresolved:0,failed:1,pending:0,duplicates:0,liveProducts:1,invalidProducts:0,lastDetail:'MUST-NOT-BE-PROJECTED'};
+  return {ok:true,events:mode==='empty'?[]:[{id:'fictional-bits-1',twitchLogin:'FictionalTrainer',bits:500,title:'Fictional item pack',status:mode==='delivered'?'fulfilled':'failed',granted:mode==='delivered',at:'2026-11-12T12:00:00Z',anonymous:mode==='anonymous'}]};
+ });
+}
+(async()=>{const browser=await puppeteer.launch({browser:'firefox',headless:true});try{for(const mode of ['retry','empty','non-owner','anonymous','delivered','review-cancel','cancel-stale','outside','reset']){
+ if(process.env.BITS_CASE&&process.env.BITS_CASE!==mode)continue;
+ const page=await browser.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));await page.setRequestInterception(true);page.on('request',r=>r.abort());await page.setContent('<button id="outside">Outside workspace</button><main id="editor"></main>');await page.addScriptTag({content:fs.readFileSync(path.join(__dirname,'../js/admin-next-bits.js'),'utf8')});await page.evaluate(bitsFixture,mode);await page.focus('[data-bits-load]');await page.keyboard.press('Enter');
+ if(['outside','reset'].includes(mode)){await page.waitForFunction(()=>typeof release==='function');if(mode==='reset')await page.evaluate(()=>app.reset());else await page.focus('#outside');await page.evaluate(()=>release());await new Promise(r=>setTimeout(r,200));if(mode==='reset')assert.equal(await page.evaluate(()=>app.state.current),null);else assert.equal(await page.evaluate(()=>document.activeElement.id),'outside');}
+ else{await page.waitForFunction(()=>app.state.phase!=='loading');if(mode==='retry'){assert.match(await page.$eval('[role=status]',n=>n.textContent),/unavailable/);await page.focus('[data-bits-load]');await page.keyboard.press('Enter');await page.waitForFunction(()=>app.state.phase==='ready');assert.match(await page.$eval('[role=status]',n=>n.textContent),/events loaded/);}
+ if(mode==='empty')assert.match(await page.$eval('#editor',n=>n.textContent),/No matching events/);else{await page.focus('[data-bits-event]');await page.keyboard.press('Enter');assert.equal(await page.evaluate(()=>document.activeElement.tagName),'H3');assert.match(await page.evaluate(()=>document.activeElement.textContent),/Fictional item pack/);if(['non-owner','anonymous','delivered'].includes(mode))assert.equal((await page.$$('[data-bits-retry]')).length,0);else if(['review-cancel','cancel-stale'].includes(mode)){await page.focus('[data-bits-retry]');await page.keyboard.press('Enter');await page.waitForSelector('dialog[open]');await page.evaluate(()=>window.oldConfirm=document.querySelector('[data-go]'));await page.keyboard.press('Escape');if(mode==='cancel-stale')await page.evaluate(()=>oldConfirm.click());await new Promise(r=>setTimeout(r,100));assert.equal(await page.evaluate(()=>calls.some(c=>c.name==='admin_bits_retry')),false,'Dismissed reviews must not fulfill');assert.equal(await page.evaluate(()=>document.activeElement.hasAttribute('data-bits-retry')),true);}}
+ }
+ assert.equal(await page.$eval('#editor',n=>n.textContent.includes('MUST-NOT-BE-PROJECTED')),false);assert.deepEqual(errors,[]);console.log('PASS Bits accessibility '+mode);await page.close();
+ }}finally{await browser.close();}})().catch(e=>{console.error(e);process.exitCode=1;});

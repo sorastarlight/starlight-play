@@ -35,9 +35,9 @@
     document.body.append(modal);modal.showModal();
     let sending=false;
     modal.querySelector('[data-cancel]').onclick=()=>modal.close();
-    modal.addEventListener('close',()=>{modal.remove();if(dialog===modal)dialog=null;if(button.isConnected){if(button.disabled)announce(status,status.textContent);else button.focus({preventScroll:true});}},{once:true});
+    modal.addEventListener('close',()=>{const owned=dialog===modal;modal.remove();if(owned)dialog=null;const active=doc?.activeElement;if(owned&&gen===generation&&button.isConnected&&!host.closest?.('[hidden]')&&(active===doc?.body||active===button||active===status||modal.contains(active))){if(button.disabled)announce(status,status.textContent);else button.focus({preventScroll:true});}},{once:true});
     modal.querySelector('form').onsubmit=async event=>{
-     event.preventDefault();if(sending||requestAttempted||gen!==generation)return;
+     event.preventDefault();if(sending||requestAttempted||gen!==generation||dialog!==modal||!modal.open||!modal.isConnected||!host.isConnected||host.closest?.('[hidden]'))return;
      const form=event.target;if(!form.reportValidity())return;
      sending=true;requestAttempted=true;button.disabled=true;form.querySelector('[type="submit"]').disabled=true;
      setMessage(status,'A recovery request is in progress. Closing its window does not cancel it. Reload this account and check the outcome before preparing another request.');

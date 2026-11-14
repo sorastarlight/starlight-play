@@ -38,12 +38,13 @@ function mount(host,transport){
  const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let trainerId=null,role='',reason='',presentationVersion=0,reloadRequested=false;
  const model=controller(transport,render);
  function canLeave(){return model.state.phase!=='saving'&&!model.state.review&&!(model.state.phase==='ready'&&(role||reason.trim()));}
- function announceStatus(notice,version){
+ function announceStatus(notice,version,immediate=false){
   const text=notice?.textContent||'';if(!text)return;
   notice.setAttribute('role','status');notice.innerHTML='<span aria-hidden="true">'+esc(text)+'</span>';notice.setAttribute('aria-label',text);
+  if(immediate){notice.focus({preventScroll:true});return;}
   host.ownerDocument?.defaultView?.setTimeout?.(()=>{if(version!==presentationVersion||!notice.isConnected)return;const active=host.ownerDocument.activeElement;if(active!==host.ownerDocument.body&&!host.contains(active))return;notice.focus({preventScroll:true});},180);
  }
- function showWarning(message){const error=host.querySelector('[data-role-warning]');if(error){error.textContent=message;announceStatus(error,++presentationVersion);}}
+ function showWarning(message){const dialog=host.querySelector('dialog');let error=host.querySelector('[data-role-warning]');if(dialog?.open){error=dialog.querySelector('[data-role-review-warning]');if(!error){error=host.ownerDocument.createElement('p');error.setAttribute('data-role-review-warning','');error.tabIndex=-1;dialog.append(error);}}if(error){error.textContent=message;announceStatus(error,++presentationVersion,true);}}
  function warnBeforeLeaving(){showWarning(model.state.phase==='saving'?'The access change is being saved. Wait for its result before leaving this record.':'Finish reviewing or discard the access change before leaving this record.');}
  function render(){const version=++presentationVersion,s=model.state;host.querySelector('dialog')?.close();host.innerHTML=`<header class="correction-toolbar"><div><h3>Staff access</h3><p>Choose who can help manage the game. Every change needs a staff reason.</p></div><button type="button" data-role-load ${s.phase==='loading'||s.phase==='saving'?'disabled':''}>Reload access</button></header><p role="status" tabindex="-1">${esc(s.message|| (s.phase==='loading'?'Loading staff access…':s.phase==='ready'?'Staff access loaded.':''))}</p><p role="alert" tabindex="-1" data-role-warning></p>`;
  if(!s.snapshot){if(s.phase==='error')announceStatus(host.querySelector('[role=status]'),version);return;}const v=s.snapshot,editable=s.phase==='ready'&&v.choices.length;

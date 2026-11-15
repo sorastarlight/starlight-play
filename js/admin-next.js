@@ -62,7 +62,7 @@
   const sessionApi = window.PLAY_ADMIN_SESSION;
   const sessionControls = sessionApi?.mount(document.getElementById("next-session-controls"), sessionApi.adapter({
     session: () => supabase.auth.getSession(), identity: () => opsIdentity,
-    allowed: () => staffOpen && currentTab() === "operations" && !document.hidden, call: (name, args) => window.playCall(name, args)
+    allowed: () => staffOpen && currentTab() === "operations" && !document.hidden, call: (name, args) => window.playCall(name, args), invoke: (name, args) => supabase.functions.invoke(name, args)
   }), () => staffOpen && currentTab() === "operations" && !document.hidden, raw => renderOperationsView(presentOps(raw ? { payload: raw } : { error: "missing" })));
   const eventApi=window.PLAY_ADMIN_EVENTS;
   const specialEvents=eventApi?.mount(document.getElementById('next-special-events'),eventApi.adapter({session:()=>supabase.auth.getSession(),identity:()=>opsIdentity,allowed:()=>staffOpen&&currentTab()==='operations',call:(name,args)=>window.playCall(name,args)}),{sprite:(dex,formId,shiny)=>window.playSpriteUrl?.(dex,shiny?'shiny':'normal',formId)||''});

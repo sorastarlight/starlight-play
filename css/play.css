@@ -21253,3 +21253,7 @@ html:has(.calendar-item-dialog[open]){overflow:hidden}
 .oak-pass-card .pass-week.has-current-gift{grid-template-columns:repeat(8,minmax(0,1fr))}
 .oak-current-gift{font-size:12px;line-height:1.5;margin:8px 0}.oak-today h3 small{font:inherit;font-weight:400;white-space:nowrap;margin-left:6px}
 @media(max-width:600px){.oak-pass-card .pass-week.has-current-gift{grid-template-columns:repeat(8,112px)}}
+
+/* Keep every Oak streak day discoverable at phone widths. */
+@media(max-width:600px){.oak-pass-card .pass-week,.oak-pass-card .pass-week.has-current-gift{grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible;scroll-snap-type:none;padding:3px}}.oak-pass-card .calendar-item-art,.oak-pass-card .calendar-candy-art{max-width:100%}.oak-pass-card .calendar-candy-art img{min-width:0;flex-shrink:1}.oak-pass-card .calendar-item-name{overflow-wrap:anywhere}
+@media(max-width:360px){.oak-pass-card .pass-week,.oak-pass-card .pass-week.has-current-gift{grid-template-columns:repeat(3,minmax(0,1fr))}}

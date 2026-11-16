@@ -2221,13 +2221,9 @@
         if (els.pass) els.pass.textContent = "Sign in first.";
         return;
       }
-      if (!session.provider_token) {
-        if (els.pass) els.pass.textContent = "Twitch did not keep a session token. Sign out, sign in again, then check immediately.";
-        return;
-      }
       if (els.pass) els.pass.textContent = "Checking Twitch…";
       const { data, error } = await supabase.functions.invoke("refresh-pass", {
-        body: { accessToken: session.provider_token }
+        body: { accessToken: session.provider_token || "" }
       });
       if (error) {
         if (els.pass) els.pass.textContent = await functionMessage(error, "Could not check your subscription right now.");

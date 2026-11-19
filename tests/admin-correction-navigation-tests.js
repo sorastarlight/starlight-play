@@ -1,0 +1,23 @@
+const assert=require('node:assert/strict'),api=require(process.argv[2]||'../js/admin-trainer-corrections'),fs=require('node:fs'),vm=require('node:vm');
+const uid='12121212-1212-4121-8121-121212121212',mon='23232323-2323-4232-8232-232323232323';
+function fixture(){const nodes=new Map(),listeners={},windowListeners={};let reads=0;const node=()=>({isConnected:true,_html:'',textContent:'',value:'',set innerHTML(v){this._html=v;this.textContent=v.replace(/<[^>]*>/g,'');},get innerHTML(){return this._html;},attributes:{},children:new Map(),setAttribute(k,v){this.attributes[k]=v;},querySelector(selector){if(selector==='[data-correction-leave-warning]')return this.children.get(selector)||null;return node();},append(child){if('data-correction-leave-warning' in child.attributes)this.children.set('[data-correction-leave-warning]',child);},addEventListener(){},showModal(){this.open=true;},focus(){this.focused=true;},close(){this.open=false;}});const host={innerHTML:'',contains:()=>true,querySelectorAll:()=>[],append(d){this.dialog=d;},ownerDocument:{activeElement:null,body:null,createElement:()=>node(),defaultView:{setTimeout:f=>f(),addEventListener:(k,f)=>windowListeners[k]=f}},querySelector(s){if(s==='dialog[open]')return this.dialog?.open?this.dialog:null;if(!nodes.has(s))nodes.set(s,node());return nodes.get(s);},addEventListener:(k,f)=>listeners[k]=f};
+const model=api.mount(host,async kind=>{assert.equal(kind,'read');reads++;return{trainerId:uid,revision:'r1',protected:false,values:[{id:'coins',kind:'coins',name:'PokéCoins',value:5}],pokemon:[{id:mon,name:'Pikachu',level:5,locked:false,favorite:false,trading:false}],history:[]};});
+return{model,nodes,host,reads:()=>reads,click(selector,data={}){listeners.click({target:{closest:s=>s===selector?{dataset:data}:null}});},change(name,value,checked){listeners.change({target:{name,value,checked}});},input(name,value){listeners.input({target:{name,value,matches:()=>false}});},unload(){let prevented=false;const e={preventDefault(){prevented=true;}};windowListeners.beforeunload(e);return prevented;}};}
+(async()=>{global.document={activeElement:null};let n=0;const f=fixture();await f.model.open(uid);assert(f.model.canLeave());n++;
+f.click('[data-section]',{section:'pokemon'});f.change('specimen',mon,true);assert(!f.model.canLeave());assert(f.unload());n++;
+f.click('[data-section]',{section:'history'});assert(f.host.dialog.textContent.includes('discard')&&f.host.dialog.open);assert(f.nodes.get('[data-correction-body]').innerHTML.includes('data-discard-removal'));n++;
+f.click('[data-correction-load]');assert.equal(f.reads(),1);n++;
+f.model.warnBeforeLeaving();
+const warning=f.host.dialog.querySelector('[data-correction-leave-warning]');
+assert(warning?.focused);
+assert.match(warning.attributes['aria-label'],/discard this correction/);
+f.host.dialog.close();
+n++;
+f.click('[data-discard-removal]');assert(f.model.canLeave());assert(!f.unload());assert.equal(f.nodes.get('[data-selection-count]').textContent,'0 selected');n++;
+f.input('reason','reason only');assert(!f.model.canLeave());f.click('[data-discard-removal]');assert(f.model.canLeave());n++;
+f.model.state.phase='saving';assert(!f.model.canLeave());assert(f.unload());f.model.warnBeforeLeaving();assert(f.nodes.get('[data-correction-error]').textContent.includes('being saved'));n++;
+f.model.reset();assert(f.model.canLeave());assert(!f.unload());n++;
+const shell=fs.readFileSync(process.argv[3]||'js/admin-next.js','utf8'),start=shell.indexOf('  function canLeaveCorrection()'),end=shell.indexOf('  function statInspectorOptions',start);let warnings=0;const context={roster:null,window:{},els:{trainerDetail:null},accountTools:null,staffAccess:null,corrections:{canLeave:()=>false,warnBeforeLeaving:()=>warnings++}};vm.createContext(context);vm.runInContext(shell.slice(start,end),context);assert.equal(context.canLeaveCorrection(),false);assert.equal(warnings,1);context.corrections=null;assert.equal(context.canLeaveCorrection(),true);n++;
+for(const selector of ['trainerBack','trainerList','trainerDetail']){const i=shell.indexOf('els.'+selector+'?.addEventListener("click"');assert(shell.slice(i,i+2000).includes('canLeaveCorrection()'));}n++;
+console.log(`PASS ${n} mounted correction draft/navigation checks;no writes`);
+})().catch(e=>{console.error(e);process.exitCode=1;});

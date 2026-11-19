@@ -46,10 +46,10 @@ async function ensureLiveSubs(
   for (const event of LIVE_EVENTS) {
     const listed = await helix(`eventsub/subscriptions?type=${encodeURIComponent(event.type)}`, appToken, clientId);
     const rows = Array.isArray(listed.body.data)
-      ? listed.body.data as { type?: string; status?: string; transport?: { callback?: string } }[]
+      ? listed.body.data as { type?: string; status?: string; condition?: { broadcaster_user_id?: string }; transport?: { callback?: string } }[]
       : [];
     const exists = rows.some((row) =>
-      row.type === event.type && row.transport?.callback === callback && row.status === "enabled"
+      row.type === event.type && row.condition?.broadcaster_user_id === broadcasterId && row.transport?.callback === callback && row.status === "enabled"
     );
     if (exists) {
       if (event.type === "stream.online") online = true;
